@@ -1,0 +1,128 @@
+torbrowser(1) -- Tor Browser Update and Start Script
+=============================================
+
+<span class="comment">
+# This file is part of Whonix.
+# Copyright (C) 2012 - 2014 Patrick Schleizer adrelanos@riseup.net
+# See the file COPYING for copying conditions.
+
+# Not using angle brackets in copyright notice for e-mail address, because
+# angle brackets would result in this file being non-deterministic. (There
+# must be a bug in Debian wheezy in ruby-ronn.)
+
+# Not using "##", because for some reason this comment would be visible in the
+# resulting man page.
+</span>
+
+## SYNOPSIS
+`torbrowser` option(s)
+
+## DESCRIPTION
+You can use `torbrowser` to start Tor Browser from the command line.
+
+## OPTIONS
+  * --recommend
+
+    Recommended way to start Tor Browser. It opens two offline html pages,
+    Whonix Important Blog and Whonix Feature Blog, which are supposed to keep
+    you safe by informing you about latest developments.
+
+  * --doc
+
+    Opens Whonix Online Documentation.
+
+  * --start
+
+    Only starts Tor Browser.
+
+  * --new-tab url
+
+    Opens an `url` in a new tab.
+
+  * --new-window url
+
+    Opens an `url` in a new window.
+
+  * --language lang
+
+    Specify which language specific version of Tor Browser you want to start or
+    update.
+
+## AVAILABLE LANGUAGES
+
+As in October 2012:
+
+* ar
+* de
+* en-US
+* es-ES
+* fa
+* fr
+* it
+* ko
+* nl
+* pl
+* pt-PT
+* ru
+* vi
+* zh-CN
+
+## MORE LANGUAGES
+
+To check if further languages are supported visit:
+
+* https://www.torproject.org/dist/torbrowser/linux/
+* http://idnxcnkne4qt76tg.onion/dist/torbrowser/linux/
+
+## CONFIG FILE
+
+/etc/whonix.d/30_torbrowser
+
+## ENVIRONMENT VARIABLES
+You could use:
+
+    export TB_LANG="<language code>"
+
+to set the language before running
+
+    torbrowser
+
+For example, for Vietnamese use:
+
+    export TB_LANG="vi"
+
+Replace "vi" with "zh-CN" for Chinese and so on.
+
+To make this change permanent, create a file `/etc/whonix.d/50_torbrowser` and add for
+example
+
+    TB_LANG="ar"
+
+## EXIT CODES
+0 Success
+
+1 Error
+
+## EXAMPLES
+`torbrowser --recommend`
+
+`torbrowser --start`
+
+`torbrowser --new-tab https://www.whonix.org`
+
+`torbrowser --new-window https://www.whonix.org`
+
+`torbrowser --recommend --lang="ar"`
+
+## NOTES
+Do not run as root!
+
+## PORTING
+This script is currently only tested in Whonix. It could be easily made to work
+in Tails or on any Linux.
+
+## WWW
+https://www.whonix.org/wiki/Tor_Browser
+
+## AUTHOR
+This man page has been written by Patrick Schleizer (adrelanos@riseup.net).

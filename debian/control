@@ -1,0 +1,30 @@
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+Source: tb-starter
+Section: misc
+Priority: optional
+Maintainer: Patrick Schleizer <adrelanos@riseup.net>
+Build-Depends: debhelper (>= 8), faketime, git
+Homepage: https://github.com/Whonix/tb-starter
+Vcs-Browser: https://github.com/Whonix/tb-starter
+Vcs-Git: https://github.com/Whonix/tb-starter.git
+Standards-Version: 3.9.4
+
+Package: tb-starter
+Architecture: all
+Depends: msgcollector, ${misc:Depends}
+Recommends: tb-updater, tb-default-browser, open-link-confirmation,
+ anon-icon-pack
+Description: Tor Browser Starter
+ Provides a Tor Browser Starter start menu entry and /usr/bin/torbrowser
+ starter.
+ .
+ Starts /home/user/tor-browser_*/start-tor-browser depending on language
+ selection.
+ .
+ Uses open-link-confirmation if available.
+ .
+ This package is produced independently of, and carries no guarantee from,
+ The Tor Project.
