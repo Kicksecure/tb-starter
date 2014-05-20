@@ -367,7 +367,9 @@ Start Tor Browser Updater (by Whonix Developers)?"
       ## no 1
       ## yes 0
       if [ "$answer" = "0" ]; then
-         update-torbrowser --noaskstart
+         ## || true, in case update-torbrowser fails for some reason (no
+         ## internet connection).
+         update-torbrowser --noaskstart || true
       else
          exit 0
       fi
