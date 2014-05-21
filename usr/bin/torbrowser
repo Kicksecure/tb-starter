@@ -367,9 +367,22 @@ Start Tor Browser Updater (by Whonix Developers)?"
       ## no 1
       ## yes 0
       if [ "$answer" = "0" ]; then
-         ## || true, in case update-torbrowser fails for some reason (no
-         ## internet connection).
-         update-torbrowser --noaskstart || true
+         local update_torbrowser_command_v_exit_code="0"
+         command -v update-torbrowser >/dev/null 2>/dev/null || { update_torbrowser_command_v_exit_code="$?" ; true; };
+         if [ "$update_torbrowser_command_v_exit_code" = "0" ]; then
+            ## update-torbrowser is available.
+            ## || true, in case update-torbrowser fails for some reason (no
+            ## internet connection).
+            update-torbrowser --noaskstart || true
+         else
+            ## update-torbrowser is not available.
+            MSG='Tor Browser Updater (by Whonix developers) is not installed.
+update-torbrowser is not available. Please install the tb-updater package. Run:
+sudo apt-get install tb-updater
+Then try again.'
+      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
+      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+         fi
       else
          exit 0
       fi
