@@ -185,37 +185,30 @@ parse_cmd_options() {
                shift
                ;;
            --doc)
-               open_new_window="1"
                LINK="$DOC_LINK"
                shift
                ;;
            --contribute)
-               open_new_window="1"
                LINK="$CONTRIBUTE_LINK"
                shift
                ;;
            --donate)
-               open_new_window="1"
                LINK="$DONATE_LINK"
                shift
                ;;
            --forum)
-               open_new_window="1"
                LINK="$FORUM_LINK"
                shift
                ;;
            --mailinglist)
-               open_new_window="1"
                LINK="$MAILINGLIST_LINK"
                shift
                ;;
            --importantblog)
-               open_new_window="1"
                LINK="$IMPORTANTBLOG_LINK"
                shift
                ;;
            --featureblog)
-               open_new_window="1"
                LINK="$FEATUREBLOG_LINK"
                shift
                ;;
@@ -255,7 +248,8 @@ parse_cmd_options() {
 
    ## If there are input files (for example) that follow the options, they
    ## will remain in the "$@" positional parameters.
-   true "$0 \$@: $@"
+   other_args="$@"
+   true "$0 other_args: $other_args"
 }
 
 tb_start_new_tab() {
@@ -350,6 +344,27 @@ tb_new_window() {
    "$home_folder/tor-browser_$TB_LANG/Browser/firefox" --profile Data/Browser/profile.default --new-window "$LINK" &
 }
 
+maybe_use_open_link_confirmation() {
+   trap "tb_error_handler" ERR
+
+   if [ ! "$OPEN_LINK_CONFIRMATION" = "true" ]; then
+      if [ -x /usr/lib/open_link_confirmation ]; then
+         if [ ! "$LINK" = "" ]; then
+            /usr/lib/open_link_confirmation "$LINK"
+         else
+            /usr/lib/open_link_confirmation $other_args
+         fi
+         exit "$?"
+      fi
+      if [ ! "$LINK" = "" ]; then
+         tb_start_new_tab
+      else
+         LINK="$1"
+         tb_start_new_tab
+      fi
+   fi
+}
+
 main_function() {
    trap "tb_error_handler" ERR
 
@@ -402,16 +417,11 @@ Then try again.</p>'
       tb_new_window
    elif [ "$open_new_window" = "0" ]; then
       tb_start_new_tab
-   elif [[ ! "$@" = "" ]]; then
-      true "$0 \$@: $@"
-      if [ ! "$OPEN_LINK_CONFIRMATION" = "true" ]; then
-         if [ -x /usr/lib/open_link_confirmation ]; then
-            /usr/lib/open_link_confirmation $@
-            exit "$?"
-         fi
-      fi
-      LINK="$1"
-      tb_start_new_tab
+   elif [ ! "$LINK" = "" ]; then
+      maybe_use_open_link_confirmation
+   elif [ ! "$other_args" = "" ]; then
+      true "$0 other_args: $other_args"
+      maybe_use_open_link_confirmation
    else
       true "$0 Else!?!"
    fi
