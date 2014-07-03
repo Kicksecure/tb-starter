@@ -14,7 +14,7 @@ Standards-Version: 3.9.4
 
 Package: tb-starter
 Architecture: all
-Depends: msgcollector, ${misc:Depends}
+Depends: msgcollector, generic-gui-message, ${misc:Depends}
 Recommends: tb-updater, tb-default-browser, open-link-confirmation,
  anon-icon-pack
 Description: Tor Browser Starter
