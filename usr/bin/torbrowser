@@ -262,11 +262,11 @@ tb_start_new_tab() {
    trap "tb_error_handler" ERR
 
    if [ ! -d "$home_folder/tor-browser_$TB_LANG" ]; then
-      MSG="Tor Browser is not installed?
-The folder $home_folder/tor-browser_$TB_LANG/ does not exist.
+      MSG="<p><b>Tor Browser is not installed?</b>
+<br></br>The folder $home_folder/tor-browser_$TB_LANG/ does not exist.</p>
 
-Please run: Start Menu -> Applications -> System -> Tor Browser Updater
-            or in Terminal: $SCRIPTNAME --update"
+<p>Please run: <blockquote>Start Menu -> Applications -> System -> Tor Browser Updater
+            <br></br>or in Terminal: $SCRIPTNAME --update</blockquote></p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
       exit 1
@@ -291,14 +291,14 @@ Please run: Start Menu -> Applications -> System -> Tor Browser Updater
       local tbb_bin="$home_folder/tor-browser_"$TB_LANG"/App/Firefox/firefox"
       local tbb_profile="Data/profile"
    else
-      MSG="Tor Browser is not installed?
+      MSG="<p>Tor Browser is not installed?</p>
 
-The folder $home_folder/tor-browser_$TB_LANG/ exists, but neither
+<p>The folder $home_folder/tor-browser_$TB_LANG/ exists, but neither
 binary "$home_folder/tor-browser_"$TB_LANG"/App/Firefox/firefox" (TBB 2.x) nor
-binary $home_folder/tor-browser_$TB_LANG/Browser/firefox (TBB 3.x) exists.
+binary $home_folder/tor-browser_$TB_LANG/Browser/firefox (TBB 3.x) exists.</p>
 
-Please run: Start Menu -> Applications -> System -> Tor Browser Updater
-            or in Terminal: $SCRIPTNAME --update"
+<p>Please run: <blockquote>Start Menu -> Applications -> System -> Tor Browser Updater
+            <br></br>or in Terminal: $SCRIPTNAME --update</blockquote></p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
       exit 1
@@ -358,17 +358,17 @@ main_function() {
    parse_cmd_options ${1+"$@"}
 
    if [ ! -d "$home_folder/tor-browser_$TB_LANG" ]; then
-      local MSG="Tor Browser is currently not installed.
-(Folder $home_folder/tor-browser_$TB_LANG does not exist.)
-
-Start Tor Browser Updater (by Whonix Developers)?"
-      local answer
-      answer="0"
-      zenity --title="$TITLE" --question --text "$MSG" || { answer="$?" ; true; };
+      local MSG="<p>Tor Browser is currently not installed.
+<br></br>(Folder $home_folder/tor-browser_$TB_LANG does not exist.)</p>"
+      local question="Start Tor Browser Updater (by Whonix Developers)?"
+      local button="yesno"
+      local answer="$(/usr/lib/generic_gui_message "error" "Tor Browser not installed" "$msg" "$question" "$button")"
+      #answer="0"
+      #zenity --title="$TITLE" --question --text "$MSG" || { answer="$?" ; true; };
       ## zenity exit codes
       ## no 1
       ## yes 0
-      if [ "$answer" = "0" ]; then
+      if [ "$answer" = "16384" ]; then  # button 'yes' pressed
          local update_torbrowser_command_v_exit_code="0"
          command -v update-torbrowser >/dev/null 2>/dev/null || { update_torbrowser_command_v_exit_code="$?" ; true; };
          if [ "$update_torbrowser_command_v_exit_code" = "0" ]; then
@@ -378,10 +378,11 @@ Start Tor Browser Updater (by Whonix Developers)?"
             update-torbrowser --noaskstart || true
          else
             ## update-torbrowser is not available.
-            MSG='Tor Browser Updater (by Whonix developers) is not installed.
-update-torbrowser is not available. Please install the tb-updater package. Run:
-sudo apt-get install tb-updater
-Then try again.'
+            MSG='<p>Tor Browser Updater (by Whonix developers) is not installed.
+update-torbrowser is not available. Please install the tb-updater package.
+<br></br>Run:
+<blockquote>sudo apt-get install tb-updater</blockquote>
+Then try again.</p>'
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
          fi
