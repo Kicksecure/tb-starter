@@ -362,6 +362,13 @@ maybe_use_open_link_confirmation() {
          LINK="$1"
          tb_start_new_tab
       fi
+   else
+      if [ ! "$LINK" = "" ]; then
+         tb_start_new_tab
+      else
+         LINK="$1"
+         tb_start_new_tab
+      fi
    fi
 }
 
