@@ -6,7 +6,7 @@
 
 set -o pipefail
 
-SCRIPTNAME="$(basename $BASH_SOURCE)"
+SCRIPTNAME="$(basename "$BASH_SOURCE")"
 
 IDENTIFIER="torbrowser"
 
