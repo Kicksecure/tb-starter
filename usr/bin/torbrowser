@@ -57,7 +57,7 @@ CONTRIBUTE_LINK="https://www.whonix.org/wiki/Contribute"
 DONATE_LINK="https://www.whonix.org/wiki/Donate"
 FORUM_LINK="https://www.whonix.org/forum/"
 MAILINGLIST_LINK="https://www.whonix.org/pipermail/whonix-devel/"
-IMPORTANTBLOG_LINK="https://www.whonix.org/blog/?cat=important"
+IMPORTANTBLOG_LINK="https://www.whonix.org/blog/category/important"
 FEATUREBLOG_LINK="https://www.whonix.org/blog/"
 
 IMPORTANTBLOG_OFFLINE_FILE="/var/lib/whonix/whonixblog/important_blog.txt"
