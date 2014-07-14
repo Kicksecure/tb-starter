@@ -109,7 +109,7 @@ tb_preparation() {
 
    ## Check if TB_LANG exists and is not empty.
    if [[ "$TB_LANG" && "${TB_LANG}" ]]; then
-      echo "INFO: Tor Browser language variable is set to "$TB_LANG"."
+      echo "INFO: Tor Browser language variable is set to $TB_LANG."
       true
    else
       echo "INFO: Tor Browser language variable not found. Setting TB_LANG to the default en-US."
@@ -281,15 +281,15 @@ tb_start_new_tab() {
       ## TBB 3.x.
       local tbb_bin="$home_folder/tor-browser_$TB_LANG/Browser/firefox"
       local tbb_profile="Data/Browser/profile.default"
-   elif [ -f "$home_folder/tor-browser_"$TB_LANG"/App/Firefox/firefox" ]; then
+   elif [ -f "$home_folder/tor-browser_$TB_LANG/App/Firefox/firefox" ]; then
       ## TBB 2.x
-      local tbb_bin="$home_folder/tor-browser_"$TB_LANG"/App/Firefox/firefox"
+      local tbb_bin="$home_folder/tor-browser_$TB_LANG/App/Firefox/firefox"
       local tbb_profile="Data/profile"
    else
       MSG="<p>Tor Browser is not installed?</p>
 
 <p>The folder $home_folder/tor-browser_$TB_LANG/ exists, but neither
-binary "$home_folder/tor-browser_"$TB_LANG"/App/Firefox/firefox" (TBB 2.x) nor
+binary $home_folder/tor-browser_$TB_LANG/App/Firefox/firefox (TBB 2.x) nor
 binary $home_folder/tor-browser_$TB_LANG/Browser/firefox (TBB 3.x) exists.</p>
 
 <p>Please run: <blockquote>Start Menu -> Applications -> System -> Tor Browser Updater
