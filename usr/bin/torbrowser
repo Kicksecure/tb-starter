@@ -426,10 +426,10 @@ Then try again.</p>'
    elif [ "$open_new_window" = "0" ]; then
       tb_start_new_tab
    elif [ ! "$LINK" = "" ]; then
-      maybe_use_open_link_confirmation
+      maybe_use_open_link_confirmation $other_args
    elif [ ! "$other_args" = "" ]; then
       true "$BASH_SOURCE other_args: $other_args"
-      maybe_use_open_link_confirmation
+      maybe_use_open_link_confirmation $other_args
    else
       true "$BASH_SOURCE Else!?!"
    fi
