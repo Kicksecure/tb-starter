@@ -299,7 +299,7 @@ binary $home_folder/tor-browser_$TB_LANG/Browser/firefox (TBB 3.x) exists.</p>
       exit 1
    fi
 
-   "$tbb_bin" --profile "$tbb_profile" --new-tab "$LINK" &
+   "$home_folder/tor-browser_$TB_LANG/start-tor-browser" --new-tab "$LINK" &
 }
 
 tb_start_recommend() {
@@ -342,7 +342,7 @@ tb_new_window() {
    trap "tb_error_handler" ERR
 
    cd "$home_folder/tor-browser_$TB_LANG"
-   "$home_folder/tor-browser_$TB_LANG/Browser/firefox" --profile Data/Browser/profile.default --new-window "$LINK" &
+   "$home_folder/tor-browser_$TB_LANG/start-tor-browser" --new-window "$LINK" &
 }
 
 maybe_use_open_link_confirmation() {
