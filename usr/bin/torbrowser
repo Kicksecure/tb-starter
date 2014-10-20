@@ -256,6 +256,20 @@ parse_cmd_options() {
 tb_start_new_tab() {
    trap "tb_error_handler" ERR
 
+   new_window_or_new_tab="--new-tab"
+   tb_start_shared
+}
+
+tb_new_window() {
+   trap "tb_error_handler" ERR
+
+   new_window_or_new_tab="--new-window"
+   tb_start_shared
+}
+
+tb_start_shared() {
+   trap "tb_error_handler" ERR
+
    if [ ! -d "$home_folder/tor-browser_$TB_LANG" ]; then
       MSG="<p><b>Tor Browser is not installed?</b>
 <br></br>The folder $home_folder/tor-browser_$TB_LANG/ does not exist.</p>
@@ -299,7 +313,7 @@ binary $home_folder/tor-browser_$TB_LANG/Browser/firefox (TBB 3.x) exists.</p>
       exit 1
    fi
 
-   "$home_folder/tor-browser_$TB_LANG/start-tor-browser" --new-tab "$LINK" &
+   "$home_folder/tor-browser_$TB_LANG/start-tor-browser" "$new_window_or_new_tab" "$LINK" &
 }
 
 tb_start_recommend() {
@@ -336,13 +350,6 @@ tb_start_recommend() {
    tb_start_new_tab
 
    exit 0
-}
-
-tb_new_window() {
-   trap "tb_error_handler" ERR
-
-   cd "$home_folder/tor-browser_$TB_LANG"
-   "$home_folder/tor-browser_$TB_LANG/start-tor-browser" --new-window "$LINK" &
 }
 
 maybe_use_open_link_confirmation() {
