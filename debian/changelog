@@ -1,3 +1,9 @@
+tb-starter (3:0.7-1) unstable; urgency=low
+
+  * New upstream version.
+
+ -- Patrick Schleizer <adrelanos@riseup.net>  Thu, 23 Oct 2014 22:39:02 +0000
+
 tb-starter (3:0.6-1) unstable; urgency=low
 
   * New upstream version.
