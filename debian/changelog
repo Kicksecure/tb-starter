@@ -1,3 +1,9 @@
+tb-starter (3:0.9-1) unstable; urgency=low
+
+  * New upstream version.
+
+ -- Patrick Schleizer <user@host.localdomain>  Mon, 05 Jan 2015 15:30:05 +0000
+
 tb-starter (3:0.8-1) unstable; urgency=low
 
   * New upstream version.

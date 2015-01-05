@@ -284,7 +284,13 @@ tb_start_shared() {
    echo "INFO: Starting Tor Browser..."
 
    if [ "$LINK" = "" ]; then
-      LINK="about:blank"
+      local whonix_homepage
+      whonix_homepage="/usr/share/homepage/whonix-welcome-page/whonix.html"
+      if [ -f "$whonix_homepage" ]; then
+         LINK="file://$whonix_homepage"
+      else
+         LINK="about:blank"
+      fi
    else
       echo "INFO: Opening link..."
    fi
