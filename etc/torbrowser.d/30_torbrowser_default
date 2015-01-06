@@ -35,3 +35,8 @@ TB_LANG="en-US"
 ## - https://www.whonix.org/blog/tor-browser-updater-warning
 ## - https://www.whonix.org/forum/index.php/topic,807
 #tb_skip_functions+=" tb_patch_internal_updater_disable_maybe "
+
+## Experimental.
+#TB_VERSIONS_ALPHA=1
+#TB_VERSIONS_BETA=1
+#TB_VERSIONS_RC=1
