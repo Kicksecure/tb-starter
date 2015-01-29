@@ -173,10 +173,6 @@ parse_cmd_options() {
                TB_LANG="$2"
                shift 2
                ;;
-           --recommend | --recommended)
-               tb_recommended_start="1"
-               shift
-               ;;
            --start)
                open_new_window="0"
                LINK=""
@@ -333,40 +329,6 @@ binary $home_folder/tor-browser_$TB_LANG/Browser/firefox (TBB 3.x) exists.</p>
    "$home_folder/tor-browser_$TB_LANG/start-tor-browser" --allow-remote $tb_open_new_args &
 }
 
-tb_start_recommend() {
-   PID="$(pidof firefox)" || true
-
-   if [ ! -e "$IMPORTANTBLOG_OFFLINE_FILE" ]; then
-      LINK="$IMPORTANTBLOG_NOT_AVAILABLE_OFFLINE_LINK"
-   else
-      LINK="$IMPORTANTBLOG_OFFLINE_LINK"
-   fi
-   echo "INFO: Link set to $LINK"
-   tb_start_new_tab
-
-   if [ "$PID" = "" ]; then
-      echo "INFO: Waiting 30 seconds for Tor Browser to start..."
-      ## Unfortunately, we must hard code the time to wait before
-      ## we try open extra tabs. Just waiting for the pid to exists
-      ## does not do the trick. We are not aware of a way to ask Firefox,
-      ## if it is only partially or fully load. When trying to open
-      ## a new tab before it is fully load, a popup "profile not found"
-      ## will be shown, which is confusing.
-      sleep 30 &
-      wait "$!"
-   fi
-
-   if [ ! -e "$FEATUREBLOG_OFFLINE_FILE" ]; then
-      LINK="$FEATUREBLOG_NOT_AVAILABLE_OFFLINE_LINK"
-   else
-      LINK="$FEATUREBLOG_OFFLINE_LINK"
-   fi
-   echo "INFO: Link set to $LINK"
-   tb_start_new_tab
-
-   exit 0
-}
-
 maybe_use_open_link_confirmation() {
    if [ ! "$OPEN_LINK_CONFIRMATION" = "true" ]; then
       if [ -x /usr/lib/open_link_confirmation ]; then
@@ -437,9 +399,7 @@ Then try again.</p>'
       exit 0
    fi
 
-   if [ "$tb_recommended_start" = "1" ]; then
-      tb_start_recommend
-   elif [ "$open_new_window" = "1" ]; then
+   if [ "$open_new_window" = "1" ]; then
       tb_new_window
    elif [ "$open_new_window" = "0" ]; then
       tb_start_new_tab

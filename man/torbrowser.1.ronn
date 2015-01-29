@@ -21,12 +21,6 @@ torbrowser(1) -- Tor Browser Update and Start Script
 You can use `torbrowser` to start Tor Browser from the command line.
 
 ## OPTIONS
-  * --recommend
-
-    Recommended way to start Tor Browser. It opens two offline html pages,
-    Whonix Important Blog and Whonix Feature Blog, which are supposed to keep
-    you safe by informing you about latest developments.
-
   * --doc
 
     Opens Whonix Online Documentation.
@@ -104,15 +98,13 @@ example
 1 Error
 
 ## EXAMPLES
-`torbrowser --recommend`
-
 `torbrowser --start`
 
 `torbrowser --new-tab https://www.whonix.org`
 
 `torbrowser --new-window https://www.whonix.org`
 
-`torbrowser --recommend --lang="ar"`
+`torbrowser --start --lang="ar"`
 
 ## NOTES
 Do not run as root!
