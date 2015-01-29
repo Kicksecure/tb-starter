@@ -5,6 +5,7 @@
 ## See the file COPYING for copying conditions.
 
 set -o pipefail
+set -o errtrace
 
 SCRIPTNAME="$(basename "$BASH_SOURCE")"
 
@@ -83,8 +84,6 @@ root_check() {
 }
 
 tb_preparation() {
-   trap "tb_error_handler" ERR
-
    home_folder=~
 
    #echo "INFO: TB_LANG: $TB_LANG"
@@ -157,8 +156,6 @@ tb_preparation() {
 }
 
 parse_cmd_options() {
-   trap "tb_error_handler" ERR
-
    if [ "$1" = "" ]; then
       ## Same as --start.
       open_new_window="0"
@@ -254,22 +251,16 @@ parse_cmd_options() {
 }
 
 tb_start_new_tab() {
-   trap "tb_error_handler" ERR
-
    new_window_or_new_tab="--new-tab"
    tb_start_shared
 }
 
 tb_new_window() {
-   trap "tb_error_handler" ERR
-
    new_window_or_new_tab="--new-window"
    tb_start_shared
 }
 
 tb_start_shared() {
-   trap "tb_error_handler" ERR
-
    if [ ! -d "$home_folder/tor-browser_$TB_LANG" ]; then
       MSG="<p><b>Tor Browser is not installed?</b>
 <br></br>The folder $home_folder/tor-browser_$TB_LANG/ does not exist.</p>
@@ -343,8 +334,6 @@ binary $home_folder/tor-browser_$TB_LANG/Browser/firefox (TBB 3.x) exists.</p>
 }
 
 tb_start_recommend() {
-   trap "tb_error_handler" ERR
-
    PID="$(pidof firefox)" || true
 
    if [ ! -e "$IMPORTANTBLOG_OFFLINE_FILE" ]; then
@@ -379,8 +368,6 @@ tb_start_recommend() {
 }
 
 maybe_use_open_link_confirmation() {
-   trap "tb_error_handler" ERR
-
    if [ ! "$OPEN_LINK_CONFIRMATION" = "true" ]; then
       if [ -x /usr/lib/open_link_confirmation ]; then
          if [ ! "$LINK" = "" ]; then
@@ -407,8 +394,6 @@ maybe_use_open_link_confirmation() {
 }
 
 main_function() {
-   trap "tb_error_handler" ERR
-
    root_check
    tb_preparation
    parse_cmd_options ${1+"$@"}
