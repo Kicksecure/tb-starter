@@ -61,18 +61,6 @@ MAILINGLIST_LINK="https://www.whonix.org/pipermail/whonix-devel/"
 IMPORTANTBLOG_LINK="https://www.whonix.org/blog/category/important"
 FEATUREBLOG_LINK="https://www.whonix.org/blog/"
 
-IMPORTANTBLOG_OFFLINE_FILE="/var/lib/whonix/whonixblog/important_blog.txt"
-IMPORTANTBLOG_OFFLINE_LINK="file://$IMPORTANTBLOG_OFFLINE_FILE"
-
-IMPORTANTBLOG_NOT_AVAILABLE_OFFLINE_FILE="/usr/share/whonix/import_blog_not_available.txt"
-IMPORTANTBLOG_NOT_AVAILABLE_OFFLINE_LINK="file://$IMPORTANTBLOG_NOT_AVAILABLE_OFFLINE_FILE"
-
-FEATUREBLOG_OFFLINE_FILE="/var/lib/whonix/whonixblog/feature_blog.txt"
-FEATUREBLOG_OFFLINE_LINK="file://$FEATUREBLOG_OFFLINE_FILE"
-
-FEATUREBLOG_NOT_AVAILABLE_OFFLINE_FILE="/usr/share/whonix/feature_blog_not_available.txt"
-FEATUREBLOG_NOT_AVAILABLE_OFFLINE_LINK="file://$FEATUREBLOG_NOT_AVAILABLE_OFFLINE_FILE"
-
 root_check() {
    if [ "$(id -u)" != "0" ]; then
       #echo "$SCRIPTNAME running as user."
