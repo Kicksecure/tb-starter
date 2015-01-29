@@ -284,14 +284,34 @@ tb_start_shared() {
    echo "INFO: Starting Tor Browser..."
 
    if [ "$LINK" = "" ]; then
-      local whonix_homepage
-      whonix_homepage="/usr/share/homepage/whonix-welcome-page/whonix.html"
-      if [ -f "$whonix_homepage" ]; then
-         LINK="file://$whonix_homepage"
-      else
+      if [ ! "$TB_CUSTOM_HOMEPAGE" = "" ]; then
+         ## Prefer the custom homepage a user might have defined over
+         ## everything else.
+         LINK="$TB_CUSTOM_HOMEPAGE"
+      elif [ -f "/usr/share/anon-ws-base-files/workstation" ]; then
+         ## Running inside a Whonix-Workstation.
+         local whonix_homepage
+         whonix_homepage="/usr/share/homepage/whonix-welcome-page/whonix.html"
+         if [ -f "$whonix_homepage" ]; then
+            ## Great, we have whonix-welcome-page installed, prefer that one.
+            LINK="file://$whonix_homepage"
+         else
+            ## whonix-welcome-page not installed, fall back to about:blank,
+            ## because about:tor does not apply to Whonix (makes users confuse
+            ## The Tor Project with Whonix).
+            LINK="about:blank"
+         fi
+      elif [ -f "/usr/share/anon-gw-base-files/gateway" ]; then
+         ## about:tor also does not apply here.
          LINK="about:blank"
+      else
+         ## Running outside of Whonix.
+         true "Not modifying which link to open."
       fi
-   else
+   fi
+
+   if [ ! "$LINK" = "" ]; then
+      tb_open_new_args="$new_window_or_new_tab $LINK"
       echo "INFO: Opening link..."
    fi
 
@@ -319,7 +339,7 @@ binary $home_folder/tor-browser_$TB_LANG/Browser/firefox (TBB 3.x) exists.</p>
       exit 1
    fi
 
-   "$home_folder/tor-browser_$TB_LANG/start-tor-browser" --allow-remote "$new_window_or_new_tab" "$LINK" &
+   "$home_folder/tor-browser_$TB_LANG/start-tor-browser" --allow-remote $tb_open_new_args &
 }
 
 tb_start_recommend() {
