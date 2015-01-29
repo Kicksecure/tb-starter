@@ -21,10 +21,6 @@ torbrowser(1) -- Tor Browser Update and Start Script
 You can use `torbrowser` to start Tor Browser from the command line.
 
 ## OPTIONS
-  * --doc
-
-    Opens Whonix Online Documentation.
-
   * --start
 
     Only starts Tor Browser.
