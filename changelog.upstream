@@ -1,0 +1,361 @@
+commit bf7061f204d474cc5670773fe3b0bf0b596bc8a1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 4 00:40:53 2015 +0000
+
+    updated makefile generic to version 1.3
+
+commit 1e91ec426008294bc6ae85dcc045d421ae32ad27
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 3 23:58:55 2015 +0000
+
+    Added creation of upstream changelog to debian/rules
+
+commit 622c994a607d8c8c70621b29c79ccb2b74c3e24b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 11:12:25 2015 +0000
+
+    cleanup
+
+commit df2b79a3456e935ed608090e79c9ea3eb6110919
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 11:10:54 2015 +0000
+
+    removed --doc from man page to make this package more generic, less Whonix specific
+
+commit 31884f49a64d35b0d6be481e2ff9317fd6416582
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 11:10:09 2015 +0000
+
+    removed deprecated --recommend feature
+
+commit d9893827c30157f2fa8d1bded7d0be57a9b83a12
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 11:06:11 2015 +0000
+
+    refactoring, use errtrace instead of many traps
+
+commit 4e9277a3b07406e02f58915b8feecddb8d371e44
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 11:04:40 2015 +0000
+
+    new TB_CUSTOM_HOMEPAGE setting; not touching default link to open when running outside of Whonix
+
+commit c7abbd5f3be732d2e2a7327fa0d4a2c7c54b1e29
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 17 22:56:43 2015 +0000
+
+    fixed changelog
+
+commit ae1487bb57962c2480dfc4f4338b10143c55b4c6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 7 21:58:28 2015 +0000
+
+    comments
+
+commit 4c74afc03763257511ecd81ce7d8a630afdf50c1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 7 19:34:55 2015 +0000
+
+    bumped compat from 8 to 9
+
+commit 858b21590bb787df4476cbfc7147896b14ea6fe6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jan 6 21:06:52 2015 +0000
+
+    comments
+
+commit 871cf9dc3fb91fc4c7b32a5981b11dbad1a4898d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 5 15:30:08 2015 +0000
+
+    open /usr/share/homepage/whonix-welcome-page/whonix.html as default homepage if that file is existing
+
+commit 29bbfe28426e3874c82e31798003c0c4dc4a26fc
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Dec 20 12:41:47 2014 +0000
+
+    bumped version number
+
+commit c88001eff97582d73ab7868b0dda22f6305feecd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Dec 14 22:07:19 2014 +0000
+
+    comments
+
+commit 72e59d4a64f145437d2056405df17b0d83a939fb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 12 01:25:38 2014 +0000
+
+    link open "Firefox is already running, but is not responding." bug -> always start Tor Browser with --allow-remote - https://phabricator.whonix.org/T29
+
+commit 1f65b042960b16281e8916d9cd071f56d0327074
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 5 19:01:20 2014 +0000
+
+    updated generic makefile
+
+commit 464c66a8ffb61ff90e363d0fbe3345092c41c38c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 21 01:10:49 2014 +0000
+
+    fixed long icon bouncing bug when starting (kde launch feedback)
+
+commit 6d21cf32a41cc04a6f62990dc08ddc7246b8b24a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Oct 28 22:35:30 2014 +0000
+
+    makefile: refactoring, avoid using IFS
+
+commit 3467f2771552021ba4b9044eff6651f568802596
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 25 01:58:53 2014 +0000
+
+    makefile:
+    - make debdist; make undebdist
+    - cleanup
+    - refactoring
+
+commit 299dd6f1e075978af45d666a0bf4376e353901ab
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Oct 23 22:43:04 2014 +0000
+
+    makefile:
+    - new target "make undist", which deletes the upstream tarball
+    - $DISTDIR variable for make (un)dist, which defaults to ".." and can be used to create upstream tarballs in arbitrary locations
+    - refactoring, all function names and global variables now start with "make_" to make the script `source`ing friendly
+    - made `source`able
+
+commit 45fc80247006c68665abf8b42b3b6b3381bda783
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Oct 20 12:29:12 2014 +0000
+
+    refactoring
+
+commit 13db5d2f86b768e034a2b36e5fbcaa133b25addb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Oct 16 17:11:07 2014 +0000
+
+    Tor Browser 4.x compatibility fix
+
+commit 89980510ae17d2c9edd99821d8819c86b03dead0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Oct 13 12:36:57 2014 +0000
+
+    readme
+
+commit 4238135259e800c04f3d1afdd149ef6e45c01c60
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 19 18:52:44 2014 +0000
+
+    makefile: added new feature "make deb-chl-bumpup" - Bump upstream version number in debian/changelog.
+
+commit 21766ae476b60fa05b843fbda971a952103be311
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Aug 17 20:54:27 2014 +0000
+
+    Updated debian/changelog.
+
+commit 5b1ffb9703582513a54365603956e7582d05dcd2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Aug 17 20:47:30 2014 +0000
+
+    Fixed changelog date.
+
+commit f5b54a4f84e7320cbf9c8fc77eb44dbc0d8d9c8e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Aug 17 18:03:31 2014 +0000
+
+    bump version number
+
+commit d809bc2d438ecae6aea39c8a52d6c78f16b8f1c6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 14 13:35:20 2014 +0000
+
+    Implemented make deb-icup: Combination of make deb-pkg, make deb-pkg-install and make deb-pkg-cleanup.
+
+commit 1185e4a11f10398a054b79cfdd885ee0702a0675
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 27 12:42:29 2014 +0000
+
+    packaging
+
+commit cc49ab79e1ad250c61a654d08a5da2dcdbe68292
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 27 04:01:14 2014 +0000
+
+    packaging
+
+commit 656df84ee87b34adbfb6e2037d717bc2034205cf
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 26 15:26:40 2014 +0000
+
+    packaging
+
+commit e750535cf7a24bc118c416e5d30877f9dba742f5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 26 15:16:07 2014 +0000
+
+    packaging: removed build dependency on git, since the .git folder won't be included in the upstream tarball.
+
+commit cedb77a32415115fd4368d23e6c684a6c1387cb5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 23 22:13:14 2014 +0000
+
+    output: use $TITLE consistently instead of "Tor Browser not installed"
+
+commit eb10368014ba47795c1e9f48967d296eeb2c239f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 23 13:37:08 2014 +0000
+
+    fix opening links in conjunction with tb-default-browser when open-link-confirmation is not installed
+
+commit d7395de8d2206eca48b408c0e92e5c96902da4a8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jul 22 22:20:55 2014 +0000
+
+    fix
+
+commit 6305819d6b62161d59a3205a9daf2f1d45f1d250
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 14 02:00:12 2014 +0000
+
+    quotes
+
+commit 4401e1c539eaba6b7c278eb00e1eeccb8728aaa5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 12 17:30:55 2014 +0000
+
+    packaging
+
+commit 6ac043102b49704a682408537bad5181f5cd7f73
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 12 17:11:03 2014 +0000
+
+    packaging
+
+commit ed941aea818dfec42021029fc692a14f8c602465
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 12 15:34:20 2014 +0000
+
+    packaging
+
+commit 21e0b600a0d42e8113245b30e5848bda16225650
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jul 8 15:05:15 2014 +0000
+
+    updated link
+
+commit 6b94b515dd60e36b3b99dc3c182d457f8fbd4f8c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 6 13:31:06 2014 +0000
+
+    quotes
+
+commit 09d3931dfabf3ed5967dc50b90607ff0fceeee91
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 6 13:25:37 2014 +0000
+
+    use $BASH_SOURCE instead of $0
+
+commit 7ec8c44c42fbf157ab2ca425afe20a77f38ca594
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 6 11:33:04 2014 +0000
+
+    sanity test
+
+commit 02c9920aff90818f6972e0248c9e552d83726ac8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 5 08:09:45 2014 +0000
+
+    Bumped debian revision number to avoid lintian warning "new-package-should-close-itp-bug" so we can use lintian --fail-on-warnings as sanity test.
+
+commit ceb588797852b2e439bfd174727438441dc5ce2a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 4 05:26:22 2014 +0000
+
+    fix
+
+commit e7e994f50bcfb06286d319965c0fa410c773b38d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 4 04:28:51 2014 +0000
+
+    merged generic-gui-message into msgcollector
+
+commit 7aa636ae282aaf716d8bca2524a7ab84d666114a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 3 18:28:14 2014 +0000
+
+    use open link confirmation also for Whonix's links, to forum etc.
+
+commit 2a608685446fc7d07ada3049b12c881de3681a44
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 3 17:09:14 2014 +0000
+
+    added depends on generic-gui-message
+
+commit 2bd8a42597b4681f9bfa67565c2db6f6d27ee09c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 3 16:31:30 2014 +0000
+
+    fix
+
+commit 2dd72b3d854591c45a8acf0ad57b44d31bbdce77
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Jul 3 09:02:41 2014 +0000
+
+    HTML tags
+
+commit 92d3eef2f7e00e530b7dbc7e65902bd033d3c3be
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 24 15:45:14 2014 +0000
+
+    added debian epoch; added dotglob
+
+commit c652d8554373136f77dd085eb11e3d2480391e23
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 10 14:16:35 2014 +0000
+
+    added who_ami for msgcollector
+
+commit c5eb556ca981984907671a56475f6a27750df968
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jun 3 18:27:38 2014 +0000
+
+    readme
+
+commit c6e7252611810014eb92fc3cca736967117ab92a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jun 1 15:38:37 2014 +0000
+
+    readme
+
+commit e7763a7068ea04e7de64345772d0d4b4b58d5f91
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat May 31 14:38:35 2014 +0000
+
+    # On branch master
+    nothing to commit (working directory clean)
+
+commit 1dcbeeacf34e38b2f9c301dbe1ce011d378543e7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon May 26 20:56:06 2014 +0000
+
+    packaging
+
+commit d2775082d593cd188e6e796fab3b2b8a583c7d5b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed May 21 11:41:17 2014 +0000
+
+    .
+
+commit b9dd231b20c2f6ecd515d604ae88f01c81c3ed6a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue May 20 03:54:30 2014 +0000
+
+    .
+
+commit 2be7b120ec5028a0ad94ff8e8b512104a30defea
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue May 20 03:18:42 2014 +0000
+
+    .
