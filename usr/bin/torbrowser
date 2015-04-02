@@ -314,7 +314,14 @@ binary $home_folder/tor-browser_$TB_LANG/Browser/firefox (TBB 3.x) exists.</p>
       exit 1
    fi
 
-   "$home_folder/tor-browser_$TB_LANG/start-tor-browser" --allow-remote $tb_open_new_args &
+   if [ -x "$home_folder/tor-browser_$TB_LANG/start-tor-browser" ]; then
+      "$home_folder/tor-browser_$TB_LANG/start-tor-browser" --allow-remote $tb_open_new_args &
+   elif [ -x "$home_folder/tor-browser_$TB_LANG/start-tor-browser.desktop" ]; then
+      "$home_folder/tor-browser_$TB_LANG/start-tor-browser.desktop" --allow-remote $tb_open_new_args &
+   else
+      error "Neither $home_folder/tor-browser_$TB_LANG/start-tor-browser nor \
+$home_folder/tor-browser_$TB_LANG/start-tor-browser.desktop is executable."
+   fi
 }
 
 maybe_use_open_link_confirmation() {
