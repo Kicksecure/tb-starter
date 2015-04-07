@@ -1,3 +1,33 @@
+commit e79fa4cdb4c5674345ae25b022e23924465542aa
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 2 18:41:27 2015 +0000
+
+    added genmkfile to Build-Depends
+
+commit 9a65289969326d06d8490ec7d35f8f24e0aae6b2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 2 17:44:51 2015 +0000
+
+    updated debian/rules for makefile generic to version 1.5
+
+commit 5952d0571d305a3d9e12ebe210ddd80a7b045675
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 2 17:24:48 2015 +0000
+
+    updated makefile generic to version 1.5
+
+commit 7ccdc3e03868a61f5d1a0d95384dc4af18402229
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 2 15:13:14 2015 +0000
+
+    make tb-starter compatible with TBB 4.5a5 and above - https://phabricator.whonix.org/T253
+
+commit 886daefdc29c35985db139d2f932394b553f4096
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 24 17:36:54 2015 +0000
+
+    bumped changelog version
+
 commit 4615fa982f3b28dbf1c46079bc7e084c427b2600
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Mar 24 17:26:51 2015 +0000
