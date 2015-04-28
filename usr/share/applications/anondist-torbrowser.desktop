@@ -11,3 +11,4 @@ Comment=Start Tor Browser (AnonDist)
 Categories=Network;
 Icon=/usr/share/icons/anon-icon-pack/torbrowser.png
 X-KDE-StartupNotify=false
+Keywords=browser;privacy;Tor;
