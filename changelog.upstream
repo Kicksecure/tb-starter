@@ -1,3 +1,15 @@
+commit 46803cdeb68bfe6655660b73f6f1fa0783ad1c80
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 5 17:56:01 2015 +0000
+
+    Made path to Tor Browser configurable by tb_home_folder variable. Renamed variable home_folder to tb_home_folder to synchronize it with tb-updater. - https://phabricator.whonix.org/T338
+
+commit 1961b0bd81660dd6320b80145e66145eb0a99b1c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jun 3 15:00:21 2015 +0000
+
+    bumped changelog version
+
 commit d5f0f366d59043b8a98d90229823a08f9fc1b402
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Apr 30 17:56:55 2015 +0000
