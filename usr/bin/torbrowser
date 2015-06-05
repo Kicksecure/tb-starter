@@ -72,7 +72,12 @@ root_check() {
 }
 
 tb_preparation() {
-   home_folder=~
+   ## Workaround for CI compatibility.
+   if [ "$CI" = "true" ]; then
+      [ -n "$tb_home_folder" ] || tb_home_folder=/home/user
+   else
+      [ -n "$tb_home_folder" ] || tb_home_folder=~
+   fi
 
    #echo "INFO: TB_LANG: $TB_LANG"
 
@@ -245,9 +250,9 @@ tb_new_window() {
 }
 
 tb_start_shared() {
-   if [ ! -d "$home_folder/tor-browser_$TB_LANG" ]; then
+   if [ ! -d "$tb_home_folder/tor-browser_$TB_LANG" ]; then
       MSG="<p><b>Tor Browser is not installed?</b>
-<br></br>The folder $home_folder/tor-browser_$TB_LANG/ does not exist.</p>
+<br></br>The folder $tb_home_folder/tor-browser_$TB_LANG/ does not exist.</p>
 
 <p>Please run: <blockquote>Start Menu -> Applications -> System -> Tor Browser Updater
             <br></br>or in Terminal: $SCRIPTNAME --update</blockquote></p>"
@@ -290,22 +295,22 @@ tb_start_shared() {
       echo "INFO: Opening link..."
    fi
 
-   cd "$home_folder/tor-browser_$TB_LANG/"
+   cd "$tb_home_folder/tor-browser_$TB_LANG/"
 
-   if [ -f "$home_folder/tor-browser_$TB_LANG/Browser/firefox" ]; then
+   if [ -f "$tb_home_folder/tor-browser_$TB_LANG/Browser/firefox" ]; then
       ## TBB 3.x.
-      local tbb_bin="$home_folder/tor-browser_$TB_LANG/Browser/firefox"
+      local tbb_bin="$tb_home_folder/tor-browser_$TB_LANG/Browser/firefox"
       local tbb_profile="Data/Browser/profile.default"
-   elif [ -f "$home_folder/tor-browser_$TB_LANG/App/Firefox/firefox" ]; then
+   elif [ -f "$tb_home_folder/tor-browser_$TB_LANG/App/Firefox/firefox" ]; then
       ## TBB 2.x
-      local tbb_bin="$home_folder/tor-browser_$TB_LANG/App/Firefox/firefox"
+      local tbb_bin="$tb_home_folder/tor-browser_$TB_LANG/App/Firefox/firefox"
       local tbb_profile="Data/profile"
    else
       MSG="<p>Tor Browser is not installed?</p>
 
-<p>The folder $home_folder/tor-browser_$TB_LANG/ exists, but neither
-binary $home_folder/tor-browser_$TB_LANG/App/Firefox/firefox (TBB 2.x) nor
-binary $home_folder/tor-browser_$TB_LANG/Browser/firefox (TBB 3.x) exists.</p>
+<p>The folder $tb_home_folder/tor-browser_$TB_LANG/ exists, but neither
+binary $tb_home_folder/tor-browser_$TB_LANG/App/Firefox/firefox (TBB 2.x) nor
+binary $tb_home_folder/tor-browser_$TB_LANG/Browser/firefox (TBB 3.x) exists.</p>
 
 <p>Please run: <blockquote>Start Menu -> Applications -> System -> Tor Browser Updater
             <br></br>or in Terminal: $SCRIPTNAME --update</blockquote></p>"
@@ -314,13 +319,13 @@ binary $home_folder/tor-browser_$TB_LANG/Browser/firefox (TBB 3.x) exists.</p>
       exit 1
    fi
 
-   if [ -x "$home_folder/tor-browser_$TB_LANG/start-tor-browser" ]; then
-      "$home_folder/tor-browser_$TB_LANG/start-tor-browser" --allow-remote $tb_open_new_args &
-   elif [ -x "$home_folder/tor-browser_$TB_LANG/start-tor-browser.desktop" ]; then
-      "$home_folder/tor-browser_$TB_LANG/start-tor-browser.desktop" --allow-remote $tb_open_new_args &
+   if [ -x "$tb_home_folder/tor-browser_$TB_LANG/start-tor-browser" ]; then
+      "$tb_home_folder/tor-browser_$TB_LANG/start-tor-browser" --allow-remote $tb_open_new_args &
+   elif [ -x "$tb_home_folder/tor-browser_$TB_LANG/start-tor-browser.desktop" ]; then
+      "$tb_home_folder/tor-browser_$TB_LANG/start-tor-browser.desktop" --allow-remote $tb_open_new_args &
    else
-      error "Neither $home_folder/tor-browser_$TB_LANG/start-tor-browser nor \
-$home_folder/tor-browser_$TB_LANG/start-tor-browser.desktop is executable."
+      error "Neither $tb_home_folder/tor-browser_$TB_LANG/start-tor-browser nor \
+$tb_home_folder/tor-browser_$TB_LANG/start-tor-browser.desktop is executable."
    fi
 }
 
@@ -355,9 +360,9 @@ main_function() {
    tb_preparation
    parse_cmd_options ${1+"$@"}
 
-   if [ ! -d "$home_folder/tor-browser_$TB_LANG" ]; then
+   if [ ! -d "$tb_home_folder/tor-browser_$TB_LANG" ]; then
       local MSG="<p>Tor Browser is currently not installed.
-<br></br>(Folder $home_folder/tor-browser_$TB_LANG does not exist.)</p>"
+<br></br>(Folder $tb_home_folder/tor-browser_$TB_LANG does not exist.)</p>"
       local question="Start Tor Browser Updater (by Whonix Developers)?"
       local button="yesno"
       local answer
@@ -389,7 +394,7 @@ Then try again.</p>'
          exit 0
       fi
    fi
-   if [ ! -d "$home_folder/tor-browser_$TB_LANG" ]; then
+   if [ ! -d "$tb_home_folder/tor-browser_$TB_LANG" ]; then
       ## Still not installed.
       exit 0
    fi
