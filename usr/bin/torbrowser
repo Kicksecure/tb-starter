@@ -108,6 +108,8 @@ tb_preparation() {
       TB_LANG="en-US"
    fi
 
+   [ -n "$tb_browser_folder" ] || tb_browser_folder="$tb_home_folder/tor-browser_$TB_LANG"
+
    if [ "$display" = "" ]; then
       if [ "$DISPLAY" = "" ]; then
          display=":0"
@@ -250,9 +252,9 @@ tb_new_window() {
 }
 
 tb_start_shared() {
-   if [ ! -d "$tb_home_folder/tor-browser_$TB_LANG" ]; then
+   if [ ! -d "$tb_browser_folder" ]; then
       MSG="<p><b>Tor Browser is not installed?</b>
-<br></br>The folder $tb_home_folder/tor-browser_$TB_LANG/ does not exist.</p>
+<br></br>The folder $tb_browser_folder does not exist.</p>
 
 <p>Please run: <blockquote>Start Menu -> Applications -> System -> Tor Browser Updater
             <br></br>or in Terminal: $SCRIPTNAME --update</blockquote></p>"
@@ -296,25 +298,25 @@ tb_start_shared() {
    fi
 
    local change_directory_exit_code="0"
-   cd "$tb_home_folder/tor-browser_$TB_LANG/" || { change_directory_exit_code="$?" ; true; };
+   cd "$tb_browser_folder" || { change_directory_exit_code="$?" ; true; };
 
    if [ ! "$change_directory_exit_code" = "0" ]; then
       local MSG="<p>Tor Browser permission issues?<br></br>
-Failed to <code>cd \"$tb_home_folder/tor-browser_$TB_LANG/\"</code>.<br></br>
+Failed to <code>cd \"$tb_browser_folder\"</code>.<br></br>
 To fix this, you could try: <blockquote>Start Menu -> Applications -> System -> Terminal<br></br>
-<code>sudo chown --recursive \"$who_ami\":\"$who_ami\" \"$tb_home_folder/tor-browser_$TB_LANG/\"</code></blockquote></p>"
+<code>sudo chown --recursive \"$who_ami\":\"$who_ami\" \"$tb_browser_folder\"</code></blockquote></p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
       exit 1
    fi
 
-   if [ -x "$tb_home_folder/tor-browser_$TB_LANG/start-tor-browser" ]; then
-      "$tb_home_folder/tor-browser_$TB_LANG/start-tor-browser" --allow-remote $tb_open_new_args &
-   elif [ -x "$tb_home_folder/tor-browser_$TB_LANG/start-tor-browser.desktop" ]; then
-      "$tb_home_folder/tor-browser_$TB_LANG/start-tor-browser.desktop" --allow-remote $tb_open_new_args &
+   if [ -x "$tb_browser_folder/start-tor-browser" ]; then
+      "$tb_browser_folder/start-tor-browser" --allow-remote $tb_open_new_args &
+   elif [ -x "$tb_browser_folder/start-tor-browser.desktop" ]; then
+      "$tb_browser_folder/start-tor-browser.desktop" --allow-remote $tb_open_new_args &
    else
-      error "Neither $tb_home_folder/tor-browser_$TB_LANG/start-tor-browser nor \
-$tb_home_folder/tor-browser_$TB_LANG/start-tor-browser.desktop is executable."
+      error "Neither $tb_browser_folder/start-tor-browser nor \
+$tb_browser_folder/start-tor-browser.desktop is executable."
    fi
 }
 
@@ -349,9 +351,9 @@ main_function() {
    tb_preparation
    parse_cmd_options ${1+"$@"}
 
-   if [ ! -d "$tb_home_folder/tor-browser_$TB_LANG" ]; then
+   if [ ! -d "$tb_browser_folder" ]; then
       local MSG="<p>Tor Browser is currently not installed.
-<br></br>(Folder $tb_home_folder/tor-browser_$TB_LANG does not exist.)</p>"
+<br></br>(Folder $tb_browser_folder does not exist.)</p>"
       local question="Start Tor Browser Updater (by Whonix Developers)?"
       local button="yesno"
       local answer
@@ -383,7 +385,7 @@ Then try again.</p>'
          exit 0
       fi
    fi
-   if [ ! -d "$tb_home_folder/tor-browser_$TB_LANG" ]; then
+   if [ ! -d "$tb_browser_folder" ]; then
       ## Still not installed.
       exit 0
    fi
