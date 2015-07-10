@@ -295,7 +295,18 @@ tb_start_shared() {
       echo "INFO: Opening link..."
    fi
 
-   cd "$tb_home_folder/tor-browser_$TB_LANG/"
+   local change_directory_exit_code="0"
+   cd "$tb_home_folder/tor-browser_$TB_LANG/" || { change_directory_exit_code="$?" ; true; };
+
+   if [ ! "$change_directory_exit_code" = "0" ]; then
+      local MSG="<p>Tor Browser permission issues?<br></br>
+Failed to <code>cd \"$tb_home_folder/tor-browser_$TB_LANG/\"</code>.<br></br>
+To fix this, you could try: <blockquote>Start Menu -> Applications -> System -> Terminal<br></br>
+<code>sudo chown \"$who_ami\":\"$who_ami\" \"$tb_home_folder/tor-browser_$TB_LANG/\"</code></blockquote></p>"
+      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
+      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+      exit 1
+   fi
 
    if [ -f "$tb_home_folder/tor-browser_$TB_LANG/Browser/firefox" ]; then
       ## TBB 3.x.
