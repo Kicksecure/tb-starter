@@ -1,0 +1,73 @@
+# Last Modified: Mon Jun 29 13:27:38 2015
+#include <tunables/global>
+
+/usr/bin/torbrowser {
+  #include <abstractions/base>
+  #include <abstractions/bash>
+  #include <abstractions/fonts>
+
+  capability sys_ptrace,
+
+  /bin/bash rix,
+  /bin/grep rix,
+  /bin/mkdir rix,
+  /bin/ps rix,
+  /bin/readlink rix,
+  /bin/sed rix,
+
+  /dev/tty rw,
+
+  /etc/torbrowser.d/ r,
+  /etc/torbrowser.d/* r,
+  /etc/open_link_confirm.d/ r,
+  /etc/open_link_confirm.d/* r,
+  /etc/python2.7/sitecustomize.py r,
+  /etc/fonts/fonts.conf r,
+
+  /etc/passwd r,
+  /etc/nsswitch.conf r,
+  /etc/X11/cursors/oxy-wonton.theme r,
+
+  @{HOME}/.msgcollector/* rwk,
+  @{HOME}/.tb/* rwk,
+  @{HOME}/tor-browser_en-US/start-tor-browser.desktop rix,
+  @{HOME}/tor-browser_en-US/Browser/execdesktop rix,
+  @{HOME}/tor-browser_en-US/Browser/start-tor-browser Px,
+
+  @{HOME}/.Xauthority r,
+  @{HOME}/.kde/share/config/* rwk,
+  @{HOME}/.config/Trolltech.conf rwk,
+
+  @{PROC}/ r,
+  @{PROC}/[0-9]*/stat r,
+  @{PROC}/[0-9]*/status r,
+  @{PROC}/[0-9]*/task/ r,
+  @{PROC}/[0-9]*/task/** r,
+  @{PROC}/uptime r,
+
+
+  /usr/bin/basename rix,
+  /usr/bin/id rix,
+  /usr/bin/pstree rix,
+  /usr/bin/tty rix,
+  /usr/bin/tail rix,
+  /usr/bin/tput rix,
+  /usr/bin/whoami rix,
+  /usr/bin/torbrowser rix,
+
+  /usr/lib/msgcollector/msgcollector rix,
+  /usr/lib/msgcollector/generic_gui_message rix,
+  /usr/lib/msgcollector/striphtml rix,
+  /usr/lib/python2.7/dist-packages/PyQt4/*.so mr,
+  /usr/lib/python2.7/dist-packages/sip.so mr,
+  /usr/lib/kde4/plugins/**.so mr,
+
+  /usr/local/lib/python2.7/dist-packages/ r,
+
+  /usr/share/pyshared/* r,
+  /usr/share/icons/oxygen/** r,
+  /usr/share/icons/** r,
+  /usr/share/kde4/config/* r,
+
+  /var/tmp/kdecache-user/icon-cache.kcache rwk,
+}
