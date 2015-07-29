@@ -38,8 +38,8 @@ tb_error_handler() {
 ###########################################################\
 "
 
-   mkdir --parents ~/".tb"
-   echo "$MSG" >> ~/".tb/torbrowser_updater_error.log"
+   mkdir --parents "$tb_cache_folder"
+   echo "$MSG" >> "$tb_cache_folder/torbrowser_updater_error.log"
 
    if [ "$progressbaridx" = "" ]; then
       true
@@ -74,9 +74,11 @@ root_check() {
 tb_preparation() {
    ## Workaround for CI compatibility.
    if [ "$CI" = "true" ]; then
-      [ -n "$tb_home_folder" ] || tb_home_folder=/home/user
+      [ -n "$tb_home_folder" ] || tb_home_folder=/home/user/.tb
+      [ -n "$tb_cache_folder" ] || tb_cache_folder=/home/user/.cache/tb
    else
-      [ -n "$tb_home_folder" ] || tb_home_folder=~
+      [ -n "$tb_home_folder" ] || tb_home_folder=~/.tb
+      [ -n "$tb_cache_folder" ] || tb_cache_folder=~/.cache/tb
    fi
 
    #echo "INFO: TB_LANG: $TB_LANG"

@@ -23,12 +23,12 @@ TB_LANG="en-US"
 #tb_skip_functions+=" tb_patch "
 
 ## To prevent creation of tb-updater's own version file
-## "$tb_home_folder/.tb/tor-browser_$TB_LANG/Docs/version"
+## "$tb_home_folder/tor-browser_$TB_LANG/Docs/version"
 ## use this.
 #tb_skip_functions+=" tb_patch_version_number_own "
 
 ## If you do not want the folder
-## "$tb_home_folder/.tb/tor-browser_$TB_LANG/Browser/Downloads"
+## "$tb_home_folder/tor-browser_$TB_LANG/Browser/Downloads"
 ## to be created, use this.
 #tb_skip_functions+=" tb_patch_download_folder_create "
 
