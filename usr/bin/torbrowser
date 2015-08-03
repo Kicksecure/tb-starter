@@ -380,8 +380,8 @@ update-torbrowser is not available. Please install the tb-updater package.
 <br></br>Run:
 <blockquote>sudo apt-get install tb-updater</blockquote>
 Then try again.</p>'
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+            $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
+            $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
          fi
       else
          exit 0
