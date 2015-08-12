@@ -72,14 +72,8 @@ root_check() {
 }
 
 tb_preparation() {
-   ## Workaround for CI compatibility.
-   if [ "$CI" = "true" ]; then
-      [ -n "$tb_home_folder" ] || tb_home_folder=/home/user/.tb
-      [ -n "$tb_cache_folder" ] || tb_cache_folder=/home/user/.cache/tb
-   else
-      [ -n "$tb_home_folder" ] || tb_home_folder=~/.tb
-      [ -n "$tb_cache_folder" ] || tb_cache_folder=~/.cache/tb
-   fi
+   [ -n "$tb_home_folder" ] || tb_home_folder=~/.tb
+   [ -n "$tb_cache_folder" ] || tb_cache_folder=~/.cache/tb
 
    #echo "INFO: TB_LANG: $TB_LANG"
 
