@@ -1,3 +1,64 @@
+commit 157f7f9a5ca0bd4c9556e530da4beb7ea810cfcd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 13 00:15:45 2015 +0200
+
+    code cleanup, removed CI (continued integration) workarounds, too many of them were required, often broken anyhow
+
+commit 0acaf0622108afebe842f5197f0b368a39750209
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Aug 3 12:58:05 2015 +0200
+
+    indent
+
+commit 8a06f0244a64a563f43503b279015f1e6633c2ef
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 29 19:11:23 2015 +0200
+
+    changed default data dir to ~/.tb and cache dir to ~/.cache/tb - https://phabricator.whonix.org/T338
+
+commit 354d3ff7aa65e70868131cf26d9d055dcdb99187
+Merge: 202270d 252c9c4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 25 01:35:11 2015 +0200
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 252c9c416e06beec1111ff26d5030f15cfc78dd7
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Jul 13 15:09:12 2015 +0000
+
+    /usr/bin/torbrowser apparmor profile
+
+commit 202270d89953851fe039b3db81c85290f6383d55
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 10 17:50:38 2015 +0000
+
+    refactoring, made "$tb_home_folder/tor-browser_$TB_LANG" a variable tb_browser_folder, useful for later moving of the Tor Browser folder to a more appropriate location - https://phabricator.whonix.org/T338
+
+commit b564c1e3b7a5090035afadde094a644b617cbe8e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 10 15:06:50 2015 +0000
+
+    cleanup, removed code to determine tbb_bin and tbb_profile, because we can now use TBB's default startup script
+
+commit d5a667564a2fb488ceb33136fa96fc3bfb3bce1e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 10 15:04:52 2015 +0000
+
+    output
+
+commit ae5010076bd3be814093a6c86e0e7c594b839958
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 10 14:58:39 2015 +0000
+
+    check permissions before cd'ing into Tor Browser folder to provide better error message in corner cases for better usability - https://phabricator.whonix.org/T359
+
+commit e8870a275ad98a8e34dc93a1288a77f16346affc
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 5 18:01:19 2015 +0000
+
+    bumped changelog version
+
 commit 46803cdeb68bfe6655660b73f6f1fa0783ad1c80
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jun 5 17:56:01 2015 +0000
