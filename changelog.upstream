@@ -1,3 +1,17 @@
+commit 20248791582c9c5b43e0b20c99d8e73f6cef82e9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 26 13:14:26 2015 +0000
+
+    cleanup:
+    - deprecated tb_patch_version_number_own (no longer reliable, now that Tor Browser can update itself)
+    - deprecated tb_patch_internal_updater_disable_maybe (no longer required since there are no more grave security issues with Tor Browser updates)
+
+commit edde6e07facca53e3e19f4fc16c29b3a75668f0f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 25 14:08:23 2015 +0000
+
+    bumped changelog version
+
 commit 0bc93461cc0acc7dc9fbab4ae58a9b2a6dc1f774
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Aug 24 17:47:25 2015 +0000
