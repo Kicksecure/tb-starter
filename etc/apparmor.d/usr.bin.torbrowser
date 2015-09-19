@@ -29,10 +29,11 @@
   /etc/X11/cursors/oxy-wonton.theme r,
 
   @{HOME}/.msgcollector/* rwk,
-  @{HOME}/.tb/* rwk,
-  @{HOME}/tor-browser_en-US/start-tor-browser.desktop rix,
-  @{HOME}/tor-browser_en-US/Browser/execdesktop rix,
-  @{HOME}/tor-browser_en-US/Browser/start-tor-browser Px,
+
+  ## Preserve environment variables set by Whonix.
+  ## Allow execution whether apparmor-profile-torbrowser is installed or not.
+  ## TODO: make it work also outside of @{HOME}/.tb folder.
+  @{HOME}/.tb/tor-browser_en-US/start-tor-browser.desktop rux,
 
   @{HOME}/.Xauthority r,
   @{HOME}/.kde/share/config/* rwk,
