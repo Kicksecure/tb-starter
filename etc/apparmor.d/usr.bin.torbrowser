@@ -26,7 +26,8 @@
 
   /etc/passwd r,
   /etc/nsswitch.conf r,
-  /etc/X11/cursors/oxy-wonton.theme r,
+  /etc/X11/cursors/* r,
+  /etc/xdg/Trolltech.conf rk,
 
   @{HOME}/.msgcollector/* rwk,
 
@@ -45,6 +46,8 @@
   @{PROC}/[0-9]*/task/ r,
   @{PROC}/[0-9]*/task/** r,
   @{PROC}/uptime r,
+  @{PROC}/cmdline r,
+  @{PROC}/*/cmdline r,
 
 
   /usr/bin/basename rix,
@@ -55,6 +58,7 @@
   /usr/bin/tput rix,
   /usr/bin/whoami rix,
   /usr/bin/torbrowser rix,
+  /usr/bin/update-torbrowser rux,
 
   /usr/lib/msgcollector/msgcollector rix,
   /usr/lib/msgcollector/generic_gui_message rix,
@@ -69,6 +73,7 @@
   /usr/share/icons/oxygen/** r,
   /usr/share/icons/** r,
   /usr/share/kde4/config/* r,
+  /usr/share/themes/** r,
 
   /var/tmp/kdecache-user/icon-cache.kcache rwk,
 }
