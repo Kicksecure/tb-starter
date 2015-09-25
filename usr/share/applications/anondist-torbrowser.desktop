@@ -3,7 +3,7 @@
 ## See the file COPYING for copying conditions.
 
 [Desktop Entry]
-Exec=torbrowser
+Exec=torbrowser %u
 Type=Application
 Name=Tor Browser (AnonDist)
 GenericName=Privacy Browser
