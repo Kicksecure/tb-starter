@@ -1,3 +1,60 @@
+commit 0b40722652ccfa72a99f185b65fe9462520de3b6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Oct 8 14:38:16 2015 +0000
+
+    compatibility symlink /usr/share/applications/anondist-torbrowser.desktop -> /usr/share/applications/janondisttorbrowser.desktop
+
+commit 037c90bf19896ad8503b74345a6678de01c34b2e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Oct 8 12:24:23 2015 +0000
+
+    GNOME / Qubes-Whonix: Fix, use Tor Browser rather than iceweasel as default browser when using gnome-open.
+    'msgdispatcher_dispatch_x -> python-qt -> link open -> xdg-open -> gnome-open -> iceweasel' -> 'msgdispatcher_dispatch_x -> python-qt -> link open -> xdg-open -> gnome-open -> Tor Browser'
+    Renamed anondist-torbrowser.desktop to janondisttorbrowser.desktop.
+    https://github.com/Whonix/Whonix/issues/86#issuecomment-143394620
+
+commit e6d005ad9805a9b4943876e65724e966c11de9e2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 25 23:40:17 2015 +0000
+
+    fixed lintian warning 'W: tb-starter: desktop-mime-but-no-exec-code usr/share/applications/anondist-torbrowser.desktop'
+
+commit 064fedcdaea54bea1bb29bf9556f028343b8feb9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 25 23:37:46 2015 +0000
+
+    usr/share/applications/anondist-torbrowser.desktop: added MimeType to be on par with iceweasel.desktop
+
+commit 5d6fa095faef304815e4f199cc74b8f7c0aaab83
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Sep 21 15:16:23 2015 +0000
+
+    removed apparmor profile - https://www.whonix.org/forum/index.php/topic,97.msg10304.html#msg10304
+
+commit 2959df2fd786861f87a7e7609d1ac2c74a401d1d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Sep 19 18:19:02 2015 +0000
+
+    apparmor profile fixes
+
+commit 860fd2fe05d9ba0729c4bfb9ed70fc29586f8aa9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Sep 19 17:57:33 2015 +0000
+
+    hot fixed apparmor profile for new folder ~/.tb - https://www.whonix.org/forum/index.php/topic,97.msg10298.html#msg10298
+
+commit 45ddebd50483a5922daf75861b8d407f27c4a064
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 18 20:26:19 2015 +0000
+
+    added missing packaging of apparmor profile
+
+commit c12e82d21189c0adad7ab89d4ccf70529b0ed8e4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 26 23:31:59 2015 +0000
+
+    bumped changelog version
+
 commit 20248791582c9c5b43e0b20c99d8e73f6cef82e9
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Aug 26 13:14:26 2015 +0000
