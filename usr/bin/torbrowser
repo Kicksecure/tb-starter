@@ -75,8 +75,6 @@ tb_preparation() {
    [ -n "$tb_home_folder" ] || tb_home_folder=~/.tb
    [ -n "$tb_cache_folder" ] || tb_cache_folder=~/.cache/tb
 
-   #echo "INFO: TB_LANG: $TB_LANG"
-
    for i in /etc/torbrowser.d/*; do
       if [ -f "$i" ]; then
          ## If the last character is a ~, ignore that file,
@@ -95,16 +93,7 @@ tb_preparation() {
       fi
    done
 
-   ## Check if TB_LANG exists and is not empty.
-   if [[ "$TB_LANG" && "${TB_LANG}" ]]; then
-      echo "INFO: Tor Browser language variable is set to $TB_LANG."
-      true
-   else
-      echo "INFO: Tor Browser language variable not found. Setting TB_LANG to the default en-US."
-      TB_LANG="en-US"
-   fi
-
-   [ -n "$tb_browser_folder" ] || tb_browser_folder="$tb_home_folder/tor-browser_$TB_LANG"
+   [ -n "$tb_browser_folder" ] || tb_browser_folder="$tb_home_folder/tor-browser"
 
    if [ "$display" = "" ]; then
       if [ "$DISPLAY" = "" ]; then
@@ -160,10 +149,6 @@ parse_cmd_options() {
    while :
    do
        case $1 in
-           --language)
-               TB_LANG="$2"
-               shift 2
-               ;;
            --start)
                open_new_window="0"
                LINK=""

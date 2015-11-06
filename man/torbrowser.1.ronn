@@ -33,60 +33,10 @@ You can use `torbrowser` to start Tor Browser from the command line.
 
     Opens an `url` in a new window.
 
-  * --language lang
-
-    Specify which language specific version of Tor Browser you want to start or
-    update.
-
-## AVAILABLE LANGUAGES
-
-As in October 2012:
-
-* ar
-* de
-* en-US
-* es-ES
-* fa
-* fr
-* it
-* ko
-* nl
-* pl
-* pt-PT
-* ru
-* vi
-* zh-CN
-
-## MORE LANGUAGES
-
-To check if further languages are supported visit:
-
-* https://www.torproject.org/dist/torbrowser/linux/
-* http://idnxcnkne4qt76tg.onion/dist/torbrowser/linux/
-
 ## CONFIG FILE
 
 /etc/torbrowser.d/30_torbrowser_default
 
-## ENVIRONMENT VARIABLES
-You could use:
-
-    export TB_LANG="<language code>"
-
-to set the language before running
-
-    torbrowser
-
-For example, for Vietnamese use:
-
-    export TB_LANG="vi"
-
-Replace "vi" with "zh-CN" for Chinese and so on.
-
-To make this change permanent, create a file `/etc/torbrowser.d/50_torbrowser` and add for
-example
-
-    TB_LANG="ar"
 
 ## EXIT CODES
 0 Success

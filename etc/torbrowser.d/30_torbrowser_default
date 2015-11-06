@@ -15,15 +15,13 @@
 ##     man torbrowser
 ##     man update-torbrowser
 
-TB_LANG="en-US"
-
 #TB_CUSTOM_HOMEPAGE="about:blank"
 
 ## To skip any patches by tb-updater.
 #tb_skip_functions+=" tb_patch "
 
 ## If you do not want the folder
-## "$tb_home_folder/tor-browser_$TB_LANG/Browser/Downloads"
+## "$tb_home_folder/tor-browser/Browser/Downloads"
 ## to be created, use this.
 #tb_skip_functions+=" tb_patch_download_folder_create "
 
