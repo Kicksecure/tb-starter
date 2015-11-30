@@ -35,8 +35,7 @@ You can use `torbrowser` to start Tor Browser from the command line.
 
 ## CONFIG FILE
 
-/etc/torbrowser.d/30_torbrowser_default
-
+/etc/torbrowser.d/30_default.conf
 
 ## EXIT CODES
 0 Success
