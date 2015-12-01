@@ -75,22 +75,11 @@ tb_preparation() {
    [ -n "$tb_home_folder" ] || tb_home_folder=~/.tb
    [ -n "$tb_cache_folder" ] || tb_cache_folder=~/.cache/tb
 
-   for i in /etc/torbrowser.d/*; do
-      if [ -f "$i" ]; then
-         ## If the last character is a ~, ignore that file,
-         ## because it was created by some editor,
-         ## which creates backup files.
-         if [ "${i: -1}" = "~" ]; then
-            continue
-         fi
-         ## Skipping files such as .dpkg-old and .dpkg-dist.
-         if ( echo "$i" | grep -q ".dpkg-" ); then
-            true "skip $i"
-            continue
-         fi
-         bash -n "$i"
-         source "$i"
-      fi
+   shopt -s nullglob
+   local i
+   for i in /etc/torbrowser.d/*.conf; do
+      bash -n "$i"
+      source "$i"
    done
 
    [ -n "$tb_browser_folder" ] || tb_browser_folder="$tb_home_folder/tor-browser"
