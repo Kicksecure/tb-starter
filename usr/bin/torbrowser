@@ -53,13 +53,43 @@ tb_error_handler() {
 
 trap "tb_error_handler" ERR
 
-DOC_LINK="https://www.whonix.org/wiki/Documentation"
-CONTRIBUTE_LINK="https://www.whonix.org/wiki/Contribute"
-DONATE_LINK="https://www.whonix.org/wiki/Donate"
-FORUM_LINK="https://forums.whonix.org"
-MAILINGLIST_LINK="https://www.whonix.org/pipermail/whonix-devel/"
-IMPORTANTBLOG_LINK="https://www.whonix.org/blog/category/important"
-FEATUREBLOG_LINK="https://www.whonix.org/blog/"
+tb_set_links() {
+   DOC_LINK="https://www.whonix.org/wiki/Documentation"
+   CONTRIBUTE_LINK="https://www.whonix.org/wiki/Contribute"
+   DONATE_LINK="https://www.whonix.org/wiki/Donate"
+   FORUM_LINK="https://forums.whonix.org"
+   MAILINGLIST_LINK="https://www.whonix.org/pipermail/whonix-devel/"
+   IMPORTANTBLOG_LINK="https://www.whonix.org/blog/category/important"
+   FEATUREBLOG_LINK="https://www.whonix.org/blog/"
+
+   if [ ! "$TB_CUSTOM_HOMEPAGE" = "" ]; then
+      ## Prefer the custom homepage a user might have defined over
+      ## everything else.
+      DEFAULT_LINK="$TB_CUSTOM_HOMEPAGE"
+   elif [ -f "/usr/share/anon-ws-base-files/workstation" ]; then
+      ## Running inside a Whonix-Workstation.
+      local whonix_homepage
+      whonix_homepage="/usr/share/homepage/whonix-welcome-page/whonix.html"
+      if [ -f "$whonix_homepage" ]; then
+         ## Great, we have whonix-welcome-page installed, prefer that one.
+         DEFAULT_LINK="file://$whonix_homepage"
+         open_link_confirmation_maybe_skip=true
+      else
+         ## whonix-welcome-page not installed, fall back to about:blank,
+         ## because about:tor does not apply to Whonix (makes users confuse
+         ## The Tor Project with Whonix).
+         DEFAULT_LINK="about:blank"
+         open_link_confirmation_maybe_skip=true
+      fi
+   elif [ -f "/usr/share/anon-gw-base-files/gateway" ]; then
+      ## about:tor also does not apply here.
+      DEFAULT_LINK="about:blank"
+      open_link_confirmation_maybe_skip=true
+   else
+      ## Running outside of Whonix.
+      true "Not modifying which link to open."
+   fi
+}
 
 root_check() {
    if [ "$(id -u)" != "0" ]; then
@@ -125,24 +155,12 @@ tb_preparation() {
 }
 
 parse_cmd_options() {
-   if [ "$1" = "" ]; then
-      ## Same as --start.
-      open_new_window="0"
-      LINK=""
-      return 0
-   fi
-
    ## Thanks to:
    ## http://mywiki.wooledge.org/BashFAQ/035
 
    while :
    do
        case $1 in
-           --start)
-               open_new_window="0"
-               LINK=""
-               shift
-               ;;
            --doc)
                LINK="$DOC_LINK"
                shift
@@ -171,33 +189,9 @@ parse_cmd_options() {
                LINK="$FEATUREBLOG_LINK"
                shift
                ;;
-           --new-window | --newwindow | -new-window | -newwindow)
-               open_new_window="1"
-               LINK="$2"
-               if [ "$LINK" = "" ]; then
-                  shift
-               else
-                  shift 2
-               fi
-               ;;
-           --new-tab | --newtab | -new-tab | -newtab)
-               open_new_window="0"
-               LINK="$2"
-               if [ "$LINK" = "" ]; then
-                  shift
-               else
-                  shift 2
-               fi
-               ;;
            --)
                shift
                break
-               ;;
-           -*)
-               echo "$SCRIPTNAME unknown option: $1"
-               echo "See:"
-               echo "    man $SCRIPTNAME"
-               exit 1
                ;;
            *)
                break
@@ -207,66 +201,65 @@ parse_cmd_options() {
 
    ## If there are input files (for example) that follow the options, they
    ## will remain in the "$@" positional parameters.
+
+   local other_args
    other_args="$@"
-   true "$BASH_SOURCE other_args: $other_args"
+   if [ "$other_args" = "" ]; then
+      if [ "$LINK" = "" ]; then
+         LINK="$DEFAULT_LINK"
+         if [ "$open_link_confirmation_maybe_skip" = "true" ]; then
+            open_link_confirmation_skip="true"
+         fi
+      fi
+   fi
 }
 
-tb_start_new_tab() {
-   new_window_or_new_tab="--new-tab"
-   tb_start_shared
+tb_start_tor_browser() {
+   if [ -x "$tb_browser_folder/Browser/start-tor-browser" ]; then
+      ## Preferring $tb_browser_folder/Browser/start-tor-browser to work around
+      ## The Tor Project upstream issue:
+      ## 'start-tor-browser.desktop parameter passing broken on spaces'
+      ## https://trac.torproject.org/projects/tor/ticket/18022
+      "$tb_browser_folder/Browser/start-tor-browser" --allow-remote "$@"
+   elif [ -x "$tb_browser_folder/start-tor-browser" ]; then
+      "$tb_browser_folder/start-tor-browser" --allow-remote "$@"
+   elif [ -x "$tb_browser_folder/start-tor-browser.desktop" ]; then
+      "$tb_browser_folder/start-tor-browser.desktop" --allow-remote "$@"
+   else
+      error "Neither $tb_browser_folder/Browser/start-tor-browser nor\
+$tb_browser_folder/start-tor-browser nor \
+$tb_browser_folder/start-tor-browser.desktop is executable."
+   fi
 }
 
-tb_new_window() {
-   new_window_or_new_tab="--new-window"
-   tb_start_shared
-}
+maybe_use_open_link_confirmation() {
+   ## Environment variable OPEN_LINK_CONFIRMATION might be set to 'true' if
+   ## we are run by open_link_confirmation.
 
-tb_start_shared() {
-   if [ ! -d "$tb_browser_folder" ]; then
-      MSG="<p><b>Tor Browser is not installed?</b>
-<br></br>The folder $tb_browser_folder does not exist.</p>
-
-<p>Please run: <blockquote>Start Menu -> Applications -> System -> Tor Browser Updater
-            <br></br>or in Terminal: $SCRIPTNAME --update</blockquote></p>"
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
-      exit 1
+   if [ "$OPEN_LINK_CONFIRMATION" = "true" ]; then
+      ## We are run by open_link_confirmation. Not run open_link_confirmation
+      ## again. Open Tor Browser.
+      tb_start_tor_browser "$@"
+      return 0
    fi
 
-   echo "INFO: Starting Tor Browser..."
-
-   if [ "$LINK" = "" ]; then
-      if [ ! "$TB_CUSTOM_HOMEPAGE" = "" ]; then
-         ## Prefer the custom homepage a user might have defined over
-         ## everything else.
-         LINK="$TB_CUSTOM_HOMEPAGE"
-      elif [ -f "/usr/share/anon-ws-base-files/workstation" ]; then
-         ## Running inside a Whonix-Workstation.
-         local whonix_homepage
-         whonix_homepage="/usr/share/homepage/whonix-welcome-page/whonix.html"
-         if [ -f "$whonix_homepage" ]; then
-            ## Great, we have whonix-welcome-page installed, prefer that one.
-            LINK="file://$whonix_homepage"
+   ## maybe use open link confirmation
+   if [ -x /usr/lib/open_link_confirmation ]; then
+      if [ ! "$open_link_confirmation_skip" = "true" ]; then
+         if [ ! "$LINK" = "" ]; then
+            /usr/lib/open_link_confirmation "$LINK"
          else
-            ## whonix-welcome-page not installed, fall back to about:blank,
-            ## because about:tor does not apply to Whonix (makes users confuse
-            ## The Tor Project with Whonix).
-            LINK="about:blank"
+            /usr/lib/open_link_confirmation "$@"
          fi
-      elif [ -f "/usr/share/anon-gw-base-files/gateway" ]; then
-         ## about:tor also does not apply here.
-         LINK="about:blank"
-      else
-         ## Running outside of Whonix.
-         true "Not modifying which link to open."
+         exit "$?"
       fi
    fi
 
-   if [ ! "$LINK" = "" ]; then
-      tb_open_new_args="$new_window_or_new_tab $LINK"
-      echo "INFO: Opening link..."
-   fi
+   tb_start_tor_browser
+   return 0
+}
 
+tb_folder_change_directory() {
    local change_directory_exit_code="0"
    cd "$tb_browser_folder" || { change_directory_exit_code="$?" ; true; };
 
@@ -279,99 +272,60 @@ To fix this, you could try: <blockquote>Start Menu -> Applications -> System -> 
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
       exit 1
    fi
-
-   if [ -x "$tb_browser_folder/start-tor-browser" ]; then
-      "$tb_browser_folder/start-tor-browser" --allow-remote $tb_open_new_args &
-   elif [ -x "$tb_browser_folder/start-tor-browser.desktop" ]; then
-      "$tb_browser_folder/start-tor-browser.desktop" --allow-remote $tb_open_new_args &
-   else
-      error "Neither $tb_browser_folder/start-tor-browser nor \
-$tb_browser_folder/start-tor-browser.desktop is executable."
-   fi
 }
 
-maybe_use_open_link_confirmation() {
-   if [ ! "$OPEN_LINK_CONFIRMATION" = "true" ]; then
-      if [ -x /usr/lib/open_link_confirmation ]; then
-         if [ ! "$LINK" = "" ]; then
-            /usr/lib/open_link_confirmation "$LINK"
-         else
-            /usr/lib/open_link_confirmation $other_args
-         fi
-         exit "$?"
-      fi
-      if [ ! "$LINK" = "" ]; then
-         tb_start_new_tab
-      else
-         LINK="$1"
-         tb_start_new_tab
-      fi
-   else
-      if [ ! "$LINK" = "" ]; then
-         tb_start_new_tab
-      else
-         LINK="$1"
-         tb_start_new_tab
-      fi
+maybe_install_tor_browser() {
+   if [ -d "$tb_browser_folder" ]; then
+      return 0
    fi
-}
 
-main_function() {
-   root_check
-   tb_preparation
-   parse_cmd_options ${1+"$@"}
-
-   if [ ! -d "$tb_browser_folder" ]; then
-      local MSG="<p>Tor Browser is currently not installed.
+   local MSG="<p>Tor Browser is currently not installed.
 <br></br>(Folder $tb_browser_folder does not exist.)</p>"
-      local question="Start Tor Browser Updater (by Whonix Developers)?"
-      local button="yesno"
-      local answer
-      answer="$(/usr/lib/msgcollector/generic_gui_message "error" "$TITLE" "$MSG" "$question" "$button")"
-      #answer="0"
-      #zenity --title="$TITLE" --question --text "$MSG" || { answer="$?" ; true; };
-      ## zenity exit codes
-      ## no 1
-      ## yes 0
-      if [ "$answer" = "16384" ]; then  # button 'yes' pressed
-         local update_torbrowser_command_v_exit_code="0"
-         command -v update-torbrowser >/dev/null 2>/dev/null || { update_torbrowser_command_v_exit_code="$?" ; true; };
-         if [ "$update_torbrowser_command_v_exit_code" = "0" ]; then
-            ## update-torbrowser is available.
-            ## || true, in case update-torbrowser fails for some reason (no
-            ## internet connection).
-            update-torbrowser --noaskstart || true
-         else
-            ## update-torbrowser is not available.
-            MSG='<p>Tor Browser Updater (by Whonix developers) is not installed.
+   local question="Start Tor Browser Updater (by Whonix Developers)?"
+   local button="yesno"
+   local answer
+   answer="$(/usr/lib/msgcollector/generic_gui_message "error" "$TITLE" "$MSG" "$question" "$button")"
+   #answer="0"
+   #zenity --title="$TITLE" --question --text "$MSG" || { answer="$?" ; true; };
+   ## zenity exit codes
+   ## no 1
+   ## yes 0
+   if [ "$answer" = "16384" ]; then ## button 'yes' pressed
+      local update_torbrowser_command_v_exit_code="0"
+      command -v update-torbrowser >/dev/null 2>/dev/null || { update_torbrowser_command_v_exit_code="$?" ; true; };
+      if [ "$update_torbrowser_command_v_exit_code" = "0" ]; then
+         ## update-torbrowser is available.
+         ## || true, in case update-torbrowser fails for some reason (no
+         ## internet connection).
+         update-torbrowser --noaskstart || true
+      else
+         ## update-torbrowser is not available.
+         MSG='<p>Tor Browser Updater (by Whonix developers) is not installed.
 update-torbrowser is not available. Please install the tb-updater package.
 <br></br>Run:
 <blockquote>sudo apt-get install tb-updater</blockquote>
 Then try again.</p>'
-            $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-            $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
-         fi
-      else
-         exit 0
+         $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
+         $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
       fi
+   else  ## button 'yes' not pressed
+      exit 0
    fi
+
    if [ ! -d "$tb_browser_folder" ]; then
       ## Still not installed.
       exit 0
    fi
-
-   if [ "$open_new_window" = "1" ]; then
-      tb_new_window
-   elif [ "$open_new_window" = "0" ]; then
-      tb_start_new_tab
-   elif [ ! "$LINK" = "" ]; then
-      maybe_use_open_link_confirmation $other_args
-   elif [ ! "$other_args" = "" ]; then
-      true "$BASH_SOURCE other_args: $other_args"
-      maybe_use_open_link_confirmation $other_args
-   else
-      true "$BASH_SOURCE Else!?!"
-   fi
 }
 
-main_function ${1+"$@"}
+main_function() {
+   root_check "$@"
+   tb_preparation "$@"
+   tb_set_links "$@"
+   parse_cmd_options "$@"
+   maybe_install_tor_browser "$@"
+   tb_folder_change_directory "$@"
+   maybe_use_open_link_confirmation "$@"
+}
+
+main_function "$@"
