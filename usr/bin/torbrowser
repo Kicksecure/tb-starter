@@ -239,24 +239,23 @@ maybe_use_open_link_confirmation() {
    if [ "$OPEN_LINK_CONFIRMATION" = "true" ]; then
       ## We are run by open_link_confirmation. Not run open_link_confirmation
       ## again. Open Tor Browser.
-      tb_start_tor_browser "$@"
-      return 0
-   fi
+      tool=tb_start_tor_browser
+   else
+      tool=tb_start_tor_browser
 
-   ## maybe use open link confirmation
-   if [ -x /usr/lib/open_link_confirmation ]; then
-      if [ ! "$open_link_confirmation_skip" = "true" ]; then
-         if [ ! "$LINK" = "" ]; then
-            /usr/lib/open_link_confirmation "$LINK"
-         else
-            /usr/lib/open_link_confirmation "$@"
+      ## maybe use open link confirmation
+      if [ -x /usr/lib/open_link_confirmation ]; then
+         if [ ! "$open_link_confirmation_skip" = "true" ]; then
+            tool=/usr/lib/open_link_confirmation
          fi
-         exit "$?"
       fi
    fi
 
-   tb_start_tor_browser "$@"
-   return 0
+   if [ "$LINK" = "" ]; then
+      $tool "$@"
+   else
+      $tool "$LINK"
+   fi
 }
 
 tb_folder_change_directory() {
