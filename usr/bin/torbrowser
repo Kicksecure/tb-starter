@@ -255,7 +255,7 @@ maybe_use_open_link_confirmation() {
       fi
    fi
 
-   tb_start_tor_browser
+   tb_start_tor_browser "$@"
    return 0
 }
 
