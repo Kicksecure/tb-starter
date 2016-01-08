@@ -20,18 +20,7 @@ torbrowser(1) -- Tor Browser Update and Start Script
 ## DESCRIPTION
 You can use `torbrowser` to start Tor Browser from the command line.
 
-## OPTIONS
-  * --start
-
-    Only starts Tor Browser.
-
-  * --new-tab url
-
-    Opens an `url` in a new tab.
-
-  * --new-window url
-
-    Opens an `url` in a new window.
+Parameters are passed to Tor Browser.
 
 ## CONFIG FILE
 
@@ -43,8 +32,6 @@ You can use `torbrowser` to start Tor Browser from the command line.
 1 Error
 
 ## EXAMPLES
-`torbrowser --start`
-
 `torbrowser --new-tab https://www.whonix.org`
 
 `torbrowser --new-window https://www.whonix.org`
