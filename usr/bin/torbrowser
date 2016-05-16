@@ -220,15 +220,33 @@ tb_start_tor_browser() {
       ## The Tor Project upstream issue:
       ## 'start-tor-browser.desktop parameter passing broken on spaces'
       ## https://trac.torproject.org/projects/tor/ticket/18022
-      "$tb_browser_folder/Browser/start-tor-browser" --allow-remote "$@"
+      tb_starter_start_tor_browser_script="$tb_browser_folder/Browser/start-tor-browser"
    elif [ -x "$tb_browser_folder/start-tor-browser" ]; then
-      "$tb_browser_folder/start-tor-browser" --allow-remote "$@"
+      tb_starter_start_tor_browser_script="$tb_browser_folder/start-tor-browser"
    elif [ -x "$tb_browser_folder/start-tor-browser.desktop" ]; then
-      "$tb_browser_folder/start-tor-browser.desktop" --allow-remote "$@"
+      tb_starter_start_tor_browser_script="$tb_browser_folder/start-tor-browser.desktop"
    else
       error "Neither $tb_browser_folder/Browser/start-tor-browser nor\
 $tb_browser_folder/start-tor-browser nor \
 $tb_browser_folder/start-tor-browser.desktop is executable."
+   fi
+
+   ## Automagic sandboxing based on firejail if it's available.
+   ## Credits:
+   ## - Based on start-tor-browser diff by yawning.
+   ## - Modified by Patrick Schleizer for tb-starter.
+   ## - https://trac.torproject.org/projects/tor/ticket/19055#comment:3
+   if [ -x /usr/bin/firejail ]; then
+      /usr/bin/firejail \
+         --profile=${HOME}/tor-browser.profile \
+         --env=LD_LIBRARY_PATH=${LD_LIBRARY_PATH} \
+         --env=FONTCONFIG_PATH=${FONTCONFIG_PATH} \
+         --env=FONTCONFIG_FILE=${FONTCONFIG_FILE} \
+         --env=ASAN_OPTIONS=${ASAN_OPTIONS} \
+         --whitelist=${HOME} \
+          $tb_starter_start_tor_browser_script --allow-remote "$@"
+   else
+      $tb_starter_start_tor_browser_script --allow-remote "$@"
    fi
 }
 
