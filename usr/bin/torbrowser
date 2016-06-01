@@ -214,21 +214,49 @@ parse_cmd_options() {
    fi
 }
 
-tb_start_tor_browser() {
+tb_detect_starter_bin() {
+   if [ ! "$tb_starter_bin" = "" ]; then
+      return 0
+   fi
+
    if [ -x "$tb_browser_folder/Browser/start-tor-browser" ]; then
       ## Preferring $tb_browser_folder/Browser/start-tor-browser to work around
       ## The Tor Project upstream issue:
       ## 'start-tor-browser.desktop parameter passing broken on spaces'
       ## https://trac.torproject.org/projects/tor/ticket/18022
-      "$tb_browser_folder/Browser/start-tor-browser" --allow-remote "$@"
+      tb_starter_bin="$tb_browser_folder/Browser/start-tor-browser"
    elif [ -x "$tb_browser_folder/start-tor-browser" ]; then
-      "$tb_browser_folder/start-tor-browser" --allow-remote "$@"
+      tb_starter_bin="$tb_browser_folder/start-tor-browser"
    elif [ -x "$tb_browser_folder/start-tor-browser.desktop" ]; then
-      "$tb_browser_folder/start-tor-browser.desktop" --allow-remote "$@"
+      tb_starter_bin="$tb_browser_folder/start-tor-browser.desktop"
    else
-      error "Neither $tb_browser_folder/Browser/start-tor-browser nor\
-$tb_browser_folder/start-tor-browser nor \
-$tb_browser_folder/start-tor-browser.desktop is executable."
+      local MSG="Neither <code>$tb_browser_folder/Browser/start-tor-browser</code> nor\
+<code>$tb_browser_folder/start-tor-browser</code> nor \
+<code>$tb_browser_folder/start-tor-browser.desktop</code> is executable."
+      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
+      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+      exit 2
+   fi
+}
+
+tb_start_tor_browser() {
+   local tb_exit_code="0"
+   $tb_starter_bin --allow-remote "$@" || { tb_exit_code="$?" ; true; };
+
+   if [ ! "$tb_exit_code" = "0" ]; then
+      local MSG="<p>Failed to start Tor Browser!<br></br>
+<br></br>
+Failed to run:<br></br>
+<br></br><code>$tb_starter_bin --allow-remote \"$@\"</code>.
+<br></br>
+<br></br>Exited with code: <code>$tb_exit_code</code>
+<br></br>
+<br></br>To see this for yourself, you could try: <blockquote>Start Menu -> Applications -> System -> Terminal
+<br></br>Then run:
+<br></br><code>$SCRIPTNAME</code></blockquote></p>"
+      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
+      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+      exit "$tb_exit_code"
    fi
 }
 
@@ -324,6 +352,7 @@ main_function() {
    parse_cmd_options "$@"
    maybe_install_tor_browser "$@"
    tb_folder_change_directory "$@"
+   tb_detect_starter_bin "$@"
    maybe_use_open_link_confirmation "$@"
 }
 
