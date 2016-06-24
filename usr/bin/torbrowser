@@ -102,8 +102,23 @@ root_check() {
 }
 
 tb_preparation() {
-   [ -n "$tb_home_folder" ] || tb_home_folder=~/.tb
-   [ -n "$tb_cache_folder" ] || tb_cache_folder=~/.cache/tb
+   if command -v qubesdb-read >/dev/null 2>&1 ; then
+      [ -n "$is_qubes" ] || is_qubes=true
+      ## qubesdb-read fails inside chroot, therefore overwriting with '|| true'.
+      [ -n "$qubes_vm_type" ] || qubes_vm_type="$(qubesdb-read /qubes-vm-type)" || true
+   else
+      [ -n "$is_qubes" ] || is_qubes=false
+   fi
+
+   if [ "$qubes_vm_type" = "TemplateVM" ]; then
+      if [ "$tb_user_home" = "" ]; then
+         tb_user_home="/var/cache/tb-binary"
+      fi
+   fi
+
+   [ -n "$tb_user_home" ] || tb_user_home=~
+   [ -n "$tb_home_folder" ] || tb_home_folder="$tb_user_home/.tb"
+   [ -n "$tb_browser_folder" ] || tb_browser_folder="$tb_home_folder/tor-browser"
 
    shopt -s nullglob
    local i
@@ -111,8 +126,6 @@ tb_preparation() {
       bash -n "$i"
       source "$i"
    done
-
-   [ -n "$tb_browser_folder" ] || tb_browser_folder="$tb_home_folder/tor-browser"
 
    if [ "$display" = "" ]; then
       if [ "$DISPLAY" = "" ]; then
@@ -152,6 +165,31 @@ tb_preparation() {
 
    ## TODO
    #$output ${output_opts[@]} --forget
+}
+
+tb_templatevm_check() {
+   if [ "$is_qubes" = "false" ]; then
+      true "Not running in Qubes."
+      return 0
+   fi
+
+   if [ ! "$qubes_vm_type" = "TemplateVM" ]; then
+      true "Not running in TemplateVM."
+      return 0
+   fi
+
+   if [ "$tb_allow_start_in_templatevm" = "true" ]; then
+      true "tb_allow_start_in_templatevm is true."
+      return 0
+   fi
+
+   local MSG="<p>Do not run Tor Browser in TemplateVM.<br></br>
+<br></br>
+More info: <a href=https://www.whonix.org/wiki/Tor_Browser#Running_Tor_Browser_in_Qubes_TemplateVM>https://www.whonix.org/wiki/Tor_Browser#Running_Tor_Browser_in_Qubes_TemplateVM</a></p>"
+   $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
+   $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+
+   exit 3
 }
 
 parse_cmd_options() {
@@ -348,6 +386,7 @@ Then try again.</p>'
 main_function() {
    root_check "$@"
    tb_preparation "$@"
+   tb_templatevm_check "$@"
    tb_set_links "$@"
    parse_cmd_options "$@"
    maybe_install_tor_browser "$@"
