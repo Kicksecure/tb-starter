@@ -38,8 +38,9 @@ tb_error_handler() {
 ###########################################################\
 "
 
-   mkdir --parents "$tb_cache_folder"
-   echo "$MSG" >> "$tb_cache_folder/torbrowser_updater_error.log"
+   ## XXX
+   #mkdir --parents "$tb_cache_folder"
+   #echo "$MSG" >> "$tb_cache_folder/torbrowser_updater_error.log"
 
    if [ "$progressbaridx" = "" ]; then
       true
@@ -322,10 +323,24 @@ maybe_use_open_link_confirmation() {
       fi
    fi
 
+   local temp
+   local tool_exit_code="0"
    if [ "$LINK" = "" ]; then
-      $tool "$@"
+      temp="$tool $@"
+      $tool "$@" || { tool_exit_code="$?" ; true; };
    else
-      $tool "$LINK"
+      temp="$tool $@"
+      $tool "$LINK" || { tool_exit_code="$?" ; true; };
+   fi
+
+   if [ ! "$tool_exit_code" = "0" ]; then
+      local MSG="<p>Tor Browser maybe_use_open_link_confirmation error.
+<br></br>
+<br></br>Failed:
+<br></br><code>$temp</code></p>"
+      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
+      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+      exit 1
    fi
 }
 
