@@ -183,13 +183,15 @@ tb_templatevm_check() {
       return 0
    fi
 
-   local MSG="<p>Do not run Tor Browser in TemplateVM.<br></br>
-<br></br>
-More info: <a href=https://www.whonix.org/wiki/Tor_Browser#Running_Tor_Browser_in_Qubes_TemplateVM>https://www.whonix.org/wiki/Tor_Browser#Running_Tor_Browser_in_Qubes_TemplateVM</a></p>"
-   $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-   $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+   if [ "$have_other_args" = "false" ]; then
+      local MSG="<p>Do not run Tor Browser in TemplateVM.<br></br>
+   <br></br>
+   More info: <a href=https://www.whonix.org/wiki/Tor_Browser#Running_Tor_Browser_in_Qubes_TemplateVM>https://www.whonix.org/wiki/Tor_Browser#Running_Tor_Browser_in_Qubes_TemplateVM</a></p>"
+      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
+      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
 
-   exit 3
+      exit 3
+   fi
 }
 
 parse_cmd_options() {
@@ -243,12 +245,15 @@ parse_cmd_options() {
    local other_args
    other_args="$@"
    if [ "$other_args" = "" ]; then
+      have_other_args="false"
       if [ "$LINK" = "" ]; then
          LINK="$DEFAULT_LINK"
          if [ "$open_link_confirmation_maybe_skip" = "true" ]; then
             open_link_confirmation_skip="true"
          fi
       fi
+   else
+      have_other_args="true"
    fi
 }
 
@@ -386,9 +391,9 @@ Then try again.</p>'
 main_function() {
    root_check "$@"
    tb_preparation "$@"
-   tb_templatevm_check "$@"
    tb_set_links "$@"
    parse_cmd_options "$@"
+   tb_templatevm_check "$@"
    maybe_install_tor_browser "$@"
    tb_folder_change_directory "$@"
    tb_detect_starter_bin "$@"
