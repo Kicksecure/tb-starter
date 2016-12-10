@@ -1,3 +1,53 @@
+commit f0291e2732ace39bd6b4e2049949033a643072ed
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Nov 21 17:43:03 2016 +0000
+
+    readme
+
+commit 79b061d9f0381577dc54ebf0a5c871f9ef841c9f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 16 22:50:49 2016 +0000
+
+    improve error handling of function maybe_use_open_link_confirmation
+
+commit c8c518860d31a1a6035305ffd271c8b2db39d196
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 16 22:36:52 2016 +0000
+
+    redirect links opened from whonix-ws TemplateVM to anon-whonix
+
+commit 4f53bd5d85a2262ecd4a3c241badfbabeafd6477
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 24 11:33:45 2016 +0000
+
+    refuse to start in Qubes TemplateVM by default (configurable)
+    
+    with explanation
+    
+    And if disabled, start from /var/cache/tb-binary
+    
+    https://forums.whonix.org/t/ws-problems-after-recent-upgrade
+
+commit afb1a2e2d7d0a6542b9b2750a2a7298194e8c609
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jun 15 22:03:28 2016 +0000
+
+    also source /rw/config/torbrowser.d/*.conf for config snippets
+
+commit 5e37c18b31d173877ac156efc1e1fd9c582a0697
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jun 1 17:36:04 2016 +0000
+
+    better error messages in case of permission issues and startup failures
+    
+    https://phabricator.whonix.org/T510
+
+commit 95b3415e630df5531398f9fc1fee25d92f58e9ec
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 7 22:54:48 2016 +0000
+
+    bumped changelog version
+
 commit 587f77cbf772f77c1e2b2de17415df52b685c163
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Jan 23 21:46:12 2016 +0100
