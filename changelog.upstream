@@ -1,3 +1,37 @@
+commit 909973b6830fce4494293e739f598cd4cca76569
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 6 17:01:25 2017 +0000
+
+    add signed commit
+
+commit 5e77923a7c5d9196008fdf0fb9377d67055f3410
+Merge: cf74f1b f8b92c2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 6 13:21:54 2017 +0000
+
+    Merge remote-tracking branch 'origin/master'
+
+commit f8b92c293ae2a6203ae86be6af9b85117f6cac75
+Merge: cf74f1b 2712e0b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 6 13:11:07 2017 +0000
+
+    Merge pull request #1 from anonmos1/patch-1
+    
+    Update name
+
+commit 2712e0b1ffc5cc7f7c626141aa5bd5ec51a64d8f
+Author: anonmos1 <60fpsn+3ywbufem17xog@guerrillamailblock.com>
+Date:   Mon Feb 6 09:04:32 2017 +0000
+
+    Update name
+
+commit cf74f1b43a29e1f524ebcf8d2c6718e00cfc1781
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jan 17 06:30:37 2017 +0100
+
+    bumped changelog version
+
 commit 49961a7bc395272c85cac43674f3e111d328e5ea
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Jan 16 16:23:24 2017 +0100
@@ -45,11 +79,11 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jun 24 11:33:45 2016 +0000
 
     refuse to start in Qubes TemplateVM by default (configurable)
-
+    
     with explanation
-
+    
     And if disabled, start from /var/cache/tb-binary
-
+    
     https://forums.whonix.org/t/ws-problems-after-recent-upgrade
 
 commit afb1a2e2d7d0a6542b9b2750a2a7298194e8c609
@@ -63,7 +97,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Jun 1 17:36:04 2016 +0000
 
     better error messages in case of permission issues and startup failures
-
+    
     https://phabricator.whonix.org/T510
 
 commit 95b3415e630df5531398f9fc1fee25d92f58e9ec
@@ -77,9 +111,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Jan 23 21:46:12 2016 +0100
 
     removed compatibility symlink anondist-torbrowser.desktop
-
+    
     because it caused more issues than fixing
-
+    
     https://github.com/QubesOS/qubes-issues/issues/1670
 
 commit 6dcb97a83b4ec5096dcff3f283f4463b63fe74c2
@@ -99,20 +133,20 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jan 8 15:53:27 2016 +0000
 
     Workaround upstream bug to allow opening local files with file names that contain spaces.
-
+    
     prefer Browser/start-tor-browser over
     start-tor-browser and
     start-tor-browser.desktop
-
+    
     Preferring $tb_browser_folder/Browser/start-tor-browser to work around
     The Tor Project upstream issue:
     'start-tor-browser.desktop parameter passing broken on spaces'
     https://trac.torproject.org/projects/tor/ticket/18022
-
+    
     code simplification / refactoring
-
+    
     Thanks to TNT_BOOM_BOOM for the bug report!
-
+    
     http://forums.whonix.org/t/torbrowser-script-bug/1893/1
 
 commit d5f4903b6c1b98acae7a221a7290583317de8c18
@@ -132,7 +166,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Jan 3 15:42:45 2016 +0000
 
     updated link to Whonix forums
-
+    
     Thanks to HulaHoop for the report!
 
 commit 2e7e94651e7898aa6f57f266d8eb4509f63387b6
@@ -140,9 +174,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Dec 1 21:56:00 2015 +0000
 
     Only source configuration files that end with the '.conf' extension.
-
+    
     Thanks to @nrgaway for the suggestion!
-
+    
     https://phabricator.whonix.org/T286
 
 commit d4c9822e6c08a15c89d2aa02dc60fd59cb6f3996
@@ -150,9 +184,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Nov 30 19:38:58 2015 +0000
 
     Only source configuration files that end with the '.conf' extension.
-
+    
     Thanks to @nrgaway for the suggestion!
-
+    
     https://phabricator.whonix.org/T286
 
 commit 2886f16fa41b13a60235197812182466d124802a
