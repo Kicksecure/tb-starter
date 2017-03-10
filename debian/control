@@ -6,7 +6,7 @@ Source: tb-starter
 Section: misc
 Priority: optional
 Maintainer: Patrick Schleizer <adrelanos@riseup.net>
-Build-Depends: debhelper (>= 9), genmkfile, ruby-ronn
+Build-Depends: debhelper (>= 9), genmkfile, ruby-ronn, config-package-dev
 Homepage: https://github.com/Whonix/tb-starter
 Vcs-Browser: https://github.com/Whonix/tb-starter
 Vcs-Git: https://github.com/Whonix/tb-starter.git
@@ -15,6 +15,8 @@ Standards-Version: 3.9.8
 Package: tb-starter
 Architecture: all
 Depends: msgcollector, ${misc:Depends}
+Provides: ${diverted-files}
+Conflicts: ${diverted-files}
 Recommends: tb-updater, tb-default-browser, open-link-confirmation,
  anon-icon-pack
 Description: Tor Browser Starter
@@ -25,6 +27,10 @@ Description: Tor Browser Starter
  selection.
  .
  Uses open-link-confirmation if available.
+ .
+ Hides /usr/share/applications/torbrowser.desktop.
+ Hides /usr/share/applications/torbrowser-settings.desktop.
+ https://forums.whonix.org/t/hide-torbrowser-launcher-inside-whonix-start-menu
  .
  This package is produced independently of, and carries no guarantee from,
  The Tor Project.

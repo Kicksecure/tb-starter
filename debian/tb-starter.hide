@@ -1,0 +1,6 @@
+## Copyright (C) 2017 - 2017 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+## https://forums.whonix.org/t/hide-torbrowser-launcher-inside-whonix-start-menu
+/usr/share/applications/torbrowser.desktop
+/usr/share/applications/torbrowser-settings.desktop
