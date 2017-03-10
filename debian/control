@@ -23,8 +23,7 @@ Description: Tor Browser Starter
  Provides a Tor Browser Starter start menu entry and /usr/bin/torbrowser
  starter.
  .
- Starts /home/user/tor-browser_*/start-tor-browser depending on language
- selection.
+ Starts /home/user/.tb/tor-browser/start-tor-browser.
  .
  Uses open-link-confirmation if available.
  .
