@@ -1,6 +1,0 @@
-## Copyright (C) 2017 - 2017 Patrick Schleizer <adrelanos@riseup.net>
-## See the file COPYING for copying conditions.
-
-## Caused by config-package-dev.
-## It is where it places the config-package-dev 'hide'n files.
-tb-starter: package-contains-empty-directory usr/share/tb-starter/
