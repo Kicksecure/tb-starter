@@ -7,7 +7,7 @@
 #export DH_VERBOSE=1
 
 %:
-	dh $@ --with=config-package
+	dh $@
 
 override_dh_install:
 	make manpages
