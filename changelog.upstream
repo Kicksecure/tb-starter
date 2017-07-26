@@ -1,3 +1,40 @@
+commit c4fc7e0350c184cda33f5176f61a806221db11d0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 28 20:07:40 2017 +0000
+
+    add "Provides: torbrowser-launcher" to prevent it being pulled needlessly by onionshare
+    
+    https://forums.whonix.org/t/hide-torbrowser-launcher-inside-whonix-start-menu
+
+commit 6b48c2ee855ccc95ebf185702b63b0891fa60dba
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 28 21:47:45 2017 +0200
+
+    Revert "hide /usr/share/applications/torbrowser.desktop"
+    
+    This reverts commit 8bb4a0f2729ea293c43143d0ad0a85f8d0082c10.
+
+commit 11207e1ef8c88ac78a89644c40a7ac698e25a3b0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Mar 10 02:32:52 2017 +0000
+
+    update package description
+
+commit 8bb4a0f2729ea293c43143d0ad0a85f8d0082c10
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Mar 10 01:40:37 2017 +0000
+
+    hide /usr/share/applications/torbrowser.desktop
+    hide /usr/share/applications/torbrowser-settings.desktop
+    
+    https://forums.whonix.org/t/hide-torbrowser-launcher-inside-whonix-start-menu
+
+commit 918866a7a8d76e265bb562e9d4cf07e79eb027b4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Feb 17 14:10:14 2017 +0000
+
+    bumped changelog version
+
 commit 5907afb70dbbddba15c1318a4f926bcbdebef87e
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Feb 10 15:47:52 2017 +0000
