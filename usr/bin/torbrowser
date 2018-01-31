@@ -284,7 +284,7 @@ tb_detect_starter_bin() {
 
 tb_start_tor_browser() {
    local tb_exit_code="0"
-   $tb_starter_bin --allow-remote "$@" || { tb_exit_code="$?" ; true; };
+   $tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@" || { tb_exit_code="$?" ; true; };
 
    if [ ! "$tb_exit_code" = "0" ]; then
       local MSG="<p>Failed to start Tor Browser!<br></br>
