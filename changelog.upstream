@@ -1,3 +1,47 @@
+commit ca3e4cbaedaaa80a6e92145badf0fcdb3c5b22db
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 31 19:01:47 2018 +0000
+
+    add support for $tb_starter_bin_post / $tb_starter_bin_post variables
+    
+    that can be prepended / appended before Tor Browser binary
+
+commit aab653bdf4a2d2a1a85ec3ef729fc74e7e1b88af
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 29 15:50:37 2018 +0000
+
+    readme
+
+commit 2d6baddcf6bed8e1f107f568147cc3156005c576
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 29 15:38:59 2018 +0000
+
+    update copyright
+
+commit b4aa43bcdddbbb54e8b688a1a9ac0707618d5f74
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 29 15:22:07 2018 +0000
+
+    update copyright
+
+commit 231912a9994f232cad3fcb6e3c0c3ae2c389ff30
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 29 15:15:19 2018 +0000
+
+    update copyright
+
+commit ebafdda5a9ce7b1f50dc8b988fdc218133926fec
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 29 15:09:44 2018 +0000
+
+    update copyright
+
+commit 8846b130ac67d857d373a7d923dfd4f452516034
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Dec 21 20:36:05 2017 +0000
+
+    bumped changelog version
+
 commit 9374a969f9a7fd8010e09f6ae4a676bd801e1f4c
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Dec 21 20:26:30 2017 +0000
