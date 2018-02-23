@@ -289,11 +289,9 @@ tb_environment_variables_workaround() {
 
    ## Remove unneeded entries from environment variable XDG_CONFIG_DIRS.
    XDG_CONFIG_DIRS="${XDG_CONFIG_DIRS//"/usr/share/kde-apper-no-autoupdate/:"}"
-   XDG_CONFIG_DIRS="${XDG_CONFIG_DIRS//"/usr/share/kde-apper-no-autoupdate/:"}"
    XDG_CONFIG_DIRS="${XDG_CONFIG_DIRS//"/usr/share/anon-ws-kde-startmenu/:"}"
    XDG_CONFIG_DIRS="${XDG_CONFIG_DIRS//"/usr/share/anon-apps-config/:"}"
    XDG_CONFIG_DIRS="${XDG_CONFIG_DIRS//"/usr/share/security-misc/:"}"
-   XDG_CONFIG_DIRS="${XDG_CONFIG_DIRS//"/usr/share/anon-apps-config/:"}"
    XDG_CONFIG_DIRS="${XDG_CONFIG_DIRS//"/usr/share/open-link-confirmation/:"}"
    XDG_CONFIG_DIRS="${XDG_CONFIG_DIRS//"/usr/share/torbrowser-default-browser/:"}"
 }
