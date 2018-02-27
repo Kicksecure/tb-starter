@@ -282,20 +282,6 @@ tb_detect_starter_bin() {
    fi
 }
 
-tb_environment_variables_workaround() {
-   ## workaround for:
-   ## Tor Browser refuses to start / XDG_CONFIG_DIRS environment variable segfaults Tor Browser
-   ## https://trac.torproject.org/projects/tor/ticket/25305
-
-   ## Remove unneeded entries from environment variable XDG_CONFIG_DIRS.
-   XDG_CONFIG_DIRS="${XDG_CONFIG_DIRS//"/usr/share/kde-apper-no-autoupdate/:"}"
-   XDG_CONFIG_DIRS="${XDG_CONFIG_DIRS//"/usr/share/anon-ws-kde-startmenu/:"}"
-   XDG_CONFIG_DIRS="${XDG_CONFIG_DIRS//"/usr/share/anon-apps-config/:"}"
-   XDG_CONFIG_DIRS="${XDG_CONFIG_DIRS//"/usr/share/security-misc/:"}"
-   XDG_CONFIG_DIRS="${XDG_CONFIG_DIRS//"/usr/share/open-link-confirmation/:"}"
-   XDG_CONFIG_DIRS="${XDG_CONFIG_DIRS//"/usr/share/torbrowser-default-browser/:"}"
-}
-
 tb_start_tor_browser() {
    local tb_exit_code="0"
    $tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@" || { tb_exit_code="$?" ; true; };
@@ -425,7 +411,6 @@ main_function() {
    maybe_install_tor_browser "$@"
    tb_folder_change_directory "$@"
    tb_detect_starter_bin "$@"
-   tb_environment_variables_workaround "$@"
    maybe_use_open_link_confirmation "$@"
 }
 
