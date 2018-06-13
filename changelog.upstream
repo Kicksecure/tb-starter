@@ -1,3 +1,15 @@
+commit e7cae7f9a4fe5c5864cde2ada9e79262d244382e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 27 15:31:04 2018 +0100
+
+    remote no longer needed tb_environment_variables_workaround
+
+commit cb53d4e3212f413212c1fd7dccf3a433ff59cc84
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Feb 25 22:39:02 2018 +0000
+
+    bumped changelog version
+
 commit f4dce054f419baea15bb9f1f17abb2e65031253f
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Feb 23 15:22:20 2018 +0000
