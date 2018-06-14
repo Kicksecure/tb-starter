@@ -194,6 +194,22 @@ tb_templatevm_check() {
    fi
 }
 
+tb_qubes_dvm_template() {
+   if echo "$qubes_vm_name" | grep -q --invert-match "\-dvm" ; then
+      true "INFO: not running inside Qubes DVM Template, ok."
+      return 0
+   fi
+
+   local MSG="\
+<p>Do not run Tor Browser in Qubes DVM Template!<br></br>
+<br></br>
+More info: <a href=https://www.whonix.org/wiki/Tor_Browser#Running_Tor_Browser_in_Qubes_DVM_Template>https://www.whonix.org/wiki/Tor_Browser#Running_Tor_Browser_in_Qubes_DVM_Template</a></p>"
+
+   $output ${output_opts[@]} --messagex --titlex "$TITLE" --typex "error" --message "$MSG" --done
+   $output ${output_opts[@]} --messagecli --titlecli "$TITLE" --typecli "error" --message "$MSG" --done
+   exit 1
+}
+
 parse_cmd_options() {
    ## Thanks to:
    ## http://mywiki.wooledge.org/BashFAQ/035
@@ -408,6 +424,7 @@ main_function() {
    tb_set_links "$@"
    parse_cmd_options "$@"
    tb_templatevm_check "$@"
+   tb_qubes_dvm_template "$@"
    maybe_install_tor_browser "$@"
    tb_folder_change_directory "$@"
    tb_detect_starter_bin "$@"
