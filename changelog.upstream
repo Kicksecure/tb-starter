@@ -1,3 +1,15 @@
+commit 43f8e8f6c59e3402f495a11a3d4a3c79f569ff19
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 6 09:15:39 2018 +0000
+
+    fix, don't run inside Qubes DVM Template
+
+commit 347e462882296e309b6fdcd33a96a911c79f5f4e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 14 07:37:07 2018 +0000
+
+    bumped changelog version
+
 commit fc617af778675d9a364ceffd5da95608ed62ae78
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jun 14 06:50:59 2018 +0000
