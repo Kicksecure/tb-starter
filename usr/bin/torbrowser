@@ -3,6 +3,10 @@
 ## Copyright (C) 2012 - 2018 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
+#set -x
+#exec 1>/tmp/torbrowser.log
+#exec 2>/tmp/torbrowser.log
+
 set -o pipefail
 set -o errtrace
 
@@ -102,6 +106,8 @@ root_check() {
 }
 
 tb_preparation() {
+   who_ami="$(whoami)"
+
    if command -v qubesdb-read >/dev/null 2>&1 ; then
       [ -n "$is_qubes" ] || is_qubes=true
       ## qubesdb-read fails inside chroot, therefore overwriting with '|| true'.
@@ -118,6 +124,14 @@ tb_preparation() {
    fi
 
    [ -n "$tb_user_home" ] || tb_user_home=~
+
+   ## When double clicking a file downloaded in Tor Browser download tab
+   ## '~' would be set to '/home/user/.tb/tor-browser/Browser' which would lead
+   ## to a false-positive "Tor Browser not installed" message.
+   if echo "$tb_user_home" | grep -q tor-browser ; then
+      tb_user_home="/home/$who_ami"
+   fi
+
    [ -n "$tb_home_folder" ] || tb_home_folder="$tb_user_home/.tb"
    [ -n "$tb_browser_folder" ] || tb_browser_folder="$tb_home_folder/tor-browser"
 
@@ -151,8 +165,6 @@ tb_preparation() {
    if [ "$my_tty" = "" ]; then
       my_tty="none"
    fi
-
-   who_ami="$(whoami)"
 
    output_opt_1="--icon $ICON"
    output_opt_2="--parentpid $$"
