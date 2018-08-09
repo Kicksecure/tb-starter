@@ -1,3 +1,16 @@
+commit 7f3ac3b6d7beb659333f39b0506cd32fb07dc1bb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 25 16:45:55 2018 +0800
+
+    fix false-positive "Tor Browser not installed" message
+    when trying to open a file from Tor Browser download tab
+
+commit 5d19ea3d6a8ca9d120c94a15588eb1d57ab647a3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 6 09:17:16 2018 +0000
+
+    bumped changelog version
+
 commit 43f8e8f6c59e3402f495a11a3d4a3c79f569ff19
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jul 6 09:15:39 2018 +0000
