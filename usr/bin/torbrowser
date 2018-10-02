@@ -186,6 +186,7 @@ tb_preparation() {
 }
 
 tb_config_folder_parser() {
+   [ -n "$tb_settings_folder" ] || tb_settings_folder="torbrowser.d"
    shopt -s nullglob
    local i
    for i in /etc/$tb_settings_folder/*.conf /rw/config/$tb_settings_folder/*.conf; do
@@ -281,7 +282,7 @@ parse_cmd_options() {
                tb_title="i2p Browser"
                tb_wiki="i2p_Browser"
                tb_browser_name="i2p-browser"
-               tb_settings_folder="i2pbrowser.d"
+               #tb_settings_folder="i2pbrowser.d"
                tb_proxy_name="i2p"
                tb_bin="i2pbrowser"
                IDENTIFIER="$tb_bin"
@@ -465,9 +466,9 @@ Then try again.</p>"
 main_function() {
    root_check "$@"
    tb_set_links "$@"
+   tb_config_folder_parser "$@"
    parse_cmd_options "$@"
    tb_preparation "$@"
-   tb_config_folder_parser "$@"
    tb_templatevm_check "$@"
    tb_qubes_dvm_template "$@"
    maybe_install_tor_browser "$@"
