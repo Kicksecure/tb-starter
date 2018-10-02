@@ -1,0 +1,373 @@
+#!/usr/bin/env bash
+#
+# GNU/Linux does not really require something like RelativeLink.c
+# However, we do want to have the same look and feel with similar features.
+#
+# Copyright 2017 The Tor Project.  See LICENSE for licensing information.
+
+complain_dialog_title="i2p Browser"
+
+# First, make sure DISPLAY is set.  If it isn't, we're hosed; scream
+# at stderr and die.
+if [ "x$DISPLAY" = "x" ]; then
+    echo "$complain_dialog_title must be run within the X Window System." >&2
+    echo "Exiting." >&2
+    exit 1
+fi
+
+# Second, make sure this script wasn't started as 'sh start-i2p-browser' or
+# similar.
+if [ "x$BASH" = "x" ]; then
+    echo "$complain_dialog_title should be started as './start-i2p-browser'"
+    echo "Exiting." >&2
+    exit 1;
+fi
+
+# Do not (try to) connect to the session manager
+unset SESSION_MANAGER
+
+# Complain about an error, by any means necessary.
+# Usage: complain message
+# message must not begin with a dash.
+complain () {
+	# Trim leading newlines, to avoid breaking formatting in some dialogs.
+	complain_message="`echo "$1" | sed '/./,$!d'`"
+
+	# If we're being run in debug/verbose mode, complain to stderr.
+	if [ "$show_output" -eq 1 ]; then
+		echo "$complain_message" >&2
+		return
+	fi
+
+	# Otherwise, we're being run by a GUI program of some sort;
+	# try to pop up a message in the GUI in the nicest way
+	# possible.
+	#
+	# In mksh, non-existent commands return 127; I'll assume all
+	# other shells set the same exit code if they can't run a
+	# command.  (xmessage returns 1 if the user clicks the WM
+	# close button, so we do need to look at the exact exit code,
+	# not just assume the command failed to display a message if
+	# it returns non-zero.)
+
+	# First, try zenity.
+	zenity --error \
+		--title="$complain_dialog_title" \
+		--text="$complain_message"
+	if [ "$?" -ne 127 ]; then
+		return
+	fi
+
+	# Try kdialog.
+	kdialog --title "$complain_dialog_title" \
+		--error "$complain_message"
+	if [ "$?" -ne 127 ]; then
+		return
+	fi
+
+	# Try xmessage.
+	xmessage -title "$complain_dialog_title" \
+		-center \
+		-buttons OK \
+		-default OK \
+		-xrm '*message.scrollVertical: Never' \
+		"$complain_message"
+	if [ "$?" -ne 127 ]; then
+		return
+	fi
+
+	# Try gxmessage.  This one isn't installed by default on
+	# Debian with the default GNOME installation, so it seems to
+	# be the least likely program to have available, but it might
+	# be used by one of the 'lightweight' Gtk-based desktop
+	# environments.
+	gxmessage -title "$complain_dialog_title" \
+		-center \
+		-buttons GTK_STOCK_OK \
+		-default OK \
+		"$complain_message"
+	if [ "$?" -ne 127 ]; then
+		return
+	fi
+}
+
+if [ "`id -u`" -eq 0 ]; then
+	complain "The Tor Browser Bundle should not be run as root.  Exiting."
+	exit 1
+fi
+
+tbb_usage () {
+    printf "\nTor Browser Script Options\n"
+    printf "  --verbose         Display Tor and Firefox output in the terminal\n"
+    printf "  --log [file]      Record Tor and Firefox output in file (default: tor-browser.log)\n"
+    printf "  --detach          Detach from terminal and run Tor Browser in the background.\n"
+    printf "  --register-app    Register Tor Browser as a desktop app for this user\n"
+    printf "  --unregister-app  Unregister Tor Browser as a desktop app for this user\n"
+}
+log_output=0
+show_output=0
+detach=0
+show_usage=0
+register_desktop_app=0
+logfile=/dev/null
+while :
+do
+    case "$1" in
+      --detach)
+          detach=1
+          shift
+          ;;
+      -v | --verbose | -d | --debug)
+          show_output=1
+          verbose_arg="$2"
+          shift
+          ;;
+      -h | "-?" | --help | -help)
+          show_usage=1
+          show_output=1
+          shift
+          ;;
+      -l | --log)
+          if [ -z "$2" -o "${2:0:1}" == "-" ]; then
+             printf "Logging Tor Browser debug information to tor-browser.log\n"
+             logfile="../tor-browser.log"
+          elif [ "${2:0:1}" == "/" -o "${2:0:1}" == "~" ]; then
+             printf "Logging Tor Browser debug information to %s\n" "$2"
+             logfile="$2"
+             shift
+          else
+             printf "Logging Tor Browser debug information to %s\n" "$2"
+             logfile="../$2"
+             shift
+          fi
+          log_output=1
+          shift
+          ;;
+      --register-app)
+          register_desktop_app=1
+          show_output=1
+          shift
+          ;;
+      --unregister-app)
+          register_desktop_app=-1
+          show_output=1
+          shift
+          ;;
+      *) # No more options
+          break
+          ;;
+    esac
+done
+
+# We can't detach and show output at the same time..
+if [ "$show_output" -eq 1 -a "$detach" -eq 1 ]; then
+    detach=0
+fi
+
+if [ "$show_output" -eq 0 ]; then
+    # If the user hasn't requested 'debug mode' or --help, close stdout and stderr,
+    # to keep Firefox and the stuff loaded by/for it (including the
+    # system's shared-library loader) from printing messages to
+    # $HOME/.xsession-errors or other files. (Users wouldn't have seen
+    # messages there anyway.)
+    exec > "$logfile"
+    exec 2> "$logfile"
+fi
+
+# If XAUTHORITY is unset, set it to its default value of $HOME/.Xauthority
+# before we change HOME below.  (See xauth(1) and #1945.)  XDM and KDM rely
+# on applications using this default value.
+if [ -z "$XAUTHORITY" ]; then
+	XAUTHORITY=~/.Xauthority
+	export XAUTHORITY
+fi
+
+# If this script is being run through a symlink, we need to know where
+# in the filesystem the script itself is, not where the symlink is.
+myname="$0"
+if [ -L "$myname" ]; then
+	# XXX readlink is not POSIX, but is present in GNU coreutils
+	# and on FreeBSD.  Unfortunately, the -f option (which follows
+	# a whole chain of symlinks until it reaches a non-symlink
+	# path name) is a GNUism, so we have to have a fallback for
+	# FreeBSD.  Fortunately, FreeBSD has realpath instead;
+	# unfortunately, that's also non-POSIX and is not present in
+	# GNU coreutils.
+	#
+	# If this launcher were a C program, we could just use the
+	# realpath function, which *is* POSIX.  Too bad POSIX didn't
+	# make that function accessible to shell scripts.
+
+	# If realpath is available, use it; it Does The Right Thing.
+	possibly_my_real_name="`realpath "$myname" 2>/dev/null`"
+	if [ "$?" -eq 0 ]; then
+		myname="$possibly_my_real_name"
+	else
+		# realpath is not available; hopefully readlink -f works.
+		myname="`readlink -f "$myname" 2>/dev/null`"
+		if [ "$?" -ne 0 ]; then
+			# Ugh.
+			complain "start-i2p-browser cannot be run using a symlink on this operating system."
+		fi
+	fi
+fi
+
+# Try to be agnostic to where we're being started from, chdir to where
+# the script is.
+mydir="`dirname "$myname"`"
+test -d "$mydir" && cd "$mydir"
+
+# If ${PWD} results in a zero length string, we can try something else...
+if [ ! "${PWD}" ]; then
+	# "hacking around some braindamage"
+	PWD="`pwd`"
+	surveysays="This system has a messed up shell.\n"
+fi
+
+# This is a fix for an ibus issue on some Linux systems. See #9353 for more
+# details. The symlink needs to be created before we change HOME.
+if [ ! -d ".config/ibus" ]; then
+  mkdir -p .config/ibus
+  ln -nsf ~/.config/ibus/bus .config/ibus
+fi
+
+# Fix up .desktop Icon and Exec Paths, and update the .desktop file from the
+# canonical version if it was changed by the updater.
+
+cp start-tor-browser.desktop ../start-i2p-browser.desktop
+sed -i -e "s,^Name=.*,Name=i2p Browser,g" ../start-i2p-browser.desktop
+sed -i -e "s,^Icon=.*,Icon=$PWD/browser/icons/mozicon128.png,g" ../start-i2p-browser.desktop
+sed -i -e "s,^Exec=.*,Exec=sh -c '\"$PWD/start-i2p-browser\" --detach || ([ !  -x \"$PWD/start-i2p-browser\" ] \&\& \"\$(dirname \"\$*\")\"/Browser/start-i2p-browser --detach)' dummy %k,g" ../start-i2p-browser.desktop
+
+if [ "$register_desktop_app" -eq 1 ]; then
+	mkdir -p "$HOME/.local/share/applications/"
+	cp ../start-i2p-browser.desktop "$HOME/.local/share/applications/"
+	update-desktop-database "$HOME/.local/share/applications/"
+	printf "Tor Browser has been registered as a desktop app for this user in ~/.local/share/applications/\n"
+	exit 0
+fi
+
+if [ "$register_desktop_app" -eq -1 ]; then
+	if [ -e "$HOME/.local/share/applications/start-i2p-browser.desktop" ]; then
+		rm -f "$HOME/.local/share/applications/start-i2p-browser.desktop"
+		update-desktop-database "$HOME/.local/share/applications/"
+		printf "Tor Browser has been removed as a user desktop app (from ~/.local/share/applications/)\n"
+	else
+		printf "Tor Browser does not appear to be a desktop app (not present in ~/.local/share/applications/)\n"
+	fi
+	exit 0
+fi
+
+HOME="${PWD}"
+export HOME
+
+SYSARCHITECTURE=$(getconf LONG_BIT)
+TORARCHITECTURE=$(expr "$(file TorBrowser/Tor/tor)" : '.*ELF \([[:digit:]]*\)')
+
+if [ $SYSARCHITECTURE -ne $TORARCHITECTURE ]; then
+   complain "Wrong architecture? 32-bit vs. 64-bit."
+   exit 1
+fi
+
+LD_LIBRARY_PATH="${HOME}/TorBrowser/Tor/"
+export LD_LIBRARY_PATH
+
+
+
+function setControlPortPasswd() {
+    local ctrlPasswd=$1
+
+    if test -z "$ctrlPasswd" -o "$ctrlPasswd" = $'\"secret\"' ; then
+        unset TOR_CONTROL_PASSWD
+        return
+    fi
+
+    if test "${ctrlPasswd:0:1}" = $'\"'; then  # First 2 chars were '"
+        printf "Using system Tor process.\n"
+        export TOR_CONTROL_PASSWD
+    else
+        complain "There seems to have been a quoting problem with your \
+TOR_CONTROL_PASSWD environment variable."
+        cat <<EOF
+
+The Tor ControlPort password should be given inside double quotes, inside single
+quotes, i.e. if the ControlPort password is “secret” (without curly quotes) then
+we must start this script after setting the environment variable exactly like
+this:
+
+  \$ TOR_CONTROL_PASSWD='"secret"' $myname
+
+EOF
+    fi
+}
+
+# Using a system-installed Tor process with Tor Browser:
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# The Tor ControlPort password should be given inside double quotes, inside
+# single quotes, i.e. if the ControlPort password is “secret” (without
+# curly quotes) then we must set the environment variable *exactly* like
+# this:
+#
+# TOR_CONTROL_PASSWD='"secret"'
+#
+# Yes, the variable MUST be double-quoted, then single-quoted, exactly as
+# shown. This is used by TorButton and Tor Launcher to authenticate to Tor's
+# ControlPort, and is necessary for using TB with a system-installed Tor.
+#
+# Additionally, if using a system-installed Tor, the following about:config
+# options should be set (values in <> mean they are the value taken from your
+# torrc):
+#
+# SETTING NAME                            VALUE
+# network.security.ports.banned           [...],<SocksPort>,<ControlPort>
+# network.proxy.socks                     127.0.0.1
+# network.proxy.socks_port                <SocksPort>
+# extensions.torbutton.inserted_button    true
+# extensions.torbutton.launch_warning     false
+# extensions.torbutton.loglevel           2
+# extensions.torbutton.logmethod          0
+# extensions.torlauncher.control_port      <ControlPort>
+# extensions.torlauncher.loglevel          2
+# extensions.torlauncher.logmethod         0
+# extensions.torlauncher.prompt_at_startup false
+# extensions.torlauncher.start_tor         false
+#
+# where the '[...]' in the banned_ports option means "leave anything that was
+# already in the preference alone, just append the things specified after it".
+
+# Either set `TOR_CONTROL_PASSWD` before running ./start-i2p-browser, or put
+# your password in the following line where the word “secret” is:
+setControlPortPasswd ${TOR_CONTROL_PASSWD:='"secret"'}
+
+# Set up custom bundled fonts. See fonts-conf(5).
+export FONTCONFIG_PATH="${HOME}/TorBrowser/Data/fontconfig"
+export FONTCONFIG_FILE="fonts.conf"
+
+cd "${HOME}"
+
+# We pass all additional command-line arguments we get to Firefox.
+#
+# The --class parameter was added to fix bug 11102.
+
+if [ "$show_usage" -eq 1 ]; then
+    # Display Firefox help, then our help
+    TOR_CONTROL_PASSWD=${TOR_CONTROL_PASSWD} ./firefox --class "i2p Browser" \
+        --profile "TorBrowser/Data/Browser/profile.i2p" --help 2>/dev/null
+    tbb_usage
+elif [ "$detach" -eq 1 ] ; then
+    TOR_CONTROL_PASSWD=${TOR_CONTROL_PASSWD} ./firefox --class "i2p Browser" \
+       --profile "TorBrowser/Data/Browser/profile.i2p" "${@}" > "$logfile" 2>&1 </dev/null &
+    disown "$!"
+elif [ "$log_output" -eq 1 -a "$show_output" -eq 1 ]; then
+    TOR_CONTROL_PASSWD=${TOR_CONTROL_PASSWD} ./firefox --class "i2p Browser" \
+        --profile "TorBrowser/Data/Browser/profile.i2p" "${@}" 2>&1 </dev/null | \
+        tee "$logfile"
+elif [ "$show_output" -eq 1 ]; then
+    TOR_CONTROL_PASSWD=${TOR_CONTROL_PASSWD} ./firefox --class "i2p Browser" \
+        --profile "TorBrowser/Data/Browser/profile.i2p" "${@}" < /dev/null
+else
+    TOR_CONTROL_PASSWD=${TOR_CONTROL_PASSWD} ./firefox --class "i2p Browser" \
+        --profile "TorBrowser/Data/Browser/profile.i2p" "${@}" > "$logfile" 2>&1 </dev/null
+fi
+
+exit $?
