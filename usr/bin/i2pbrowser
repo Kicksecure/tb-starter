@@ -1,7 +1,7 @@
 #!/bin/bash
 
-##
-##
+## Copyright (C) 2018 - 2018 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
 
 export SCRIPTNAME="$(basename "$BASH_SOURCE")"
 
@@ -22,6 +22,6 @@ ln -sf "$HOME/.i2pb/profile.i2p" \
 
 cp -f /usr/share/tb-profile-i2p/start-i2p-browser "$HOME/.i2pb/i2p-browser/Browser/start-i2p-browser"
 
-cd "$HOME/.i2pb/i2p-browser/Browser/" || exit
+cd "$HOME/.i2pb/i2p-browser/Browser/" || exit 1
 
-torbrowser --i2p "$@"
+tb_settings_folder="i2pbrowser.d" torbrowser --i2p "$@"
