@@ -1,0 +1,53 @@
+i2pbrowser(1) -- i2p Browser Update and Start Script
+=============================================
+
+<span class="comment">
+# This file is part of Whonix.
+# Copyright (C) 2012 - 2018 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
+# See the file COPYING for copying conditions.
+
+# Not using angle brackets in copyright notice for e-mail address, because
+# angle brackets would result in this file being non-deterministic. (There
+# must be a bug in Debian wheezy in ruby-ronn.)
+
+# Not using "##", because for some reason this comment would be visible in the
+# resulting man page.
+</span>
+
+## SYNOPSIS
+`i2pbrowser` option(s)
+
+## DESCRIPTION
+You can use `i2pbrowser` to start i2p Browser from the command line. In Whonix,
+i2p browser is a separate, modified Tor Browser for use with i2p.
+
+Parameters are passed to i2p Browser.
+
+## CONFIG FILE
+
+/etc/i2pbrowser.d/30_default.conf
+
+## EXIT CODES
+0 Success
+
+1 Error
+
+## EXAMPLES
+`i2pbrowser --new-tab https://www.i2p-projekt.i2p`
+
+`i2pbrowser --new-window https://www.i2p-projekt.i2p`
+
+`i2pbrowser --start --lang="ar"`
+
+## NOTES
+Do not run as root!
+
+## PORTING
+This script is currently only tested in Whonix. It could be easily made to work
+in Tails or on any Linux.
+
+## WWW
+https://www.whonix.org/wiki/Tor_Browser
+
+## AUTHOR
+This man page has been written by Patrick Schleizer (adrelanos@riseup.net).
