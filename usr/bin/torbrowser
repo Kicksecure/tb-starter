@@ -10,7 +10,7 @@
 set -o pipefail
 set -o errtrace
 
-SCRIPTNAME="$(basename "$BASH_SOURCE")"
+[ -n "$SCRIPTNAME" ] || SCRIPTNAME="$(basename "$BASH_SOURCE")"
 
 IDENTIFIER="torbrowser"
 
@@ -26,7 +26,7 @@ tb_error_handler() {
 ## has been hit. Try again later. There is likely a
 ## solution for this problem. Please see the Whonix News,
 ## Whonix User Help Forum and Whonix Documentation.
-## https://www.whonix.org/wiki/Tor_Browser
+## https://www.whonix.org/wiki/$tb_wiki
 ## Please report this bug!
 ##
 ## BASH_COMMAND: $BASH_COMMAND
@@ -107,7 +107,6 @@ root_check() {
 
 tb_preparation() {
    who_ami="$(whoami)"
-
    if command -v qubesdb-read >/dev/null 2>&1 ; then
       [ -n "$is_qubes" ] || is_qubes=true
       ## qubesdb-read fails inside chroot, therefore overwriting with '|| true'.
@@ -124,7 +123,6 @@ tb_preparation() {
    fi
 
    [ -n "$tb_user_home" ] || tb_user_home=~
-
    ## When double clicking a file downloaded in Tor Browser download tab
    ## '~' would be set to '/home/user/.tb/tor-browser/Browser' which would lead
    ## to a false-positive "Tor Browser not installed" message.
@@ -132,15 +130,20 @@ tb_preparation() {
       tb_user_home="/home/$who_ami"
    fi
 
-   [ -n "$tb_home_folder" ] || tb_home_folder="$tb_user_home/.tb"
-   [ -n "$tb_browser_folder" ] || tb_browser_folder="$tb_home_folder/tor-browser"
+   [ -n "$tb_install_folder" ] || tb_install_folder="tb"
+   [ -n "$tb_install_folder_dot" ] || tb_install_folder_dot=".tb"
+   [ -n "$tb_browser_name" ] || tb_browser_name="tor-browser"
+   [ -n "$tb_settings_folder" ] || tb_settings_folder="torbrowser.d"
+   [ -n "$tb_name" ] || tb_name="tor"
+   [ -n "$tb_title" ] || tb_title="Tor Browser"
+   [ -n "$tb_wiki" ] || tb_wiki="Tor_Browser"
+   [ -n "$tb_proxy_name" ] || tb_proxy_name="tor"
+   [ -n "$tb_bin" ] || tb_bin="torbrowser"
+   [ -n "$tb_browser_runner" ] || tb_browser_runner="start-tor-browser"
+   [ -n "$IDENTIFIER" ] || IDENTIFIER="$tb_bin"
 
-   shopt -s nullglob
-   local i
-   for i in /etc/torbrowser.d/*.conf /rw/config/torbrowser.d/*.conf; do
-      bash -n "$i"
-      source "$i"
-   done
+   [ -n "$tb_home_folder" ] || tb_home_folder="$tb_user_home/$tb_install_folder_dot"
+   [ -n "$tb_browser_folder" ] || tb_browser_folder="$tb_home_folder/$tb_browser_name"
 
    if [ "$display" = "" ]; then
       if [ "$DISPLAY" = "" ]; then
@@ -166,6 +169,8 @@ tb_preparation() {
       my_tty="none"
    fi
 
+   who_ami="$(whoami)"
+
    output_opt_1="--icon $ICON"
    output_opt_2="--parentpid $$"
    output_opt_3="--identifier ${IDENTIFIER}"
@@ -174,10 +179,19 @@ tb_preparation() {
 
    output_opts=( "$output_opt_1" "$output_opt_2" "$output_opt_3" "$output_opt_4" "$output_opt_5")
 
-   TITLE="Tor Browser Starter (by Whonix developers)"
+   TITLE="$tb_title Starter (by Whonix developers)"
 
    ## TODO
    #$output ${output_opts[@]} --forget
+}
+
+tb_config_folder_parser() {
+   shopt -s nullglob
+   local i
+   for i in /etc/$tb_settings_folder/*.conf /rw/config/$tb_settings_folder/*.conf; do
+      bash -n "$i"
+      source "$i"
+   done
 }
 
 tb_templatevm_check() {
@@ -197,9 +211,10 @@ tb_templatevm_check() {
    fi
 
    if [ "$have_other_args" = "false" ]; then
-      local MSG="<p>Do not run Tor Browser in TemplateVM.<br></br>
+      tb_qubes_wiki=Running_"$tb_wiki"_in_Qubes_TemplateVM
+      local MSG="<p>Do not run $tb_title in TemplateVM.<br></br>
    <br></br>
-   More info: <a href=https://www.whonix.org/wiki/Tor_Browser#Running_Tor_Browser_in_Qubes_TemplateVM>https://www.whonix.org/wiki/Tor_Browser#Running_Tor_Browser_in_Qubes_TemplateVM</a></p>"
+   More info: <a href=https://www.whonix.org/wiki/$tb_wiki#$tb_qubes_wiki>https://www.whonix.org/wiki/$tb_wiki#$tb_qubes_wiki</a></p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
 
@@ -258,6 +273,22 @@ parse_cmd_options() {
                LINK="$FEATUREBLOG_LINK"
                shift
                ;;
+           --i2p)
+               tb_using_i2p="--i2p"
+               tb_install_folder="i2pb"
+               tb_install_folder_dot=".i2pb"
+               tb_name="i2p"
+               tb_title="i2p Browser"
+               tb_wiki="i2p_Browser"
+               tb_browser_name="i2p-browser"
+               tb_settings_folder="i2pbrowser.d"
+               tb_proxy_name="i2p"
+               tb_bin="i2pbrowser"
+               IDENTIFIER="$tb_bin"
+               tb_browser_runner="start-i2p-browser"
+               LINK="/usr/share/tb-profile-i2p/i2p-diffs.html"
+               shift
+               ;;
            --)
                shift
                break
@@ -291,20 +322,20 @@ tb_detect_starter_bin() {
       return 0
    fi
 
-   if [ -x "$tb_browser_folder/Browser/start-tor-browser" ]; then
-      ## Preferring $tb_browser_folder/Browser/start-tor-browser to work around
+   if [ -x "$tb_browser_folder/Browser/$tb_browser_runner" ]; then
+      ## Preferring $tb_browser_folder/Browser/$tb_browser_runner to work around
       ## The Tor Project upstream issue:
       ## 'start-tor-browser.desktop parameter passing broken on spaces'
       ## https://trac.torproject.org/projects/tor/ticket/18022
-      tb_starter_bin="$tb_browser_folder/Browser/start-tor-browser"
-   elif [ -x "$tb_browser_folder/start-tor-browser" ]; then
-      tb_starter_bin="$tb_browser_folder/start-tor-browser"
-   elif [ -x "$tb_browser_folder/start-tor-browser.desktop" ]; then
-      tb_starter_bin="$tb_browser_folder/start-tor-browser.desktop"
+      tb_starter_bin="$tb_browser_folder/Browser/$tb_browser_runner"
+   elif [ -x "$tb_browser_folder/$tb_browser_runner" ]; then
+      tb_starter_bin="$tb_browser_folder/$tb_browser_runner"
+   elif [ -x "$tb_browser_folder/$tb_browser_runner.desktop" ]; then
+      tb_starter_bin="$tb_browser_folder/$tb_browser_runner.desktop"
    else
-      local MSG="Neither <code>$tb_browser_folder/Browser/start-tor-browser</code> nor\
-<code>$tb_browser_folder/start-tor-browser</code> nor \
-<code>$tb_browser_folder/start-tor-browser.desktop</code> is executable."
+      local MSG="Neither <code>$tb_browser_folder/Browser/$tb_browser_runner</code> nor\
+<code>$tb_browser_folder/$tb_browser_runner</code> nor \
+<code>$tb_browser_folder/$tb_browser_runner.desktop</code> is executable."
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
       exit 2
@@ -316,7 +347,7 @@ tb_start_tor_browser() {
    $tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@" || { tb_exit_code="$?" ; true; };
 
    if [ ! "$tb_exit_code" = "0" ]; then
-      local MSG="<p>Failed to start Tor Browser!<br></br>
+      local MSG="<p>Failed to start $tb_title!<br></br>
 <br></br>
 Failed to run:<br></br>
 <br></br><code>$tb_starter_bin --allow-remote \"$@\"</code>.
@@ -346,7 +377,7 @@ maybe_use_open_link_confirmation() {
       ## maybe use open link confirmation
       if [ -x /usr/lib/open_link_confirmation ]; then
          if [ ! "$open_link_confirmation_skip" = "true" ]; then
-            tool=/usr/lib/open_link_confirmation
+            tool="/usr/lib/open_link_confirmation $tb_using_i2p"
          fi
       fi
    fi
@@ -362,7 +393,7 @@ maybe_use_open_link_confirmation() {
    fi
 
    if [ ! "$tool_exit_code" = "0" ]; then
-      local MSG="<p>Tor Browser maybe_use_open_link_confirmation error.
+      local MSG="<p>$tb_title maybe_use_open_link_confirmation error.
 <br></br>
 <br></br>Failed:
 <br></br><code>$temp</code></p>"
@@ -377,7 +408,7 @@ tb_folder_change_directory() {
    cd "$tb_browser_folder" || { change_directory_exit_code="$?" ; true; };
 
    if [ ! "$change_directory_exit_code" = "0" ]; then
-      local MSG="<p>Tor Browser permission issues?<br></br>
+      local MSG="<p>$tb_title permission issues?<br></br>
 Failed to <code>cd \"$tb_browser_folder\"</code>.<br></br>
 To fix this, you could try: <blockquote>Start Menu -> Applications -> System -> Terminal<br></br>
 <code>sudo chown --recursive \"$who_ami\":\"$who_ami\" \"$tb_browser_folder\"</code></blockquote></p>"
@@ -392,9 +423,9 @@ maybe_install_tor_browser() {
       return 0
    fi
 
-   local MSG="<p>Tor Browser is currently not installed.
+   local MSG="<p>$tb_title is currently not installed.
 <br></br>(Folder $tb_browser_folder does not exist.)</p>"
-   local question="Start Tor Browser Downloader (by Whonix Developers)?"
+   local question="Start $tb_title Downloader (by Whonix Developers)?"
    local button="yesno"
    local answer
    answer="$(/usr/lib/msgcollector/generic_gui_message "error" "$TITLE" "$MSG" "$question" "$button")"
@@ -410,14 +441,14 @@ maybe_install_tor_browser() {
          ## update-torbrowser is available.
          ## || true, in case update-torbrowser fails for some reason (no
          ## internet connection).
-         update-torbrowser --noaskstart || true
+         update-torbrowser "$tb_using_i2p" --noaskstart || true
       else
          ## update-torbrowser is not available.
-         MSG='<p>Tor Browser Updater (by Whonix developers) is not installed.
-update-torbrowser is not available. Please install the tb-updater package.
+         MSG="<p>$tb_title Updater (by Whonix developers) is not installed.
+update-torbrowser $tb_using_i2p is not available. Please install the tb-updater package.
 <br></br>Run:
 <blockquote>sudo apt-get install tb-updater</blockquote>
-Then try again.</p>'
+Then try again.</p>"
          $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
          $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
       fi
@@ -433,9 +464,10 @@ Then try again.</p>'
 
 main_function() {
    root_check "$@"
-   tb_preparation "$@"
    tb_set_links "$@"
    parse_cmd_options "$@"
+   tb_preparation "$@"
+   tb_config_folder_parser "$@"
    tb_templatevm_check "$@"
    tb_qubes_dvm_template "$@"
    maybe_install_tor_browser "$@"
