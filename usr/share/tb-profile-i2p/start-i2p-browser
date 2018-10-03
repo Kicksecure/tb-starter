@@ -3,6 +3,8 @@
 # GNU/Linux does not really require something like RelativeLink.c
 # However, we do want to have the same look and feel with similar features.
 #
+# This file is modified from a file included in the Tor Browser Bundle.
+#
 # Copyright 2017 The Tor Project.  See LICENSE.tor for licensing information.
 
 complain_dialog_title="i2p Browser"
