@@ -28,7 +28,11 @@ cp -f /usr/share/tb-profile-i2p/start-i2p-browser "$HOME/.i2pb/i2p-browser/Brows
 
 cd "$HOME/.i2pb/i2p-browser/Browser/" || exit 1
 
-LINK="/usr/share/tb-profile-i2p/i2p-diffs.html" \
+TOR_HIDE_UPDATE_CHECK_UI=1 \
+    TOR_NO_DISPLAY_NETWORK_SETTINGS=1 \
+    TOR_HIDE_BROWSER_LOGO=1 \
+    TOR_SKIP_LAUNCH=1 \
+    LINK="/usr/share/tb-profile-i2p/i2p-diffs.html" \
     tb_using_i2p="--i2p" \
     tb_install_folder="i2pb" \
     tb_install_folder_dot=".i2pb" \
