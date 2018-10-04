@@ -212,7 +212,7 @@ tb_templatevm_check() {
    fi
 
    if [ "$have_other_args" = "false" ]; then
-      tb_qubes_wiki=Running_"$tb_wiki"_in_Qubes_TemplateVM
+      tb_qubes_wiki="Running_${tb_wiki}_in_Qubes_TemplateVM"
       local MSG="<p>Do not run $tb_title in TemplateVM.<br></br>
    <br></br>
    More info: <a href=https://www.whonix.org/wiki/$tb_wiki#$tb_qubes_wiki>https://www.whonix.org/wiki/$tb_wiki#$tb_qubes_wiki</a></p>"
