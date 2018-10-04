@@ -362,7 +362,7 @@ maybe_use_open_link_confirmation() {
       ## maybe use open link confirmation
       if [ -x /usr/lib/open_link_confirmation ]; then
          if [ ! "$open_link_confirmation_skip" = "true" ]; then
-            tool="/usr/lib/open_link_confirmation $tb_using_i2p"
+            tool="/usr/lib/open_link_confirmation"
          fi
       fi
    fi
