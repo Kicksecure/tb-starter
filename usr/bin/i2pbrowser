@@ -39,4 +39,5 @@ LINK="/usr/share/tb-profile-i2p/i2p-diffs.html" \
     tb_proxy_name="i2p" \
     tb_bin="$IDENTIFIER" \
     tb_browser_runner="start-i2p-browser" \
-    tb_settings_folder="i2pbrowser.d" torbrowser "$@"
+    tb_settings_folder="i2pbrowser.d" \
+    torbrowser "$@"
