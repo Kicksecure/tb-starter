@@ -426,7 +426,7 @@ maybe_install_tor_browser() {
          ## update-torbrowser is available.
          ## || true, in case update-torbrowser fails for some reason (no
          ## internet connection).
-         update-torbrowser "$tb_using_i2p" --noaskstart || true
+         update-torbrowser $tb_using_i2p --noaskstart || true
       else
          ## update-torbrowser is not available.
          MSG="<p>$tb_title Updater (by Whonix developers) is not installed.
