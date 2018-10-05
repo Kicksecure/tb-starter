@@ -9,15 +9,13 @@ export IDENTIFIER="i2pbrowser"
 
 ICON="/usr/share/icons/anon-icon-pack/tbupdate.ico"
 
-if [ ! -d "$HOME/.i2pb/" ]; then
-    echo "Error, i2p browser does not appear to be installed(run update-i2pbrowser)"
+if [ ! -d "$HOME/.i2pb/i2p-browser" ]; then
+    update-i2pbrowser
     exit 1
 fi
 
-if [ ! -d "$HOME/.i2pb/profile.i2p" ]; then
-    cp -r /usr/share/tb-profile-i2p/profile.i2p \
-        "$HOME/.i2pb/profile.i2p"
-fi
+cp -r --no-clobber /usr/share/tb-profile-i2p/profile.i2p \
+    "$HOME/.i2pb/profile.i2p"
 
 if [ ! -L "$HOME/.i2pb/i2p-browser/Browser/TorBrowser/Data/Browser/profile.i2p" ]; then
     ln -sf "$HOME/.i2pb/profile.i2p" \
