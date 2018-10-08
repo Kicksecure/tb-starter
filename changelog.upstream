@@ -1,3 +1,135 @@
+commit 5f13417c1321b976f59d2f0570ff28bc6e778e91
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Oct 8 11:18:47 2018 +0000
+
+    fix exit code
+
+commit 258c3fd902f884607c473313da6db7f934d726d3
+Author: idk <problemsolver@openmailbox.org>
+Date:   Fri Oct 5 15:04:09 2018 -0400
+
+    simplify launcher script and automatically invoke update-i2pbrowser upon non-presence of ~/.i2pb/i2p-browser/
+
+commit fd5ca9eb00b100e4e4f86fbe488bc3f010c7cf89
+Author: idk <problemsolver@openmailbox.org>
+Date:   Thu Oct 4 17:05:42 2018 -0400
+
+    comment out the config defaults
+
+commit 35fda166385adc0093f91a9a42af0d1c23474858
+Author: idk <problemsolver@openmailbox.org>
+Date:   Thu Oct 4 14:33:14 2018 -0400
+
+    fix formatting in tb_qubes_wiki:215
+
+commit 83d366608741cce5df7e52bb437715ea84846f9b
+Author: idk <problemsolver@openmailbox.org>
+Date:   Thu Oct 4 14:32:39 2018 -0400
+
+    fix formatting in tb_qubes_wiki:215
+
+commit bcf6dff96a3fd2e9fe83bc509cdc7f59f00d57a4
+Author: idk <problemsolver@openmailbox.org>
+Date:   Thu Oct 4 13:16:14 2018 -0400
+
+    fix  flag usage
+
+commit e3b3ce6496482e52e3bbd282a78805a0b445aeef
+Author: idk <problemsolver@openmailbox.org>
+Date:   Thu Oct 4 13:07:00 2018 -0400
+
+    fix  flag usage
+
+commit 491566862b02b08035162a58f2f273958db596e6
+Author: idk <problemsolver@openmailbox.org>
+Date:   Wed Oct 3 17:07:03 2018 -0400
+
+    remove --i2p option from /usr/bin/torbrowser and restore function order. Set i2p-related variables with environment variables in /usr/bin/i2pbrowser
+
+commit cf926f93d5851e19a945ddab290452b7fe9e09dd
+Author: idk <problemsolver@openmailbox.org>
+Date:   Wed Oct 3 16:04:20 2018 -0400
+
+    added 3-Clause BSD to debian/copyright to cover parts adapted from TBB components
+
+commit 686735f4cc7bf823208b3c5906861f5559561491
+Author: idk <problemsolver@openmailbox.org>
+Date:   Tue Oct 2 22:29:26 2018 -0400
+
+    fix phrasing of license line
+
+commit d08d47c81e3c0da17c74319700f848b4af2d18b0
+Author: idk <problemsolver@openmailbox.org>
+Date:   Tue Oct 2 22:03:44 2018 -0400
+
+    remove old version of the overrides stuff.
+
+commit dc23e72dd75420fdf0fe9c704ecceab5163baa87
+Author: idk <problemsolver@openmailbox.org>
+Date:   Tue Oct 2 21:37:02 2018 -0400
+
+    include full set of Tor licenses in LICENSE.tor
+
+commit 7269d7f4c80736bd58c9c47a300d70fcd42fe171
+Author: idk <problemsolver@openmailbox.org>
+Date:   Tue Oct 2 20:47:32 2018 -0400
+
+    remove irrelevant options from user.js
+
+commit 773f4dcdbf80eb868ded091da118615f877b13f7
+Author: idk <problemsolver@openmailbox.org>
+Date:   Tue Oct 2 20:43:22 2018 -0400
+
+    fix double-symlinking thing
+
+commit 18314a30d8e7f510a38652e105e1d77c2295a0e4
+Author: idk <problemsolver@openmailbox.org>
+Date:   Tue Oct 2 20:29:06 2018 -0400
+
+    removed irrelevant bridge settings
+
+commit 4b873ee76058c670e3bb019655753e0427d9ac38
+Author: idk <problemsolver@openmailbox.org>
+Date:   Tue Oct 2 19:15:06 2018 -0400
+
+    address the easy ones
+
+commit 5fdfef0a52c7468dfb7d24c3ae7605d746489e14
+Author: idk <problemsolver@openmailbox.org>
+Date:   Tue Oct 2 16:16:37 2018 -0400
+
+    switch default bookmark to i2p-projekt.i2p
+
+commit 55d3c395afc5959a1392f067f22378d87873df9b
+Author: idk <problemsolver@openmailbox.org>
+Date:   Tue Oct 2 13:29:04 2018 -0400
+
+    added manpage
+
+commit dad8cf6995975cb749fdd7234dcb6accd097c992
+Author: idk <problemsolver@openmailbox.org>
+Date:   Tue Oct 2 13:24:16 2018 -0400
+
+    added in --i2p options/support for /usr/bin/torbrowser and created /usr/bin/i2pbrowser
+
+commit 99fc6353b557b63e8cf19c73fd1738fae34d50bd
+Author: idk <problemsolver@openmailbox.org>
+Date:   Tue Oct 2 13:18:41 2018 -0400
+
+    added in /usr/bin/torbrowser althernate defaults
+
+commit b644004bfb52af6f6475c12942a04e5ebb54db3a
+Author: idk <problemsolver@openmailbox.org>
+Date:   Tue Oct 2 13:17:04 2018 -0400
+
+    added in alternate profile and alternate profile launcher
+
+commit 06147bf4d08b6c28208114ecb2ed961d4a84caf7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Aug 27 16:52:12 2018 +0000
+
+    bumped changelog version
+
 commit b879ecbda57545f2c2c5a3a1843ce803b67bf930
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Aug 21 05:18:39 2018 +0800
