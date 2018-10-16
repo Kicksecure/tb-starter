@@ -17,6 +17,11 @@ fi
 cp -r --no-clobber /usr/share/tb-profile-i2p/profile.i2p \
     "$HOME/.i2pb/profile.i2p"
 
+rm -rf "$HOME/.i2pb/profile.i2p/extensions"
+
+cp -r --no-clobber "$HOME/.i2pb/i2p-browser/Browser/TorBrowser/Data/Browser/profile.default/extensions" \
+    "$HOME/.i2pb/profile.i2p/extensions"
+
 if [ ! -L "$HOME/.i2pb/i2p-browser/Browser/TorBrowser/Data/Browser/profile.i2p" ]; then
     ln -sf "$HOME/.i2pb/profile.i2p" \
         "$HOME/.i2pb/i2p-browser/Browser/TorBrowser/Data/Browser/profile.i2p"
