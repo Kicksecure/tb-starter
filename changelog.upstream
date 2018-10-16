@@ -1,3 +1,37 @@
+commit 0e3c13790c6599b07d87f548dee81923947b6ded
+Merge: 0def89e 7fc8cee
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Oct 16 12:52:16 2018 +0000
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 7fc8cee30c2651d9b0557a7246d207de54456966
+Merge: 0def89e a49089a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Oct 16 12:51:11 2018 +0000
+
+    Merge pull request #4 from eyedeekay/master
+    
+    fix missing extensions issue
+
+commit a49089aa26f6719518dfda5aac324c03601129cb
+Author: idk <problemsolver@openmailbox.org>
+Date:   Tue Oct 16 00:13:01 2018 -0400
+
+    added legwork.i2p search
+
+commit e0f59028b7da8d18f2c245624dc09557a78f3dea
+Author: idk <problemsolver@openmailbox.org>
+Date:   Mon Oct 15 20:20:28 2018 -0400
+
+    fix missing extensions issue
+
+commit 0def89ee7c20609aa94e24c888f84a4ef2525b5e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Oct 8 11:43:08 2018 +0000
+
+    bumped changelog version
+
 commit 5f13417c1321b976f59d2f0570ff28bc6e778e91
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Oct 8 11:18:47 2018 +0000
