@@ -60,11 +60,11 @@ trap "tb_error_handler" ERR
 tb_set_links() {
    DOC_LINK="https://www.whonix.org/wiki/Documentation"
    CONTRIBUTE_LINK="https://www.whonix.org/wiki/Contribute"
-   DONATE_LINK="https://www.whonix.org/wiki/Donate"
+   DONATE_LINK="https://www.whonix.org/wiki/Payments"
    FORUM_LINK="https://forums.whonix.org"
    MAILINGLIST_LINK="https://www.whonix.org/pipermail/whonix-devel/"
-   IMPORTANTBLOG_LINK="https://www.whonix.org/blog/category/important"
-   FEATUREBLOG_LINK="https://www.whonix.org/blog/"
+   IMPORTANTBLOG_LINK="https://forums.whonix.org/tags/important-news"
+   FEATUREBLOG_LINK="https://forums.whonix.org/c/news"
 
    if [ ! "$TB_CUSTOM_HOMEPAGE" = "" ]; then
       ## Prefer the custom homepage a user might have defined over
