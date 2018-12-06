@@ -1,3 +1,38 @@
+commit 03ba95ea94b7984c0ab33e88fdbdbfc5fc0d25cc
+Merge: 2cb6bdf 681ac43
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Dec 6 03:02:26 2018 -0500
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 681ac43ee6fc4ba72f71be50e13f6d9a78544709
+Merge: 2cb6bdf 5ad2835
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Dec 6 03:01:23 2018 -0500
+
+    Merge pull request #5 from eyedeekay/master
+    
+    Don't cd to ~/.i2pb/i2p-browser/Browser
+
+commit 5ad28352b54a4a87376b0c02ffe54cb3a9f4fff4
+Merge: 2993520 2cb6bdf
+Author: idk <problemsolver@openmailbox.org>
+Date:   Wed Dec 5 00:25:02 2018 -0500
+
+    Merge branch 'master' of https://github.com/whonix/tb-starter
+
+commit 2993520a76ad0b58e5bd2b91c25c064a765169a1
+Author: idk <problemsolver@openmailbox.org>
+Date:   Wed Dec 5 00:17:23 2018 -0500
+
+    no longer force cd to .i2pb/i2p-browser/Browser, instead check for it's existence when deciding to run update-i2pbrowser or now
+
+commit 2cb6bdf514b1d2e5a88543bf9c5bfc4dfd54c30e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Nov 14 13:13:46 2018 +0000
+
+    bumped changelog version
+
 commit 7efa8ada7fa8fb047f995419e7c046ce613ce1dd
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Nov 14 07:55:49 2018 -0500
