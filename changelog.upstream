@@ -1,3 +1,15 @@
+commit 1211a147dad29ef5850ecff906d1e82cb33aed28
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jan 22 07:15:23 2019 +0000
+
+    document --onion
+
+commit 6d02b671b448dcfe951159f9934bbef5a2ed2ede
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Dec 6 08:07:33 2018 +0000
+
+    bumped changelog version
+
 commit 03ba95ea94b7984c0ab33e88fdbdbfc5fc0d25cc
 Merge: 2cb6bdf 681ac43
 Author: Patrick Schleizer <adrelanos@riseup.net>
