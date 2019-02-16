@@ -1,3 +1,17 @@
+commit 7827ef3ffc61d1c85724d5bbc4ed5b7003b3c882
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Feb 16 09:38:26 2019 +0000
+
+    wait for tb-updater-first-boot.service
+    
+    https://phabricator.whonix.org/T894
+
+commit 6a8e276ef1d896ba4bafacea0a2eb1d3dfdb19b8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jan 22 07:26:58 2019 +0000
+
+    bumped changelog version
+
 commit 1211a147dad29ef5850ecff906d1e82cb33aed28
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Jan 22 07:15:23 2019 +0000
