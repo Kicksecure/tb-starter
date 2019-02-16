@@ -403,6 +403,38 @@ To fix this, you could try: <blockquote>Start Menu -> Applications -> System -> 
    fi
 }
 
+check_tb_updater_first_boot_done() {
+   local systemctl_output
+   local wait_counter
+   wait_counter="0"
+   while true ; do
+      if systemctl_output="$(systemctl --no-pager --no-block status tb-updater-first-boot.service 2>&1)" ; then
+         break
+      fi
+      wait_counter="$(( wait_counter + 1 ))"
+      sleep 1 &
+      wait "$!"
+      if [ "$wait_counter" -ge 20 ]; then
+         systemctl_output="$(/usr/lib/msgcollector/br_add "$systemctl_output")"
+         local MSG="<p>Failed to start $tb_title!<br></br>
+<br></br>
+Failed to run:<br></br>
+<br></br><code>systemctl --no-pager --no-block status tb-updater-first-boot.service</code>.
+<br></br>
+<br></br>systemctl output:
+<br></br>
+<br></br><code>$systemctl_output</code>
+<br></br>
+<br></br>To see this for yourself, you could try: <blockquote>Start Menu -> Applications -> System -> Terminal
+<br></br>Then run:
+<br></br><code>systemctl --no-pager --no-block status tb-updater-first-boot.service</code></blockquote></p>"
+         $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
+         $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+         exit 4
+      fi
+   done
+}
+
 maybe_install_tor_browser() {
    if [ -d "$tb_browser_folder" ]; then
       return 0
@@ -455,6 +487,7 @@ main_function() {
    parse_cmd_options "$@"
    tb_templatevm_check "$@"
    tb_qubes_dvm_template "$@"
+   check_tb_updater_first_boot_done "$@"
    maybe_install_tor_browser "$@"
    tb_folder_change_directory "$@"
    tb_detect_starter_bin "$@"
