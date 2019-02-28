@@ -274,6 +274,10 @@ parse_cmd_options() {
                LINK="$FEATUREBLOG_LINK"
                shift
                ;;
+           --clearnet)
+               tb_clearnet="true"
+               shift
+               ;;
            --)
                shift
                break
@@ -325,6 +329,40 @@ tb_detect_starter_bin() {
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
       exit 2
    fi
+}
+
+tb_clearnet() {
+   if test -f "$tb_browser_folder/clearnet-marker" ; then
+      if [ ! "$tb_clearnet" = "true" ]; then
+         local MSG="Clearnet marker file exists and trying to start without --clearnet. Aborted. A Tor Browser that was previously started with --clearnet should not be started without --clearnet."
+         $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
+         $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+         exit 2
+         return 0
+      fi
+   fi
+
+   if [ ! "$tb_clearnet" = "true" ]; then
+      return 0
+   fi
+
+   if diff /usr/share/tb-updater/tb_without_tor_settings.js "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js" >/dev/null 2>&1 ; then
+      true "our version exists"
+   elif test -f "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js" ; then
+      true "some version exists"
+   else
+      cp /usr/share/tb-updater/tb_without_tor_settings.js "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js"
+   fi
+
+   if ! test -f clearnet-marker ; then
+      touch "$tb_browser_folder/clearnet-marker"
+   fi
+
+   TOR_SKIP_CONTROLPORTTEST=1
+   TOR_SKIP_LAUNCH=1
+   TOR_TRANSPROXY=1
+
+   export TOR_SKIP_CONTROLPORTTEST TOR_SKIP_LAUNCH TOR_TRANSPROXY
 }
 
 tb_start_tor_browser() {
@@ -491,6 +529,7 @@ main_function() {
    maybe_install_tor_browser "$@"
    tb_folder_change_directory "$@"
    tb_detect_starter_bin "$@"
+   tb_clearnet "$@"
    maybe_use_open_link_confirmation "$@"
 }
 
