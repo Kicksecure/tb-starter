@@ -354,7 +354,7 @@ tb_clearnet() {
       cp /usr/share/tb-updater/tb_without_tor_settings.js "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js"
    fi
 
-   if ! test -f clearnet-marker ; then
+   if ! test -f "$tb_browser_folder/clearnet-marker" ; then
       touch "$tb_browser_folder/clearnet-marker"
    fi
 
