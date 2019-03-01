@@ -1,3 +1,23 @@
+commit a18ab68adb883def8c143ec18fd222696aeec6cf
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 28 19:26:42 2019 +0000
+
+    comment
+
+commit c311b5ea45c5f339840db7ef7bb8079054fe5a8d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 28 19:23:36 2019 +0000
+
+    implement --clearnet
+    
+    https://forums.whonix.org/t/todo-research-and-document-how-to-use-tor-browser-for-security-not-anonymity-how-to-use-tbb-using-clearnet/3822/53
+
+commit 271ccc81a985bafd28122440aa8bb62a30fa536a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Feb 16 09:41:28 2019 +0000
+
+    bumped changelog version
+
 commit 7827ef3ffc61d1c85724d5bbc4ed5b7003b3c882
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Feb 16 09:38:26 2019 +0000
