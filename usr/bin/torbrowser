@@ -377,7 +377,7 @@ Failed to run:<br></br>
 <br></br>
 <br></br>Exited with code: <code>$tb_exit_code</code>
 <br></br>
-<br></br>To see this for yourself, you could try: <blockquote>Start Menu -> Applications -> System -> Terminal
+<br></br>To see this for yourself, you could try: <blockquote>Start Menu -> System -> Xfce Terminal
 <br></br>Then run:
 <br></br><code>$SCRIPTNAME</code></blockquote></p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
@@ -433,7 +433,7 @@ tb_folder_change_directory() {
    if [ ! "$change_directory_exit_code" = "0" ]; then
       local MSG="<p>$tb_title permission issues?<br></br>
 Failed to <code>cd \"$tb_browser_folder\"</code>.<br></br>
-To fix this, you could try: <blockquote>Start Menu -> Applications -> System -> Terminal<br></br>
+To fix this, you could try: <blockquote>Start Menu -> System -> Xfce Terminal<br></br>
 <code>sudo chown --recursive \"$who_ami\":\"$who_ami\" \"$tb_browser_folder\"</code></blockquote></p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
@@ -463,7 +463,7 @@ Failed to run:<br></br>
 <br></br>
 <br></br><code>$systemctl_output</code>
 <br></br>
-<br></br>To see this for yourself, you could try: <blockquote>Start Menu -> Applications -> System -> Terminal
+<br></br>To see this for yourself, you could try: <blockquote>Start Menu -> System -> Xfce Terminal
 <br></br>Then run:
 <br></br><code>systemctl --no-pager --no-block status tb-updater-first-boot.service</code></blockquote></p>"
          $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
