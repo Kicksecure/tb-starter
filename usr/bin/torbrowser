@@ -60,7 +60,7 @@ trap "tb_error_handler" ERR
 tb_set_links() {
    DOC_LINK="https://www.whonix.org/wiki/Documentation"
    CONTRIBUTE_LINK="https://www.whonix.org/wiki/Contribute"
-   DONATE_LINK="https://www.whonix.org/wiki/Payments"
+   DONATE_LINK="https://www.whonix.org/wiki/Donate"
    FORUM_LINK="https://forums.whonix.org"
    MAILINGLIST_LINK="https://www.whonix.org/pipermail/whonix-devel/"
    IMPORTANTBLOG_LINK="https://forums.whonix.org/tags/important-news"
