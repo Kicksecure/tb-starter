@@ -190,11 +190,16 @@ tb_preparation() {
 
 tb_config_folder_parser() {
    [ -n "$tb_settings_folder" ] || tb_settings_folder="torbrowser.d"
+
    shopt -s nullglob
    local i
-   for i in /etc/$tb_settings_folder/*.conf /rw/config/$tb_settings_folder/*.conf; do
-      bash -n "$i"
-      source "$i"
+   for i in \
+      /etc/${tb_settings_folder}/*.conf \
+      /rw/config/${tb_settings_folder}/*.conf \
+      /usr/local/etc/${tb_settings_folder}/*.conf \
+      ; do
+         bash -n "$i"
+         source "$i"
    done
 }
 
