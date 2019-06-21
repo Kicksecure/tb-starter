@@ -1,3 +1,23 @@
+commit 9bd9392d8e1bb76f9b8eb57a3258aeb3713324e0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 21 06:56:05 2019 +0000
+
+    implement SecBrowser start menu entry
+
+commit b24e41d7d69e2ee97ac259f5d4e13e7091ce4b5f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 21 06:41:24 2019 +0000
+
+    duplicate to usr/share/applications/secbrowser.desktop
+    
+    for later modification
+
+commit 2a958ef764b4b0b7ffebd1ef6d3589e18de66f1b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 21 05:40:36 2019 +0000
+
+    bumped changelog version
+
 commit 2d486ff7a7f11063c9dff094996edafde52d34fe
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jun 21 05:38:03 2019 +0000
