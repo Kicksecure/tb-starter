@@ -1,3 +1,34 @@
+commit 2d486ff7a7f11063c9dff094996edafde52d34fe
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 21 05:38:03 2019 +0000
+
+    implement secbrowser local welcome page
+
+commit f570f7ad8558e13658dc3bc0745da2a6e2de5fc0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 21 05:19:09 2019 +0000
+
+    duplicate usr/share/tb-profile-i2p/i2p-diffs.html to usr/share/secbrowser/secbrowser.html
+    
+    for later modification
+
+commit 1c9d280cbf45a72039381c2f7aac9e2deccd2977
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 21 05:14:56 2019 +0000
+
+    automatically restore executable permission
+    
+    Might be required in case a user restored a backup which messed up file
+    permissions?
+    
+    http://forums.whonix.org/t/tor-browser-do-not-start/7574/8
+
+commit f7264cc24954795056496827277af3432c4fd921
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 21 03:31:52 2019 +0000
+
+    bumped changelog version
+
 commit 8aad5860febcb960a61b3edbb6c402fc64bd8bbf
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jun 20 21:54:03 2019 -0400
