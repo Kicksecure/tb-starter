@@ -277,10 +277,6 @@ parse_cmd_options() {
                LINK="$FEATUREBLOG_LINK"
                shift
                ;;
-           --clearnet)
-               tb_clearnet="true"
-               shift
-               ;;
            --)
                shift
                break
