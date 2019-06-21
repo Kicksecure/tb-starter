@@ -282,6 +282,10 @@ parse_cmd_options() {
                LINK="$FEATUREBLOG_LINK"
                shift
                ;;
+           --nolink)
+               LINK="NOLINK"
+               shift
+               ;;
            --)
                shift
                break
@@ -294,6 +298,13 @@ parse_cmd_options() {
 
    ## If there are input files (for example) that follow the options, they
    ## will remain in the "$@" positional parameters.
+
+   if [ "$LINK" = "NOLINK" ]; then
+      open_link_confirmation_skip="true"
+      unset LINK
+      unset TOR_DEFAULT_HOMEPAGE
+      return 0
+   fi
 
    local other_args
    other_args="$@"

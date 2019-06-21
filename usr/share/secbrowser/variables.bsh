@@ -11,7 +11,7 @@ export TOR_SKIP_LAUNCH=1
 homepage="/usr/share/$IDENTIFIER/$IDENTIFIER.html"
 export tb_clearnet="true"
 
-export TB_CUSTOM_WRAPPER_HOMEPAGE="file://$homepage"
+export TOR_DEFAULT_HOMEPAGE="file://$homepage"
 export tb_install_folder="$IDENTIFIER"
 export tb_install_folder_dot=".$IDENTIFIER"
 export tb_title="SecBrowser"
