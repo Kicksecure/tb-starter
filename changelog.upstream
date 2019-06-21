@@ -1,3 +1,65 @@
+commit 8aad5860febcb960a61b3edbb6c402fc64bd8bbf
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 20 21:54:03 2019 -0400
+
+    output
+
+commit 086a0c345f574e32e4f9b7697d211f4ba7d0bf21
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 20 21:52:47 2019 -0400
+
+    remove "torbrowser --clearnet" since there is now "secbrowser"
+
+commit d9bc9be48dbc645888f77499d481de1b24ee9404
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 20 21:43:12 2019 -0400
+
+    implement secbrowser
+
+commit 3498b728a4ad812deffeb7d297e77b581ae5f01a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 20 21:30:33 2019 -0400
+
+    add support for TB_CUSTOM_WRAPPER_HOMEPAGE
+    
+    for browsers such as SecBrowser
+
+commit 8a41f68e5dd9f7c5cd84b33be87faa6aef1b999d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 20 21:04:37 2019 -0400
+
+    abolish variable tb_proxy_name
+
+commit 6c13c4d24dc6c7190cf309a968c29ade1eb024f2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 20 20:59:45 2019 -0400
+
+    allow overwriting variable IDENTIFIER and ICON
+
+commit db82c2debfc543c12288428e7dcd0917fc26ae25
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 20 20:55:13 2019 -0400
+
+    fix, export ICON
+
+commit 617d8fd324f54f83a4e12827ebd4de3dd97c63fd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 20 20:54:16 2019 -0400
+
+    abolish tb_name variable (replaced by tb_title)
+
+commit 60e8fe316cb5a41c356382dd6438b435359e2144
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 20 20:34:32 2019 -0400
+
+    refactoring
+
+commit f3100df4e8390913a0c855cbfdc8a6ac5547c59e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jun 8 11:35:04 2019 +0000
+
+    bumped changelog version
+
 commit 58089caa3b5c29d802a3a8dbd8bd730e5da13af7
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Jun 8 00:05:36 2019 -0400
