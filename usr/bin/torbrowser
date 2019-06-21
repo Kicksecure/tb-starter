@@ -400,12 +400,6 @@ tb_clearnet() {
    else
       cp /usr/share/tb-updater/tb_without_tor_settings.js "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js"
    fi
-
-   TOR_SKIP_CONTROLPORTTEST=1
-   TOR_SKIP_LAUNCH=1
-   TOR_TRANSPROXY=1
-
-   export TOR_SKIP_CONTROLPORTTEST TOR_SKIP_LAUNCH TOR_TRANSPROXY
 }
 
 tb_start_tor_browser() {
