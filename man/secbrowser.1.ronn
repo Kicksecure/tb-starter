@@ -1,0 +1,52 @@
+secbrowser(1) -- Security Focused Browser
+=============================================
+
+<span class="comment">
+# This file is part of Whonix.
+# Copyright (C) 2019 - 2019 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
+# See the file COPYING for copying conditions.
+
+# Not using angle brackets in copyright notice for e-mail address, because
+# angle brackets would result in this file being non-deterministic. (There
+# must be a bug in Debian wheezy in ruby-ronn.)
+
+# Not using "##", because for some reason this comment would be visible in the
+# resulting man page.
+</span>
+
+## SYNOPSIS
+`secbrowser` option(s)
+
+## DESCRIPTION
+You can use `secbrowser` to start SecBrowser from the command line.
+
+Parameters are passed to SecBrowser.
+
+## CONFIG FILE
+
+/etc/secbrowser.d/30_default.conf
+
+## EXIT CODES
+0 Success
+
+1 Error
+
+## EXAMPLES
+`secbrowser --new-tab https://www.whonix.org/wiki/SecBrowser`
+
+`secbrowser --new-window https://www.whonix.org/wiki/SecBrowser`
+
+`secbrowser --start --lang="ar"`
+
+## NOTES
+Do not run as root!
+
+## PORTING
+This script is currently only tested in Debian. It could be easily made to work
+on any Linux.
+
+## WWW
+https://www.whonix.org/wiki/SecBrowser
+
+## AUTHOR
+This man page has been written by Patrick Schleizer (adrelanos@riseup.net).
