@@ -134,7 +134,6 @@ tb_preparation() {
    [ -n "$tb_install_folder_dot" ] || tb_install_folder_dot=".tb"
    [ -n "$tb_browser_name" ] || tb_browser_name="tor-browser"
    [ -n "$tb_settings_folder" ] || tb_settings_folder="torbrowser.d"
-   [ -n "$tb_name" ] || tb_name="tor"
    [ -n "$tb_title" ] || tb_title="Tor Browser"
    [ -n "$tb_wiki" ] || tb_wiki="Tor_Browser"
    [ -n "$tb_proxy_name" ] || tb_proxy_name="tor"

@@ -37,7 +37,6 @@ TOR_HIDE_UPDATE_CHECK_UI=1 \
     tb_using_i2p="--i2p" \
     tb_install_folder="i2pb" \
     tb_install_folder_dot=".i2pb" \
-    tb_name="i2p" \
     tb_title="i2p Browser" \
     tb_wiki="i2p_Browser" \
     tb_browser_name="i2p-browser" \
