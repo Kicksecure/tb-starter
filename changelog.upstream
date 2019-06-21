@@ -1,3 +1,39 @@
+commit 2bcdab44da36a566db2f75ba136bb5a287d2a15a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 21 08:52:27 2019 +0000
+
+    comments
+
+commit 79b8b14582926c0201f1cf8f4f3c52ebe397fec4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 21 08:28:03 2019 +0000
+
+    fix secbrowser settings folder parsing
+
+commit 1c4c06cce93f4eb919b14a17a0109de2ada6013b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 21 08:21:02 2019 +0000
+
+    implement /usr/local/etc/${tb_settings_folder}/*.conf
+
+commit d4016c2cb8100fc5f70a411fe0861fe835912bc0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 21 08:17:34 2019 +0000
+
+    cleanup
+
+commit 870400d8d00e400c0f6238313ff42f9c9690722b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 21 08:06:33 2019 +0000
+
+    comments
+
+commit a0d60389deb0bc467f7ed0edc484c7935d2f879c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 21 07:24:05 2019 +0000
+
+    bumped changelog version
+
 commit 9bd9392d8e1bb76f9b8eb57a3258aeb3713324e0
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jun 21 06:56:05 2019 +0000
