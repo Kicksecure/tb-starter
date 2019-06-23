@@ -1,3 +1,23 @@
+commit cec282c9b5f0634b6f6b7888ab6da09733203aad
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 21 11:12:10 2019 +0000
+
+    remove code duplication
+
+commit 320765815e9017b125bdcd00127e4b6b4e9abefc
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 21 11:09:28 2019 +0000
+
+    implement LINK=NOLINK / --nolink ;
+    
+    use variable TOR_DEFAULT_HOMEPAGE instead
+
+commit 60c2aea2fb794bcdb78725d3d5b6af2821ca7f5e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 21 09:12:13 2019 +0000
+
+    bumped changelog version
+
 commit 2bcdab44da36a566db2f75ba136bb5a287d2a15a
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jun 21 08:52:27 2019 +0000
