@@ -1,3 +1,21 @@
+commit ffed26c148717106ba942a4b19d9df6459072b04
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 27 07:46:14 2019 +0000
+
+    fix opening links from TemplateVM
+    
+    fix, do not wait for tb-updater-first-boot.service in TemplateVM
+    
+    since it does not run there anyway
+    
+    https://github.com/QubesOS/qubes-issues/issues/5115#issuecomment-505986216
+
+commit 404452c7a19ca37214ef2fb277fa8ae36fc8651a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 27 07:27:35 2019 +0000
+
+    bumped changelog version
+
 commit 11ed26d14ed308891db5fc366a1002da41bdd3c1
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jun 27 03:13:12 2019 -0400
