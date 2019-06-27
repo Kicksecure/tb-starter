@@ -475,6 +475,10 @@ Failed to run:<br></br>
          exit 4
       fi
    done
+
+   if [ -x /usr/lib/tb-updater/first-boot-home-population ]; then
+      /usr/lib/tb-updater/first-boot-home-population
+   fi
 }
 
 maybe_install_tor_browser() {
