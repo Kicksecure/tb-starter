@@ -1,3 +1,21 @@
+commit bd9f6f8c991ad0c170e63ce1412006239aee0760
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 27 13:16:22 2019 +0000
+
+    Revert "simplify tb-starter function tb_detect_starter_bin"
+    
+    This reverts commit 11ed26d14ed308891db5fc366a1002da41bdd3c1.
+    
+    https://github.com/QubesOS/qubes-issues/issues/4918
+    
+    https://phabricator.whonix.org/T818
+
+commit 6eb2894fd5c2fb6c87e8d2bf4be3d3398e7400f9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 27 12:39:20 2019 +0000
+
+    bumped changelog version
+
 commit b35cb42973ac6e58a72486f233f38f9266f3ff22
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jun 27 12:36:16 2019 +0000
