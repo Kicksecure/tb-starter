@@ -323,55 +323,27 @@ parse_cmd_options() {
 
 tb_detect_starter_bin() {
    if [ ! "$tb_starter_bin" = "" ]; then
-      if [ -f "$tb_starter_bin" ]; then
-         if [ ! -x "$tb_starter_bin" ]; then
-            chmod +x "$tb_starter_bin"
-         fi
-      fi
-      if [ ! -x "$tb_starter_bin" ]; then
-         local MSG="tb_starter_bin <code>$tb_starter_bin</code> is not executable."
-         $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-         $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
-         exit 2
-      fi
+      return 0
    fi
 
-   local file_name
-
-   ## Preferring $tb_browser_folder/Browser/$tb_browser_runner to work around
-   ## The Tor Project upstream issue:
-   ## 'start-tor-browser.desktop parameter passing broken on spaces'
-   ## https://trac.torproject.org/projects/tor/ticket/18022
-
-   for file_name in \
-      "$tb_browser_folder/Browser/$tb_browser_runner" \
-      "$tb_browser_folder/$tb_browser_runner" \
-      "$tb_browser_folder/$tb_browser_runner.desktop" \
-      ; do
-         if [ -f "$file_name" ]; then
-            if [ ! -x "$file_name" ]; then
-               chmod +x "$file_name"
-            fi
-         fi
-   done
-
-   for file_name in \
-      "$tb_browser_folder/Browser/$tb_browser_runner" \
-      "$tb_browser_folder/$tb_browser_runner" \
-      "$tb_browser_folder/$tb_browser_runner.desktop" \
-      ; do
-         if [ -x "$file_name" ]; then
-            tb_starter_bin="$file_name"
-            return 0
-         fi
-   done
-
-   local MSG="Neither <code>$tb_browser_folder/Browser/$tb_browser_runner</code> nor\
+   if [ -x "$tb_browser_folder/Browser/$tb_browser_runner" ]; then
+      ## Preferring $tb_browser_folder/Browser/$tb_browser_runner to work around
+      ## The Tor Project upstream issue:
+      ## 'start-tor-browser.desktop parameter passing broken on spaces'
+      ## https://trac.torproject.org/projects/tor/ticket/18022
+      tb_starter_bin="$tb_browser_folder/Browser/$tb_browser_runner"
+   elif [ -x "$tb_browser_folder/$tb_browser_runner" ]; then
+      tb_starter_bin="$tb_browser_folder/$tb_browser_runner"
+   elif [ -x "$tb_browser_folder/$tb_browser_runner.desktop" ]; then
+      tb_starter_bin="$tb_browser_folder/$tb_browser_runner.desktop"
+   else
+      local MSG="Neither <code>$tb_browser_folder/Browser/$tb_browser_runner</code> nor\
 <code>$tb_browser_folder/$tb_browser_runner</code> nor \
 <code>$tb_browser_folder/$tb_browser_runner.desktop</code> is executable."
-   $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-   $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
-   exit 2
+      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
+      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+      exit 2
+   fi
 }
 
 tb_clearnet() {
