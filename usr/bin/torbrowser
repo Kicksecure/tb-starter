@@ -117,11 +117,20 @@ tb_preparation() {
       ## qubesdb-read fails inside chroot, therefore overwriting with '|| true'.
       [ -n "$qubes_vm_name" ] || qubes_vm_name="$(qubesdb-read /name)" || true
       [ -n "$qubes_vm_type" ] || qubes_vm_type="$(qubesdb-read /qubes-vm-type)" || true
+      [ -n "$qubes_vm_persistence" ] || qubes_vm_persistence="$(qubesdb-read /qubes-vm-persistence)" || true
    else
       [ -n "$is_qubes" ] || is_qubes=false
    fi
 
    if [ "$qubes_vm_type" = "TemplateVM" ]; then
+      if [ "$tb_user_home" = "" ]; then
+         tb_user_home="/var/cache/tb-binary"
+      fi
+   fi
+
+   ## In DispVM run from /var/cache/tb-binary directly.
+   ## https://github.com/QubesOS/qubes-issues/issues/4918#issuecomment-506361988
+   if [ "$qubes_vm_persistence" = "none" ]; then
       if [ "$tb_user_home" = "" ]; then
          tb_user_home="/var/cache/tb-binary"
       fi
@@ -486,9 +495,11 @@ Failed to run:<br></br>
       fi
    done
 
-   if [ -x /usr/lib/tb-updater/first-boot-home-population ]; then
-      /usr/lib/tb-updater/first-boot-home-population
-   fi
+   ## Das working. Deprecated in preference of "In DispVM run from /var/cache/tb-binary directly.".
+   ## https://github.com/QubesOS/qubes-issues/issues/4918#issuecomment-506346611
+#    if [ -x /usr/lib/tb-updater/first-boot-home-population ]; then
+#       /usr/lib/tb-updater/first-boot-home-population
+#    fi
 }
 
 maybe_install_tor_browser() {
