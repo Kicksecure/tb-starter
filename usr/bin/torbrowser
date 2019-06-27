@@ -441,6 +441,11 @@ To fix this, you could try: <blockquote>Start Menu -> System -> Xfce Terminal<br
 }
 
 check_tb_updater_first_boot_done() {
+   if [ "$qubes_vm_type" = "TemplateVM" ]; then
+      true "$FUNCNAME: Not running in TemplateVM."
+      return 0
+   fi
+
    local systemctl_output
    local wait_counter
    wait_counter="0"
