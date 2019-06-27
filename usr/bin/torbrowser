@@ -326,10 +326,20 @@ tb_detect_starter_bin() {
       return 0
    fi
 
-   if [ -x "$tb_browser_folder/$tb_browser_runner.desktop" ]; then
+   if [ -x "$tb_browser_folder/Browser/$tb_browser_runner" ]; then
+      ## Preferring $tb_browser_folder/Browser/$tb_browser_runner to work around
+      ## The Tor Project upstream issue:
+      ## 'start-tor-browser.desktop parameter passing broken on spaces'
+      ## https://trac.torproject.org/projects/tor/ticket/18022
+      tb_starter_bin="$tb_browser_folder/Browser/$tb_browser_runner"
+   elif [ -x "$tb_browser_folder/$tb_browser_runner" ]; then
+      tb_starter_bin="$tb_browser_folder/$tb_browser_runner"
+   elif [ -x "$tb_browser_folder/$tb_browser_runner.desktop" ]; then
       tb_starter_bin="$tb_browser_folder/$tb_browser_runner.desktop"
    else
-      local MSG="<code>$tb_browser_folder/$tb_browser_runner.desktop</code> is NOT executable."
+      local MSG="Neither <code>$tb_browser_folder/Browser/$tb_browser_runner</code> nor\
+<code>$tb_browser_folder/$tb_browser_runner</code> nor \
+<code>$tb_browser_folder/$tb_browser_runner.desktop</code> is executable."
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
       exit 2
