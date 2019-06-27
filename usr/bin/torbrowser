@@ -240,7 +240,7 @@ tb_qubes_dvm_template() {
    local MSG="\
 <p>Do not run Tor Browser in Qubes DVM Template!<br></br>
 <br></br>
-More info: <a href=https://www.whonix.org/wiki/Tor_Browser#Running_Tor_Browser_in_Qubes_DVM_Template>https://www.whonix.org/wiki/Tor_Browser#Running_Tor_Browser_in_Qubes_DVM_Template</a></p>"
+More info: <a href=https://www.whonix.org/wiki/Tor_Browser/Advanced_Users#Running_Tor_Browser_in_Qubes_TemplateVM_or_DVM_Template>https://www.whonix.org/wiki/Tor_Browser/Advanced_Users#Running_Tor_Browser_in_Qubes_TemplateVM_or_DVM_Template</a></p>"
 
    $output ${output_opts[@]} --messagex --titlex "$TITLE" --typex "error" --message "$MSG" --done
    $output ${output_opts[@]} --messagecli --titlecli "$TITLE" --typecli "error" --message "$MSG" --done
