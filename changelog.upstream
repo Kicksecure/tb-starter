@@ -1,3 +1,30 @@
+commit 11ed26d14ed308891db5fc366a1002da41bdd3c1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 27 03:13:12 2019 -0400
+
+    simplify tb-starter function tb_detect_starter_bin
+    
+    https://phabricator.whonix.org/T818
+
+commit f3f33accc5a5fcde1f839f79ec80200602c58daa
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 27 03:06:21 2019 -0400
+
+    Revert "automatically restore executable permission"
+    
+    since it does not work. A much bigger list of executable permissions would have
+    to be restored.
+    
+    https://www.whonix.org/wiki/Tor_Browser/Advanced_Users#Permission_Fix
+    
+    This reverts commit 1c9d280cbf45a72039381c2f7aac9e2deccd2977.
+
+commit ecca46d41eb5635a058e29d9fcd00bb0fccbf760
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jun 23 08:38:33 2019 +0000
+
+    bumped changelog version
+
 commit cec282c9b5f0634b6f6b7888ab6da09733203aad
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jun 21 11:12:10 2019 +0000
