@@ -1,3 +1,25 @@
+commit 9057d8cc1bdbf803d6feb828a1d560a6b81fafbe
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 27 15:03:18 2019 +0000
+
+    In DispVM run from /var/cache/tb-binary directly.
+    
+    Thanks to @marmarek for the suggestion!
+    
+    https://github.com/QubesOS/qubes-issues/issues/4918#issuecomment-506361988
+
+commit 81918b1ab109e26f91507ff322129c2bf7cb6944
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 27 13:45:13 2019 +0000
+
+    update link
+
+commit c21b744b9fb491cb7d6878aa063ce18a8434ab28
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 27 13:17:15 2019 +0000
+
+    bumped changelog version
+
 commit bd9f6f8c991ad0c170e63ce1412006239aee0760
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jun 27 13:16:22 2019 +0000
