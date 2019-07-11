@@ -75,6 +75,9 @@ tb_set_links() {
       ## everything else.
       DEFAULT_LINK="$TB_CUSTOM_WRAPPER_HOMEPAGE"
       open_link_confirmation_maybe_skip=true
+   elif [ ! "$TOR_DEFAULT_HOMEPAGE" = "" ]; then
+      DEFAULT_LINK="$TOR_DEFAULT_HOMEPAGE"
+      open_link_confirmation_maybe_skip=true
    elif [ -f "/usr/share/anon-ws-base-files/workstation" ]; then
       ## Running inside a Whonix-Workstation.
       local whonix_homepage
