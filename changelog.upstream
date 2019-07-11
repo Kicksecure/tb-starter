@@ -1,3 +1,37 @@
+commit 837e6d25719b871cfa0479ccd2314038705a2377
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 11 07:30:37 2019 +0000
+
+    typo
+
+commit 04aa11a755411f5c79cabe6c0e9800f51ff46145
+Merge: 23ece3d 29ea95a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 11 07:26:14 2019 +0000
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 29ea95a0c80a2f673aa32bdec6c11ea82f388dfc
+Merge: 23ece3d fafe33e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 11 07:25:02 2019 +0000
+
+    Merge pull request #6 from 0brand/master
+    
+    Update SecBrowser landing page
+
+commit fafe33e25c7d2f95e3200103dd77953a30836be4
+Author: 0brand <0brand@mailbox.org>
+Date:   Tue Jul 9 16:33:53 2019 +0000
+
+    Update SecBrowser landing page
+
+commit 23ece3d0c2850da43708d09a17db85f2b867ebc7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jun 30 08:24:23 2019 +0000
+
+    bumped changelog version
+
 commit ef1771078930ac1a0d1670ca41aa8efe8269eeac
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Jun 29 16:39:12 2019 -0400
