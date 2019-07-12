@@ -32,6 +32,10 @@ tb_error_handler() {
 ## BASH_COMMAND: $BASH_COMMAND
 ## exit_code: $exit_code
 ##
+## tb_browser_folder: $tb_browser_folder
+##
+## tb_user_js_target_file: $tb_user_js_target_file
+##
 ## output: $output
 ## output_opts: ${output_opts[@]}
 ## progressbaridx: $progressbaridx
@@ -44,6 +48,8 @@ tb_error_handler() {
    ## XXX
    #mkdir --parents "$tb_cache_folder"
    #echo "$MSG" >> "$tb_cache_folder/torbrowser_updater_error.log"
+
+   MSG="$(/usr/lib/msgcollector/br_add "$MSG")"
 
    if [ "$progressbaridx" = "" ]; then
       true
@@ -113,6 +119,8 @@ tb_preparation() {
 
    [ -n "$tb_home_folder" ] || tb_home_folder="$tb_user_home/$tb_install_folder_dot"
    [ -n "$tb_browser_folder" ] || tb_browser_folder="$tb_home_folder/$tb_browser_name"
+
+   [ -n "$tb_user_js_target_file" ] || tb_user_js_target_file="$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js"
 
    if [ "$display" = "" ]; then
       if [ "$DISPLAY" = "" ]; then
@@ -485,12 +493,77 @@ tb_clearnet() {
       touch "$tb_browser_folder/clearnet-marker"
    fi
 
-   if diff /usr/share/secbrowser/user.js "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js" >/dev/null 2>&1 ; then
+   if diff /usr/share/secbrowser/user.js "$tb_user_js_target_file" >/dev/null 2>&1 ; then
       true "our version exists"
-   elif test -f "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js" ; then
+   elif test -f "$tb_user_js_target_file" ; then
       true "some version exists"
    else
-      cp /usr/share/secbrowser/user.js "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js"
+      cp /usr/share/secbrowser/user.js "$tb_user_js_target_file"
+   fi
+}
+
+tb_security_slider() {
+   if [ "$tb_clearnet" = "true" ]; then
+      ## secbrowser has its own user.js file which sets the
+      ## security slider setting which gets copied in function
+      ## tb_clearnet earlier.
+      return 0
+   fi
+
+   if [ "$tb_security_slider_safest" = "false" ]; then
+      true "tb_security_slider_safest is set to false, skipping, ok."
+      return 0
+   fi
+
+   if diff /usr/share/torbrowser/security-slider-highest.js "$tb_user_js_target_file" >/dev/null 2>&1 ; then
+      true "our version exists"
+   elif test -f "$tb_user_js_target_file" ; then
+      true "some version exists"
+   else
+      local MSG="<p>\
+<b>First Start of Tor Browser (AnonDist) - <a href=https://www.whonix.org/wiki/Tor_Browser#Security_vs_Usability_Trade-off>Security vs Usability Trade-off</a></b><br />
+<br />
+In the stock Tor Browser configuration, JavaScript is enabled by default for greater usability. The Tor Project provides a <a href=https://2019.www.torproject.org/docs/faq#TBBJavaScriptEnabled>rationale</a> for this decision.<br />
+<br />
+The producers of Tor Browser decided the <a href=https://www.whonix.org/wiki/Tor_Browser#Security_Slider>security slider</a> setting to be set to \"Standard\" by default. Quote <a href=https://tb-manual.torproject.org/security-settings>Tor Browser Manual</a>:
+
+<blockquote>
+You can further increase your security by choosing to disable certain web features that can be used to attack your security and anonymity. You can do this by increasing Tor Browser's Security Settings in the shield menu. Increasing Tor Browser's security level will stop some web pages from functioning properly, so you should weigh your security needs against the degree of usability you require.
+</blockquote>
+
+This popup question does not restrict your <a href=https://www.whonix.org/wiki/Why_Whonix_is_Freedom_Software>freedom</a> to change security slider settings at any time.<br />
+<br />
+Responsible for this popup question is <a href=https://github.com/Whonix/tb-starter>$tb_title</a> Starter by <a href=https://www.whonix.org>Whonix</a> d<a href=https://www.whonix.org/wiki/Team>evelopers</a>. It is an usability feature, which might break in future. Therefore the user is advised to verify that the security slider has the expected setting. <a href=https://www.whonix.org/wiki/Donate>Please donate!</a><br />
+<br />
+<u>Preseeding</u>:<br />
+<br />
+It is possible to avoid this popup question by preseeding the answer to it. For that create a file <code>/etc/${tb_settings_folder}/50_user.conf</code> with the follow contents, if you want to answer \"Yes\".
+<blockquote><code>tb_security_slider_safest=true</code></blockquote>
+Or if you want to answer \"No\".
+<blockquote><code>tb_security_slider_safest=false</code></blockquote>
+<u>Technical Details</u>:<br />
+<br />
+This script is: <code>$BASH_SOURCE</code><br /> Function: <code>$FUNCNAME</code>
+<br />
+All this would do is copying file <code>/usr/share/torbrowser/security-slider-highest.js</code> to <code>$tb_user_js_target_file</code>.
+
+<blockquote><code>
+cp /usr/share/torbrowser/security-slider-highest.js $tb_user_js_target_file
+</code></blockquote></p>"
+      local question="<b>Set $tb_title Security Slider to Safest?</b>"
+      local button="yesno"
+      local answer
+      if [ "$tb_security_slider_safest" = "true" ]; then
+         answer="true"
+      else
+         answer="$(/usr/lib/msgcollector/generic_gui_message "question" "$TITLE" "$MSG" "$question" "$button")"
+      fi
+      ## output '16384': button 'yes' pressed
+      if [ "$answer" = "16384" ] || [ "$answer" = "true" ]; then
+         cp /usr/share/torbrowser/security-slider-highest.js "$tb_user_js_target_file"
+      else
+         true "button 'yes' not pressed, not copying /usr/share/torbrowser/security-slider-highest.js to $tb_user_js_target_file"
+      fi
    fi
 }
 
@@ -498,23 +571,26 @@ maybe_use_open_link_confirmation() {
    ## Environment variable OPEN_LINK_CONFIRMATION might be set to 'true' if
    ## we are run by open_link_confirmation.
 
-   if [ "$OPEN_LINK_CONFIRMATION" = "true" ]; then
-      ## We are run by open_link_confirmation. Not run open_link_confirmation
-      ## again. Open Tor Browser.
-      tool=tb_start_tor_browser
-   else
-      tool=tb_start_tor_browser
+   if [ "$open_link_confirmation_skip" = "true" ]; then
+      return 0
+   fi
 
-      ## maybe use open link confirmation
-      if [ -x /usr/lib/open_link_confirmation ]; then
-         if [ ! "$open_link_confirmation_skip" = "true" ]; then
-            tool="/usr/lib/open_link_confirmation"
-         fi
-      fi
+   if [ -x /usr/lib/open_link_confirmation ]; then
+      return 0
+   fi
+
+   if [ "$OPEN_LINK_CONFIRMATION" = "true" ]; then
+      ## We are run by open_link_confirmation.
+      ## Not run open_link_confirmation again.
+      ## Open browser.
+      return 0
    fi
 
    local temp
    local tool_exit_code="0"
+   local tool
+   tool="/usr/lib/open_link_confirmation"
+
    if [ "$LINK" = "" ]; then
       temp="$tool $@"
       $tool "$@" || { tool_exit_code="$?" ; true; };
@@ -524,13 +600,24 @@ maybe_use_open_link_confirmation() {
    fi
 
    if [ ! "$tool_exit_code" = "0" ]; then
-      local MSG="<p>$tb_title maybe_use_open_link_confirmation error.
+      local MSG="<p>$tb_title $FUNCNAME error.
 <br></br>
 <br></br>Failed:
-<br></br><code>$temp</code></p>"
+<br></br><code>$temp</code>
+<br></br>tool_exit_code: <code>$tool_exit_code</code></p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
       exit 1
+   fi
+}
+
+tb_start_tor_browser_wrapper() {
+   if [ "$LINK" = "" ]; then
+      temp="$tool $@"
+      tb_start_tor_browser "$@" || { tool_exit_code="$?" ; true; };
+   else
+      temp="$tool $@"
+      tb_start_tor_browser "$LINK" || { tool_exit_code="$?" ; true; };
    fi
 }
 
@@ -570,7 +657,8 @@ main_function() {
    tb_detect_starter_bin "$@"
    tb_clearnet "$@"
    maybe_use_open_link_confirmation "$@"
-   ## tb_start_tor_browser ## run by maybe_use_open_link_confirmation
+   tb_security_slider "$@"
+   tb_start_tor_browser_wrapper "$@"
 }
 
 main_function "$@"
