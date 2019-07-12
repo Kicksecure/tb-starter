@@ -57,52 +57,6 @@ tb_error_handler() {
 
 trap "tb_error_handler" ERR
 
-tb_set_links() {
-   DOC_LINK="https://www.whonix.org/wiki/Documentation"
-   CONTRIBUTE_LINK="https://www.whonix.org/wiki/Contribute"
-   DONATE_LINK="https://www.whonix.org/wiki/Donate"
-   FORUM_LINK="https://forums.whonix.org"
-   MAILINGLIST_LINK="https://www.whonix.org/pipermail/whonix-devel/"
-   IMPORTANTBLOG_LINK="https://forums.whonix.org/tags/important-news"
-   FEATUREBLOG_LINK="https://forums.whonix.org/c/news"
-
-   if [ ! "$TB_CUSTOM_HOMEPAGE" = "" ]; then
-      ## Prefer the custom homepage a user might have defined over
-      ## everything else.
-      DEFAULT_LINK="$TB_CUSTOM_HOMEPAGE"
-   elif [ ! "$TB_CUSTOM_WRAPPER_HOMEPAGE" = "" ]; then
-      ## Prefer the custom homepage a user might have defined over
-      ## everything else.
-      DEFAULT_LINK="$TB_CUSTOM_WRAPPER_HOMEPAGE"
-      open_link_confirmation_maybe_skip=true
-   elif [ ! "$TOR_DEFAULT_HOMEPAGE" = "" ]; then
-      DEFAULT_LINK="$TOR_DEFAULT_HOMEPAGE"
-      open_link_confirmation_maybe_skip=true
-   elif [ -f "/usr/share/anon-ws-base-files/workstation" ]; then
-      ## Running inside a Whonix-Workstation.
-      local whonix_homepage
-      whonix_homepage="/usr/share/homepage/whonix-welcome-page/whonix.html"
-      if [ -f "$whonix_homepage" ]; then
-         ## Great, we have whonix-welcome-page installed, prefer that one.
-         DEFAULT_LINK="file://$whonix_homepage"
-         open_link_confirmation_maybe_skip=true
-      else
-         ## whonix-welcome-page not installed, fall back to about:blank,
-         ## because about:tor does not apply to Whonix (makes users confuse
-         ## The Tor Project with Whonix).
-         DEFAULT_LINK="about:blank"
-         open_link_confirmation_maybe_skip=true
-      fi
-   elif [ -f "/usr/share/anon-gw-base-files/gateway" ]; then
-      ## about:tor also does not apply here.
-      DEFAULT_LINK="about:blank"
-      open_link_confirmation_maybe_skip=true
-   else
-      ## Running outside of Whonix.
-      true "Not modifying which link to open."
-   fi
-}
-
 root_check() {
    if [ "$(id -u)" != "0" ]; then
       #echo "$SCRIPTNAME running as user."
@@ -200,6 +154,52 @@ tb_preparation() {
    #$output ${output_opts[@]} --forget
 }
 
+tb_set_links() {
+   DOC_LINK="https://www.whonix.org/wiki/Documentation"
+   CONTRIBUTE_LINK="https://www.whonix.org/wiki/Contribute"
+   DONATE_LINK="https://www.whonix.org/wiki/Donate"
+   FORUM_LINK="https://forums.whonix.org"
+   MAILINGLIST_LINK="https://www.whonix.org/pipermail/whonix-devel/"
+   IMPORTANTBLOG_LINK="https://forums.whonix.org/tags/important-news"
+   FEATUREBLOG_LINK="https://forums.whonix.org/c/news"
+
+   if [ ! "$TB_CUSTOM_HOMEPAGE" = "" ]; then
+      ## Prefer the custom homepage a user might have defined over
+      ## everything else.
+      DEFAULT_LINK="$TB_CUSTOM_HOMEPAGE"
+   elif [ ! "$TB_CUSTOM_WRAPPER_HOMEPAGE" = "" ]; then
+      ## Prefer the custom homepage a user might have defined over
+      ## everything else.
+      DEFAULT_LINK="$TB_CUSTOM_WRAPPER_HOMEPAGE"
+      open_link_confirmation_maybe_skip=true
+   elif [ ! "$TOR_DEFAULT_HOMEPAGE" = "" ]; then
+      DEFAULT_LINK="$TOR_DEFAULT_HOMEPAGE"
+      open_link_confirmation_maybe_skip=true
+   elif [ -f "/usr/share/anon-ws-base-files/workstation" ]; then
+      ## Running inside a Whonix-Workstation.
+      local whonix_homepage
+      whonix_homepage="/usr/share/homepage/whonix-welcome-page/whonix.html"
+      if [ -f "$whonix_homepage" ]; then
+         ## Great, we have whonix-welcome-page installed, prefer that one.
+         DEFAULT_LINK="file://$whonix_homepage"
+         open_link_confirmation_maybe_skip=true
+      else
+         ## whonix-welcome-page not installed, fall back to about:blank,
+         ## because about:tor does not apply to Whonix (makes users confuse
+         ## The Tor Project with Whonix).
+         DEFAULT_LINK="about:blank"
+         open_link_confirmation_maybe_skip=true
+      fi
+   elif [ -f "/usr/share/anon-gw-base-files/gateway" ]; then
+      ## about:tor also does not apply here.
+      DEFAULT_LINK="about:blank"
+      open_link_confirmation_maybe_skip=true
+   else
+      ## Running outside of Whonix.
+      true "Not modifying which link to open."
+   fi
+}
+
 tb_config_folder_parser() {
    [ -n "$tb_settings_folder" ] || tb_settings_folder="torbrowser.d"
 
@@ -213,50 +213,6 @@ tb_config_folder_parser() {
          bash -n "$i"
          source "$i"
    done
-}
-
-tb_templatevm_check() {
-   if [ "$is_qubes" = "false" ]; then
-      true "Not running in Qubes."
-      return 0
-   fi
-
-   if [ ! "$qubes_vm_type" = "TemplateVM" ]; then
-      true "Not running in TemplateVM."
-      return 0
-   fi
-
-   if [ "$tb_allow_start_in_templatevm" = "true" ]; then
-      true "tb_allow_start_in_templatevm is true."
-      return 0
-   fi
-
-   if [ "$have_other_args" = "false" ]; then
-      tb_qubes_wiki="Running_${tb_wiki}_in_Qubes_TemplateVM"
-      local MSG="<p>Do not run $tb_title in TemplateVM.<br></br>
-   <br></br>
-   More info: <a href=https://www.whonix.org/wiki/$tb_wiki#$tb_qubes_wiki>https://www.whonix.org/wiki/$tb_wiki#$tb_qubes_wiki</a></p>"
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
-
-      exit 3
-   fi
-}
-
-tb_qubes_dvm_template() {
-   if echo "$qubes_vm_name" | grep -q --invert-match "\-dvm" ; then
-      true "INFO: not running inside Qubes DVM Template, ok."
-      return 0
-   fi
-
-   local MSG="\
-<p>Do not run Tor Browser in Qubes DVM Template!<br></br>
-<br></br>
-More info: <a href=https://www.whonix.org/wiki/Tor_Browser/Advanced_Users#Running_Tor_Browser_in_Qubes_TemplateVM_or_DVM_Template>https://www.whonix.org/wiki/Tor_Browser/Advanced_Users#Running_Tor_Browser_in_Qubes_TemplateVM_or_DVM_Template</a></p>"
-
-   $output ${output_opts[@]} --messagex --titlex "$TITLE" --typex "error" --message "$MSG" --done
-   $output ${output_opts[@]} --messagecli --titlecli "$TITLE" --typecli "error" --message "$MSG" --done
-   exit 1
 }
 
 parse_cmd_options() {
@@ -333,133 +289,48 @@ parse_cmd_options() {
    fi
 }
 
-tb_detect_starter_bin() {
-   if [ ! "$tb_starter_bin" = "" ]; then
+tb_templatevm_check() {
+   if [ "$is_qubes" = "false" ]; then
+      true "Not running in Qubes."
       return 0
    fi
 
-   if [ -x "$tb_browser_folder/Browser/$tb_browser_runner" ]; then
-      ## Preferring $tb_browser_folder/Browser/$tb_browser_runner to work around
-      ## The Tor Project upstream issue:
-      ## 'start-tor-browser.desktop parameter passing broken on spaces'
-      ## https://trac.torproject.org/projects/tor/ticket/18022
-      tb_starter_bin="$tb_browser_folder/Browser/$tb_browser_runner"
-   elif [ -x "$tb_browser_folder/$tb_browser_runner" ]; then
-      tb_starter_bin="$tb_browser_folder/$tb_browser_runner"
-   elif [ -x "$tb_browser_folder/$tb_browser_runner.desktop" ]; then
-      tb_starter_bin="$tb_browser_folder/$tb_browser_runner.desktop"
-   else
-      local MSG="Neither <code>$tb_browser_folder/Browser/$tb_browser_runner</code> nor\
-<code>$tb_browser_folder/$tb_browser_runner</code> nor \
-<code>$tb_browser_folder/$tb_browser_runner.desktop</code> is executable."
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
-      exit 2
-   fi
-}
-
-tb_clearnet() {
-   if test -f "$tb_browser_folder/clearnet-marker" ; then
-      if [ ! "$tb_clearnet" = "true" ]; then
-         local MSG="Clearnet marker file exists and trying to start without secbrowser. Aborted. A Tor Browser that was previously started with secbrowser should not be started without secbrowser."
-         $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-         $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
-         exit 2
-         return 0
-      fi
-   fi
-
-   if [ ! "$tb_clearnet" = "true" ]; then
+   if [ ! "$qubes_vm_type" = "TemplateVM" ]; then
+      true "Not running in TemplateVM."
       return 0
    fi
 
-   if ! test -f "$tb_browser_folder/clearnet-marker" ; then
-      touch "$tb_browser_folder/clearnet-marker"
+   if [ "$tb_allow_start_in_templatevm" = "true" ]; then
+      true "tb_allow_start_in_templatevm is true."
+      return 0
    fi
 
-   if diff /usr/share/secbrowser/user.js "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js" >/dev/null 2>&1 ; then
-      true "our version exists"
-   elif test -f "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js" ; then
-      true "some version exists"
-   else
-      cp /usr/share/secbrowser/user.js "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js"
+   if [ "$have_other_args" = "false" ]; then
+      tb_qubes_wiki="Running_${tb_wiki}_in_Qubes_TemplateVM"
+      local MSG="<p>Do not run $tb_title in TemplateVM.<br></br>
+   <br></br>
+   More info: <a href=https://www.whonix.org/wiki/$tb_wiki#$tb_qubes_wiki>https://www.whonix.org/wiki/$tb_wiki#$tb_qubes_wiki</a></p>"
+      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
+      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+
+      exit 3
    fi
 }
 
-tb_start_tor_browser() {
-   local tb_exit_code="0"
-   $tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@" || { tb_exit_code="$?" ; true; };
+tb_qubes_dvm_template() {
+   if echo "$qubes_vm_name" | grep -q --invert-match "\-dvm" ; then
+      true "INFO: not running inside Qubes DVM Template, ok."
+      return 0
+   fi
 
-   if [ ! "$tb_exit_code" = "0" ]; then
-      local MSG="<p>Failed to start $tb_title!<br></br>
+   local MSG="\
+<p>Do not run Tor Browser in Qubes DVM Template!<br></br>
 <br></br>
-Failed to run:<br></br>
-<br></br><code>$tb_starter_bin --allow-remote \"$@\"</code>.
-<br></br>
-<br></br>Exited with code: <code>$tb_exit_code</code>
-<br></br>
-<br></br>To see this for yourself, you could try: <blockquote>Start Menu -> System -> Xfce Terminal
-<br></br>Then run:
-<br></br><code>$SCRIPTNAME</code></blockquote></p>"
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
-      exit "$tb_exit_code"
-   fi
-}
+More info: <a href=https://www.whonix.org/wiki/Tor_Browser/Advanced_Users#Running_Tor_Browser_in_Qubes_TemplateVM_or_DVM_Template>https://www.whonix.org/wiki/Tor_Browser/Advanced_Users#Running_Tor_Browser_in_Qubes_TemplateVM_or_DVM_Template</a></p>"
 
-maybe_use_open_link_confirmation() {
-   ## Environment variable OPEN_LINK_CONFIRMATION might be set to 'true' if
-   ## we are run by open_link_confirmation.
-
-   if [ "$OPEN_LINK_CONFIRMATION" = "true" ]; then
-      ## We are run by open_link_confirmation. Not run open_link_confirmation
-      ## again. Open Tor Browser.
-      tool=tb_start_tor_browser
-   else
-      tool=tb_start_tor_browser
-
-      ## maybe use open link confirmation
-      if [ -x /usr/lib/open_link_confirmation ]; then
-         if [ ! "$open_link_confirmation_skip" = "true" ]; then
-            tool="/usr/lib/open_link_confirmation"
-         fi
-      fi
-   fi
-
-   local temp
-   local tool_exit_code="0"
-   if [ "$LINK" = "" ]; then
-      temp="$tool $@"
-      $tool "$@" || { tool_exit_code="$?" ; true; };
-   else
-      temp="$tool $@"
-      $tool "$LINK" || { tool_exit_code="$?" ; true; };
-   fi
-
-   if [ ! "$tool_exit_code" = "0" ]; then
-      local MSG="<p>$tb_title maybe_use_open_link_confirmation error.
-<br></br>
-<br></br>Failed:
-<br></br><code>$temp</code></p>"
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
-      exit 1
-   fi
-}
-
-tb_folder_change_directory() {
-   local change_directory_exit_code="0"
-   cd "$tb_browser_folder" || { change_directory_exit_code="$?" ; true; };
-
-   if [ ! "$change_directory_exit_code" = "0" ]; then
-      local MSG="<p>$tb_title permission issues?<br></br>
-Failed to <code>cd \"$tb_browser_folder\"</code>.<br></br>
-To fix this, you could try: <blockquote>Start Menu -> System -> Xfce Terminal<br></br>
-<code>sudo chown --recursive \"$who_ami\":\"$who_ami\" \"$tb_browser_folder\"</code></blockquote></p>"
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
-      exit 1
-   fi
+   $output ${output_opts[@]} --messagex --titlex "$TITLE" --typex "error" --message "$MSG" --done
+   $output ${output_opts[@]} --messagecli --titlecli "$TITLE" --typecli "error" --message "$MSG" --done
+   exit 1
 }
 
 check_tb_updater_first_boot_done() {
@@ -552,7 +423,137 @@ Then try again.</p>"
    fi
 }
 
+tb_folder_change_directory() {
+   local change_directory_exit_code="0"
+   cd "$tb_browser_folder" || { change_directory_exit_code="$?" ; true; };
+
+   if [ ! "$change_directory_exit_code" = "0" ]; then
+      local MSG="<p>$tb_title permission issues?<br></br>
+Failed to <code>cd \"$tb_browser_folder\"</code>.<br></br>
+To fix this, you could try: <blockquote>Start Menu -> System -> Xfce Terminal<br></br>
+<code>sudo chown --recursive \"$who_ami\":\"$who_ami\" \"$tb_browser_folder\"</code></blockquote></p>"
+      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
+      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+      exit 1
+   fi
+}
+
+tb_detect_starter_bin() {
+   if [ ! "$tb_starter_bin" = "" ]; then
+      return 0
+   fi
+
+   if [ -x "$tb_browser_folder/Browser/$tb_browser_runner" ]; then
+      ## Preferring $tb_browser_folder/Browser/$tb_browser_runner to work around
+      ## The Tor Project upstream issue:
+      ## 'start-tor-browser.desktop parameter passing broken on spaces'
+      ## https://trac.torproject.org/projects/tor/ticket/18022
+      tb_starter_bin="$tb_browser_folder/Browser/$tb_browser_runner"
+   elif [ -x "$tb_browser_folder/$tb_browser_runner" ]; then
+      tb_starter_bin="$tb_browser_folder/$tb_browser_runner"
+   elif [ -x "$tb_browser_folder/$tb_browser_runner.desktop" ]; then
+      tb_starter_bin="$tb_browser_folder/$tb_browser_runner.desktop"
+   else
+      local MSG="Neither <code>$tb_browser_folder/Browser/$tb_browser_runner</code> nor\
+<code>$tb_browser_folder/$tb_browser_runner</code> nor \
+<code>$tb_browser_folder/$tb_browser_runner.desktop</code> is executable."
+      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
+      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+      exit 2
+   fi
+}
+
+tb_clearnet() {
+   if test -f "$tb_browser_folder/clearnet-marker" ; then
+      if [ ! "$tb_clearnet" = "true" ]; then
+         local MSG="Clearnet marker file exists and trying to start without secbrowser. Aborted. A Tor Browser that was previously started with secbrowser should not be started without secbrowser."
+         $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
+         $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+         exit 2
+         return 0
+      fi
+   fi
+
+   if [ ! "$tb_clearnet" = "true" ]; then
+      return 0
+   fi
+
+   if ! test -f "$tb_browser_folder/clearnet-marker" ; then
+      touch "$tb_browser_folder/clearnet-marker"
+   fi
+
+   if diff /usr/share/secbrowser/user.js "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js" >/dev/null 2>&1 ; then
+      true "our version exists"
+   elif test -f "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js" ; then
+      true "some version exists"
+   else
+      cp /usr/share/secbrowser/user.js "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js"
+   fi
+}
+
+maybe_use_open_link_confirmation() {
+   ## Environment variable OPEN_LINK_CONFIRMATION might be set to 'true' if
+   ## we are run by open_link_confirmation.
+
+   if [ "$OPEN_LINK_CONFIRMATION" = "true" ]; then
+      ## We are run by open_link_confirmation. Not run open_link_confirmation
+      ## again. Open Tor Browser.
+      tool=tb_start_tor_browser
+   else
+      tool=tb_start_tor_browser
+
+      ## maybe use open link confirmation
+      if [ -x /usr/lib/open_link_confirmation ]; then
+         if [ ! "$open_link_confirmation_skip" = "true" ]; then
+            tool="/usr/lib/open_link_confirmation"
+         fi
+      fi
+   fi
+
+   local temp
+   local tool_exit_code="0"
+   if [ "$LINK" = "" ]; then
+      temp="$tool $@"
+      $tool "$@" || { tool_exit_code="$?" ; true; };
+   else
+      temp="$tool $@"
+      $tool "$LINK" || { tool_exit_code="$?" ; true; };
+   fi
+
+   if [ ! "$tool_exit_code" = "0" ]; then
+      local MSG="<p>$tb_title maybe_use_open_link_confirmation error.
+<br></br>
+<br></br>Failed:
+<br></br><code>$temp</code></p>"
+      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
+      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+      exit 1
+   fi
+}
+
+tb_start_tor_browser() {
+   local tb_exit_code="0"
+   $tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@" || { tb_exit_code="$?" ; true; };
+
+   if [ ! "$tb_exit_code" = "0" ]; then
+      local MSG="<p>Failed to start $tb_title!<br></br>
+<br></br>
+Failed to run:<br></br>
+<br></br><code>$tb_starter_bin --allow-remote \"$@\"</code>.
+<br></br>
+<br></br>Exited with code: <code>$tb_exit_code</code>
+<br></br>
+<br></br>To see this for yourself, you could try: <blockquote>Start Menu -> System -> Xfce Terminal
+<br></br>Then run:
+<br></br><code>$SCRIPTNAME</code></blockquote></p>"
+      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
+      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+      exit "$tb_exit_code"
+   fi
+}
+
 main_function() {
+   ## tb_error_handler
    root_check "$@"
    tb_preparation "$@"
    tb_set_links "$@"
@@ -566,6 +567,7 @@ main_function() {
    tb_detect_starter_bin "$@"
    tb_clearnet "$@"
    maybe_use_open_link_confirmation "$@"
+   ## tb_start_tor_browser ## run by maybe_use_open_link_confirmation
 }
 
 main_function "$@"
