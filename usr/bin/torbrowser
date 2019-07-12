@@ -475,6 +475,9 @@ tb_clearnet() {
    fi
 
    if [ ! "$tb_clearnet" = "true" ]; then
+      ## Since tb_clearnet is not set to true,
+      ## do not proceed creating clearnet-marker or copying
+      ## the secbrowser user.js file.
       return 0
    fi
 
