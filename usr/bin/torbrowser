@@ -377,12 +377,12 @@ tb_clearnet() {
       touch "$tb_browser_folder/clearnet-marker"
    fi
 
-   if diff /usr/share/tb-updater/tb_without_tor_settings.js "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js" >/dev/null 2>&1 ; then
+   if diff /usr/share/secbrowser/user.js "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js" >/dev/null 2>&1 ; then
       true "our version exists"
    elif test -f "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js" ; then
       true "some version exists"
    else
-      cp /usr/share/tb-updater/tb_without_tor_settings.js "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js"
+      cp /usr/share/secbrowser/user.js "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js"
    fi
 }
 
