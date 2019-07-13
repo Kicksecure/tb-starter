@@ -474,6 +474,12 @@ tb_detect_starter_bin() {
 tb_clearnet() {
    ## SecBrowser sets tb_clearnet="true".
 
+   ## If the clearnet-marker file exists and if tb_clearnet is not set to
+   ## "true" it means that this browser was previously started with
+   ## tb_clearnet="true". Therefore refuse to start it without
+   ## tb_clearnet="true" since a browser that was ever used over clearnet
+   ## should never be used again over Tor to avoid linking the different
+   ## identities.
    if test -f "$tb_browser_folder/clearnet-marker" ; then
       if [ ! "$tb_clearnet" = "true" ]; then
          local MSG="Clearnet marker file exists and trying to start without SecBrowser. Aborted. A Tor Browser that was previously started with SecBrowser should not be started without SecBrowser."
@@ -486,8 +492,8 @@ tb_clearnet() {
 
    if [ ! "$tb_clearnet" = "true" ]; then
       ## Since tb_clearnet is not set to true,
-      ## do not proceed creating clearnet-marker or copying
-      ## the SecBrowser user.js file.
+      ## do not proceed with the rest of this function, i.e.
+      ## creating clearnet-marker or copying the SecBrowser user.js file.
       return 0
    fi
 
