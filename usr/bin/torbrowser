@@ -472,11 +472,11 @@ tb_detect_starter_bin() {
 }
 
 tb_clearnet() {
-   ## secbrowser sets tb_clearnet="true".
+   ## SecBrowser sets tb_clearnet="true".
 
    if test -f "$tb_browser_folder/clearnet-marker" ; then
       if [ ! "$tb_clearnet" = "true" ]; then
-         local MSG="Clearnet marker file exists and trying to start without secbrowser. Aborted. A Tor Browser that was previously started with secbrowser should not be started without secbrowser."
+         local MSG="Clearnet marker file exists and trying to start without SecBrowser. Aborted. A Tor Browser that was previously started with SecBrowser should not be started without SecBrowser."
          $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
          $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
          exit 2
@@ -487,7 +487,7 @@ tb_clearnet() {
    if [ ! "$tb_clearnet" = "true" ]; then
       ## Since tb_clearnet is not set to true,
       ## do not proceed creating clearnet-marker or copying
-      ## the secbrowser user.js file.
+      ## the SecBrowser user.js file.
       return 0
    fi
 
@@ -506,7 +506,7 @@ tb_clearnet() {
 
 tb_security_slider() {
    if [ "$tb_clearnet" = "true" ]; then
-      ## secbrowser has its own user.js file which sets the
+      ## SecBrowser has its own user.js file which sets the
       ## security slider setting which gets copied in function
       ## tb_clearnet earlier.
       return 0
