@@ -10,6 +10,7 @@
 // activity on another site without their knowledge or explicit
 // consent."
 // - See https://whonix.org/wiki/Tor_Browser_without_Tor
+// - See https://www.whonix.org/wiki/SecBrowser
 
 // Disable Torbutton and Torlauncher extensions
 user_pref("extensions.torbutton.startup", false);
