@@ -17,6 +17,13 @@ user_pref("extensions.torbutton.startup", false);
 user_pref("extensions.torlauncher.start_tor", false);
 user_pref("network.proxy.socks_remote_dns", false);
 
+// Disable function torbutton source file:
+// src/chrome/content/torbutton.js
+// function: torbutton_do_tor_check
+// and thereby also function: torbutton_initiate_remote_tor_check
+// disables Control Port verification and remote Tor connection check.
+user_pref("extensions.torbutton.test_enabled", false);
+
 // Set secuirty slider "Safest".
 user_pref("extensions.torbutton.inserted_security_level", true);
 user_pref("extensions.torbutton.security_slider", 1);
