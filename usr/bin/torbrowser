@@ -472,6 +472,8 @@ tb_detect_starter_bin() {
 }
 
 tb_clearnet() {
+   ## secbrowser sets tb_clearnet="true".
+
    if test -f "$tb_browser_folder/clearnet-marker" ; then
       if [ ! "$tb_clearnet" = "true" ]; then
          local MSG="Clearnet marker file exists and trying to start without secbrowser. Aborted. A Tor Browser that was previously started with secbrowser should not be started without secbrowser."
