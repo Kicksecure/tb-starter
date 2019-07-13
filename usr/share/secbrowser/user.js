@@ -12,6 +12,9 @@
 // - See https://www.whonix.org/wiki/Tor_Browser_without_Tor
 // - See https://www.whonix.org/wiki/SecBrowser
 
+// This file gets copied at first start to:
+// ~/.secbrowser/secbrowser/Browser/TorBrowser/Data/Browser/profile.default/user.js
+
 // Disable Torbutton and Torlauncher extensions
 user_pref("extensions.torbutton.startup", false);
 user_pref("extensions.torlauncher.start_tor", false);
