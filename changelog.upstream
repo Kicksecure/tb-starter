@@ -1,3 +1,100 @@
+commit 3aad82dbc16cc145bc35a7ee20861fb54b7ea3d3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 07:23:11 2019 -0400
+
+    debugging
+
+commit 3a6213fd103287490af98d7656cedf9a3049e510
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 07:07:51 2019 -0400
+
+    comment
+
+commit d28eb5c26312c0ee5b4d369d499a5f780aa89f8d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 07:03:45 2019 -0400
+
+    comment
+
+commit 8d63169c96f2ed87c158b49264bf9d188b674f13
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 07:02:56 2019 -0400
+
+    comment
+
+commit 5f176d144fc022108b6e162f4578c565b51dd422
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 06:52:21 2019 -0400
+
+    comment
+
+commit d4db73b19a05a853ac8ebbf7263c4e468e51c8c5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 06:52:02 2019 -0400
+
+    comment
+
+commit ae4fe4852d5043053c479e57cefefc126415c426
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 06:50:38 2019 -0400
+
+    copyright
+
+commit b3accaa409b2cc1841267dc8ce8fdeef82f59a35
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 06:50:21 2019 -0400
+
+    typo
+
+commit 9e5356263d31511e69980b3afdb70e3396d3cc05
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 06:48:44 2019 -0400
+
+    get rid of warning message on SecBrowser startup
+    
+    Something Went Wrong!
+    Tor is not working in this browser.
+    
+    disable torbutton's Tor remote check for clearnet browser SecBrowser
+
+commit b3e8dc165ce9b0c728c80fa9759afa5bc3b69a77
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 12 15:24:44 2019 -0400
+
+    add first start popup to ask whether security slider should be set to safest
+    
+    https://forums.whonix.org/t/ship-an-additional-version-of-tor-browser-with-security-slider-settings-to-high-by-default/7591
+
+commit 588f22e67a31d96b962ec19d6d8956f520946171
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 12 12:59:33 2019 -0400
+
+    comment
+
+commit eabe90222893042439d0c5ecc39d9927803b2ea5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 12 12:56:37 2019 -0400
+
+    shuffle
+
+commit a9219fc2632f667c109cfcdc7e85fff462a60ed3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 12 12:25:30 2019 -0400
+
+    import from tb-updater package and move to usr/share/secbrowser/user.js
+
+commit 4450f17a9c4c8a29c1cf84fec07e55547e5ec349
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 11 14:57:33 2019 -0400
+
+    fix, honor TOR_DEFAULT_HOMEPAGE and skip link confirm open if set
+
+commit 5e270bb6d92437780c210827d0b182b24ef4eb8a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 11 07:33:07 2019 +0000
+
+    bumped changelog version
+
 commit 837e6d25719b871cfa0479ccd2314038705a2377
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jul 11 07:30:37 2019 +0000
