@@ -506,6 +506,7 @@ tb_clearnet() {
    elif test -f "$tb_user_js_target_file" ; then
       true "some version exists"
    else
+      true "no version exists"
       cp /usr/share/secbrowser/user.js "$tb_user_js_target_file"
    fi
 }
@@ -528,6 +529,7 @@ tb_security_slider() {
    elif test -f "$tb_user_js_target_file" ; then
       true "some version exists"
    else
+      true "no version exists"
       local MSG="<p>\
 <b>First Start of Tor Browser (AnonDist) - <a href=https://www.whonix.org/wiki/Tor_Browser#Security_vs_Usability_Trade-off>Security vs Usability Trade-off</a></b><br />
 <br />
