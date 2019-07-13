@@ -24,7 +24,7 @@ user_pref("network.proxy.socks_remote_dns", false);
 // disables Control Port verification and remote Tor connection check.
 user_pref("extensions.torbutton.test_enabled", false);
 
-// Set secuirty slider "Safest".
+// Set security slider "Safest".
 user_pref("extensions.torbutton.inserted_security_level", true);
 user_pref("extensions.torbutton.security_slider", 1);
 
