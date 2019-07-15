@@ -45,10 +45,6 @@ tb_error_handler() {
 ###########################################################\
 "
 
-   ## XXX
-   #mkdir --parents "$tb_cache_folder"
-   #echo "$MSG" >> "$tb_cache_folder/torbrowser_updater_error.log"
-
    MSG="$(/usr/lib/msgcollector/br_add "$MSG")"
 
    if [ "$progressbaridx" = "" ]; then
