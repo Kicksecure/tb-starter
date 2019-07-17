@@ -343,6 +343,9 @@ check_tb_updater_first_boot_done() {
       return 0
    fi
 
+   ## Waiting for tb-updater-first-boot.service is useful in Qubes to make sure
+   ## permission fix is done for Qubes DispVMs.
+
    local systemctl_output
    local wait_counter
    wait_counter="0"
