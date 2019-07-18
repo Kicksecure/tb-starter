@@ -656,7 +656,7 @@ tb_start_tor_browser() {
       local MSG="<p>Failed to start $tb_title!<br></br>
 <br></br>
 Failed to run:<br></br>
-<br></br><code>$tb_starter_bin --allow-remote \"$@\"</code>.
+<br></br><code>$tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post \"$@\"</code>.
 <br></br>
 <br></br>Exited with code: <code>$tb_exit_code</code>
 <br></br>
