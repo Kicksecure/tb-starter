@@ -314,6 +314,8 @@ tb_templatevm_check() {
 }
 
 tb_qubes_dvm_template() {
+   ## Avoid running in Qubes DVM Template.
+   ## https://phabricator.whonix.org/T726
    if echo "$qubes_vm_name" | grep -q --invert-match "\-dvm" ; then
       true "INFO: not running inside Qubes DVM Template, ok."
       return 0
@@ -367,15 +369,39 @@ Failed to run:<br></br>
          exit 4
       fi
    done
+}
 
+tb_copy_from_root_to_user_maybe() {
    if [ "$qubes_vm_persistence" = "none" ]; then
-      true "$FUNCNAME: Not running /usr/lib/tb-updater/first-boot-home-population in DispVM."
+      true "$FUNCNAME: Not copying from /var/cache/tb-binary to tb_user_home $tb_user_home  in DispVM."
       return 0
    fi
 
-   if [ -x /usr/lib/tb-updater/first-boot-home-population ]; then
-      /usr/lib/tb-updater/first-boot-home-population
+   local done_file
+   done_file="$tb_user_home/.tb/first-boot-home-population.done"
+
+   if [ ! -d "$tb_user_home" ]; then
+      return 0
    fi
+
+   if [ ! -d /var/cache/tb-binary ]; then
+      return 0
+   fi
+
+   if [ -e "$done_file" ]; then
+      return 0
+   fi
+
+   shopt -s dotglob
+   shopt -s nullglob
+
+   local folder_name
+   for folder_name in /var/cache/tb-binary/*; do
+      cp --verbose --recursive --no-clobber "$folder_name" "$tb_user_home"
+   done
+
+   mkdir --parents "$tb_user_home/.tb"
+   touch "$done_file"
 }
 
 maybe_install_tor_browser() {
@@ -653,6 +679,7 @@ main_function() {
    tb_templatevm_check "$@"
    tb_qubes_dvm_template "$@"
    check_tb_updater_first_boot_done "$@"
+   tb_copy_from_root_to_user_maybe "$@"
    maybe_install_tor_browser "$@"
    tb_folder_change_directory "$@"
    tb_detect_starter_bin "$@"
