@@ -87,14 +87,6 @@ tb_preparation() {
       fi
    fi
 
-   ## In DispVM run from /var/cache/tb-binary directly.
-   ## https://github.com/QubesOS/qubes-issues/issues/4918#issuecomment-506361988
-   if [ "$qubes_vm_persistence" = "none" ]; then
-      if [ "$tb_user_home" = "" ]; then
-         tb_user_home="/var/cache/tb-binary"
-      fi
-   fi
-
    [ -n "$tb_user_home" ] || tb_user_home=~
    ## When double clicking a file downloaded in Tor Browser download tab
    ## '~' would be set to '/home/user/.tb/tor-browser/Browser' which would lead
