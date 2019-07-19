@@ -400,6 +400,10 @@ tb_copy_from_root_to_user_maybe() {
       return 0
    fi
 
+   if [ -d "$tb_browser_folder" ]; then
+      return 0
+   fi
+
    if [ -e "$done_file" ]; then
       return 0
    fi
