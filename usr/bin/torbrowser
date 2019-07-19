@@ -88,6 +88,8 @@ tb_preparation() {
    fi
 
    [ -n "$tb_user_home" ] || tb_user_home=~
+   ## example tb_user_home:
+   ## /home/user
    ## When double clicking a file downloaded in Tor Browser download tab
    ## '~' would be set to '/home/user/.tb/tor-browser/Browser' which would lead
    ## to a false-positive "Tor Browser not installed" message.
@@ -106,7 +108,11 @@ tb_preparation() {
    [ -n "$IDENTIFIER" ] || IDENTIFIER="$tb_bin"
 
    [ -n "$tb_home_folder" ] || tb_home_folder="$tb_user_home/$tb_install_folder_dot"
+   ## example tb_home_folder:
+   ## /home/user/.tb
    [ -n "$tb_browser_folder" ] || tb_browser_folder="$tb_home_folder/$tb_browser_name"
+   ## example tb_browser_folder:
+   ## /home/user/.tb/tor-browser
 
    [ -n "$tb_user_js_target_file" ] || tb_user_js_target_file="$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js"
 
@@ -373,13 +379,19 @@ Failed to run:<br></br>
 
 tb_copy_from_root_to_user_maybe() {
    if [ "$qubes_vm_persistence" = "none" ]; then
-      true "$FUNCNAME: Not copying from /var/cache/tb-binary to tb_user_home $tb_user_home  in DispVM."
+      true "$FUNCNAME: Not copying from /var/cache/tb-binary to tb_user_home $tb_user_home in DispVM."
       return 0
    fi
 
    local done_file
-   done_file="$tb_user_home/.tb/first-boot-home-population.done"
+   ## example tb_home_folder:
+   ## /home/user/.tb
+   done_file="$tb_home_folder/first-boot-home-population.done"
+   ## example done_file:
+   ## /home/user/.tb/first-boot-home-population.done
 
+   ## example tb_user_home:
+   ## /home/user
    if [ ! -d "$tb_user_home" ]; then
       return 0
    fi
@@ -398,9 +410,11 @@ tb_copy_from_root_to_user_maybe() {
    local folder_name
    for folder_name in /var/cache/tb-binary/*; do
       cp --verbose --recursive --no-clobber "$folder_name" "$tb_user_home"
+      ## example simplified:
+      ## cp /var/cache/tb-binary/.tb /home/user
    done
 
-   mkdir --parents "$tb_user_home/.tb"
+   mkdir --parents "$tb_home_folder"
    touch "$done_file"
 }
 
