@@ -1,3 +1,29 @@
+commit b3488c51d823b3cc2c8b3e9c3d143f65a3e01d77
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 18 12:34:34 2019 -0400
+
+    output
+
+commit 0ab24ad11bd42f3f152ff9a6eff974d7ce62d0b2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 18 12:26:16 2019 -0400
+
+    add code to copy Tor Browser from root folder to user home
+
+commit 697c812e37b229029445726c4d1583d1f63e5035
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 18 12:09:52 2019 -0400
+
+    revert: In DispVM run from /var/cache/tb-binary directly.
+    
+    https://github.com/QubesOS/qubes-issues/issues/4918#issuecomment-506361988
+
+commit d8a92fb5be145e2569b1f77bfbb08e3a1f1cfc9f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 17 23:16:32 2019 +0000
+
+    bumped changelog version
+
 commit 140b4244c1e37ad587ed83470d7ae1f728945beb
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Jul 17 23:14:35 2019 +0000
