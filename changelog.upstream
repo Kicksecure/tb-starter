@@ -1,3 +1,21 @@
+commit 9ec278d23d0253720492879cd19f9caeb7533361
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 11:00:11 2019 +0000
+
+    do not copy if tb_browser_folder already exists
+
+commit e35fe3c400bab56dc1db0994cb8ae5b1de845f92
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 10:57:52 2019 +0000
+
+    fix paths; comments
+
+commit da7f9e0a6336292ffa1eeb28e16d428d371b5295
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 10:09:08 2019 +0000
+
+    bumped changelog version
+
 commit b3488c51d823b3cc2c8b3e9c3d143f65a3e01d77
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jul 18 12:34:34 2019 -0400
