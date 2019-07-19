@@ -487,6 +487,7 @@ tb_detect_starter_bin() {
    fi
 
    if [ -x "$tb_browser_folder/Browser/$tb_browser_runner" ]; then
+      ## Alternative way to start Tor Browser.
       ## https://github.com/netblue30/firejail/issues/2863#issuecomment-513219822
       ## working:
       ## firejail /home/user/.tb/tor-browser/Browser/start-tor-browser
@@ -499,6 +500,7 @@ tb_detect_starter_bin() {
       ## abolished and this one revived.
       tb_starter_bin="$tb_browser_folder/$tb_browser_runner"
    elif [ -x "$tb_browser_folder/$tb_browser_runner.desktop" ]; then
+      ## Canonical way to start Tor Browser.
       tb_starter_bin="$tb_browser_folder/$tb_browser_runner.desktop"
    else
       local MSG="Neither <code>$tb_browser_folder/Browser/$tb_browser_runner</code> nor\
