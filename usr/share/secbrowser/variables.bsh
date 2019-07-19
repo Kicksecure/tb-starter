@@ -22,3 +22,7 @@ export tb_browser_name="$IDENTIFIER"
 export tb_bin="$IDENTIFIER"
 #export tb_browser_runner="start-secbrowser"
 export tb_settings_folder="$IDENTIFIER.d"
+
+if command -v firejail &>/dev/null ; then
+   export tb_hardening="true"
+fi
