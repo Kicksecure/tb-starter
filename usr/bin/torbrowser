@@ -494,6 +494,9 @@ tb_detect_starter_bin() {
       ## firejail /home/user/.tb/tor-browser/start-tor-browser.desktop
       tb_starter_bin="$tb_browser_folder/Browser/$tb_browser_runner"
    elif [ -x "$tb_browser_folder/$tb_browser_runner" ]; then
+      ## Previously used filename no longer existing in current version of
+      ## Tor Browser. Keeping it in case it $tb_browser_runner.desktop gets
+      ## abolished and this one revived.
       tb_starter_bin="$tb_browser_folder/$tb_browser_runner"
    elif [ -x "$tb_browser_folder/$tb_browser_runner.desktop" ]; then
       tb_starter_bin="$tb_browser_folder/$tb_browser_runner.desktop"
