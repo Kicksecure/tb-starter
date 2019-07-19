@@ -71,7 +71,7 @@ root_check() {
 
 tb_preparation() {
    who_ami="$(whoami)"
-   if command -v qubesdb-read >/dev/null 2>&1 ; then
+   if command -v qubesdb-read &>/dev/null ; then
       [ -n "$is_qubes" ] || is_qubes=true
       ## qubesdb-read fails inside chroot, therefore overwriting with '|| true'.
       [ -n "$qubes_vm_name" ] || qubes_vm_name="$(qubesdb-read /name)" || true
@@ -444,7 +444,7 @@ maybe_install_tor_browser() {
    ## yes 0
    if [ "$answer" = "16384" ]; then ## button 'yes' pressed
       local update_torbrowser_command_v_exit_code="0"
-      command -v update-torbrowser >/dev/null 2>/dev/null || { update_torbrowser_command_v_exit_code="$?" ; true; };
+      command -v update-torbrowser &>/dev/null || { update_torbrowser_command_v_exit_code="$?" ; true; };
       if [ "$update_torbrowser_command_v_exit_code" = "0" ]; then
          ## update-torbrowser is available.
          ## || true, in case update-torbrowser fails for some reason (no
@@ -546,7 +546,7 @@ tb_clearnet() {
       touch "$tb_browser_folder/clearnet-marker"
    fi
 
-   if diff /usr/share/secbrowser/user.js "$tb_user_js_target_file" >/dev/null 2>&1 ; then
+   if diff /usr/share/secbrowser/user.js "$tb_user_js_target_file" &>/dev/null ; then
       true "our version exists"
    elif test -f "$tb_user_js_target_file" ; then
       true "some version exists"
@@ -569,7 +569,7 @@ tb_security_slider() {
       return 0
    fi
 
-   if diff /usr/share/torbrowser/security-slider-highest.js "$tb_user_js_target_file" >/dev/null 2>&1 ; then
+   if diff /usr/share/torbrowser/security-slider-highest.js "$tb_user_js_target_file" &>/dev/null ; then
       true "our version exists"
    elif test -f "$tb_user_js_target_file" ; then
       true "some version exists"
