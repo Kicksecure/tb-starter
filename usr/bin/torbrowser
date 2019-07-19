@@ -256,6 +256,10 @@ parse_cmd_options() {
                LINK="NOLINK"
                shift
                ;;
+           --hardening)
+               tb_hardening="true"
+               shift
+               ;;
            --)
                shift
                break
@@ -673,14 +677,29 @@ tb_start_tor_browser_wrapper() {
 }
 
 tb_start_tor_browser() {
+   [ -n "$tb_firejail_bin" ] || tb_firejail_bin="firejail"
+
+   ## https://github.com/netblue30/firejail/issues/2863
+   tb_firejailopts[${#tb_firejailopts[@]}]="--whitelist=$tb_browser_folder"
+   tb_firejailopts[${#tb_firejailopts[@]}]="--profile=torbrowser-launcher"
+   tb_firejailopts[${#tb_firejailopts[@]}]="--x11=xorg"
+   tb_firejailopts[${#tb_firejailopts[@]}]="--quiet"
+
+   local temp
    local tb_exit_code="0"
-   $tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@" || { tb_exit_code="$?" ; true; };
+   if [ "$tb_hardening" = "true" ]; then
+      temp="$tb_firejail_bin ${tb_firejailopts[@]} $tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@""
+      $tb_firejail_bin ${tb_firejailopts[@]} $tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@"
+   else
+      temp="$tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@""
+      $tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@" || { tb_exit_code="$?" ; true; };
+   fi
 
    if [ ! "$tb_exit_code" = "0" ]; then
       local MSG="<p>Failed to start $tb_title!<br></br>
 <br></br>
 Failed to run:<br></br>
-<br></br><code>$tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post \"$@\"</code>.
+<br></br><code>$temp</code>.
 <br></br>
 <br></br>Exited with code: <code>$tb_exit_code</code>
 <br></br>
