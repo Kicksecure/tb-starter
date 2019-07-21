@@ -688,9 +688,24 @@ tb_firejail_set_options() {
 }
 
 tb_start_tor_browser() {
-   local temp
+   local temp file_name
    local tb_exit_code="0"
    if [ "$tb_hardening" = "true" ]; then
+      ## Prefer user perhaps user custom compiled /usr/lib/libhardened_malloc.so
+      ## over versioned file /usr/lib/libhardened_malloc.so.1 by hardened_malloc
+      ## package.
+      for file_name in "/usr/lib/libhardened_malloc.so" "/usr/lib/libhardened_malloc.so.1" ; do
+         if test -f "$file_name" ; then
+            if [ -z "$LD_PRELOAD" ]; then
+               LD_PRELOAD="$file_name"
+            else
+               LD_PRELOAD="${LD_PRELOAD}:${file_name}"
+            fi
+            export LD_PRELOAD
+            break
+         fi
+      fi
+
       temp="$tb_firejail_bin ${tb_firejailopts[@]} $tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@""
       $tb_firejail_bin ${tb_firejailopts[@]} $tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@"
    else
