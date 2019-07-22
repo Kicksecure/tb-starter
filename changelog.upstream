@@ -1,3 +1,77 @@
+commit 03e701beb51568a31bc4b4fc8e4dd919e26c4b60
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 21 12:23:04 2019 -0400
+
+    automatically ld preload hardened_malloc if available when using --hardening
+    
+    Prefer user perhaps user custom compiled /usr/lib/libhardened_malloc.so
+    over versioned file /usr/lib/libhardened_malloc.so.1 by hardened_malloc
+    package.
+
+commit 8531b35e0e46d5efc6331f0f3197a8fd62e8ff3a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 21 12:14:15 2019 -0400
+
+    refactoring
+
+commit 3b7089803ec84388f418af5d719196b096cfca95
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 20 08:51:59 2019 -0400
+
+    comment
+
+commit cc08a50688513419de87cd4034386db37efdc0db
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 17:08:36 2019 +0000
+
+    SecBrowser: automatically enable firejail when available
+
+commit 65d5cc1e9580c53414e06ed310572ce42c372d02
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 17:06:25 2019 +0000
+
+    refactoring
+
+commit 24ceb883409cd832596ac37c229745708b85a6ba
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 17:02:47 2019 +0000
+
+    implement --hardening / tb_hardening="true"
+    
+    https://forums.whonix.org/t/automatically-firejailing-tor-browser/4767
+    
+    https://github.com/netblue30/firejail/issues/2863
+
+commit 891fe26da58f6e3aea73ee2f55bdd7e151cbd1d3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 13:18:49 2019 +0000
+
+    comment
+
+commit bdefe65a315d2942f578e8f8fea9469932246171
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 13:04:31 2019 +0000
+
+    comment
+
+commit ca82c7a871b4645be8a874a0e65104b2a7cbbd97
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 13:02:38 2019 +0000
+
+    comment
+
+commit 05f54338ea747f186425dedf8b347b8f267bfc3c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 12:54:29 2019 +0000
+
+    delete obsolete comment
+
+commit 8643bce42cc07b8d58bc37e3a74ed52b6a860c32
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 11:00:40 2019 +0000
+
+    bumped changelog version
+
 commit 9ec278d23d0253720492879cd19f9caeb7533361
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jul 19 11:00:11 2019 +0000
