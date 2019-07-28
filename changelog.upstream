@@ -1,3 +1,29 @@
+commit a4c0e9a44a44b1ccb175e04c0d63a0674308d083
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 28 19:20:53 2019 +0000
+
+    update path to /usr/lib/libhardened_malloc.so/libhardened_malloc.so
+
+commit 754ec4e37dbdd562f461d98ee417fb6c0d370788
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 22 12:06:34 2019 -0400
+
+    fortunately no need to use versioned shared object file names
+    
+    https://www.debian.org/doc/debian-policy/ch-sharedlibs.html
+
+commit 50ef3bf7de2368a5d5d379cd38c8a30fe8ad641f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 22 01:18:41 2019 +0000
+
+    fix
+
+commit 735a109bb8c96f2f265b17765d5d50b3b26416d2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 22 01:16:50 2019 +0000
+
+    bumped changelog version
+
 commit 03e701beb51568a31bc4b4fc8e4dd919e26c4b60
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Jul 21 12:23:04 2019 -0400
