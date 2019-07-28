@@ -691,7 +691,7 @@ tb_start_tor_browser() {
    local temp
    local tb_exit_code="0"
    if [ "$tb_hardening" = "true" ]; then
-      [ -n "$hardened_malloc_file_name" ] || hardened_malloc_file_name="/usr/lib/libhardened_malloc.so"
+      [ -n "$hardened_malloc_file_name" ] || hardened_malloc_file_name="/usr/lib/libhardened_malloc.so/libhardened_malloc.so"
       if test -f "$hardened_malloc_file_name" ; then
          if [ -z "$LD_PRELOAD" ]; then
             LD_PRELOAD="$hardened_malloc_file_name"
