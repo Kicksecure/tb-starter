@@ -1,3 +1,33 @@
+commit 832af7be476ed632c8691c2a5fbd3d4440f6da37
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 29 13:52:38 2019 +0000
+
+    shorten disclaimer
+
+commit 635d60cfce6abae1c9bea7cffe7ac17739dcad8d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 29 13:40:29 2019 +0000
+
+    update link
+
+commit 7d495c41e51725b5d81cee0c1c8cb6d0bbff1b8d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 29 13:37:42 2019 +0000
+
+    add link to homepage
+
+commit 53028d31a8afbadcb494a800a4a9170b29356d34
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 29 13:35:00 2019 +0000
+
+    title on par with https://www.whonix.org/wiki/SecBrowser
+
+commit 1770cfab020c1cf1643d27bc880fa8e5eb388220
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 29 13:32:52 2019 +0000
+
+    bumped changelog version
+
 commit b50b41b8c27e37adef992ea5b3e279426376ae2e
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Jul 29 13:32:08 2019 +0000
