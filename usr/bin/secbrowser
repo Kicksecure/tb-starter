@@ -4,6 +4,7 @@
 ## See the file COPYING for copying conditions.
 
 set -e
+set -o pipefail
 
 if [ -f /usr/lib/helper-scripts/pre.bsh ]; then
    source /usr/lib/helper-scripts/pre.bsh
