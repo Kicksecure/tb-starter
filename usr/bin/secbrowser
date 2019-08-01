@@ -5,6 +5,10 @@
 
 set -e
 
+if [ -f /usr/lib/helper-scripts/pre.bsh ]; then
+   source /usr/lib/helper-scripts/pre.bsh
+fi
+
 export SCRIPTNAME="$(basename "$BASH_SOURCE")"
 
 source /usr/share/secbrowser/variables.bsh
