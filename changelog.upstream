@@ -1,3 +1,39 @@
+commit a131420d2af58adc23fa9f3df9465407f4ca468f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 1 11:13:44 2019 +0000
+
+    readme
+
+commit da833d806b710052fed07fb4bd097235f6db72ec
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 1 02:44:33 2019 -0400
+
+    disable firejail --x11=xorg sandboxing since it broke copy/paste in Qubes
+
+commit 928e8789404c4b690b275e5808358722c36abd6a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 1 02:43:11 2019 -0400
+
+    set -o pipefail
+
+commit e8ab2e1bb4e3d33a5c0e8a908672b4084f962a71
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 1 02:42:39 2019 -0400
+
+    set -e
+
+commit 977506be84552834a7a84bc9fb8e96c9c9d566e3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 1 02:40:25 2019 -0400
+
+    source /usr/lib/helper-scripts/pre.bsh if available
+
+commit 24a308733fe6c36bfc0b101b4efac45f99054c6c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 31 07:45:58 2019 +0000
+
+    bumped changelog version
+
 commit b27ff1c85f67d19ee6f531e8f437aa7b171a16e7
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Jul 31 03:11:59 2019 -0400
