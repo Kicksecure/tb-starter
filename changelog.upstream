@@ -1,3 +1,386 @@
+commit b27ff1c85f67d19ee6f531e8f437aa7b171a16e7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 31 03:11:59 2019 -0400
+
+    /var/run -> /run
+
+commit 37e5aa5def63c458a9580ffa9283590a3901774d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 29 14:12:42 2019 +0000
+
+    bumped changelog version
+
+commit 832af7be476ed632c8691c2a5fbd3d4440f6da37
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 29 13:52:38 2019 +0000
+
+    shorten disclaimer
+
+commit 635d60cfce6abae1c9bea7cffe7ac17739dcad8d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 29 13:40:29 2019 +0000
+
+    update link
+
+commit 7d495c41e51725b5d81cee0c1c8cb6d0bbff1b8d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 29 13:37:42 2019 +0000
+
+    add link to homepage
+
+commit 53028d31a8afbadcb494a800a4a9170b29356d34
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 29 13:35:00 2019 +0000
+
+    title on par with https://www.whonix.org/wiki/SecBrowser
+
+commit 1770cfab020c1cf1643d27bc880fa8e5eb388220
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 29 13:32:52 2019 +0000
+
+    bumped changelog version
+
+commit b50b41b8c27e37adef992ea5b3e279426376ae2e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 29 13:32:08 2019 +0000
+
+    remove no longer needed "break" since no longer using a loop
+
+commit bd63049a30e1a03de5e7ed46a447b441cb12d973
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 28 19:30:48 2019 +0000
+
+    bumped changelog version
+
+commit a4c0e9a44a44b1ccb175e04c0d63a0674308d083
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 28 19:20:53 2019 +0000
+
+    update path to /usr/lib/libhardened_malloc.so/libhardened_malloc.so
+
+commit 754ec4e37dbdd562f461d98ee417fb6c0d370788
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 22 12:06:34 2019 -0400
+
+    fortunately no need to use versioned shared object file names
+    
+    https://www.debian.org/doc/debian-policy/ch-sharedlibs.html
+
+commit 50ef3bf7de2368a5d5d379cd38c8a30fe8ad641f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 22 01:18:41 2019 +0000
+
+    fix
+
+commit 735a109bb8c96f2f265b17765d5d50b3b26416d2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 22 01:16:50 2019 +0000
+
+    bumped changelog version
+
+commit 03e701beb51568a31bc4b4fc8e4dd919e26c4b60
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 21 12:23:04 2019 -0400
+
+    automatically ld preload hardened_malloc if available when using --hardening
+    
+    Prefer user perhaps user custom compiled /usr/lib/libhardened_malloc.so
+    over versioned file /usr/lib/libhardened_malloc.so.1 by hardened_malloc
+    package.
+
+commit 8531b35e0e46d5efc6331f0f3197a8fd62e8ff3a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 21 12:14:15 2019 -0400
+
+    refactoring
+
+commit 3b7089803ec84388f418af5d719196b096cfca95
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 20 08:51:59 2019 -0400
+
+    comment
+
+commit cc08a50688513419de87cd4034386db37efdc0db
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 17:08:36 2019 +0000
+
+    SecBrowser: automatically enable firejail when available
+
+commit 65d5cc1e9580c53414e06ed310572ce42c372d02
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 17:06:25 2019 +0000
+
+    refactoring
+
+commit 24ceb883409cd832596ac37c229745708b85a6ba
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 17:02:47 2019 +0000
+
+    implement --hardening / tb_hardening="true"
+    
+    https://forums.whonix.org/t/automatically-firejailing-tor-browser/4767
+    
+    https://github.com/netblue30/firejail/issues/2863
+
+commit 891fe26da58f6e3aea73ee2f55bdd7e151cbd1d3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 13:18:49 2019 +0000
+
+    comment
+
+commit bdefe65a315d2942f578e8f8fea9469932246171
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 13:04:31 2019 +0000
+
+    comment
+
+commit ca82c7a871b4645be8a874a0e65104b2a7cbbd97
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 13:02:38 2019 +0000
+
+    comment
+
+commit 05f54338ea747f186425dedf8b347b8f267bfc3c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 12:54:29 2019 +0000
+
+    delete obsolete comment
+
+commit 8643bce42cc07b8d58bc37e3a74ed52b6a860c32
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 11:00:40 2019 +0000
+
+    bumped changelog version
+
+commit 9ec278d23d0253720492879cd19f9caeb7533361
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 11:00:11 2019 +0000
+
+    do not copy if tb_browser_folder already exists
+
+commit e35fe3c400bab56dc1db0994cb8ae5b1de845f92
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 10:57:52 2019 +0000
+
+    fix paths; comments
+
+commit da7f9e0a6336292ffa1eeb28e16d428d371b5295
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 19 10:09:08 2019 +0000
+
+    bumped changelog version
+
+commit b3488c51d823b3cc2c8b3e9c3d143f65a3e01d77
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 18 12:34:34 2019 -0400
+
+    output
+
+commit 0ab24ad11bd42f3f152ff9a6eff974d7ce62d0b2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 18 12:26:16 2019 -0400
+
+    add code to copy Tor Browser from root folder to user home
+
+commit 697c812e37b229029445726c4d1583d1f63e5035
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 18 12:09:52 2019 -0400
+
+    revert: In DispVM run from /var/cache/tb-binary directly.
+    
+    https://github.com/QubesOS/qubes-issues/issues/4918#issuecomment-506361988
+
+commit d8a92fb5be145e2569b1f77bfbb08e3a1f1cfc9f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 17 23:16:32 2019 +0000
+
+    bumped changelog version
+
+commit 140b4244c1e37ad587ed83470d7ae1f728945beb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 17 23:14:35 2019 +0000
+
+    comment
+
+commit 954f4fa48d21af412143923ecf95acc63284425d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 15 19:50:56 2019 +0000
+
+    bumped changelog version
+
+commit 27c8968837494a08352118c7d1636c7df0ef797f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 15 13:20:15 2019 -0400
+
+    comment
+
+commit 721b45dc59b2a40eea0e860526f6d81eb8114c1a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 15:36:41 2019 +0000
+
+    bumped changelog version
+
+commit 569954b12bd1ec1c64c5bdb442338adbf33cd283
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 15:19:18 2019 +0000
+
+    comment
+
+commit b93906e55cefcfc3f63cac92d177257b72f1e6d2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 11:29:01 2019 +0000
+
+    bumped changelog version
+
+commit 3aad82dbc16cc145bc35a7ee20861fb54b7ea3d3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 07:23:11 2019 -0400
+
+    debugging
+
+commit 3a6213fd103287490af98d7656cedf9a3049e510
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 07:07:51 2019 -0400
+
+    comment
+
+commit d28eb5c26312c0ee5b4d369d499a5f780aa89f8d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 07:03:45 2019 -0400
+
+    comment
+
+commit 8d63169c96f2ed87c158b49264bf9d188b674f13
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 07:02:56 2019 -0400
+
+    comment
+
+commit 5f176d144fc022108b6e162f4578c565b51dd422
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 06:52:21 2019 -0400
+
+    comment
+
+commit d4db73b19a05a853ac8ebbf7263c4e468e51c8c5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 06:52:02 2019 -0400
+
+    comment
+
+commit ae4fe4852d5043053c479e57cefefc126415c426
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 06:50:38 2019 -0400
+
+    copyright
+
+commit b3accaa409b2cc1841267dc8ce8fdeef82f59a35
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 06:50:21 2019 -0400
+
+    typo
+
+commit 9e5356263d31511e69980b3afdb70e3396d3cc05
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 13 06:48:44 2019 -0400
+
+    get rid of warning message on SecBrowser startup
+    
+    Something Went Wrong!
+    Tor is not working in this browser.
+    
+    disable torbutton's Tor remote check for clearnet browser SecBrowser
+
+commit b3e8dc165ce9b0c728c80fa9759afa5bc3b69a77
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 12 15:24:44 2019 -0400
+
+    add first start popup to ask whether security slider should be set to safest
+    
+    https://forums.whonix.org/t/ship-an-additional-version-of-tor-browser-with-security-slider-settings-to-high-by-default/7591
+
+commit 588f22e67a31d96b962ec19d6d8956f520946171
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 12 12:59:33 2019 -0400
+
+    comment
+
+commit eabe90222893042439d0c5ecc39d9927803b2ea5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 12 12:56:37 2019 -0400
+
+    shuffle
+
+commit a9219fc2632f667c109cfcdc7e85fff462a60ed3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 12 12:25:30 2019 -0400
+
+    import from tb-updater package and move to usr/share/secbrowser/user.js
+
+commit 4450f17a9c4c8a29c1cf84fec07e55547e5ec349
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 11 14:57:33 2019 -0400
+
+    fix, honor TOR_DEFAULT_HOMEPAGE and skip link confirm open if set
+
+commit 5e270bb6d92437780c210827d0b182b24ef4eb8a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 11 07:33:07 2019 +0000
+
+    bumped changelog version
+
+commit 837e6d25719b871cfa0479ccd2314038705a2377
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 11 07:30:37 2019 +0000
+
+    typo
+
+commit 04aa11a755411f5c79cabe6c0e9800f51ff46145
+Merge: 23ece3d 29ea95a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 11 07:26:14 2019 +0000
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 29ea95a0c80a2f673aa32bdec6c11ea82f388dfc
+Merge: 23ece3d fafe33e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 11 07:25:02 2019 +0000
+
+    Merge pull request #6 from 0brand/master
+    
+    Update SecBrowser landing page
+
+commit fafe33e25c7d2f95e3200103dd77953a30836be4
+Author: 0brand <0brand@mailbox.org>
+Date:   Tue Jul 9 16:33:53 2019 +0000
+
+    Update SecBrowser landing page
+
+commit 23ece3d0c2850da43708d09a17db85f2b867ebc7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jun 30 08:24:23 2019 +0000
+
+    bumped changelog version
+
+commit ef1771078930ac1a0d1670ca41aa8efe8269eeac
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jun 29 16:39:12 2019 -0400
+
+    man page
+
+commit b55694ed4a334c8420a2992d0c5127ae72620ccc
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jun 29 13:45:41 2019 +0000
+
+    man page
+
+commit 1b9c3bd977df60f70cfde33667e7e9df5990acbe
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jun 27 16:42:49 2019 +0000
+
+    bumped changelog version
+
 commit 8eaf4998d43c806eaf91f810e790a109f385897f
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jun 27 16:39:37 2019 +0000
