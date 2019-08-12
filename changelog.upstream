@@ -1,3 +1,40 @@
+commit d18795ac7a578989b23dad1bf660b37eeedef0d8
+Merge: 25ad28b 4920fbf
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 2 22:30:04 2019 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 4920fbf90efbdbce7380701809f6b756a4e42315
+Merge: 25ad28b 6d100b2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 3 02:29:46 2019 +0000
+
+    Merge pull request #7 from 0brand/master
+    
+    Update link to home page.
+
+commit 6d100b211f2764d4a7316d5ba3ffe37c27db6f8b
+Author: 0brand <0brand@mailbox.org>
+Date:   Fri Aug 2 16:37:35 2019 +0000
+
+    Update link to new SecBrowser home page
+
+commit 57b35b28c90b780ee39f149d6af15c162a032e1a
+Merge: 05423fe 25ad28b
+Author: 0brand <0brand@mailbox.org>
+Date:   Fri Aug 2 16:21:28 2019 +0000
+
+    Merge pull request #2 from Whonix/master
+    
+    Sync with upsteam repo
+
+commit 25ad28b2ee68fb44311b8d9a27c31b6bea43aa40
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 1 12:05:51 2019 +0000
+
+    bumped changelog version
+
 commit a131420d2af58adc23fa9f3df9465407f4ca468f
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Aug 1 11:13:44 2019 +0000
@@ -27,6 +64,15 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Aug 1 02:40:25 2019 -0400
 
     source /usr/lib/helper-scripts/pre.bsh if available
+
+commit 05423feb064c2f6b14ea5590aa78e9fe83f0bb11
+Merge: fafe33e 24a3087
+Author: 0brand <0brand@mailbox.org>
+Date:   Thu Aug 1 00:34:18 2019 +0000
+
+    Merge pull request #1 from adrelanos/master
+    
+    Sync with upstream repo.
 
 commit 24a308733fe6c36bfc0b101b4efac45f99054c6c
 Author: Patrick Schleizer <adrelanos@riseup.net>
