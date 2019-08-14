@@ -711,7 +711,7 @@ tb_start_tor_browser() {
       fi
 
       temp="$tb_firejail_bin ${tb_firejailopts[@]} $tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@""
-      $tb_firejail_bin ${tb_firejailopts[@]} $tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@"
+      $tb_firejail_bin ${tb_firejailopts[@]} $tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@" || { tb_exit_code="$?" ; true; };
    else
       temp="$tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@""
       $tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@" || { tb_exit_code="$?" ; true; };
