@@ -1,3 +1,15 @@
+commit c8095b790dd193e1f14d5d9ccceb7397f8d8906c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 14 12:37:41 2019 +0000
+
+    fix error message on non-zero exit code when using firejail
+
+commit bc594b3c81b293ae6c05e8c19a38bda07366822d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 14 11:14:00 2019 +0000
+
+    bumped changelog version
+
 commit fd4e34eb4a321f46d89dde9e0ee130c92655df3b
 Merge: 01492cb a36f540
 Author: Patrick Schleizer <adrelanos@riseup.net>
