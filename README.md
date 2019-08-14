@@ -1,11 +1,58 @@
-# Tor Browser Starter #
+# Tor Browser Starter (by Whonix developers) #
 
-Provides a Tor Browser Starter start menu entry and /usr/bin/torbrowser
-starter.
+Starter.
 
-Starts /home/user/.tb/tor-browser/start-tor-browser.
+- Tor Browser Starter start menu entry and /usr/bin/torbrowser
+starter. Starts /home/user/.tb/tor-browser/start-tor-browser.
+
+- SecBrowser Starter start menu entry and /usr/bin/secbrowser
+starter. Starts /home/user/.secbrowser/secbrowser/start-tor-browser.
+
+Integreation with hardened-malloc.
+
+- Tor Browser: Hardneing opt-in.
+When config option tb_hardening=true is set or when using
+command line option --hardening, file
+/usr/lib/libhardened_malloc.so/libhardened_malloc.so
+will be added to LD_PRELOAD environment variable if available.
+
+- SecBrowser: Hardening by default. File
+/usr/lib/libhardened_malloc.so/libhardened_malloc.so
+will be added to LD_PRELOAD environment variable if available.
+
+Integration with firejail.
+
+- Tor Browser: Hardening opt-in.
+When config option tb_hardening=true is set or when using
+command line option --hardening, firejail be used.
+
+- SecBrowser: Hardening by default. Firejail will be used.
+
+Security Slider.
+
+- Tor Browser: Prompts to set security slider to default or maximum at first
+start
+
+- SecBrowser: Sets security slider to maximum by default.
 
 Uses open-link-confirmation if available.
+
+Prompts to install the browser if not yet installed.
+
+Changes directory into browser directly before startup.
+
+Custom homepage support.
+
+Qubes integration.
+
+Sanity tests:
+- Aborts if detected being run as root.
+- Aborts in Qubes TemplateVM.
+- Aborts in Qubes DVM Template.
+- Waits for Qubes mount dirs and gui agent being ready.
+- Prevents a browser previously used as SecBrowser being used as Tor Browser.
+
+In Qubes AppVM copies browser from root image to private image at first start.
 
 This package is produced independently of, and carries no guarantee from,
 The Tor Project.
