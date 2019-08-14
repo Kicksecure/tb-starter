@@ -718,9 +718,9 @@ tb_start_tor_browser() {
    fi
 
    if [ ! "$tb_exit_code" = "0" ]; then
-      local MSG="<p>Failed to start $tb_title!<br></br>
+      local MSG="<p>$tb_title ended with non-zero (error) exit code!<br></br>
 <br></br>
-Failed to run:<br></br>
+Command $tb_title was started with:<br></br>
 <br></br><code>$temp</code>.
 <br></br>
 <br></br>Exited with code: <code>$tb_exit_code</code>
