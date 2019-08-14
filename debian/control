@@ -17,7 +17,7 @@ Depends: msgcollector, ${misc:Depends}
 Recommends: tb-updater, tb-default-browser, open-link-confirmation,
  anon-icon-pack
 Provides: torbrowser-launcher
-Description: Tor Browser Starter
+Description: Tor Browser Starter (by Whonix developers)
  Provides a Tor Browser Starter start menu entry and /usr/bin/torbrowser
  starter.
  .
