@@ -1,3 +1,41 @@
+commit 523b8fb8ac9e3c796cb853715750b224c01e9b87
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 14 01:01:37 2019 +0000
+
+    readme
+
+commit d1145445f0db8ec5ac4ce96bb59c561efcc35999
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 14 00:55:14 2019 +0000
+
+    description
+
+commit 5bfdd0cd8222b958ff7c619d3bc1c8092062355e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 14 00:42:05 2019 +0000
+
+    description
+
+commit 21d968e4fe8f2c5003b215f0131a2a0a2e6d8c39
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 14 00:40:50 2019 +0000
+
+    description
+
+commit 028b5c36b533f36191f28e760fd2766730f05acd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 14 00:38:46 2019 +0000
+
+    fix open link confirmation
+    
+    Thanks to @TNTBOMBOM for the bug report!
+
+commit a20d0f4222ed9b952420d37b1760d6a20b68ac66
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Aug 5 09:13:51 2019 +0000
+
+    bumped changelog version
+
 commit d18795ac7a578989b23dad1bf660b37eeedef0d8
 Merge: 25ad28b 4920fbf
 Author: Patrick Schleizer <adrelanos@riseup.net>
