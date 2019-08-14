@@ -19,9 +19,10 @@ Recommends: tb-updater, tb-default-browser, open-link-confirmation,
 Provides: torbrowser-launcher
 Description: Tor Browser Starter (by Whonix developers)
  Provides a Tor Browser Starter start menu entry and /usr/bin/torbrowser
- starter.
+ starter. Starts /home/user/.tb/tor-browser/start-tor-browser.
  .
- Starts /home/user/.tb/tor-browser/start-tor-browser.
+ Provides a SecBrowser Starter start menu entry and /usr/bin/secbrowser
+ starter. Starts /home/user/.secbrowser/secbrowser/start-tor-browser.
  .
  Uses open-link-confirmation if available.
  .
