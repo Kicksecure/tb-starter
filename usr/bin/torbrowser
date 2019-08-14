@@ -635,7 +635,7 @@ maybe_use_open_link_confirmation() {
       return 0
    fi
 
-   if [ -x /usr/lib/open_link_confirmation ]; then
+   if ! test -x /usr/lib/open_link_confirmation ; then
       return 0
    fi
 
@@ -669,6 +669,8 @@ maybe_use_open_link_confirmation() {
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
       exit 1
    fi
+
+   exit 0
 }
 
 tb_start_tor_browser_wrapper() {
