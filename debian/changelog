@@ -1,3 +1,9 @@
+tb-starter (3:8.3-1) unstable; urgency=medium
+
+  * New upstream version (local package).
+
+ -- Patrick Schleizer <adrelanos@riseup.net>  Thu, 15 Aug 2019 15:18:40 +0000
+
 tb-starter (3:8.2-1) unstable; urgency=medium
 
   * New upstream version (local package).

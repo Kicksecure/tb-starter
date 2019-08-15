@@ -1,3 +1,49 @@
+commit 61243b9431f3a180e5ce7ce8841852415d5b4bfb
+Merge: a64abd8 8452e79
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 15 01:33:43 2019 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit a64abd8c00bf9e8c9ab3252213a2f0b37c44757e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 15 01:33:06 2019 -0400
+
+    output
+
+commit 970c953a1b7f8b29bad530457f6d6d94a1b1f0dd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 15 01:32:14 2019 -0400
+
+    do not export LD_PRELOAD and instead prepend it
+
+commit 8452e79e82774fb8e3c344480f5d7c12983fa09a
+Merge: f4e514b 7e6dc42
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 15 05:26:32 2019 +0000
+
+    Merge pull request #9 from 0brand/master
+    
+    torjunkies' forum Nits
+
+commit 7e6dc42c920889bad183cee730d4b07f464856e0
+Author: 0brand <0brand@mailbox.org>
+Date:   Wed Aug 14 23:17:58 2019 +0000
+
+    torjunkies' forum Nits
+
+commit 1d341d13151adc5e672e2e398365096732e40873
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 14 12:44:53 2019 +0000
+
+    output
+
+commit f4e514bef3f8156cb9098ea3ac288412814e56b6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 14 12:38:59 2019 +0000
+
+    bumped changelog version
+
 commit c8095b790dd193e1f14d5d9ccceb7397f8d8906c
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Aug 14 12:37:41 2019 +0000
