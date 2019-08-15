@@ -719,10 +719,10 @@ tb_start_tor_browser() {
    if [ ! "$tb_exit_code" = "0" ]; then
       local MSG="<p>$tb_title ended with non-zero (error) exit code!<br></br>
 <br></br>
-Command $tb_title was started with:<br></br>
+$tb_title was started with:<br></br>
 <br></br><code>$temp</code>.
 <br></br>
-<br></br>Exited with code: <code>$tb_exit_code</code>
+<br></br>$tb_title exited with code: <code>$tb_exit_code</code>
 <br></br>
 <br></br>To see this for yourself, you could try: <blockquote>Start Menu -> System -> Xfce Terminal
 <br></br>Then run:
