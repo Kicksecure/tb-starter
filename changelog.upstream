@@ -1,3 +1,27 @@
+commit d9d9bbda95c6d0c1d6a8c4e9bad33a7967a9c33a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 16 15:57:31 2019 +0000
+
+    readme
+
+commit 9f837db38462d72dca311dec5d0171ea6932a7db
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 16 15:56:47 2019 +0000
+
+    add secbrowser metapackage for ease of installation
+
+commit 4bc516920b37896d7e65ea9e5bd3fa53c10636cc
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 16 15:42:00 2019 +0000
+
+    Icon=/usr/share/icons/anon-icon-pack/secbrowser.png
+
+commit 5949aaccb23e92756987cffd4a4ab32cba2549a7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 15 15:18:40 2019 +0000
+
+    bumped changelog version
+
 commit 61243b9431f3a180e5ce7ce8841852415d5b4bfb
 Merge: a64abd8 8452e79
 Author: Patrick Schleizer <adrelanos@riseup.net>
