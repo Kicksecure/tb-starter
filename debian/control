@@ -88,3 +88,20 @@ Description: Tor Browser Starter (by Whonix developers)
  .
  This package is produced independently of, and carries no guarantee from,
  The Tor Project.
+
+Package: secbrowser
+Architecture: all
+Depends: tb-updater, tb-starter, firejail, firejail-profiles,
+ hardened-malloc, anon-icon-pack, ${misc:Depends}
+Description: security-hardened, non-anonymous browser
+ A metapackage that installs required and recommended packages for
+ SecBrowser ™.
+ .
+ Does not really depend on the packages firejail or hardened-malloc
+ but uses them automatically when available.
+ .
+ Without the anon-icon-pack package, there would not be an icon image.
+ .
+ Package tb-updater is used to download, verify and install SecBrowser ™.
+ .
+ Package tb-starter supports starting SecBrowser ™.
