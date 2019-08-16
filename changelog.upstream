@@ -1,3 +1,23 @@
+commit 15ecbdb9b668c468289aa8de6a75629f8e92f18a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 16 16:41:01 2019 +0000
+
+    add debian/tb-starter.install
+    
+    unfortunately required because there is now a meta package in debian/control
+
+commit 45341638d3e6658bf43933592381f7b8d7ca572a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 16 16:40:54 2019 +0000
+
+    fix
+
+commit 7c400bfd43f51295332e21b7dcd900d73256aa3f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 16 16:00:27 2019 +0000
+
+    bumped changelog version
+
 commit d9d9bbda95c6d0c1d6a8c4e9bad33a7967a9c33a
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Aug 16 15:57:31 2019 +0000
