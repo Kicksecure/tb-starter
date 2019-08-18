@@ -7,40 +7,22 @@ export SCRIPTNAME="$(basename "$BASH_SOURCE")"
 
 export IDENTIFIER="i2pbrowser"
 
-export ICON="/usr/share/icons/anon-icon-pack/tbupdate.ico"
+TOR_DEFAULT_HOMEPAGE="/usr/share/tb-profile-i2p/i2p-diffs.html"
 
-if [ ! -d "$HOME/.i2pb/i2p-browser/Browser" ]; then
-    update-i2pbrowser
-    exit $?
-fi
+[ -n "$ICON" ] || export ICON="/usr/share/icons/anon-icon-pack/tbupdate.ico"
+[ -n "$TOR_HIDE_UPDATE_CHECK_UI" ] || export TOR_HIDE_UPDATE_CHECK_UI=1
+[ -n "$TOR_NO_DISPLAY_NETWORK_SETTINGS" ] || export TOR_NO_DISPLAY_NETWORK_SETTINGS=1
+[ -n "$TOR_HIDE_BROWSER_LOGO" ] || export TOR_HIDE_BROWSER_LOGO=1
+[ -n "$TOR_SKIP_LAUNCH" ] || export TOR_SKIP_LAUNCH=1
+[ -n "$tb_using_i2p" ] || export tb_using_i2p="--i2p"
+[ -n "$tb_install_folder" ] || export tb_install_folder="i2pb"
+[ -n "$tb_install_folder_dot" ] || export tb_install_folder_dot=".i2pb"
+[ -n "$tb_title" ] || export tb_title="i2p Browser"
+[ -n "$tb_wiki" ] || export tb_wiki="i2p_Browser"
+[ -n "$tb_browser_name" ] || export tb_browser_name="i2p-browser"
+[ -n "$tb_bin" ] || export tb_bin="$IDENTIFIER"
+[ -n "$tb_browser_runner" ] || export tb_browser_runner="start-i2p-browser"
+[ -n "$tb_settings_folder" ] || export tb_settings_folder="i2pbrowser.d"
+[ -n "$tb_2ip" ] || export tb_2ip="true"
 
-cp -r --no-clobber /usr/share/tb-profile-i2p/profile.i2p \
-    "$HOME/.i2pb/profile.i2p"
-
-rm -rf "$HOME/.i2pb/profile.i2p/extensions"
-
-cp -r --no-clobber "$HOME/.i2pb/i2p-browser/Browser/TorBrowser/Data/Browser/profile.default/extensions" \
-    "$HOME/.i2pb/profile.i2p/extensions"
-
-if [ ! -L "$HOME/.i2pb/i2p-browser/Browser/TorBrowser/Data/Browser/profile.i2p" ]; then
-    ln -sf "$HOME/.i2pb/profile.i2p" \
-        "$HOME/.i2pb/i2p-browser/Browser/TorBrowser/Data/Browser/profile.i2p"
-fi
-
-cp -f /usr/share/tb-profile-i2p/start-i2p-browser "$HOME/.i2pb/i2p-browser/Browser/start-i2p-browser"
-
-TOR_HIDE_UPDATE_CHECK_UI=1 \
-    TOR_NO_DISPLAY_NETWORK_SETTINGS=1 \
-    TOR_HIDE_BROWSER_LOGO=1 \
-    TOR_SKIP_LAUNCH=1 \
-    LINK="/usr/share/tb-profile-i2p/i2p-diffs.html" \
-    tb_using_i2p="--i2p" \
-    tb_install_folder="i2pb" \
-    tb_install_folder_dot=".i2pb" \
-    tb_title="i2p Browser" \
-    tb_wiki="i2p_Browser" \
-    tb_browser_name="i2p-browser" \
-    tb_bin="$IDENTIFIER" \
-    tb_browser_runner="start-i2p-browser" \
-    tb_settings_folder="i2pbrowser.d" \
-    torbrowser "$@"
+torbrowser "$@"

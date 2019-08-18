@@ -337,7 +337,7 @@ tb_qubes_dvm_template() {
    fi
 
    local MSG="\
-<p>Do not run Tor Browser in Qubes DVM Template!<br></br>
+<p>Do not run $tb_title in Qubes DVM Template!<br></br>
 <br></br>
 More info: <a href=https://www.whonix.org/wiki/Tor_Browser/Advanced_Users#Running_Tor_Browser_in_Qubes_TemplateVM_or_DVM_Template>https://www.whonix.org/wiki/Tor_Browser/Advanced_Users#Running_Tor_Browser_in_Qubes_TemplateVM_or_DVM_Template</a></p>"
 
@@ -417,15 +417,32 @@ tb_copy_from_root_to_user_maybe() {
       return 0
    fi
 
-   shopt -s dotglob
-   shopt -s nullglob
+   if [ -d /var/cache/tb-binary/.cache ]; then
+      cp --verbose --recursive --no-clobber "/var/cache/tb-binary/.cache" "$tb_user_home/"
+   fi
 
-   local folder_name
-   for folder_name in /var/cache/tb-binary/*; do
-      cp --verbose --recursive --no-clobber "$folder_name" "$tb_user_home"
-      ## example simplified:
-      ## cp /var/cache/tb-binary/.tb /home/user
-   done
+   ## example tb_home_folder:
+   ## /home/user/.tb
+   ## example tb_browser_folder:
+   ## /home/user/.tb/tor-browser
+
+   if [ "$tb_2ip" = "true" ]; then
+      if [ -d "/var/cache/tb-binary/.tb/tor-browser" ]; then
+         mkdir -p "$tb_home_folder"
+         ## No / at the end.
+         ## example simplified:
+         ## cp /var/cache/tb-binary/.tb/tor-browser /home/user/.i2pb/i2p-browser
+         cp --verbose --recursive --no-clobber "/var/cache/tb-binary/.tb/tor-browser" "$tb_browser_folder"
+      fi
+   else
+      if [ -d "/var/cache/tb-binary/$tb_install_folder_dot/$tb_browser_name" ]; then
+         ## / at the end.
+         ## example simplified:
+         ## cp /var/cache/tb-binary/.tb/tor-browser /home/user/.tb/tor-browser
+         ## cp /var/cache/tb-binary/.secbrowser/secbrowser /home/user/.secbrowser/
+         cp --verbose --recursive --no-clobber "/var/cache/tb-binary/$tb_install_folder_dot/$tb_browser_name" "$tb_home_folder/"
+      fi
+   fi
 
    mkdir --parents "$tb_home_folder"
    touch "$done_file"
@@ -561,6 +578,52 @@ tb_clearnet() {
    fi
 }
 
+tb_i2p() {
+   ## i2pbrowser sets tb_2ip="true".
+
+   ## If the i2pmarker file exists and if tb_2ip is not set to
+   ## "true" it means that this browser was previously started with
+   ## tb_2ip="true". Therefore refuse to start it without
+   ## tb_2ip="true" since a browser that was ever used with i2p
+   ## should never be used again over Tor to avoid linking the different
+   ## identities.
+   if test -f "$tb_browser_folder/i2pmarker" ; then
+      if [ ! "$tb_2ip" = "true" ]; then
+         local MSG="i2p marker file exists and trying to start without i2pbrowser. Aborted. A Tor Browser that was previously started as i2pbrowser should not be started without i2pbrowser."
+         $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
+         $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+         exit 2
+         return 0
+      fi
+   fi
+
+   if [ ! "$tb_2ip" = "true" ]; then
+      ## Since tb_2ip is not set to true,
+      ## do not proceed with the rest of this function, i.e.
+      ## creating i2pmarker or making i2pbrowser modifications.
+      return 0
+   fi
+
+   if ! test -f "$tb_browser_folder/i2pmarker" ; then
+      touch "$tb_browser_folder/i2pmarker"
+   fi
+
+   cp -r --no-clobber /usr/share/tb-profile-i2p/profile.i2p \
+      "$tb_browser_folder/profile.i2p"
+
+   rm -rf "$tb_browser_folder/profile.i2p/extensions"
+
+   cp -r --no-clobber "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/extensions" \
+      "$tb_browser_folder/profile.i2p/extensions"
+
+   if [ ! -L "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.i2p" ]; then
+      ln -sf "$tb_browser_folder/profile.i2p" \
+         "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.i2p"
+   fi
+
+   cp -f /usr/share/tb-profile-i2p/start-i2p-browser "$tb_browser_folder/Browser/start-i2p-browser"
+}
+
 tb_security_slider() {
    if [ "$tb_clearnet" = "true" ]; then
       ## SecBrowser has its own user.js file which sets the
@@ -581,7 +644,7 @@ tb_security_slider() {
    else
       true "no version exists"
       local MSG="<p>\
-<b>First Start of Tor Browser (AnonDist) - <a href=https://www.whonix.org/wiki/Tor_Browser#Security_vs_Usability_Trade-off>Security vs Usability Trade-off</a></b><br />
+<b>First Start of $tb_title (AnonDist) - <a href=https://www.whonix.org/wiki/Tor_Browser#Security_vs_Usability_Trade-off>Security vs Usability Trade-off</a></b><br />
 <br />
 In the stock Tor Browser configuration, JavaScript is enabled by default for greater usability. The Tor Project provides a <a href=https://2019.www.torproject.org/docs/faq#TBBJavaScriptEnabled>rationale</a> for this decision.<br />
 <br />
@@ -746,8 +809,9 @@ main_function() {
    tb_copy_from_root_to_user_maybe "$@"
    maybe_install_tor_browser "$@"
    tb_folder_change_directory "$@"
-   tb_detect_starter_bin "$@"
    tb_clearnet "$@"
+   tb_i2p "$@"
+   tb_detect_starter_bin "$@"
    maybe_use_open_link_confirmation "$@"
    tb_security_slider "$@"
    tb_firejail_set_options "$@"
