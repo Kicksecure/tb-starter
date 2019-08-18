@@ -25,4 +25,8 @@ TOR_DEFAULT_HOMEPAGE="/usr/share/tb-profile-i2p/i2p-diffs.html"
 [ -n "$tb_settings_folder" ] || export tb_settings_folder="i2pbrowser.d"
 [ -n "$tb_2ip" ] || export tb_2ip="true"
 
+if command -v firejail &>/dev/null ; then
+   [ -n "$tb_hardening" ] || export tb_hardening="true"
+fi
+
 torbrowser "$@"
