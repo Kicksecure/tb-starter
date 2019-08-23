@@ -1,3 +1,27 @@
+commit fadb867388be828e226fde587d9bb43547901ede
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Aug 18 14:03:09 2019 +0000
+
+    enable hardening by default if firejail is available in i2pbrowser
+    
+    web fingerprint is non-default anyhow, so nothing to lose related to fingerprint
+    
+    https://www.whonix.org/wiki/Tor_Browser#Hardening
+    
+    https://forums.whonix.org/t/tor-browser-hardening-hardened-malloc-firejail-apparmor-vs-web-fingerprint/7851
+
+commit 9dba5f8c761a3985f0442dcc68733f886560155d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Aug 18 13:59:48 2019 +0000
+
+    refactoring, update i2pbrowser for recent code changes
+
+commit 9a9d69c75b1f202910f9b9f4d2ff5dcf4ca0b915
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 16 16:41:58 2019 +0000
+
+    bumped changelog version
+
 commit 15ecbdb9b668c468289aa8de6a75629f8e92f18a
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Aug 16 16:41:01 2019 +0000
