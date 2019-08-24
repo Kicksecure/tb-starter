@@ -11,18 +11,6 @@ starter. Starts `/home/user/.tb/tor-browser/start-tor-browser`.
 - SecBrowser Starter start menu entry and `/usr/bin/secbrowser`
 starter. Starts `/home/user/.secbrowser/secbrowser/start-tor-browser`.
 
-Integreation with hardened-malloc.
-
-- Tor Browser: Hardneing opt-in.
-When config option `tb_hardening=true` is set or when using
-command line option `--hardening`, file
-`/usr/lib/libhardened_malloc.so/libhardened_malloc.so`
-will be added to `LD_PRELOAD` environment variable if available.
-
-- SecBrowser: Hardening by default. File
-`/usr/lib/libhardened_malloc.so/libhardened_malloc.so`
-will be added to `LD_PRELOAD` environment variable if available.
-
 Integration with firejail.
 
 - Tor Browser: Hardening opt-in.
@@ -74,15 +62,15 @@ The Tor Project.
 Package: secbrowser
 Architecture: all
 Depends: tb-updater, tb-starter, firejail, firejail-profiles,
-hardened-malloc, anon-icon-pack, ${misc:Depends}
+anon-icon-pack, ${misc:Depends}
 Description: security-hardened, non-anonymous browser
 # security-hardened, non-anonymous browser #
 
 A metapackage that installs required and recommended packages for
 SecBrowser ™.
 
-Does not really depend on the packages firejail or hardened-malloc
-but uses them automatically when available.
+Does not really depend on the package firejail
+but uses it automatically when available.
 
 Without the anon-icon-pack package, there would not be an icon image.
 
