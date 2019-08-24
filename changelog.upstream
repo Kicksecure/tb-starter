@@ -1,3 +1,23 @@
+commit 14f718747ce25fb4429760dea0e6161160e9247d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 24 16:39:57 2019 +0000
+
+    readme
+
+commit 52d160ee7140e3555bc3b3006a08789a5ff1fb8c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 24 12:18:34 2019 -0400
+
+    remove hardened malloc LD_PRELOAD since it does not work with Firefox
+    
+    https://forums.whonix.org/t/hardened-malloc/7474/29
+
+commit 0c03f49a9d38b665d7615c6bcea64c1dcda24806
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Aug 23 16:57:49 2019 +0000
+
+    bumped changelog version
+
 commit fadb867388be828e226fde587d9bb43547901ede
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Aug 18 14:03:09 2019 +0000
