@@ -433,19 +433,19 @@ tb_copy_from_root_to_user_maybe() {
          ## example simplified:
          ## cp /var/cache/tb-binary/.tb/tor-browser /home/user/.i2pb/i2p-browser
          cp --verbose --recursive --no-clobber "/var/cache/tb-binary/.tb/tor-browser" "$tb_browser_folder"
+         touch "$done_file"
       fi
    else
       if [ -d "/var/cache/tb-binary/$tb_install_folder_dot/$tb_browser_name" ]; then
-         ## / at the end.
+         mkdir -p "$tb_home_folder"
+         ## No / at the end.
          ## example simplified:
          ## cp /var/cache/tb-binary/.tb/tor-browser /home/user/.tb/tor-browser
-         ## cp /var/cache/tb-binary/.secbrowser/secbrowser /home/user/.secbrowser/
-         cp --verbose --recursive --no-clobber "/var/cache/tb-binary/$tb_install_folder_dot/$tb_browser_name" "$tb_home_folder/"
+         ## cp /var/cache/tb-binary/.secbrowser/secbrowser /home/user/.secbrowser/secbrowser
+         cp --verbose --recursive --no-clobber "/var/cache/tb-binary/$tb_install_folder_dot/$tb_browser_name" "$tb_browser_folder"
+         touch "$done_file"
       fi
    fi
-
-   mkdir --parents "$tb_home_folder"
-   touch "$done_file"
 }
 
 maybe_install_tor_browser() {
