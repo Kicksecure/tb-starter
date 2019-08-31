@@ -1,3 +1,15 @@
+commit e99a660c495a5cc874f04bfe5b26a7cd6c533bde
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 31 08:18:00 2019 -0400
+
+    fix copying from /var/cache/tb-binary to user home at first start
+
+commit a7c1dcdf485e2c3dd749329db260c23cc4b37e4a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 24 16:42:03 2019 +0000
+
+    bumped changelog version
+
 commit 14f718747ce25fb4429760dea0e6161160e9247d
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Aug 24 16:39:57 2019 +0000
