@@ -637,6 +637,10 @@ tb_security_slider() {
       return 0
    fi
 
+   if [ -f "$tb_browser_folder/slider-question-done" ]; then
+      return 0
+   fi
+
    if diff /usr/share/torbrowser/security-slider-highest.js "$tb_user_js_target_file" &>/dev/null ; then
       true "our version exists"
    elif test -f "$tb_user_js_target_file" ; then
@@ -687,6 +691,8 @@ cp /usr/share/torbrowser/security-slider-highest.js $tb_user_js_target_file
       else
          true "button 'yes' not pressed, not copying /usr/share/torbrowser/security-slider-highest.js to $tb_user_js_target_file"
       fi
+
+      touch "$tb_browser_folder/slider-question-done"
    fi
 }
 
