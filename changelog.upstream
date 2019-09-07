@@ -1,3 +1,15 @@
+commit fc87f8d3741e529410d898bfccce4b361d7da316
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Sep 7 01:20:50 2019 -0400
+
+    fix, do not ask slider question again when it was answered "No"
+
+commit 99200c71a79a149961667d75f8dc6985b4249e45
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 31 13:45:47 2019 +0000
+
+    bumped changelog version
+
 commit e99a660c495a5cc874f04bfe5b26a7cd6c533bde
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Aug 31 08:18:00 2019 -0400
