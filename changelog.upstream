@@ -1,3 +1,33 @@
+commit 61425b21d8fcd959309c74e9b40511dd733c18ed
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Sep 16 12:19:30 2019 +0000
+
+    fix DNS with SecBrowser in Kicksecure
+
+commit 5cb5e87570602d8ce94b97c4c6cf0aa9460ea018
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Sep 16 11:43:29 2019 +0000
+
+    remove coming soon since Kicksecure release soon
+
+commit 7e8f8ba095ccc4eb2d27cc93cfed68c55727618d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Sep 16 11:42:32 2019 +0000
+
+    donate now
+
+commit ddff4530d6933ad30a07c38a132522540addcd89
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Sep 16 07:37:00 2019 -0400
+
+    typo
+
+commit 35ed9d54d71b9a47317ebc4024f7b09a89238a58
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 13 13:38:20 2019 +0000
+
+    bumped changelog version
+
 commit 022f7ccdffc91ec6a6bcf2b5862bb768ed50e6c3
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Sep 13 13:22:58 2019 +0000
