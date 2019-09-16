@@ -757,6 +757,11 @@ tb_firejail_set_options() {
 
    ## https://github.com/netblue30/firejail/issues/2863
    tb_firejailopts[${#tb_firejailopts[@]}]="--whitelist=$tb_browser_folder"
+
+   ## /etc/resolv.conf is a symlink to /etc/resolv.conf.kicksecure in Kicksecure.
+   ## https://github.com/netblue30/firejail/issues/2966
+   tb_firejailopts[${#tb_firejailopts[@]}]="--private-etc=resolv.conf.kicksecure"
+
    tb_firejailopts[${#tb_firejailopts[@]}]="--profile=torbrowser-launcher"
 
    ## https://forums.whonix.org/t/automatically-firejailing-tor-browser/4767/21
