@@ -1,3 +1,20 @@
+commit 7e160ddd10f50c527b10b660731006c1d2d55421
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Sep 20 14:01:28 2019 +0000
+
+    no longer set default homepage
+    remove link setting code
+    code simplification
+    since this is triggering a bug in Tor Browser / noscript
+    
+    https://forums.whonix.org/t/noscript-with-security-slider-at-safest-permits-around-30-sites/8160
+
+commit 47d8a3dc3c6abde8a60e3c089322947c2ab6dfd7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Sep 19 13:07:00 2019 +0000
+
+    bumped changelog version
+
 commit a92a4ced3ee92d41685b247ffcd218c001d1cd5b
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Sep 19 04:21:11 2019 -0400
