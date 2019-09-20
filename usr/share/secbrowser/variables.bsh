@@ -10,10 +10,11 @@ export TOR_SKIP_CONTROLPORTTEST=1
 export TOR_SKIP_LAUNCH=1
 export TOR_TRANSPROXY=1
 
-homepage="/usr/share/$IDENTIFIER/$IDENTIFIER.html"
-export tb_clearnet="true"
+## https://forums.whonix.org/t/noscript-with-security-slider-at-safest-permits-around-30-sites/8160
+#homepage="/usr/share/$IDENTIFIER/$IDENTIFIER.html"
+#export TOR_DEFAULT_HOMEPAGE="file://$homepage"
 
-export TOR_DEFAULT_HOMEPAGE="file://$homepage"
+export tb_clearnet="true"
 export tb_install_folder="$IDENTIFIER"
 export tb_install_folder_dot=".$IDENTIFIER"
 export tb_title="SecBrowser"

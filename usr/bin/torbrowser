@@ -161,52 +161,6 @@ tb_preparation() {
    #$output ${output_opts[@]} --forget
 }
 
-tb_set_links() {
-   DOC_LINK="https://www.whonix.org/wiki/Documentation"
-   CONTRIBUTE_LINK="https://www.whonix.org/wiki/Contribute"
-   DONATE_LINK="https://www.whonix.org/wiki/Donate"
-   FORUM_LINK="https://forums.whonix.org"
-   MAILINGLIST_LINK="https://www.whonix.org/pipermail/whonix-devel/"
-   IMPORTANTBLOG_LINK="https://forums.whonix.org/tags/important-news"
-   FEATUREBLOG_LINK="https://forums.whonix.org/c/news"
-
-   if [ ! "$TB_CUSTOM_HOMEPAGE" = "" ]; then
-      ## Prefer the custom homepage a user might have defined over
-      ## everything else.
-      DEFAULT_LINK="$TB_CUSTOM_HOMEPAGE"
-   elif [ ! "$TB_CUSTOM_WRAPPER_HOMEPAGE" = "" ]; then
-      ## Prefer the custom homepage a user might have defined over
-      ## everything else.
-      DEFAULT_LINK="$TB_CUSTOM_WRAPPER_HOMEPAGE"
-      open_link_confirmation_maybe_skip=true
-   elif [ ! "$TOR_DEFAULT_HOMEPAGE" = "" ]; then
-      DEFAULT_LINK="$TOR_DEFAULT_HOMEPAGE"
-      open_link_confirmation_maybe_skip=true
-   elif [ -f "/usr/share/anon-ws-base-files/workstation" ]; then
-      ## Running inside a Whonix-Workstation.
-      local whonix_homepage
-      whonix_homepage="/usr/share/homepage/whonix-welcome-page/whonix.html"
-      if [ -f "$whonix_homepage" ]; then
-         ## Great, we have whonix-welcome-page installed, prefer that one.
-         DEFAULT_LINK="file://$whonix_homepage"
-         open_link_confirmation_maybe_skip=true
-      else
-         ## whonix-welcome-page not installed, fall back to about:blank,
-         ## because about:tor does not apply to Whonix (makes users confuse
-         ## The Tor Project with Whonix).
-         DEFAULT_LINK="about:blank"
-         open_link_confirmation_maybe_skip=true
-      fi
-   elif [ -f "/usr/share/anon-gw-base-files/gateway" ]; then
-      ## about:tor also does not apply here.
-      DEFAULT_LINK="about:blank"
-      open_link_confirmation_maybe_skip=true
-   else
-      ## Running outside of Whonix.
-      true "Not modifying which link to open."
-   fi
-}
-
 tb_config_folder_parser() {
    [ -n "$tb_settings_folder" ] || tb_settings_folder="torbrowser.d"
 
@@ -220,84 +174,6 @@ tb_config_folder_parser() {
          bash -n "$i"
          source "$i"
    done
-}
-
-parse_cmd_options() {
-   ## Thanks to:
-   ## http://mywiki.wooledge.org/BashFAQ/035
-
-   while :
-   do
-       case $1 in
-           --doc)
-               LINK="$DOC_LINK"
-               shift
-               ;;
-           --contribute)
-               LINK="$CONTRIBUTE_LINK"
-               shift
-               ;;
-           --donate)
-               LINK="$DONATE_LINK"
-               shift
-               ;;
-           --forum)
-               LINK="$FORUM_LINK"
-               shift
-               ;;
-           --mailinglist)
-               LINK="$MAILINGLIST_LINK"
-               shift
-               ;;
-           --importantblog)
-               LINK="$IMPORTANTBLOG_LINK"
-               shift
-               ;;
-           --featureblog)
-               LINK="$FEATUREBLOG_LINK"
-               shift
-               ;;
-           --nolink)
-               LINK="NOLINK"
-               shift
-               ;;
-           --hardening)
-               tb_hardening="true"
-               shift
-               ;;
-           --)
-               shift
-               break
-               ;;
-           *)
-               break
-               ;;
-       esac
-   done
-
-   ## If there are input files (for example) that follow the options, they
-   ## will remain in the "$@" positional parameters.
-
-   if [ "$LINK" = "NOLINK" ]; then
-      open_link_confirmation_skip="true"
-      unset LINK
-      unset TOR_DEFAULT_HOMEPAGE
-      return 0
-   fi
-
-   local other_args
-   other_args="$@"
-   if [ "$other_args" = "" ]; then
-      have_other_args="false"
-      if [ "$LINK" = "" ]; then
-         LINK="$DEFAULT_LINK"
-         if [ "$open_link_confirmation_maybe_skip" = "true" ]; then
-            open_link_confirmation_skip="true"
-         fi
-      fi
-   else
-      have_other_args="true"
-   fi
 }
 
 tb_templatevm_check() {
@@ -316,16 +192,14 @@ tb_templatevm_check() {
       return 0
    fi
 
-   if [ "$have_other_args" = "false" ]; then
-      tb_qubes_wiki="Running_${tb_wiki}_in_Qubes_TemplateVM"
-      local MSG="<p>Do not run $tb_title in TemplateVM.<br></br>
-   <br></br>
-   More info: <a href=https://www.whonix.org/wiki/$tb_wiki#$tb_qubes_wiki>https://www.whonix.org/wiki/$tb_wiki#$tb_qubes_wiki</a></p>"
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+   tb_qubes_wiki="Running_${tb_wiki}_in_Qubes_TemplateVM"
+   local MSG="<p>Do not run $tb_title in TemplateVM.<br></br>
+<br></br>
+More info: <a href=https://www.whonix.org/wiki/$tb_wiki#$tb_qubes_wiki>https://www.whonix.org/wiki/$tb_wiki#$tb_qubes_wiki</a></p>"
+   $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
+   $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
 
-      exit 3
-   fi
+   exit 3
 }
 
 tb_qubes_dvm_template() {
@@ -715,18 +589,18 @@ maybe_use_open_link_confirmation() {
       return 0
    fi
 
+   if [[ "$@" = "" ]]; then
+      ## No args set so also no link set. No need to ask.
+      return 0
+   fi
+
    local temp
    local tool_exit_code="0"
    local tool
    tool="/usr/lib/open_link_confirmation"
 
-   if [ "$LINK" = "" ]; then
-      temp="$tool $@"
-      $tool "$@" || { tool_exit_code="$?" ; true; };
-   else
-      temp="$tool $@"
-      $tool "$LINK" || { tool_exit_code="$?" ; true; };
-   fi
+   temp="$tool $@"
+   $tool "$@" || { tool_exit_code="$?" ; true; };
 
    if [ ! "$tool_exit_code" = "0" ]; then
       local MSG="<p>$tb_title $FUNCNAME error.
@@ -740,16 +614,6 @@ maybe_use_open_link_confirmation() {
    fi
 
    exit 0
-}
-
-tb_start_tor_browser_wrapper() {
-   if [ "$LINK" = "" ]; then
-      temp="$tool $@"
-      tb_start_tor_browser "$@" || { tool_exit_code="$?" ; true; };
-   else
-      temp="$tool $@"
-      tb_start_tor_browser "$LINK" || { tool_exit_code="$?" ; true; };
-   fi
 }
 
 tb_firejail_set_options() {
@@ -802,9 +666,7 @@ main_function() {
    ## tb_error_handler
    root_check "$@"
    tb_preparation "$@"
-   tb_set_links "$@"
    tb_config_folder_parser "$@"
-   parse_cmd_options "$@"
    tb_templatevm_check "$@"
    tb_qubes_dvm_template "$@"
    check_tb_updater_first_boot_done "$@"
@@ -817,7 +679,7 @@ main_function() {
    maybe_use_open_link_confirmation "$@"
    tb_security_slider "$@"
    tb_firejail_set_options "$@"
-   tb_start_tor_browser_wrapper "$@"
+   tb_start_tor_browser "$@"
 }
 
 main_function "$@"
