@@ -24,31 +24,38 @@ fi
 tb_error_handler() {
    local exit_code="$?"
 
-   local MSG="\
-###########################################################
-## $SCRIPTNAME script bug.
-## No panic. Nothing is broken. Just some rare condition
-## has been hit. Try again later. There is likely a
-## solution for this problem. Please see the Whonix News,
-## Whonix User Help Forum and Whonix Documentation.
-## https://www.whonix.org/wiki/$tb_wiki
-## Please report this bug!
-##
-## BASH_COMMAND: $BASH_COMMAND
-## exit_code: $exit_code
-##
-## tb_browser_folder: $tb_browser_folder
-##
-## tb_user_js_target_file: $tb_user_js_target_file
-##
-## output: $output
-## output_opts: ${output_opts[@]}
-## progressbaridx: $progressbaridx
-##
-## Experts only:
-## bash -x $SCRIPTNAME
-###########################################################\
-"
+   local MSG="$0 script bug.
+
+No panic. Nothing is broken. Just some rare condition has been hit.
+Try again later. If this is a transient issue, it can be safely ignored.
+
+There is likely a solution for this problem.
+
+* Please see the Whonix News. https://forums.whonix.org/tags/important-news
+* Whonix User Help Forum. https://forums.whonix.org/
+* And Whonix Documentation. https://www.whonix.org/wiki/$tb_wiki
+
+It may or may not be possible to fix but further information may be required.
+
+* Try start from command line. https://www.whonix.org/wiki/$tb_wiki#From_the_Command_Line
+* Try start from command line with debugging enabled. https://www.whonix.org/wiki/$tb_wiki#In_Debugging_Mode
+* If you don't mind to repair that Tor Browser install, reinstall of Tor Browser would also likely solve this. https://www.whonix.org/wiki/$tb_wiki#reinstall
+
+Debugging information:
+
+BASH_COMMAND: <code>$BASH_COMMAND</code>
+exit_code: <code>$exit_code</code>
+
+tb_browser_folder: <code>$tb_browser_folder</code>
+
+tb_user_js_target_file: <code>$tb_user_js_target_file</code>
+
+output: <code>$output</code>
+output_opts: <code>${output_opts[@]}</code>
+progressbaridx: <code>$progressbaridx</code>
+
+Experts only:
+<code>bash -x $SCRIPTNAME</code>"
 
    MSG="$(/usr/lib/msgcollector/br_add "$MSG")"
 
