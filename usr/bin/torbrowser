@@ -129,6 +129,7 @@ tb_preparation() {
    [ -n "$tb_user_js_target_file" ] || tb_user_js_target_file="$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js"
 
    [ -n "$TOR_DEFAULT_HOMEPAGE" ] || TOR_DEFAULT_HOMEPAGE="about:blank"
+   export TOR_DEFAULT_HOMEPAGE
 
    if [ "$display" = "" ]; then
       if [ "$DISPLAY" = "" ]; then
