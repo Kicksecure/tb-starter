@@ -1,5 +1,8 @@
 #!/bin/bash
 
+## Copyright (C) 2019 - 2019 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
 export TOR_NO_DISPLAY_NETWORK_SETTINGS=1
 export TOR_HIDE_BROWSER_LOGO=1
 export TOR_SKIP_CONTROLPORTTEST=1
