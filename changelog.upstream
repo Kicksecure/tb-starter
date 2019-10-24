@@ -1,3 +1,59 @@
+commit 88e3792adca9ee6ccb9444844f1ea430a40039c5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Oct 24 02:41:17 2019 -0400
+
+    comments
+
+commit aaed392da17fe8cfb396fcec2f70484e02a809cb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Oct 24 02:21:37 2019 -0400
+
+    comments
+
+commit bfc7738f01ca196640fc7a3dd592b1f722d3dbfe
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Oct 24 02:19:05 2019 -0400
+
+    copyright
+
+commit 099916f5810f9355c8bb0ab75f9788f20e0dc7e1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Oct 24 02:18:48 2019 -0400
+
+    refactoring
+
+commit b5314cc23da2cf0f85c2e08c6d1f2eb2ae2ee483
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Oct 24 02:18:10 2019 -0400
+
+    code simplification
+
+commit 23fb362ef3807e9325fa3a81fb6063f117dad734
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Oct 24 02:17:37 2019 -0400
+
+    code simplification
+
+commit fda3b8370623bd782d9327976633e0153e41edaa
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Oct 24 02:14:42 2019 -0400
+
+    remove 'export TOR_HIDE_UPDATE_CHECK_UI=1' for SecBrowser / i2pbrowser
+    
+    since not justified. Unknown reason why this was introduced.
+    
+    No reason to disable Tor Browser internal updater. Works equally well for
+    SecBrowser. Tested.
+    
+    'export TOR_HIDE_UPDATE_CHECK_UI=1' seems to have had no effect but remove
+    anyhow just in case it ever gets fixed upstream in future.
+
+commit 99ca4f236861e9d2c958b183dbddaf9e16328a3f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Oct 23 11:50:03 2019 +0000
+
+    bumped changelog version
+
 commit e7d08e74283aea491a3163d92a5cf2b2af3c6181
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Oct 23 11:46:56 2019 +0000
