@@ -10,8 +10,7 @@ export TOR_SKIP_LAUNCH=1
 export TOR_TRANSPROXY=1
 
 ## https://forums.whonix.org/t/noscript-with-security-slider-at-safest-permits-around-30-sites/8160
-homepage="/usr/share/secbrowser/secbrowser.html"
-export TOR_DEFAULT_HOMEPAGE="file://$homepage"
+export TOR_DEFAULT_HOMEPAGE="file:///usr/share/secbrowser/secbrowser.html"
 
 export tb_clearnet="true"
 export tb_install_folder="$IDENTIFIER"
