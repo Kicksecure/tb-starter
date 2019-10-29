@@ -41,3 +41,8 @@ user_pref("signon.rememberSignons", true);
 // Required for saving passwords.
 // https://trac.torproject.org/projects/tor/ticket/30565#comment:7
 user_pref("security.nocertdb", false);
+
+// Disable Letterboxing.
+// https://forums.whonix.org/t/is-anyone-having-white-bars-in-the-tbb-tor-browser-letterboxing/8345
+// https://forums.whonix.org/t/secbrowser-a-security-hardened-non-anonymous-browser/3822/156
+user_pref("privacy.resistFingerprinting.letterboxing", false);
