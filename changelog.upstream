@@ -1,3 +1,19 @@
+commit 1a9a61c4caff3bd12cb2fdb6de10ae59e088e03a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Oct 29 10:27:25 2019 -0400
+
+    disable Letterboxing in SecBrowser by default
+    
+    https://forums.whonix.org/t/is-anyone-having-white-bars-in-the-tbb-tor-browser-letterboxing/8345
+    
+    https://forums.whonix.org/t/secbrowser-a-security-hardened-non-anonymous-browser/3822/156
+
+commit 18d840ba226b8cec825f4b73af0d09824b55b21e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Oct 24 06:56:55 2019 +0000
+
+    bumped changelog version
+
 commit 88e3792adca9ee6ccb9444844f1ea430a40039c5
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Oct 24 02:41:17 2019 -0400
