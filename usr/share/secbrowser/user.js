@@ -46,3 +46,9 @@ user_pref("security.nocertdb", false);
 // https://forums.whonix.org/t/is-anyone-having-white-bars-in-the-tbb-tor-browser-letterboxing/8345
 // https://forums.whonix.org/t/secbrowser-a-security-hardened-non-anonymous-browser/3822/156
 user_pref("privacy.resistFingerprinting.letterboxing", false);
+
+// Enable punycode to fix
+// very hard to notice Phishing Scam - Firefox / Tor Browser URL not showing real Domain Name - Homograph attack (Punycode).
+// https://forums.whonix.org/t/very-hard-to-notice-phishing-scam-firefox-tor-browser-url-not-showing-real-domain-name-homograph-attack-punycode/8373
+// https://forums.whonix.org/t/secbrowser-a-security-hardened-non-anonymous-browser/3822/162
+user_pref("network.IDN_show_punycode", true);
