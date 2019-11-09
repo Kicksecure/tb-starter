@@ -1,3 +1,23 @@
+commit 2e741b4a16066d3ae187e4a9406f2271bbe72bab
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Nov 5 09:35:02 2019 -0500
+
+    Enable punycode
+    
+    to fix very hard to notice Phishing Scam - Firefox / Tor Browser URL not showing real Domain Name - Homograph attack (Punycode).
+    
+    https://forums.whonix.org/t/very-hard-to-notice-phishing-scam-firefox-tor-browser-url-not-showing-real-domain-name-homograph-attack-punycode/8373
+    
+    https://forums.whonix.org/t/secbrowser-a-security-hardened-non-anonymous-browser/3822/162
+    
+    user_pref("network.IDN_show_punycode", true);
+
+commit 74303636a76da01d0cef3d80a33e0491b4f21a44
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Oct 31 16:07:31 2019 +0000
+
+    bumped changelog version
+
 commit 1a9a61c4caff3bd12cb2fdb6de10ae59e088e03a
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Oct 29 10:27:25 2019 -0400
