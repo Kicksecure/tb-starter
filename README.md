@@ -58,25 +58,6 @@ SecBrowser:
 
 This package is produced independently of, and carries no guarantee from,
 The Tor Project.
-
-Package: secbrowser
-Architecture: all
-Depends: tb-updater, tb-starter, firejail, firejail-profiles,
-anon-icon-pack, ${misc:Depends}
-Description: security-hardened, non-anonymous browser
-# security-hardened, non-anonymous browser #
-
-A metapackage that installs required and recommended packages for
-SecBrowser ™.
-
-Does not really depend on the package firejail
-but uses it automatically when available.
-
-Without the anon-icon-pack package, there would not be an icon image.
-
-Package tb-updater is used to download, verify and install SecBrowser ™.
-
-Package tb-starter supports starting SecBrowser ™.
 ## How to install `tb-starter` using apt-get ##
 
 1\. Download [Whonix's Signing Key]().
