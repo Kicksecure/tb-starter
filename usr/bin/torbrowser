@@ -233,6 +233,16 @@ More info: <a href=https://www.whonix.org/wiki/Tor_Browser/Advanced_Users#Runnin
 }
 
 check_noexec() {
+   local tb_home_folder_mount
+   ## example tb_home_folder:
+   ## /home/user/.tb
+   tb_home_folder_mount="$(mount | grep "$tb_home_folder")"
+   if [ ! "$tb_home_folder_mount" = "" ]; then
+      if echo "$tb_home_folder" | grep -q --invert-match "noexec" ; then
+         return 0
+      fi
+   fi
+
    ## example tb_user_home:
    ## /home/user
    ##
@@ -248,6 +258,11 @@ check_noexec() {
       local MSG="<p>Failed to start $tb_title!<br></br>
 <br></br>
 <code>$tb_user_home_dirname</code> is mounted with <code>noexec</code>.
+<br></br>
+<br></br>Debugging information:
+<br></br>
+<br></br>tb_user_home_dirname: <code>$tb_user_home_dirname</code>
+<br></br>tb_home_folder_mount: <code>$tb_home_folder_mount</code>
 </p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
