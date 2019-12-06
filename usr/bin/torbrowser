@@ -109,6 +109,8 @@ tb_preparation() {
       tb_user_home="/home/$who_ami"
    fi
 
+   tb_user_home_dirname="$(dirname "$tb_user_home")"
+
    [ -n "$tb_install_folder" ] || tb_install_folder="tb"
    [ -n "$tb_install_folder_dot" ] || tb_install_folder_dot=".tb"
    [ -n "$tb_browser_name" ] || tb_browser_name="tor-browser"
@@ -228,6 +230,29 @@ More info: <a href=https://www.whonix.org/wiki/Tor_Browser/Advanced_Users#Runnin
    $output ${output_opts[@]} --messagex --titlex "$TITLE" --typex "error" --message "$MSG" --done
    $output ${output_opts[@]} --messagecli --titlecli "$TITLE" --typecli "error" --message "$MSG" --done
    exit 1
+}
+
+check_noexec() {
+   ## example tb_user_home:
+   ## /home/user
+   ##
+   ## example tb_user_home:
+   ## /var/cache/tb-binary
+   ##
+   ## example tb_user_home_dirname:
+   ## /var/cache
+   ##
+   ## example tb_user_home_dirname:
+   ## /home
+   if mount | grep "$tb_user_home_dirname" | grep -q "noexec" ; then
+      local MSG="<p>Failed to start $tb_title!<br></br>
+<br></br>
+tb_user_home_dirname <code>$tb_user_home_dirname</code> is mounted with <code>noexec</code>.
+</p>"
+      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
+      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+      exit 5
+   fi
 }
 
 check_tb_updater_first_boot_done() {
@@ -679,6 +704,7 @@ main_function() {
    tb_config_folder_parser "$@"
    tb_templatevm_check "$@"
    tb_qubes_dvm_template "$@"
+   check_noexec "$@"
    check_tb_updater_first_boot_done "$@"
    tb_copy_from_root_to_user_maybe "$@"
    maybe_install_tor_browser "$@"
