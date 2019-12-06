@@ -1,3 +1,15 @@
+commit 05e9025cc12b0c2c4478a1218b919e6f769c698f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 6 04:25:28 2019 -0500
+
+    do not attempt to start when /home is mounted with noexec
+
+commit 9a26d3d3d2a17a6de6d475b6ed8c9e7507757395
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Nov 18 19:16:55 2019 +0000
+
+    bumped changelog version
+
 commit b98efd24614f911f69fed116031f9b83fd23ffd9
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Nov 18 09:33:43 2019 +0000
