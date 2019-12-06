@@ -247,7 +247,7 @@ check_noexec() {
    if mount | grep "$tb_user_home_dirname" | grep -q "noexec" ; then
       local MSG="<p>Failed to start $tb_title!<br></br>
 <br></br>
-tb_user_home_dirname <code>$tb_user_home_dirname</code> is mounted with <code>noexec</code>.
+<code>$tb_user_home_dirname</code> is mounted with <code>noexec</code>.
 </p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
