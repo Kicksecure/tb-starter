@@ -1,3 +1,21 @@
+commit a991ebca335ebf2ab5f6b90ded96f6e8cbf239b5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 6 12:40:09 2019 -0500
+
+    detect if /home/user/.tb is mounted without noexec
+
+commit a5cc4683be2a5c3a8ade69188d18f27723cc48f2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 6 12:34:30 2019 -0500
+
+    output
+
+commit 79ed07d3fd31d3d7efd5802d53202302127ed437
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 6 10:11:45 2019 -0500
+
+    bumped changelog version
+
 commit 05e9025cc12b0c2c4478a1218b919e6f769c698f
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Dec 6 04:25:28 2019 -0500
