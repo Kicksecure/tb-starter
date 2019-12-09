@@ -236,7 +236,7 @@ check_noexec() {
    local tb_home_folder_mount
    ## example tb_home_folder:
    ## /home/user/.tb
-   tb_home_folder_mount="$(mount | grep "$tb_home_folder")"
+   tb_home_folder_mount="$(mount | grep "$tb_home_folder")" || true
    if [ ! "$tb_home_folder_mount" = "" ]; then
       if echo "$tb_home_folder" | grep -q --invert-match "noexec" ; then
          return 0
