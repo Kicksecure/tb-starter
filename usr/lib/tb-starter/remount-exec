@@ -1,0 +1,42 @@
+#!/bin/bash
+
+## Copyright (C) 2019 - 2019 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+## test:
+## sudo tb_user_home=/home/user tb_home_folder=/home/user/.tb bash -x /usr/lib/tb-starter/remount-exec
+
+#set -x
+set -e
+
+if [ "$(id -u)" != "0" ]; then
+   echo "ERROR: Must run as root." >&2
+   exit 112
+fi
+
+## example tb_user_home:
+## /home/user
+
+if [ "$tb_user_home" = "" ]; then
+   echo "$0: ERROR tb_user_home is empty" >&2
+   exit 1
+fi
+
+## example tb_home_folder:
+## /home/user/.tb
+
+if [ "$tb_home_folder" = "" ]; then
+   echo "$0: ERROR tb_home_folder is empty" >&2
+   exit 1
+fi
+
+## Check if already correct mount options.
+if mount | grep "$tb_home_folder" | grep -q noexec ; then
+   ## noexec mount option found. Therefore remount.
+   mount --bind -o nosuid,nodev "$tb_home_folder" "$tb_home_folder"
+fi
+
+## results in:
+# mount | grep /home/user/.tb
+# /dev/xvdb on /home/user/.tb type ext4 (rw,nosuid,nodev,relatime,discard)
+# /dev/xvdb on /rw/home/user/.tb type ext4 (rw,nosuid,nodev,relatime,discard)
