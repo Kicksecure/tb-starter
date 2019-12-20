@@ -1,3 +1,23 @@
+commit 2e0c1c4de3093e50cc1cda7e998040c1153ea264
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Dec 17 03:36:23 2019 -0500
+
+    remount Tor Browser folder in /home with exec (disable noexec if enabled)
+    
+    https://forums.whonix.org/t/re-mount-home-and-other-with-noexec-and-nosuid-among-other-useful-mount-options-for-better-security/7707
+
+commit 9fd05e84e2392d739b5573505c0eee2dff21b385
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Dec 17 03:07:28 2019 -0500
+
+    run check_noexec later
+
+commit 65c6972bb9f7e65ab54bb278125b4e159b1d22bf
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Dec 9 08:26:24 2019 -0500
+
+    bumped changelog version
+
 commit 04b59367dc7228c8563e3ec83b6679eb75e5ba7c
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Dec 9 08:23:56 2019 -0500
