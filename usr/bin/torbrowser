@@ -569,6 +569,10 @@ tb_security_slider() {
       return 0
    fi
 
+   ## Broken, therefore disabled by default.
+   ## https://forums.whonix.org/t/broken-security-slider/8675
+   [ -n "$tb_security_slider_safest" ] || tb_security_slider_safest="false"
+
    if [ "$tb_security_slider_safest" = "false" ]; then
       true "tb_security_slider_safest is set to false, skipping, ok."
       return 0
