@@ -1,3 +1,17 @@
+commit 5d51e69df5ead2ce2f0e83d56ad064790b1854b3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Dec 28 01:46:01 2019 -0500
+
+    Disable security slider first start popup because it is broken.
+    
+    https://forums.whonix.org/t/broken-security-slider/8675
+
+commit 2dfd914ebdce1c311d7ccb4d0e2241baa968817f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 20 07:13:26 2019 -0500
+
+    bumped changelog version
+
 commit 2e0c1c4de3093e50cc1cda7e998040c1153ea264
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Dec 17 03:36:23 2019 -0500
