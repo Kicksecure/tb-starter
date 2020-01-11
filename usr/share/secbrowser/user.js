@@ -28,8 +28,10 @@ user_pref("network.proxy.socks_remote_dns", false);
 user_pref("extensions.torbutton.test_enabled", false);
 
 // Set security slider "Safest".
-user_pref("extensions.torbutton.inserted_security_level", true);
-user_pref("extensions.torbutton.security_slider", 1);
+// Broken, therefore disabled by default.
+// https://forums.whonix.org/t/broken-security-slider/8675
+// user_pref("extensions.torbutton.inserted_security_level", true);
+// user_pref("extensions.torbutton.security_slider", 1);
 
 // Normalize Tor Browser behavior
 user_pref("extensions.torbutton.noscript_persist", true);
