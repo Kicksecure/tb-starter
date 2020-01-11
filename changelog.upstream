@@ -1,3 +1,19 @@
+commit 7f3e9e523b662a183473b9c41fbc7f5aaa56f33e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 11 04:24:22 2020 -0500
+
+    SecBrowser: disable "Set security slider "Safest"."
+    
+    Broken, therefore disabled by default.
+    
+    https://forums.whonix.org/t/broken-security-slider/8675
+
+commit 5eff54428a8726b0800ea7febce82ac9b418cc9c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Dec 30 06:00:39 2019 -0500
+
+    bumped changelog version
+
 commit 5d51e69df5ead2ce2f0e83d56ad064790b1854b3
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Dec 28 01:46:01 2019 -0500
