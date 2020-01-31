@@ -70,7 +70,7 @@ user_pref("extensions.https_everywhere._observatory.submit_during_tor", false);
 user_pref("extensions.https_everywhere._observatory.submit_during_nontor", false);
 user_pref("extensions.https_everywhere._observatory.use_custom_proxy", true);
 user_pref("extensions.https_everywhere._observatory.proxy_host", "127.0.0.1");
-user_pref("extensions.https_everywhere._observatory.proxy_port", 4444);
+user_pref("extensions.https_everywhere._observatory.proxy_port", 8118);
 
 user_pref("extensions.torbutton.use_nontor_proxy", true);
 
@@ -85,16 +85,9 @@ user_pref("extensions.torlauncher.default_bridge_type", "");
 user_pref("extensions.torlauncher.prompt_at_startup", false);
 
 
-user_pref("network.proxy.no_proxies_on", 0);
+user_pref("network.proxy.no_proxies_on", 1);
 user_pref("network.proxy.type", 1);
 user_pref("network.proxy.http", "127.0.0.1");
-user_pref("network.proxy.http_port", 4444);
-user_pref("network.proxy.ssl", "127.0.0.1");
-user_pref("network.proxy.ssl_port", 4444);
-user_pref("network.proxy.ftp", "127.0.0.1");
-user_pref("network.proxy.ftp_port", 4444);
-user_pref("network.proxy.socks", "127.0.0.1");
-user_pref("network.proxy.socks_port", 4444);
-user_pref("network.proxy.share_proxy_settings", true);
+user_pref("network.proxy.http_port", 8118);
 user_pref("browser.startup.homepage", "about:blank");
 
