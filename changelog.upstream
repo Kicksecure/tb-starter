@@ -1,3 +1,31 @@
+commit 1d1f77453901be4218c1facacb7c94fe4ccf9480
+Merge: 09077a9 1921a89
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 31 12:15:20 2020 -0500
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 1921a89432a01c209bc712e2a2a55f7a21ae47d3
+Merge: 09077a9 c2859f0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 31 17:14:49 2020 +0000
+
+    Merge pull request #10 from HulaHoop0/patch-1
+    
+    Modified to work with privoxy
+
+commit c2859f0b480ecd55cfce9968d1759ce796d1c875
+Author: HulaHoop0 <55955185+HulaHoop0@users.noreply.github.com>
+Date:   Fri Jan 31 16:44:45 2020 +0000
+
+    Modified to work with privoxy
+
+commit 09077a98471f0a5e84528eb24e870a0b38444e98
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 11 05:24:29 2020 -0500
+
+    bumped changelog version
+
 commit 7f3e9e523b662a183473b9c41fbc7f5aaa56f33e
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Jan 11 04:24:22 2020 -0500
