@@ -1,3 +1,33 @@
+commit af420d2e8b3abeebf2835ec11f27e758b663571d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 13 07:40:21 2020 -0500
+
+    fix variable name tb_2ip -> tb_i2p_browser
+
+commit 377eee077a8d1ee47a3206920dcbab5884eae02d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 13 07:34:36 2020 -0500
+
+    Check if i2p related services are already running. And if not,
+    lxsudo prompt, systemctl enable and start i2p related services.
+    
+    This effectively results in a one time lxsudo prompt for users of
+    i2pbrowser in Non-Qubes-Whonix.
+    
+    This is different in Qubes-Whonix TemplateBased AppVMs due to
+    TemplateBased AppVMs having a non-persistent root image by default.
+    These users should run:
+    
+    sudo /usr/share/tb-profile-i2p/enable-i2p
+    
+    in Whonix-Workstation TemplateVM.
+
+commit 34ba6a422ef945fd151e83d1d338f5d9dd215c12
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 3 08:44:24 2020 -0500
+
+    bumped changelog version
+
 commit 1d1f77453901be4218c1facacb7c94fe4ccf9480
 Merge: 09077a9 1921a89
 Author: Patrick Schleizer <adrelanos@riseup.net>
