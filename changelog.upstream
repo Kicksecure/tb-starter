@@ -1,3 +1,21 @@
+commit 1af4b8261c1b95e7a42fef4b39fc09618904b234
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 13 09:58:52 2020 -0500
+
+    i2pbrowser: use "standard" homepage path
+
+commit ec43dd55cada2184ae6d2338db6092759f55a9ca
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 13 09:56:03 2020 -0500
+
+    i2pbrowser: unset default by whonix-welcome-page /usr/lib/whonix-welcome-page/env_var.sh
+
+commit 3be99bdd59b85ac950f4add32ba9eaa82edf9d71
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 13 14:13:15 2020 +0000
+
+    bumped changelog version
+
 commit af420d2e8b3abeebf2835ec11f27e758b663571d
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Feb 13 07:40:21 2020 -0500
