@@ -23,7 +23,7 @@ export IDENTIFIER="i2pbrowser"
 [ -n "$tb_bin" ] || export tb_bin="$IDENTIFIER"
 [ -n "$tb_browser_runner" ] || export tb_browser_runner="start-i2p-browser"
 [ -n "$tb_settings_folder" ] || export tb_settings_folder="i2pbrowser.d"
-[ -n "$tb_2ip" ] || export tb_2ip="true"
+[ -n "$tb_i2p_browser" ] || export tb_i2p_browser="true"
 
 if command -v firejail &>/dev/null ; then
    [ -n "$tb_hardening" ] || export tb_hardening="true"

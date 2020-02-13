@@ -363,7 +363,7 @@ tb_copy_from_root_to_user_maybe() {
    ## example tb_browser_folder:
    ## /home/user/.tb/tor-browser
 
-   if [ "$tb_2ip" = "true" ]; then
+   if [ "$tb_i2p_browser" = "true" ]; then
       if [ -d "/var/cache/tb-binary/.tb/tor-browser" ]; then
          mkdir -p "$tb_home_folder"
          ## No / at the end.
@@ -516,16 +516,16 @@ tb_clearnet() {
 }
 
 tb_i2p() {
-   ## i2pbrowser sets tb_2ip="true".
+   ## i2pbrowser sets tb_i2p_browser="true".
 
-   ## If the i2pmarker file exists and if tb_2ip is not set to
+   ## If the i2pmarker file exists and if tb_i2p_browser is not set to
    ## "true" it means that this browser was previously started with
-   ## tb_2ip="true". Therefore refuse to start it without
-   ## tb_2ip="true" since a browser that was ever used with i2p
+   ## tb_i2p_browser="true". Therefore refuse to start it without
+   ## tb_i2p_browser="true" since a browser that was ever used with i2p
    ## should never be used again over Tor to avoid linking the different
    ## identities.
    if test -f "$tb_browser_folder/i2pmarker" ; then
-      if [ ! "$tb_2ip" = "true" ]; then
+      if [ ! "$tb_i2p_browser" = "true" ]; then
          local MSG="i2p marker file exists and trying to start without i2pbrowser. Aborted. A Tor Browser that was previously started as i2pbrowser should not be started without i2pbrowser."
          $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
          $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
@@ -534,8 +534,8 @@ tb_i2p() {
       fi
    fi
 
-   if [ ! "$tb_2ip" = "true" ]; then
-      ## Since tb_2ip is not set to true,
+   if [ ! "$tb_i2p_browser" = "true" ]; then
+      ## Since tb_i2p_browser is not set to true,
       ## do not proceed with the rest of this function, i.e.
       ## creating i2pmarker or making i2pbrowser modifications.
       return 0
