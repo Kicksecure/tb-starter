@@ -541,6 +541,22 @@ tb_i2p() {
       return 0
    fi
 
+   ## Check if i2p related services are already running.
+   if ! /usr/share/tb-profile-i2p/check-i2p ; then
+      ## i2p related services are already not yet running.
+
+      ## lxsudo prompt, systemctl enable and start i2p related services.
+      lxsudo /usr/share/tb-profile-i2p/enable-i2p
+   fi
+   ## This effectively results in a one time lxsudo prompt for users of
+   ## i2pbrowser in Non-Qubes-Whonix.
+   ##
+   ## This is different in Qubes-Whonix TemplateBased AppVMs due to
+   ## TemplateBased AppVMs having a non-persistent root image by default.
+   ## These users should run:
+   ## sudo /usr/share/tb-profile-i2p/enable-i2p
+   ## in Whonix-Workstation TemplateVM.
+
    if ! test -f "$tb_browser_folder/i2pmarker" ; then
       touch "$tb_browser_folder/i2pmarker"
    fi

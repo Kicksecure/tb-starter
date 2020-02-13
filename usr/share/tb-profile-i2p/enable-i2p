@@ -1,0 +1,14 @@
+#!/bin/bash
+
+## Copyright (C) 2020 - 2020 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+## https://forums.whonix.org/t/installation-and-fix-of-i2p-inside-whonix-workstation-by-default/8610
+
+set -x
+set -e
+
+/bin/systemctl --no-pager --no-block enable privoxy.service i2p.service
+/bin/systemctl --no-pager --no-block start privoxy.service i2p.service
+
+exit "$?"
