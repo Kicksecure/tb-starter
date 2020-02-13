@@ -1,3 +1,15 @@
+commit 0647d1a69c21b7500590737ac603003d0850e287
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 13 10:25:40 2020 -0500
+
+    i2pbrowser homepage: add link to web interface
+
+commit a1eeaa28961980bdb5c1edf4691a096e242d01c2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 13 10:01:02 2020 -0500
+
+    bumped changelog version
+
 commit 1af4b8261c1b95e7a42fef4b39fc09618904b234
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Feb 13 09:58:52 2020 -0500
