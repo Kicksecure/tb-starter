@@ -89,5 +89,4 @@ user_pref("network.proxy.no_proxies_on", 1);
 user_pref("network.proxy.type", 1);
 user_pref("network.proxy.http", "127.0.0.1");
 user_pref("network.proxy.http_port", 8118);
-user_pref("browser.startup.homepage", "about:blank");
 
