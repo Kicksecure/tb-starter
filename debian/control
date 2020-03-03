@@ -32,13 +32,6 @@ Description: Tor Browser Starter (by Whonix developers)
  When config option tb_hardening=true is set or when using
  command line option --hardening, firejail will be used.
  .
- Security Slider.
- .
-  - Tor Browser: Prompts to set security slider to default or maximum at first
- start
- .
-  - SecBrowser: Sets security slider to maximum by default.
- .
  Uses open-link-confirmation if available.
  .
  Prompts to install the browser if not yet installed.
