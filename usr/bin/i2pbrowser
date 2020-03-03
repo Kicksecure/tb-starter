@@ -30,8 +30,8 @@ fi
 [ -n "$tb_settings_folder" ] || export tb_settings_folder="i2pbrowser.d"
 [ -n "$tb_i2p_browser" ] || export tb_i2p_browser="true"
 
-if command -v firejail &>/dev/null ; then
-   [ -n "$tb_hardening" ] || export tb_hardening="true"
-fi
+# if command -v firejail &>/dev/null ; then
+#    [ -n "$tb_hardening" ] || export tb_hardening="true"
+# fi
 
 torbrowser "$@"

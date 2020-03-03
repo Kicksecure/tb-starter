@@ -29,13 +29,8 @@ Description: Tor Browser Starter (by Whonix developers)
   - SecBrowser Starter start menu entry and `/usr/bin/secbrowser`
  starter. Starts `/home/user/.secbrowser/secbrowser/start-tor-browser`.
  .
- Integration with firejail.
- .
-  - Tor Browser: Hardening opt-in.
  When config option tb_hardening=true is set or when using
- command line option --hardening, firejail be used.
- .
-  - SecBrowser: Hardening by default. Firejail will be used.
+ command line option --hardening, firejail will be used.
  .
  Security Slider.
  .
@@ -79,14 +74,10 @@ Description: Tor Browser Starter (by Whonix developers)
 
 Package: secbrowser
 Architecture: all
-Depends: tb-updater, tb-starter, firejail, firejail-profiles,
- anon-icon-pack, ${misc:Depends}
+Depends: tb-updater, tb-starter, anon-icon-pack, ${misc:Depends}
 Description: security-hardened, non-anonymous browser
  A metapackage that installs required and recommended packages for
  SecBrowser ™.
- .
- Does not really depend on the package firejail
- but uses it automatically when available.
  .
  Without the anon-icon-pack package, there would not be an icon image.
  .
