@@ -1,3 +1,46 @@
+commit 0309e850c716a00d4a8358ad80fac656c65de23f
+Merge: 18f3f03 2acc0bd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 20 00:44:28 2020 -0500
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 2acc0bd8af89fb912d7f6c412936c37efc60023f
+Merge: b774620 110d874
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 20 05:37:55 2020 +0000
+
+    Merge pull request #12 from Thinkablemell0w/patch-2
+    
+    change console Page to /home
+
+commit b7746204f3c6ff1f1bb3cd445cd89760b6606c5a
+Merge: 18f3f03 3da4710
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 20 05:37:46 2020 +0000
+
+    Merge pull request #11 from Thinkablemell0w/patch-1
+    
+    remove blank homepage setting
+
+commit 110d874ed770282f3a7f31ddfced2340ca298583
+Author: Thinkablemell0w <60707409+Thinkablemell0w@users.noreply.github.com>
+Date:   Wed Feb 19 19:11:41 2020 +0100
+
+    change console Page to /home
+
+commit 3da471035043ae0cad6d6269a8d857f1913b8259
+Author: Thinkablemell0w <60707409+Thinkablemell0w@users.noreply.github.com>
+Date:   Wed Feb 19 19:10:43 2020 +0100
+
+    remove blank homepage setting
+
+commit 18f3f030230114720fcf191179ce274cc9bbe93b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Feb 14 01:11:32 2020 -0500
+
+    bumped changelog version
+
 commit 12b8cf93d03a222f1a704061e1acc04de345e2df
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Feb 14 01:06:01 2020 -0500
