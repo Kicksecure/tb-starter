@@ -11,20 +11,8 @@ starter. Starts `/home/user/.tb/tor-browser/start-tor-browser`.
 - SecBrowser Starter start menu entry and `/usr/bin/secbrowser`
 starter. Starts `/home/user/.secbrowser/secbrowser/start-tor-browser`.
 
-Integration with firejail.
-
-- Tor Browser: Hardening opt-in.
 When config option tb_hardening=true is set or when using
-command line option --hardening, firejail be used.
-
-- SecBrowser: Hardening by default. Firejail will be used.
-
-Security Slider.
-
-- Tor Browser: Prompts to set security slider to default or maximum at first
-start
-
-- SecBrowser: Sets security slider to maximum by default.
+command line option --hardening, firejail will be used.
 
 Uses open-link-confirmation if available.
 
