@@ -1,3 +1,33 @@
+commit eed0696561c2c5eb15027e815f35ff91cb27e9a9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Mar 5 08:33:01 2020 -0500
+
+    readme
+
+commit 72d5f063e40eeecd7b43775fa1a1d830b6080733
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 3 09:46:33 2020 -0500
+
+    remove security slider from description
+    
+    since no longer in use
+
+commit 493886f4be77aae967d3c01bf887e5f662131704
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 3 09:45:36 2020 -0500
+
+    SecBrowser / i2pbrowser: no longer use firejail by default
+    
+    even if installed
+    
+    since currently not maintained by anyone in Whonix / Kicksecure
+
+commit f6d88a34ef04d629da8e0c026c932f44affce34a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 3 09:15:54 2020 -0500
+
+    bumped changelog version
+
 commit 0309e850c716a00d4a8358ad80fac656c65de23f
 Merge: 18f3f03 2acc0bd
 Author: Patrick Schleizer <adrelanos@riseup.net>
