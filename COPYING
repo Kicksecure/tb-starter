@@ -73,7 +73,7 @@ License: GPL-3+-with-additional-terms-1
  IN CONNECTION WITH YOUR ASSUMPTIONS OF LIABILITY.
 
 Files: usr/share/tb-profile-i2p/*
-Copyright: 2018 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
+Copyright: 2018 - 2020 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
 Comment: These were adapted from profiles in the Tor Browser Bundle.
 License: BSD-3-clause
  Redistribution and use in source and binary forms, with or without
