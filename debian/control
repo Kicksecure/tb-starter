@@ -77,3 +77,6 @@ Description: security-hardened, non-anonymous browser
  Package tb-updater is used to download, verify and install SecBrowser ™.
  .
  Package tb-starter supports starting SecBrowser ™.
+ .
+ This package is produced independently of, and carries no guarantee from,
+ The Tor Project.
