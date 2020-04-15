@@ -88,7 +88,7 @@ Can be build using standard Debian package build tools such as:
 dpkg-buildpackage -b
 ```
 
-See [instructions](https://www.whonix.org/wiki/Dev/Build_Documentation/tb-starter). (Replace `package-name` with the actual name of this package.)
+See [instructions](https://www.whonix.org/wiki/Dev/Build_Documentation/generic-package). (Replace `generic-package` with the actual name of this package `tb-starter`.)
 
 ## Contact ##
 
