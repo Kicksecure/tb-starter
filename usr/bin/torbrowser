@@ -738,7 +738,10 @@ $tb_title was started with:<br></br>
 <br></br>
 <br></br>To see this for yourself, you could try: <blockquote>Start Menu -> System -> Xfce Terminal
 <br></br>Then run:
-<br></br><code>$SCRIPTNAME</code></blockquote></p>"
+<br></br><code>$SCRIPTNAME</code></blockquote>
+
+See online documentation:
+<br></br><a href=https://www.whonix.org/wiki/Tor_Browser#Tor_Browser_Launch_Errors>https://www.whonix.org/wiki/Tor_Browser#Tor_Browser_Launch_Errors</a></p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
       exit "$tb_exit_code"
