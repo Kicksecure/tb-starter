@@ -57,3 +57,6 @@ user_pref("privacy.resistFingerprinting.letterboxing", false);
 // https://forums.whonix.org/t/very-hard-to-notice-phishing-scam-firefox-tor-browser-url-not-showing-real-domain-name-homograph-attack-punycode/8373
 // https://forums.whonix.org/t/secbrowser-a-security-hardened-non-anonymous-browser/3822/162
 user_pref("network.IDN_show_punycode", true);
+
+// Disable popup asking to prefer onions since onions will not work in clearnet browser.
+user_pref("privacy.prioritizeonions.showNotification", false);
