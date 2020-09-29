@@ -1,3 +1,17 @@
+commit 24aadd5e9484d89e19143d8813a88199e9ef5895
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 29 11:50:23 2020 -0400
+
+    SecBrowser: actually `user_pref("network.dns.disabled", false);`
+    
+    https://forums.whonix.org/t/tor-browser-10-without-tor/10313
+
+commit e5fa4410ccc6aa9d02f006c824615081f8e7dfe9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 29 05:36:31 2020 -0400
+
+    bumped changelog version
+
 commit 8835a74a26a7fbada03d541359f51bf3ab1796db
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Sep 29 05:35:31 2020 -0400
