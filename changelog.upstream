@@ -1,3 +1,23 @@
+commit e986d5f9ac77ad926f20ad37a9920bc58a356b35
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 29 04:54:23 2020 -0400
+
+    SecBrowser: add `user_pref("network.dns.disabled", false);`
+    
+    https://forums.whonix.org/t/tor-browser-10-without-tor/10313
+    
+    Thanks to Lew for the bug report!
+    
+    Thanks to 2-unglaubig for fix suggestion!
+    
+    Thanks to digholer for fix suggestion and upstream bug report!
+
+commit 72f35c184db327ecc08fbc138c08337f90be3651
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Sep 5 04:06:43 2020 -0400
+
+    bumped changelog version
+
 commit d1918d7672e8d011e4b9ff30b86f8032d63a145f
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Aug 28 04:28:42 2020 -0400
