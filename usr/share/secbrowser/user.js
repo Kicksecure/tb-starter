@@ -21,7 +21,7 @@ user_pref("extensions.torlauncher.start_tor", false);
 user_pref("network.proxy.socks_remote_dns", false);
 
 // https://forums.whonix.org/t/tor-browser-10-without-tor/10313
-user_pref("network.dns.disabled", true);
+user_pref("network.dns.disabled", false);
 
 // Disable function torbutton source file:
 // src/chrome/content/torbutton.js
