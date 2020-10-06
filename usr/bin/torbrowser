@@ -720,6 +720,12 @@ tb_firejail_set_options() {
 tb_start_tor_browser() {
    local temp
    local tb_exit_code="0"
+
+   ## https://forums.whonix.org/t/system-wide-sandboxing-framework/9008/182
+   if [ "$tb_no_start" = "true" ]; then
+      return 0
+   fi
+
    if [ "$tb_hardening" = "true" ]; then
       temp="$tb_firejail_bin ${tb_firejailopts[@]} $tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@""
       $tb_firejail_bin ${tb_firejailopts[@]} $tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@" || { tb_exit_code="$?" ; true; };
