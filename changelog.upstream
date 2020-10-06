@@ -1,3 +1,25 @@
+commit e70f5a470ac262290537910c75990767bf207bc9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Oct 6 13:36:31 2020 -0400
+
+    readme
+
+commit ce589c2b9c8e5c4acc2834045290b29ac136cce7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Oct 6 13:27:16 2020 -0400
+
+    add environment variable `tb_no_start=true` support
+    
+    to avoid starting Tor Browser
+    
+    https://forums.whonix.org/t/system-wide-sandboxing-framework/9008/182
+
+commit f14dd237fc4b06503135ecbe8645a38ed35a8719
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Sep 29 11:50:53 2020 -0400
+
+    bumped changelog version
+
 commit 24aadd5e9484d89e19143d8813a88199e9ef5895
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Sep 29 11:50:23 2020 -0400
