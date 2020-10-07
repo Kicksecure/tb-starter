@@ -71,6 +71,18 @@ Experts only:
 
 trap "tb_error_handler" ERR
 
+tb_run_function() {
+   case $tb_skip_functions in
+   *"$@"*)
+      true "INFO: Skipping $@, because tb_skip_functions includes it."
+      return 0
+      ;;
+   esac
+
+   true "INFO: Running $@, because tb_skip_functions does not include it."
+   eval "$@"
+}
+
 root_check() {
    if [ "$(id -u)" != "0" ]; then
       #echo "$SCRIPTNAME running as user."
@@ -720,12 +732,6 @@ tb_firejail_set_options() {
 tb_start_tor_browser() {
    local temp
    local tb_exit_code="0"
-
-   ## https://forums.whonix.org/t/system-wide-sandboxing-framework/9008/182
-   if [ "$tb_no_start" = "true" ]; then
-      return 0
-   fi
-
    if [ "$tb_hardening" = "true" ]; then
       temp="$tb_firejail_bin ${tb_firejailopts[@]} $tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@""
       $tb_firejail_bin ${tb_firejailopts[@]} $tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@" || { tb_exit_code="$?" ; true; };
@@ -756,24 +762,24 @@ See online documentation:
 
 main_function() {
    ## tb_error_handler
-   root_check "$@"
-   tb_preparation "$@"
-   tb_config_folder_parser "$@"
-   tb_templatevm_check "$@"
-   tb_qubes_dvm_template "$@"
-   check_tb_updater_first_boot_done "$@"
-   tb_copy_from_root_to_user_maybe "$@"
-   maybe_install_tor_browser "$@"
-   remount_exec "$@"
-   check_noexec "$@"
-   tb_folder_change_directory "$@"
-   tb_clearnet "$@"
-   tb_i2p "$@"
-   tb_detect_starter_bin "$@"
-   maybe_use_open_link_confirmation "$@"
-   tb_security_slider "$@"
-   tb_firejail_set_options "$@"
-   tb_start_tor_browser "$@"
+   tb_run_function root_check "$@"
+   tb_run_function tb_preparation "$@"
+   tb_run_function tb_config_folder_parser "$@"
+   tb_run_function tb_templatevm_check "$@"
+   tb_run_function tb_qubes_dvm_template "$@"
+   tb_run_function check_tb_updater_first_boot_done "$@"
+   tb_run_function tb_copy_from_root_to_user_maybe "$@"
+   tb_run_function maybe_install_tor_browser "$@"
+   tb_run_function remount_exec "$@"
+   tb_run_function check_noexec "$@"
+   tb_run_function tb_folder_change_directory "$@"
+   tb_run_function tb_clearnet "$@"
+   tb_run_function tb_i2p "$@"
+   tb_run_function tb_detect_starter_bin "$@"
+   tb_run_function maybe_use_open_link_confirmation "$@"
+   tb_run_function tb_security_slider "$@"
+   tb_run_function tb_firejail_set_options "$@"
+   tb_run_function tb_start_tor_browser "$@"
 }
 
-main_function "$@"
+tb_run_function main_function "$@"
