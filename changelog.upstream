@@ -1,3 +1,19 @@
+commit 20c2165fb83f0d095492329b1329b704e7d031ec
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Oct 7 09:27:53 2020 -0400
+
+    allow skipping arbitrary functions thorough use of `tb_skip_functions` environment variable
+    
+    abolish `tb_no_start`
+    
+    https://forums.whonix.org/t/system-wide-sandboxing-framework/9008/187
+
+commit cf5b486d54e166cf20ad2db31c6ab52d0abe2456
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Oct 6 13:36:32 2020 -0400
+
+    bumped changelog version
+
 commit e70f5a470ac262290537910c75990767bf207bc9
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Oct 6 13:36:31 2020 -0400
