@@ -353,7 +353,6 @@ tb_permission_issue() {
    $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
    $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
    exit 1
-   return 0
 }
 
 tb_copy_from_root_to_user_maybe() {
