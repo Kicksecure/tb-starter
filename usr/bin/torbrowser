@@ -335,6 +335,27 @@ Failed to run:<br></br>
    done
 }
 
+tb_permission_issue() {
+   local failed_command="$@"
+   local MSG="<p>User home folder permission issue?
+<br></br>
+<br></br>Failed to run the following command:
+<br></br>
+<br></br><code>$failed_command</code>
+<br></br>
+<br></br>Tip: If something does not work, do not arbitrarily try to use sudo / root without indication that this would be appropriate.
+<br></br>That only risks messing up user home folder permissions.
+<br></br>
+<br></br>To fix this, you could try: <blockquote>Start Menu -> System -> Xfce Terminal
+<br></br>
+<br></br><code>sudo chown --recursive \"$who_ami\":\"$who_ami\" \"$tb_user_home\"</code></blockquote>
+<br></br>Then try starting $tb_title again.</p>"
+   $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
+   $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+   exit 1
+   return 0
+}
+
 tb_copy_from_root_to_user_maybe() {
    if [ "$qubes_vm_persistence" = "none" ]; then
       true "$FUNCNAME: Not copying from /var/cache/tb-binary to tb_user_home $tb_user_home in DispVM."
@@ -367,7 +388,15 @@ tb_copy_from_root_to_user_maybe() {
    fi
 
    if [ -d /var/cache/tb-binary/.cache ]; then
-      cp --verbose --recursive --no-clobber "/var/cache/tb-binary/.cache" "$tb_user_home/"
+       if ! mkdir -p "$tb_user_home/.cache"  ; then
+         tb_permission_issue mkdir -p "$tb_user_home/.cache"
+      fi
+      if ! test -w "$tb_user_home/.cache" ; then
+         tb_permission_issue test -w "$tb_user_home/.cache"
+      fi
+      if ! cp --verbose --recursive --no-clobber "/var/cache/tb-binary/.cache" "$tb_user_home/" ; then
+         tb_permission_issue cp --verbose --recursive --no-clobber "/var/cache/tb-binary/.cache" "$tb_user_home/"
+      fi
    fi
 
    ## example tb_home_folder:
@@ -377,21 +406,37 @@ tb_copy_from_root_to_user_maybe() {
 
    if [ "$tb_i2p_browser" = "true" ]; then
       if [ -d "/var/cache/tb-binary/.tb/tor-browser" ]; then
-         mkdir -p "$tb_home_folder"
+         if ! mkdir -p "$tb_home_folder" ; then
+            tb_permission_issue mkdir -p "$tb_home_folder"
+         fi
+         if ! test -w "$tb_home_folder" ; then
+            tb_permission_issue test -w "$tb_home_folder"
+         fi
          ## No / at the end.
          ## example simplified:
          ## cp /var/cache/tb-binary/.tb/tor-browser /home/user/.i2pb/i2p-browser
-         cp --verbose --recursive --no-clobber "/var/cache/tb-binary/.tb/tor-browser" "$tb_browser_folder"
+         if ! cp --verbose --recursive --no-clobber "/var/cache/tb-binary/.tb/tor-browser" "$tb_browser_folder" ; then
+            tb_permission_issue cp --verbose --recursive --no-clobber "/var/cache/tb-binary/.tb/tor-browser" "$tb_browser_folder"
+         fi
          touch "$done_file"
       fi
    else
       if [ -d "/var/cache/tb-binary/$tb_install_folder_dot/$tb_browser_name" ]; then
-         mkdir -p "$tb_home_folder"
+         if ! mkdir -p "$tb_home_folder" ; then
+            tb_permission_issue mkdir -p "$tb_home_folder"
+         fi
+         if ! test -w "$tb_home_folder" ; then
+            tb_permission_issue test -w "$tb_home_folder"
+         fi
+
          ## No / at the end.
          ## example simplified:
          ## cp /var/cache/tb-binary/.tb/tor-browser /home/user/.tb/tor-browser
          ## cp /var/cache/tb-binary/.secbrowser/secbrowser /home/user/.secbrowser/secbrowser
-         cp --verbose --recursive --no-clobber "/var/cache/tb-binary/$tb_install_folder_dot/$tb_browser_name" "$tb_browser_folder"
+         if ! cp --verbose --recursive --no-clobber "/var/cache/tb-binary/$tb_install_folder_dot/$tb_browser_name" "$tb_browser_folder" ; then
+             tb_permission_issue cp --verbose --recursive --no-clobber "/var/cache/tb-binary/$tb_install_folder_dot/$tb_browser_name" "$tb_browser_folder"
+         fi
+
          touch "$done_file"
       fi
    fi
@@ -441,18 +486,15 @@ Then try again.</p>"
    fi
 }
 
-tb_folder_change_directory() {
-   local change_directory_exit_code="0"
-   cd "$tb_browser_folder" || { change_directory_exit_code="$?" ; true; };
+tb_folder_permission_check() {
+   if ! test -w "$tb_browser_folder" ; then
+      tb_permission_issue test -w "$tb_browser_folder"
+   fi
+}
 
-   if [ ! "$change_directory_exit_code" = "0" ]; then
-      local MSG="<p>$tb_title permission issues?<br></br>
-Failed to <code>cd \"$tb_browser_folder\"</code>.<br></br>
-To fix this, you could try: <blockquote>Start Menu -> System -> Xfce Terminal<br></br>
-<code>sudo chown --recursive \"$who_ami\":\"$who_ami\" \"$tb_browser_folder\"</code></blockquote></p>"
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
-      exit 1
+tb_folder_change_directory() {
+   if ! cd "$tb_browser_folder" ; then
+      tb_permission_issue cd "$tb_browser_folder"
    fi
 }
 
@@ -772,6 +814,7 @@ main_function() {
    tb_run_function maybe_install_tor_browser "$@"
    tb_run_function remount_exec "$@"
    tb_run_function check_noexec "$@"
+   tb_run_function tb_folder_permission_check "$@"
    tb_run_function tb_folder_change_directory "$@"
    tb_run_function tb_clearnet "$@"
    tb_run_function tb_i2p "$@"
