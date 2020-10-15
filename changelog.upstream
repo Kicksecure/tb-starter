@@ -1,3 +1,21 @@
+commit 93218b2f0f67203c24b7ecef33b2767a67126c63
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Oct 14 09:45:14 2020 -0400
+
+    fix
+
+commit 42e5353491242dc2bf93867878442bad1c809283
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Oct 14 09:43:44 2020 -0400
+
+    add more folder permission checks
+
+commit 092ec9dc8c511fecb050cd165c1b57537914af21
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Oct 7 09:30:29 2020 -0400
+
+    bumped changelog version
+
 commit 20c2165fb83f0d095492329b1329b704e7d031ec
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Oct 7 09:27:53 2020 -0400
