@@ -111,11 +111,11 @@ tb_preparation() {
       fi
    fi
 
-   [ -n "$tb_user_home" ] || tb_user_home=~
+   [ -n "$tb_user_home" ] || tb_user_home="$HOME"
    ## example tb_user_home:
    ## /home/user
    ## When double clicking a file downloaded in Tor Browser download tab
-   ## '~' would be set to '/home/user/.tb/tor-browser/Browser' which would lead
+   ## '$HOME' would be set to '/home/user/.tb/tor-browser/Browser' which would lead
    ## to a false-positive "Tor Browser not installed" message.
    if echo "$tb_user_home" | grep -q tor-browser ; then
       tb_user_home="/home/$who_ami"
