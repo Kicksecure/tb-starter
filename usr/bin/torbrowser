@@ -787,6 +787,11 @@ tb_firejail_set_options() {
 }
 
 tb_start_tor_browser() {
+   if [ "$tb_no_start" = "true" ]; then
+      true "INFO: not starting $tb_title because tb_no_start is set to true."
+      return 0
+   fi
+
    local temp
    local tb_exit_code="0"
    if [ "$tb_hardening" = "true" ]; then
