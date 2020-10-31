@@ -373,9 +373,14 @@ tb_permission_issue() {
 
 tb_copy_from_root_to_user_maybe() {
    if [ "$qubes_vm_persistence" = "none" ]; then
-      true "$FUNCNAME: Not copying from /var/cache/tb-binary to tb_user_home $tb_user_home in DispVM."
-      true "$FUNCNAME: Handing this is responsibility of tb-updater / tb-updater-dispvm.service / /usr/lib/tb-updater/dispvm."
-      return 0
+      if [ "$started_by_sandbox_app_launcher" = "true" ] || [ "$tb_installer_started_by_sandbox_app_launcher" = "true" ]; then
+         true "$FUNCNAME: Considering copying from /var/cache/tb-binary to tb_user_home $tb_user_home in DispVM since started_by_sandbox_app_launcher=true."
+         true "$FUNCNAME: (Mounting /var/cache/tb-binary/.cache/.tb to /home/sandbox-app-launcher-appdata/torbrowser/.tb/ in DispVM is not yet implemented.)"
+      else
+         true "$FUNCNAME: Not copying from /var/cache/tb-binary to tb_user_home $tb_user_home in DispVM."
+         true "$FUNCNAME: Handing this is responsibility of tb-updater / tb-updater-dispvm.service / /usr/lib/tb-updater/dispvm."
+         return 0
+      fi
    fi
 
    local done_file
