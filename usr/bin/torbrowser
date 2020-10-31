@@ -250,6 +250,11 @@ remount_exec() {
       return 0
    fi
 
+   if check_noexec_do ; then
+      true "INFO: tb_home_folder '$tb_home_folder' is not mounted with noexec."
+      return 0
+   fi
+
    sudo \
       --non-interactive \
       tb_home_folder="$tb_home_folder" \
@@ -257,15 +262,26 @@ remount_exec() {
       /usr/lib/tb-starter/remount-exec
 }
 
-check_noexec() {
-   local tb_home_folder_mount
+check_noexec_do() {
    ## example tb_home_folder:
    ## /home/user/.tb
    tb_home_folder_mount="$(mount | grep "$tb_home_folder")" || true
    if [ ! "$tb_home_folder_mount" = "" ]; then
       if echo "$tb_home_folder" | grep -q --invert-match "noexec" ; then
-         return 0
+         ## 'noexec' not found inside 'mount' line for tb_home_folder.
+         ## I.e. not mounted noexec.
+         true "INFO: noexec detected: no"
+         return 1
       fi
+   fi
+   true "INFO: noexec detected: yes"
+   return 0
+}
+
+check_noexec() {
+   if check_noexec_do ; then
+      true "INFO: tb_home_folder '$tb_home_folder' is not mounted with noexec."
+      return 0
    fi
 
    ## example tb_user_home:
