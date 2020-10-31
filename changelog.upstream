@@ -1,3 +1,21 @@
+commit 3ee16516780d7f3d88e9dc0778d91087e9fcc7bc
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 31 06:23:06 2020 -0400
+
+    introduce tb_no_start for better sandbox-app-launcher support
+
+commit 29829d7632f399157be771f96e4cd6a70b856a96
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 31 06:17:15 2020 -0400
+
+    improve noexec check for compatibility with sandbox-app-launcher
+
+commit a94da3b7917237e410f0563ee9ee25a94b944a3f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Oct 30 09:57:39 2020 -0400
+
+    bumped changelog version
+
 commit a458c96c5fed477f95c730e185c2b46efc611d64
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Oct 29 16:56:21 2020 -0400
