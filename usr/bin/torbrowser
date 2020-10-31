@@ -374,6 +374,7 @@ tb_permission_issue() {
 tb_copy_from_root_to_user_maybe() {
    if [ "$qubes_vm_persistence" = "none" ]; then
       true "$FUNCNAME: Not copying from /var/cache/tb-binary to tb_user_home $tb_user_home in DispVM."
+      true "$FUNCNAME: Handing this is responsibility of tb-updater / tb-updater-dispvm.service / /usr/lib/tb-updater/dispvm."
       return 0
    fi
 
