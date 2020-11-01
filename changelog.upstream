@@ -1,3 +1,23 @@
+commit 190a3f768e394bd07bd825ff6b5a4edc44f9c866
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Nov 1 07:50:31 2020 -0500
+
+    fix opening URLs which contain question marks ("`?`")
+    
+    remove `eval` from `tb_run_function` since not needed
+    
+    http://forums.whonix.org/t/torbrowser-cli-wont-open-urls-containing-question-marks/10514/1
+    
+    pass `--verbose` to `start-tor-browser`
+    
+    https://forums.whonix.org/t/system-wide-sandboxing-framework-sandbox-app-launcher/9008/226
+
+commit a124477bbbef3d7084c75a2dfd718c8e3cdddc89
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Oct 31 07:52:44 2020 -0400
+
+    bumped changelog version
+
 commit 317462707a94b5221acf76f7e92177326aa70207
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Oct 31 07:46:35 2020 -0400
