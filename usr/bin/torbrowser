@@ -80,7 +80,7 @@ tb_run_function() {
    esac
 
    true "INFO: Running $@, because tb_skip_functions does not include it."
-   eval "$@"
+   "$@"
 }
 
 root_check() {
@@ -801,11 +801,11 @@ tb_start_tor_browser() {
    local temp
    local tb_exit_code="0"
    if [ "$tb_hardening" = "true" ]; then
-      temp="$tb_firejail_bin ${tb_firejailopts[@]} $tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@""
-      $tb_firejail_bin ${tb_firejailopts[@]} $tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@" || { tb_exit_code="$?" ; true; };
+      temp="$tb_firejail_bin ${tb_firejailopts[@]} $tb_starter_bin_pre $tb_starter_bin --verbose --allow-remote $tb_starter_bin_post $@"
+      $tb_firejail_bin ${tb_firejailopts[@]} $tb_starter_bin_pre $tb_starter_bin --verbose --allow-remote $tb_starter_bin_post "$@" || { tb_exit_code="$?" ; true; };
    else
-      temp="$tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@""
-      $tb_starter_bin_pre $tb_starter_bin --allow-remote $tb_starter_bin_post "$@" || { tb_exit_code="$?" ; true; };
+      temp="$tb_starter_bin_pre $tb_starter_bin --verbose --allow-remote $tb_starter_bin_post $@"
+      $tb_starter_bin_pre $tb_starter_bin --verbose --allow-remote $tb_starter_bin_post "$@" || { tb_exit_code="$?" ; true; };
    fi
 
    if [ ! "$tb_exit_code" = "0" ]; then
