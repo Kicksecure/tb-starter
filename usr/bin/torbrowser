@@ -821,7 +821,7 @@ $tb_title was started with:<br></br>
 <br></br><code>$SCRIPTNAME</code></blockquote>
 
 See online documentation:
-<br></br><a href=https://www.whonix.org/wiki/Tor_Browser#Tor_Browser_Launch_Errors>https://www.whonix.org/wiki/Tor_Browser#Tor_Browser_Launch_Errors</a></p>"
+<br></br><a href=https://www.whonix.org/wiki/Tor_Browser#Tor_Browser_Crash_Errors>https://www.whonix.org/wiki/Tor_Browser#Tor_Browser_Crash_Errors</a></p>"
       $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
       exit "$tb_exit_code"
