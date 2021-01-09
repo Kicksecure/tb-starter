@@ -99,13 +99,12 @@ tb_preparation() {
       [ -n "$is_qubes" ] || is_qubes=true
       ## qubesdb-read fails inside chroot, therefore overwriting with '|| true'.
       [ -n "$qubes_vm_name" ] || qubes_vm_name="$(qubesdb-read /name)" || true
-      [ -n "$qubes_vm_type" ] || qubes_vm_type="$(qubesdb-read /qubes-vm-type)" || true
       [ -n "$qubes_vm_persistence" ] || qubes_vm_persistence="$(qubesdb-read /qubes-vm-persistence)" || true
    else
       [ -n "$is_qubes" ] || is_qubes=false
    fi
 
-   if [ "$qubes_vm_type" = "TemplateVM" ]; then
+   if test -f /run/qubes/this-is-templatevm ; then
       if [ "$tb_user_home" = "" ]; then
          tb_user_home="/var/cache/tb-binary"
       fi
@@ -206,7 +205,7 @@ tb_templatevm_check() {
       return 0
    fi
 
-   if [ ! "$qubes_vm_type" = "TemplateVM" ]; then
+   if ! test -f /run/qubes/this-is-templatevm ; then
       true "Not running in TemplateVM."
       return 0
    fi
@@ -312,7 +311,7 @@ check_noexec() {
 }
 
 check_tb_updater_first_boot_done() {
-   if [ "$qubes_vm_type" = "TemplateVM" ]; then
+   if test -f /run/qubes/this-is-templatevm ; then
       true "$FUNCNAME: Not running in TemplateVM."
       return 0
    fi
