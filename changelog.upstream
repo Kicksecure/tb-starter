@@ -1,3 +1,15 @@
+commit e0bb5cde397ebf434d0484915640e9a4e2d0583c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 9 01:29:27 2021 -0500
+
+    port to /run/qubes/this-is-templatevm
+
+commit 35346effea146a42943fae7295af5f0f6bc95a0d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 25 07:31:25 2020 -0500
+
+    bumped changelog version
+
 commit f3cb9a0efd3a17e41f91b04e64a1ec5fedd27868
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Dec 25 06:48:58 2020 -0500
