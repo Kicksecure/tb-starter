@@ -38,7 +38,7 @@ There is likely a solution for this problem.
 It may or may not be possible to fix but further information may be required.
 
 * Try start from command line. <a href=https://www.whonix.org/wiki/$tb_wiki#From_the_Command_Line>https://www.whonix.org/wiki/$tb_wiki#From_the_Command_Line</a>
-* Try start from command line with debugging enabled. <a href=https://www.whonix.org/wiki/$tb_wiki#In_Debugging_Mode>https://www.whonix.org/wiki/$tb_wiki#In_Debugging_Mode</a>
+* Try start from command line in debug mode. <a href=https://www.whonix.org/wiki/$tb_wiki#In_Debugging_Mode>https://www.whonix.org/wiki/$tb_wiki#In_Debugging_Mode</a>
 * If you don't mind to repair that Tor Browser install, reinstall of Tor Browser would also likely solve this. <a href=https://www.whonix.org/wiki/$tb_wiki#reinstall>https://www.whonix.org/wiki/$tb_wiki#reinstall</a>
 
 Debugging information:
@@ -364,7 +364,13 @@ tb_permission_issue() {
 <br></br>To fix this, you could try: <blockquote>Start Menu -> System -> Xfce Terminal
 <br></br>
 <br></br><code>sudo chown --recursive \"$who_ami\":\"$who_ami\" \"$tb_user_home\"</code></blockquote>
-<br></br>Then try starting $tb_title again.</p>"
+<br></br>Then try starting $tb_title again.
+<br></br>
+<br></br>To debug this, you could try to start $tb_title Starter (by Whonix developers) from command line in:
+<br></br><a href=https://www.whonix.org/wiki/$tb_wiki#In_Verbose_Mode>https://www.whonix.org/wiki/$tb_wiki#In_Verbose_Mode</a>.
+<br></br>
+<br></br>See also $tb_title Starter (by Whonix developers) Permission Issues:
+<br></br><a href=https://www.whonix.org/wiki/$tb_wiki#Permission_Issues>https://www.whonix.org/wiki/$tb_wiki#Permission_Issues</a></p>"
    $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
    $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
    exit 1
