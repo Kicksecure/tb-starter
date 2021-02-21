@@ -1,3 +1,23 @@
+commit 95d84d3c6a5d873853533318db36607c25d90edc
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Feb 21 08:18:42 2021 -0500
+
+    readme
+
+commit 59ca97201a666d0701e24cc038fa7feebfd7fe70
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Feb 21 08:18:08 2021 -0500
+
+    SecBrowser deprecation notice
+    
+    https://www.whonix.org/wiki/SecBrowser
+
+commit 43d2b27773c9fedd938eceb86fe6dd9f58af9695
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 17 02:16:39 2021 -0500
+
+    bumped changelog version
+
 commit 7485cef02f54eaf2ecd9b1b88d8d7ab964093470
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Jan 16 04:28:14 2021 -0500
