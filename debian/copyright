@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 
 Files: *
-Copyright: 2012 - 2020 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
+Copyright: 2012 - 2021 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
 License: GPL-3+-with-additional-terms-1
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -73,7 +73,7 @@ License: GPL-3+-with-additional-terms-1
  IN CONNECTION WITH YOUR ASSUMPTIONS OF LIABILITY.
 
 Files: usr/share/tb-profile-i2p/*
-Copyright: 2018 - 2020 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
+Copyright: 2018 - 2021 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
 Comment: These were adapted from profiles in the Tor Browser Bundle.
 License: BSD-3-clause
  Redistribution and use in source and binary forms, with or without
