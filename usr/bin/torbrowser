@@ -188,6 +188,7 @@ tb_config_folder_parser() {
    [ -n "$tb_settings_folder" ] || tb_settings_folder="torbrowser.d"
 
    shopt -s nullglob
+
    local i
    for i in \
       /etc/${tb_settings_folder}/*.conf \
@@ -196,6 +197,17 @@ tb_config_folder_parser() {
       ; do
          bash -n "$i"
          source "$i"
+   done
+
+   local j
+   for j in \
+      /etc/${tb_settings_folder}/user.js \
+      /usr/local/etc/${tb_settings_folder}/user.js \
+      ; do
+         if ! test -r "$j" ; then
+            continue
+         fi
+         [ -n "$tb_user_js_source_file" ] || tb_user_js_source_file="$j"
    done
 }
 
@@ -556,44 +568,12 @@ tb_detect_starter_bin() {
    fi
 }
 
-tb_clearnet() {
-   ## SecBrowser sets tb_clearnet="true".
-
-   ## If the clearnet-marker file exists and if tb_clearnet is not set to
-   ## "true" it means that this browser was previously started with
-   ## tb_clearnet="true". Therefore refuse to start it without
-   ## tb_clearnet="true" since a browser that was ever used over clearnet
-   ## should never be used again over Tor to avoid linking the different
-   ## identities.
-   if test -f "$tb_browser_folder/clearnet-marker" ; then
-      if [ ! "$tb_clearnet" = "true" ]; then
-         local MSG="Clearnet marker file exists and trying to start without SecBrowser. Aborted. A Tor Browser that was previously started with SecBrowser should not be started without SecBrowser."
-         $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-         $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
-         exit 2
-         return 0
-      fi
-   fi
-
-   if [ ! "$tb_clearnet" = "true" ]; then
-      ## Since tb_clearnet is not set to true,
-      ## do not proceed with the rest of this function, i.e.
-      ## creating clearnet-marker or copying the SecBrowser user.js file.
+tb_custom_user_js_file() {
+   if ! test -f "$tb_user_js_source_file" ; then
+      true "tb_user_js_source_file '$tb_user_js_source_file' does not exist. Skipping to copy, ok."
       return 0
    fi
-
-   if ! test -f "$tb_browser_folder/clearnet-marker" ; then
-      touch "$tb_browser_folder/clearnet-marker"
-   fi
-
-   if diff /usr/share/secbrowser/user.js "$tb_user_js_target_file" &>/dev/null ; then
-      true "our version exists"
-   elif test -f "$tb_user_js_target_file" ; then
-      true "some version exists"
-   else
-      true "no version exists"
-      cp /usr/share/secbrowser/user.js "$tb_user_js_target_file"
-   fi
+   cp "$tb_user_js_source_file" "$tb_user_js_target_file"
 }
 
 tb_i2p() {
@@ -848,7 +828,7 @@ main_function() {
    tb_run_function check_noexec "$@"
    tb_run_function tb_folder_permission_check "$@"
    tb_run_function tb_folder_change_directory "$@"
-   tb_run_function tb_clearnet "$@"
+   tb_run_function tb_custom_user_js_file "$@"
    tb_run_function tb_i2p "$@"
    tb_run_function tb_detect_starter_bin "$@"
    tb_run_function maybe_use_open_link_confirmation "$@"
