@@ -359,7 +359,8 @@ tb_permission_issue() {
 <br></br><code>$failed_command</code>
 <br></br>
 <br></br>Tip: If something does not work, do not arbitrarily try to use sudo / root without indication that this would be appropriate.
-<br></br>That only risks messing up user home folder permissions.
+<br></br>That only risks messing up user home folder permissions. See:
+<br></br><a href=https://www.whonix.org/wiki/Root#Inappropriate_Use_of_Root_Rights>https://www.whonix.org/wiki/Root#Inappropriate_Use_of_Root_Rights</a>
 <br></br>
 <br></br>To fix this, you could try: <blockquote>Start Menu -> System -> Xfce Terminal
 <br></br>
