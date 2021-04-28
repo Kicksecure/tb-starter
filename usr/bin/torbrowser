@@ -471,7 +471,6 @@ tb_copy_from_root_to_user_maybe() {
          ## No / at the end.
          ## example simplified:
          ## cp /var/cache/tb-binary/.tb/tor-browser /home/user/.tb/tor-browser
-         ## cp /var/cache/tb-binary/.secbrowser/secbrowser /home/user/.secbrowser/secbrowser
          if ! cp --verbose --recursive --no-clobber "/var/cache/tb-binary/$tb_install_folder_dot/$tb_browser_name" "$tb_browser_folder" ; then
              tb_permission_issue cp --verbose --recursive --no-clobber "/var/cache/tb-binary/$tb_install_folder_dot/$tb_browser_name" "$tb_browser_folder"
          fi
