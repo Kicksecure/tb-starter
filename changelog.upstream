@@ -1,3 +1,59 @@
+commit 04247841ff70f3fdb367a6d2d311df34bcb8a905
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 5 08:40:42 2021 -0400
+
+    readme
+
+commit 25bfdbcac79126d9ea169157522d1e0dcdbe8213
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Apr 28 08:43:26 2021 -0400
+
+    cleanup security slider configuration comment
+
+commit abf6d9b03d1385c745089c3a09289d4498260fc3
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Apr 28 08:42:51 2021 -0400
+
+    remove SecBrowser specific code since deprecated
+
+commit e4e3305e43fa8b7cdd4d69a591e378f3ad62b9b7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Apr 28 08:41:22 2021 -0400
+
+    remove SecBrowser specific files since deprecated
+
+commit a8ab3aab5cd6b0b95abb71b83beaf321a83d9c60
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Apr 28 08:40:25 2021 -0400
+
+    deleted usr/share/torbrowser/security-slider-highest.js
+
+commit bdf47edbb8e5b98d6005652b64a3feac9bca9842
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Apr 28 08:39:17 2021 -0400
+
+    remove security slider code since deprecated
+
+commit b5d2280ad445bc1fbdb613424664bf8503e6f395
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Apr 28 08:38:00 2021 -0400
+
+    add custom user.js support
+    
+    remove SecBrowser specific code
+
+commit 871bf6c004d55bb054d4160b82ea511f0b28d207
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Apr 28 07:31:26 2021 -0400
+
+    output
+
+commit bc35fbc647fb997a5509223997324d86d2169505
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Mar 18 09:12:30 2021 -0400
+
+    bumped changelog version
+
 commit 106e8b28faad9b615098b8be47917f8162ac3fd2
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Mar 18 08:57:23 2021 -0400
