@@ -645,13 +645,13 @@ maybe_use_open_link_confirmation() {
       return 0
    fi
 
-   if ! test -x /usr/lib/open_link_confirmation ; then
+   if ! test -x /usr/libexec/open-link-confirmation/open-link-confirmation ; then
       return 0
    fi
 
    if [ "$OPEN_LINK_CONFIRMATION" = "true" ]; then
       ## We are run by open_link_confirmation.
-      ## Not run open_link_confirmation again.
+      ## Not run open-link-confirmation again.
       ## Open browser.
       return 0
    fi
@@ -664,7 +664,7 @@ maybe_use_open_link_confirmation() {
    local temp
    local tool_exit_code="0"
    local tool
-   tool="/usr/lib/open_link_confirmation"
+   tool="/usr/libexec/open-link-confirmation/open-link-confirmation"
 
    temp="$tool $@"
    $tool "$@" || { tool_exit_code="$?" ; true; };
