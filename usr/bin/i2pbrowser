@@ -8,7 +8,7 @@ export SCRIPTNAME="$(basename "$BASH_SOURCE")"
 export IDENTIFIER="i2pbrowser"
 
 if [ "$TOR_DEFAULT_HOMEPAGE" = "/usr/share/homepage/whonix-welcome-page/whonix.html" ]; then
-   ## unset default by whonix-welcome-page /usr/lib/whonix-welcome-page/env_var.sh
+   ## unset default by whonix-welcome-page /usr/libexec/whonix-welcome-page/env_var.sh
    unset TOR_DEFAULT_HOMEPAGE
 fi
 
