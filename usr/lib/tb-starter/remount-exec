@@ -4,7 +4,7 @@
 ## See the file COPYING for copying conditions.
 
 ## test:
-## sudo tb_user_home=/home/user tb_home_folder=/home/user/.tb bash -x /usr/lib/tb-starter/remount-exec
+## sudo tb_user_home=/home/user tb_home_folder=/home/user/.tb bash -x /usr/libexec/tb-starter/remount-exec
 
 #set -x
 set -e

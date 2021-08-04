@@ -270,7 +270,7 @@ remount_exec() {
       --non-interactive \
       tb_home_folder="$tb_home_folder" \
       tb_user_home="$tb_user_home" \
-      /usr/lib/tb-starter/remount-exec
+      /usr/libexec/tb-starter/remount-exec
 }
 
 check_noexec_do() {
