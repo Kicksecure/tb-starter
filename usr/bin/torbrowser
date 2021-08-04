@@ -57,7 +57,7 @@ progressbaridx: <code>$progressbaridx</code>
 Experts only:
 <code>bash -x $SCRIPTNAME</code>"
 
-   MSG="$(/usr/lib/msgcollector/br_add "$MSG")"
+   MSG="$(/usr/libexec/msgcollector/br_add "$MSG")"
 
    if [ "$progressbaridx" = "" ]; then
       true
@@ -152,7 +152,7 @@ tb_preparation() {
       fi
    fi
 
-   output="/usr/lib/msgcollector/msgcollector"
+   output="/usr/libexec/msgcollector/msgcollector"
 
    local my_tty
    local my_tty_exit_code
@@ -342,7 +342,7 @@ check_tb_updater_first_boot_done() {
       sleep 1 &
       wait "$!"
       if [ "$wait_counter" -ge 20 ]; then
-         systemctl_output="$(/usr/lib/msgcollector/br_add "$systemctl_output")"
+         systemctl_output="$(/usr/libexec/msgcollector/br_add "$systemctl_output")"
          local MSG="<p>Failed to start $tb_title!<br></br>
 <br></br>
 Failed to run:<br></br>
@@ -490,7 +490,7 @@ maybe_install_tor_browser() {
    local question="Start $tb_title Downloader (by Whonix Developers)?"
    local button="yesno"
    local answer
-   answer="$(/usr/lib/msgcollector/generic_gui_message "error" "$TITLE" "$MSG" "$question" "$button")"
+   answer="$(/usr/libexec/msgcollector/generic_gui_message "error" "$TITLE" "$MSG" "$question" "$button")"
    #answer="0"
    #zenity --title="$TITLE" --question --text "$MSG" || { answer="$?" ; true; };
    ## zenity exit codes
