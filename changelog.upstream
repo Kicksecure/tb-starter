@@ -1,3 +1,81 @@
+commit 549d20a92b90379b18221e0ae1b96f9405e81da4
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Aug 5 16:09:46 2021 -0400
+
+    delete /usr/share/tb-profile-i2p/profile.i2p/bookmarks.html since unused
+
+commit e9c41b7a645a526aec8764c82259d3c2234eb49f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 4 18:51:34 2021 -0400
+
+    usr/share/homepage -> usr/share/doc/homepage
+
+commit 51e667bfe98710e9f64b913def7b77bc0fcacb82
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 4 12:52:39 2021 -0400
+
+    comment
+
+commit 06920625f333b52febbfe2ce3c56ea717e95e254
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 4 07:05:06 2021 -0400
+
+    lintian FHS
+
+commit e151a81566c7df2892d342a58e9c8f4113d1431b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 4 07:04:41 2021 -0400
+
+    lintian FHS
+
+commit 0b0deb8c76c0fbbe964cacc567cd75e9e8327ccd
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 4 06:56:51 2021 -0400
+
+    update path
+
+commit fb2c153b51c0632532ac7fe534c561bc5571274d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 4 06:42:12 2021 -0400
+
+    move /usr/lib/msgcollector to /usr/libexec/msgcollector as per lintian FHS
+
+commit 0cf88c11a4d375784236e956f5706c861392ca6a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 3 12:48:58 2021 -0400
+
+    move /usr/lib/helper-scripts and /usr/lib/curl-scripts to /usr/libexec/helper-scripts as per lintian FHS
+
+commit 3b039c97cf33f751d40dcd26b2ba5047f1ca71b4
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 3 11:47:36 2021 -0400
+
+    re-generate man pages (generated using "genmkfile manpages")
+
+commit e1c8f97db0ca7203cb30d61eb71a9aff48c25a64
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 3 11:44:11 2021 -0400
+
+    man page
+
+commit 557ade66a5b34258b47bcc5c40e1383dd23f3a4b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 3 05:48:27 2021 -0400
+
+    bullseye
+
+commit 2c83ce97df4bd0c999fd06a6d7d73d85719ce59b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Aug 1 16:24:45 2021 -0400
+
+    readme
+
+commit 44b91f95c854bac6922353e0b60f35126c63b419
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 5 08:40:43 2021 -0400
+
+    bumped changelog version
+
 commit 04247841ff70f3fdb367a6d2d311df34bcb8a905
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed May 5 08:40:42 2021 -0400
