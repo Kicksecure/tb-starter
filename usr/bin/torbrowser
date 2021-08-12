@@ -48,6 +48,7 @@ exit_code: <code>$exit_code</code>
 
 tb_browser_folder: <code>$tb_browser_folder</code>
 
+tb_prefs_js_target_file: <code>$tb_prefs_js_target_file</code>
 tb_user_js_target_file: <code>$tb_user_js_target_file</code>
 
 output: <code>$output</code>
@@ -139,6 +140,7 @@ tb_preparation() {
    ## example tb_browser_folder:
    ## /home/user/.tb/tor-browser
 
+   [ -n "$tb_prefs_js_target_file" ] || tb_prefs_js_target_file="$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/prefs.js"
    [ -n "$tb_user_js_target_file" ] || tb_user_js_target_file="$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js"
 
    [ -n "$TOR_DEFAULT_HOMEPAGE" ] || TOR_DEFAULT_HOMEPAGE="about:blank"
@@ -575,6 +577,14 @@ tb_custom_user_js_file() {
    cp "$tb_user_js_source_file" "$tb_user_js_target_file"
 }
 
+tb_prefs_js_file_patches() {
+   ## Path to local browser homepage changed in during Whonix 15 to Whonix 16 upgrade.
+   search="/usr/share/homepage/whonix-welcome-page/whonix.html"
+   replace="/usr/share/doc/homepage/whonix-welcome-page/whonix.html"
+   file_name="$tb_prefs_js_target_file"
+   str_replace "$search" "$replace" "$file_name" >/dev/null || true
+}
+
 tb_i2p() {
    ## i2pbrowser sets tb_i2p_browser="true".
 
@@ -752,6 +762,7 @@ main_function() {
    tb_run_function tb_folder_permission_check "$@"
    tb_run_function tb_folder_change_directory "$@"
    tb_run_function tb_custom_user_js_file "$@"
+   tb_run_function tb_prefs_js_file_patches "$@"
    tb_run_function tb_i2p "$@"
    tb_run_function tb_detect_starter_bin "$@"
    tb_run_function maybe_use_open_link_confirmation "$@"
