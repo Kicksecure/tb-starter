@@ -582,7 +582,7 @@ tb_prefs_js_file_patches() {
    search="/usr/share/homepage/whonix-welcome-page/whonix.html"
    replace="/usr/share/doc/homepage/whonix-welcome-page/whonix.html"
    file_name="$tb_prefs_js_target_file"
-   str_replace "$search" "$replace" "$file_name" >/dev/null || true
+   LANG=C str_replace "$search" "$replace" "$file_name" >/dev/null || true
 }
 
 tb_i2p() {
