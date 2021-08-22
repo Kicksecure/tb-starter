@@ -578,11 +578,15 @@ tb_custom_user_js_file() {
 }
 
 tb_prefs_js_file_patches() {
+   local search replace file_name
    ## Path to local browser homepage changed in during Whonix 15 to Whonix 16 upgrade.
    search="/usr/share/homepage/whonix-welcome-page/whonix.html"
    replace="/usr/share/doc/homepage/whonix-welcome-page/whonix.html"
    file_name="$tb_prefs_js_target_file"
-   LANG=C str_replace "$search" "$replace" "$file_name" >/dev/null || true
+   if ! test -f "$file_name" ; then
+      return 0
+   fi
+   LANG=C str_replace "$search" "$replace" "$file_name" &>/dev/null || true
 }
 
 tb_i2p() {
