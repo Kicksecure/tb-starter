@@ -1,3 +1,15 @@
+commit f6c7fa071c96100c96ba5622f9a8d7c8ea8a495d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Aug 22 18:11:25 2021 -0400
+
+    improve function tb_prefs_js_file_patches
+
+commit bde23ec54313f7579a735c612d5fe562456c0838
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Aug 22 05:34:18 2021 -0400
+
+    bumped changelog version
+
 commit 72884f9c32f0cf93043a557448d625c339ea0d79
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Aug 22 05:24:12 2021 -0400
