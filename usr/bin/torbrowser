@@ -386,6 +386,29 @@ tb_permission_issue() {
 <br></br>
 <br></br>See also $tb_title Starter (by Whonix developers) Permission Issues:
 <br></br><a href=https://www.whonix.org/wiki/$tb_wiki#Permission_Issues>https://www.whonix.org/wiki/$tb_wiki#Permission_Issues</a></p>"
+
+   echo "DEBUG START:"
+
+   echo ls -la "$tb_user_home" || true
+   ls -la "$tb_user_home" || true
+
+   echo ls -la "$tb_user_home/.cache" || true
+   ls -la "$tb_user_home/.cache" || true
+
+   echo ls -la "$tb_user_home/.cache/tb" || true
+   ls -la "$tb_user_home/.cache/tb" || true
+
+   echo ls -la "$tb_user_home/.cache/tb/temp" || true
+   ls -la "$tb_user_home/.cache/tb/temp" || true
+
+   echo ls -la "$tb_user_home/.cache/tb/files" || true
+   ls -la "$tb_user_home/.cache/tb/files" || true
+
+   echo ls -la "$tb_user_home/.cache/tb/tbb_version_last_downloaded_save_file" || true
+   ls -la "$tb_user_home/.cache/tb/tbb_version_last_downloaded_save_file" || true
+
+   echo "DEBUG END"
+
    $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
    $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
    exit 1
