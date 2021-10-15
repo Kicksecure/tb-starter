@@ -581,6 +581,11 @@ tb_detect_starter_bin() {
       tb_starter_bin="$tb_browser_folder/$tb_browser_runner"
    elif [ -x "$tb_browser_folder/$tb_browser_runner.desktop" ]; then
       ## Canonical way to start Tor Browser.
+      ## Cannot be used in Qubes Disposable VMs.
+      ## ~/.tb/tor-browser/start-tor-browser.desktop does as per Tor Browser upstream default:
+      ## Exec=sh -c '"$(dirname "$*")"/Browser/start-tor-browser --detach || ([ ! -x "$(dirname "$*")"/Browser/start-tor-browser ] && "$(dirname "$*")"/start-tor-browser --detach)' dummy %k X-TorBrowser-ExecShell=./Browser/start-tor-browser --detach
+      ## Qubes start menu incompatible with DispVMs launching GUI applications into the background #5129
+      ## https://github.com/QubesOS/qubes-issues/issues/5129
       tb_starter_bin="$tb_browser_folder/$tb_browser_runner.desktop"
    else
       local MSG="Neither <code>$tb_browser_folder/Browser/$tb_browser_runner</code> nor\
