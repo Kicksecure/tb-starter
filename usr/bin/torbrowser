@@ -229,8 +229,8 @@ tb_templatevm_check() {
       return 0
    fi
 
-   tb_qubes_wiki="Running_${tb_wiki}_in_Qubes_TemplateVM"
-   local MSG="<p>Do not run $tb_title in TemplateVM.<br></br>
+   tb_qubes_wiki="in_qubes-whonix"
+   local MSG="<p>Do not run $tb_title in Template.<br></br>
 <br></br>
 More info: <a href=https://www.whonix.org/wiki/$tb_wiki#$tb_qubes_wiki>https://www.whonix.org/wiki/$tb_wiki#$tb_qubes_wiki</a></p>"
    $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
@@ -250,7 +250,7 @@ tb_qubes_dvm_template() {
    local MSG="\
 <p>Do not run $tb_title in Qubes DVM Template!<br></br>
 <br></br>
-More info: <a href=https://www.whonix.org/wiki/Tor_Browser/Advanced_Users#Running_Tor_Browser_in_Qubes_TemplateVM_or_DVM_Template>https://www.whonix.org/wiki/Tor_Browser/Advanced_Users#Running_Tor_Browser_in_Qubes_TemplateVM_or_DVM_Template</a></p>"
+More info: <a href=https://www.whonix.org/wiki/Tor_Browser/Advanced_Users#Running_Tor_Browser_in_Qubes_Template_or_Disposable_Template>https://www.whonix.org/wiki/Tor_Browser/Advanced_Users#Running_Tor_Browser_in_Qubes_Template_or_Disposable_Template</a></p>"
 
    $output ${output_opts[@]} --messagex --titlex "$TITLE" --typex "error" --message "$MSG" --done
    $output ${output_opts[@]} --messagecli --titlecli "$TITLE" --typecli "error" --message "$MSG" --done
@@ -374,7 +374,7 @@ tb_permission_issue() {
 <br></br>
 <br></br>Tip: If something does not work, do not arbitrarily try to use sudo / root without indication that this would be appropriate.
 <br></br>That only risks messing up user home folder permissions. See:
-<br></br><a href=https://www.whonix.org/wiki/Root#Inappropriate_Use_of_Root_Rights>https://www.whonix.org/wiki/Root#Inappropriate_Use_of_Root_Rights</a>
+<br></br><a href=https://www.kicksecure.com/wiki/Root#Inappropriate_Use_of_Root_Rights>https://www.kicksecure.com/wiki/Root#Inappropriate_Use_of_Root_Rights</a>
 <br></br>
 <br></br>To fix this, you could try: <blockquote>Start Menu -> System -> Xfce Terminal
 <br></br>
