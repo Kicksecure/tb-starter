@@ -16,7 +16,7 @@ Package: tb-starter
 Architecture: all
 Depends: msgcollector, ${misc:Depends}
 Recommends: tb-updater, tb-default-browser, open-link-confirmation,
- anon-icon-pack
+ icon-pack-dist
 Provides: torbrowser-launcher
 Description: Tor Browser Starter (by Whonix developers)
  Both, a starter for Tor Browser.
