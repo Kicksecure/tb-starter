@@ -293,7 +293,7 @@ TOR_CONTROL_PASSWD environment variable."
         cat <<EOF
 
 The Tor ControlPort password should be given inside double quotes, inside single
-quotes, i.e. if the ControlPort password is “secret” (without curly quotes) then
+quotes, i.e. if the ControlPort password is 'secret' (without curly quotes) then
 we must start this script after setting the environment variable exactly like
 this:
 
@@ -306,7 +306,7 @@ EOF
 # Using a system-installed Tor process with Tor Browser:
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # The Tor ControlPort password should be given inside double quotes, inside
-# single quotes, i.e. if the ControlPort password is “secret” (without
+# single quotes, i.e. if the ControlPort password is 'secret' (without
 # curly quotes) then we must set the environment variable *exactly* like
 # this:
 #
@@ -338,7 +338,7 @@ EOF
 # already in the preference alone, just append the things specified after it".
 
 # Either set `TOR_CONTROL_PASSWD` before running ./start-i2p-browser, or put
-# your password in the following line where the word “secret” is:
+# your password in the following line where the word 'secret' is:
 setControlPortPasswd ${TOR_CONTROL_PASSWD:='"secret"'}
 
 # Set up custom bundled fonts. See fonts-conf(5).
