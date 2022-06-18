@@ -55,7 +55,7 @@ output: <code>$output</code>
 output_opts: <code>${output_opts[@]}</code>
 progressbaridx: <code>$progressbaridx</code>
 
-Experts only:
+For debugging, run:
 <code>bash -x $SCRIPTNAME</code>"
 
    MSG="$(/usr/libexec/msgcollector/br_add "$MSG")"
