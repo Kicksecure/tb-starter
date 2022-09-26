@@ -9,8 +9,16 @@
 You can use \fBtorbrowser\fR to start Tor Browser from the command line\.
 .P
 Parameters are passed to Tor Browser\.
-.SH "CONFIG FILE"
-/etc/torbrowser\.d/30_default\.conf
+.SH "OPTIONS"
+.IP "\[ci]" 4
+tb_no_start
+.IP "" 0
+.P
+If set to "true", don't start torbrowser, exit with error code\.
+.SH "FILES"
+/etc/torbrowser\.d/*\.conf
+.P
+/usr/local/etc/torbrowser\.d/*\.conf
 .SH "EXIT CODES"
 0 Success
 .P
