@@ -26,8 +26,6 @@ Parameters are passed to Tor Browser.
 
 /usr/local/etc/torbrowser.d/\*.conf
 
-/rw/config/torbrowser.d/\*.conf
-
 ## EXIT CODES
 0 Success
 
