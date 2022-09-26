@@ -1,3 +1,59 @@
+commit e635029e2853635cc8cd683faacd1e87c6b50eeb
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Sep 26 07:44:59 2022 -0400
+
+    genmkfile manpages
+
+commit d66f99f41699b98ab99ffdb20c86b7973fb521ec
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Sep 26 07:32:39 2022 -0400
+
+    undo /rw changes
+    
+    https://forums.whonix.org/t/rw-config-versus-usr-local-etc/15621
+
+commit 85a14fa5f14f18c0dfc49225304ff11ee8b1a4b2
+Merge: 329daee 9f10bfe
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Sep 26 07:31:31 2022 -0400
+
+    Merge remote-tracking branch 'github-kicksecure/master'
+
+commit 9f10bfed115f7ac984e5bd4621d004fed74b860c
+Merge: 329daee 1a28f63
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Sep 26 07:30:55 2022 -0400
+
+    Merge pull request #13 from nyxnor/master
+    
+    print tb_no_start=true output to cli and gui
+
+commit 1a28f63bfc74e0743a2e3039b0991d9e4bfb6a7b
+Author: nyxnor <nyxnor@protonmail.com>
+Date:   Sun Sep 25 23:07:23 2022 +0000
+
+    move /rw/config as the last dir to be sourced
+
+commit 087da59663116d470f51c6d36ab020bf8f01c549
+Author: nyxnor <nyxnor@protonmail.com>
+Date:   Sun Sep 25 23:06:14 2022 +0000
+
+    add tb_no_start to man
+
+commit 7afe6cdf5fe07615a5b524e134d881c5ce2218f4
+Author: nyxnor <nyxnor@protonmail.com>
+Date:   Sun Sep 25 22:53:16 2022 +0000
+
+    fail early with tb_no_start and add info message
+    
+    https://forums.whonix.org/t/inform-user-that-torbrowser-wont-start/15298/5
+
+commit 329daee153a86798eec6380d010d1a23ac186cc8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Jun 19 07:35:18 2022 -0400
+
+    bumped changelog version
+
 commit 6fcfd987b3ac003b4ecf2304d8eff200c765bbf7
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Jun 18 10:36:59 2022 -0400
