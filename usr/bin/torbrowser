@@ -194,8 +194,8 @@ tb_config_folder_parser() {
    local i
    for i in \
       /etc/${tb_settings_folder}/*.conf \
-      /rw/config/${tb_settings_folder}/*.conf \
       /usr/local/etc/${tb_settings_folder}/*.conf \
+      /rw/config/${tb_settings_folder}/*.conf \
       ; do
          bash -n "$i"
          source "$i"
@@ -744,11 +744,6 @@ tb_firejail_set_options() {
 }
 
 tb_start_tor_browser() {
-   if [ "$tb_no_start" = "true" ]; then
-      true "INFO: not starting $tb_title because tb_no_start is set to true."
-      return 0
-   fi
-
    local temp
    local tb_exit_code="0"
    if [ "$tb_hardening" = "true" ]; then
@@ -779,11 +774,27 @@ See online documentation:
    fi
 }
 
+tb_check_allowed(){
+   if [ "$tb_no_start" = "true" ]; then
+      true "INFO: not starting $tb_title as tb_no_start is set to true."
+      local MSG="\
+<p>Not starting $tb_title as variable \$tb_no_start is set to \"true\"!<br></br>
+<br></br>
+More info: User configured tb_no_start=\"true\"</p>"
+
+      $output ${output_opts[@]} --messagex --titlex "$TITLE" --typex "error" --message "$MSG" --done
+      $output ${output_opts[@]} --messagecli --titlecli "$TITLE" --typecli "error" --message "$MSG" --done
+      exit 1
+   fi
+}
+
+
 main_function() {
    ## tb_error_handler
    tb_run_function root_check "$@"
    tb_run_function tb_preparation "$@"
    tb_run_function tb_config_folder_parser "$@"
+   tb_run_function tb_check_allowed
    tb_run_function tb_templatevm_check "$@"
    tb_run_function tb_qubes_dvm_template "$@"
    tb_run_function check_tb_updater_first_boot_done "$@"
