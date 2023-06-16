@@ -1,3 +1,9 @@
+tb-starter (3:15.2-1) unstable; urgency=medium
+
+  * New upstream version (local package).
+
+ -- Patrick Schleizer <adrelanos@whonix.org>  Fri, 16 Jun 2023 11:10:18 +0000
+
 tb-starter (3:15.1-1) unstable; urgency=medium
 
   * New upstream version (local package).
