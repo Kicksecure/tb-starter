@@ -702,12 +702,11 @@ maybe_use_open_link_confirmation() {
       return 0
    fi
 
-   local tool
-   tool="/usr/libexec/open-link-confirmation/open-link-confirmation"
-   tb_start_cmmand_temp="$tool $@"
+   tb_starter_tool="/usr/libexec/open-link-confirmation/open-link-confirmation"
+   tb_start_command_temp="$tb_starter_tool $@"
 
    tb_exit_code="0"
-   $tool "$@" || { tb_exit_code="$?" ; true; };
+   $tb_starter_tool "$@" || { tb_exit_code="$?" ; true; };
 
    tb_run_function tb_handle_exit_code
 }
@@ -733,10 +732,10 @@ tb_firejail_set_options() {
 tb_start_tor_browser() {
    tb_exit_code="0"
    if [ "$tb_hardening" = "true" ]; then
-      tb_start_cmmand_temp="$tb_firejail_bin ${tb_firejailopts[@]} $tb_starter_bin_pre $tb_starter_bin --verbose --allow-remote $tb_starter_bin_post $@"
+      tb_start_command_temp="$tb_firejail_bin ${tb_firejailopts[@]} $tb_starter_bin_pre $tb_starter_bin --verbose --allow-remote $tb_starter_bin_post $@"
       $tb_firejail_bin ${tb_firejailopts[@]} $tb_starter_bin_pre $tb_starter_bin --verbose --allow-remote $tb_starter_bin_post "$@" || { tb_exit_code="$?" ; true; };
    else
-      tb_start_cmmand_temp="$tb_starter_bin_pre $tb_starter_bin --verbose --allow-remote $tb_starter_bin_post $@"
+      tb_start_command_temp="$tb_starter_bin_pre $tb_starter_bin --verbose --allow-remote $tb_starter_bin_post $@"
       $tb_starter_bin_pre $tb_starter_bin --verbose --allow-remote $tb_starter_bin_post "$@" || { tb_exit_code="$?" ; true; };
    fi
 
@@ -750,14 +749,14 @@ tb_handle_exit_code() {
       local MSG="<p>$tb_title ended with non-zero (error) exit code!<br></br>
 <br></br>
 $tb_title was started with:<br></br>
-<br></br><code>$tb_start_cmmand_temp</code>
+<br></br><code>$tb_start_command_temp</code>
 <br></br>
 <br></br>$tb_title exited with code: <code>$tb_exit_code</code>
 <br></br>OPEN_LINK_CONFIRMATION_COUNTER: <code>$OPEN_LINK_CONFIRMATION_COUNTER</code>'
 <br></br>
 <br></br>To see this for yourself, you could try: <blockquote>Start Menu -> System -> Xfce Terminal
 <br></br>Then run:
-<br></br><code>$tb_start_cmmand_temp</code></blockquote>
+<br></br><code>$tb_start_command_temp</code></blockquote>
 
 See online documentation:
 <br></br><a href=https://www.whonix.org/wiki/Tor_Browser#Tor_Browser_Crash_Errors>https://www.whonix.org/wiki/Tor_Browser#Tor_Browser_Crash_Errors</a></p>"
