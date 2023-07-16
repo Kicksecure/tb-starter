@@ -1,3 +1,21 @@
+commit c478d9a515e2e3b920a4e92de826cfddb73b1314
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Jul 16 15:28:39 2023 -0400
+
+    improve error handling
+
+commit 2ee3585c0a6c54d46366fb72b9b15e522779a2ce
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Jul 16 15:25:22 2023 -0400
+
+    improve error handling
+
+commit 596e01214b969f1341943789388a01bfd7059bcd
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Jul 16 15:15:07 2023 -0400
+
+    bumped changelog version
+
 commit 7a4389669ebbd57f60f5e2a1704d54a86504e585
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Jul 16 15:14:15 2023 -0400
