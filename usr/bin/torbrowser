@@ -748,7 +748,7 @@ tb_handle_exit_code() {
       local MSG="<p>$tb_title ended with non-zero (error) exit code!<br></br>
 <br></br>
 $tb_title was started with:<br></br>
-<br></br><code>$tb_start_cmmand_temp</code>.
+<br></br><code>$tb_start_cmmand_temp</code>
 <br></br>
 <br></br>$tb_title exited with code: <code>$tb_exit_code</code>
 <br></br>
