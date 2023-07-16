@@ -1,3 +1,33 @@
+commit 298ffb26252e36fbbe37279a88b402c8c3283df3
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Jul 16 15:01:06 2023 -0400
+
+    output
+
+commit 1a88311bf84ac49a46f633a438a91c7ab86d820b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Jul 16 14:59:14 2023 -0400
+
+    fix
+
+commit 5d9902a92bf98e008179f99942ce15a0b9ff517b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Jul 16 14:51:05 2023 -0400
+
+    improve error handling in case using open-link-confirmation
+
+commit 6af995249288289e000522a67bf83c2641b990ab
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Jul 16 14:21:20 2023 -0400
+
+    output
+
+commit 1c0f38c3a4ec0e5e8ccaef6a393f49ad20a7756d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jun 21 09:38:29 2023 +0000
+
+    bumped changelog version
+
 commit 9801993a87d5a5a0a435b01498dbf446243917a6
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Jun 21 09:11:32 2023 +0000
