@@ -711,8 +711,9 @@ maybe_use_open_link_confirmation() {
    $tool "$@" || { tool_exit_code="$?" ; true; };
 
    if [ ! "$tool_exit_code" = "0" ]; then
-      local MSG="<p>$tb_title $FUNCNAME error.
+      local MSG="<p>ERROR detected.
 <br></br>
+<br></br>(FUNCNAME: '$FUNCNAME')
 <br></br>Failed:
 <br></br><code>$temp</code>
 <br></br>tool_exit_code: <code>$tool_exit_code</code></p>"
