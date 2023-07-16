@@ -762,7 +762,7 @@ $tb_title was started with:<br></br>
 
 See online documentation:
 <br></br><a href=https://www.whonix.org/wiki/Tor_Browser#Tor_Browser_Crash_Errors>https://www.whonix.org/wiki/Tor_Browser#Tor_Browser_Crash_Errors</a></p>"
-      if [ "$tb_used_open_link_confirmation"= "true" ]; then
+      if [ "$tb_used_open_link_confirmation" = "true" ]; then
          true "INFO: Avoid duplicate error popup."
       else
          $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
