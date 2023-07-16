@@ -710,19 +710,9 @@ maybe_use_open_link_confirmation() {
    temp="$tool $@"
    $tool "$@" || { tool_exit_code="$?" ; true; };
 
-   if [ ! "$tool_exit_code" = "0" ]; then
-      local MSG="<p>ERROR detected.
-<br></br>
-<br></br>(FUNCNAME: '$FUNCNAME')
-<br></br>Failed:
-<br></br><code>$temp</code>
-<br></br>tool_exit_code: <code>$tool_exit_code</code></p>"
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
-      exit 1
-   fi
+   tb_exit_code="$tool_exit_code"
 
-   exit 0
+   tb_run_function tb_handle_exit_code
 }
 
 tb_firejail_set_options() {
@@ -745,7 +735,7 @@ tb_firejail_set_options() {
 
 tb_start_tor_browser() {
    local temp
-   local tb_exit_code="0"
+   tb_exit_code="0"
    if [ "$tb_hardening" = "true" ]; then
       temp="$tb_firejail_bin ${tb_firejailopts[@]} $tb_starter_bin_pre $tb_starter_bin --verbose --allow-remote $tb_starter_bin_post $@"
       $tb_firejail_bin ${tb_firejailopts[@]} $tb_starter_bin_pre $tb_starter_bin --verbose --allow-remote $tb_starter_bin_post "$@" || { tb_exit_code="$?" ; true; };
@@ -754,6 +744,10 @@ tb_start_tor_browser() {
       $tb_starter_bin_pre $tb_starter_bin --verbose --allow-remote $tb_starter_bin_post "$@" || { tb_exit_code="$?" ; true; };
    fi
 
+   tb_run_function tb_handle_exit_code
+}
+
+tb_handle_exit_code() {
    if [ ! "$tb_exit_code" = "0" ]; then
       local MSG="<p>$tb_title ended with non-zero (error) exit code!<br></br>
 <br></br>
@@ -772,6 +766,7 @@ See online documentation:
       $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
       exit "$tb_exit_code"
    fi
+   exit 0
 }
 
 tb_check_allowed(){
