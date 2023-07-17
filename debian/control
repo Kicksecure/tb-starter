@@ -6,9 +6,9 @@ Section: misc
 Priority: optional
 Maintainer: Patrick Schleizer <adrelanos@whonix.org>
 Build-Depends: debhelper (>= 13), debhelper-compat (= 13)
-Homepage: https://github.com/Whonix/tb-starter
-Vcs-Browser: https://github.com/Whonix/tb-starter
-Vcs-Git: https://github.com/Whonix/tb-starter.git
+Homepage: https://github.com/Kicksecure/tb-starter
+Vcs-Browser: https://github.com/Kicksecure/tb-starter
+Vcs-Git: https://github.com/Kicksecure/tb-starter.git
 Standards-Version: 4.6.2
 Rules-Requires-Root: no
 
@@ -50,8 +50,8 @@ Description: Tor Browser Starter (by Whonix developers)
  .
  Tor Browser documentation by Whonix.
  .
-  - https://www.whonix.org/wiki/Tor_Browser
-  - https://www.whonix.org/wiki/Tor_Browser/Advanced_Users
+  - https://www.kicksecure.com/wiki/Tor_Browser
+  - https://www.kicksecure.com/wiki/Tor_Browser/Advanced_Users
  .
  This package is produced independently of, and carries no guarantee from,
  The Tor Project.
