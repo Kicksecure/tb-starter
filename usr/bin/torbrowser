@@ -646,10 +646,10 @@ tb_i2p() {
    if ! /usr/share/tb-profile-i2p/check-i2p ; then
       ## i2p related services are already not yet running.
 
-      ## lxsudo prompt, systemctl enable and start i2p related services.
-      lxsudo /usr/share/tb-profile-i2p/enable-i2p
+      ## prompt, systemctl enable and start i2p related services.
+      pkexec DISPLAY="$DISPLAY" /usr/share/tb-profile-i2p/enable-i2p
    fi
-   ## This effectively results in a one time lxsudo prompt for users of
+   ## This effectively results in a one time pkexec prompt for users of
    ## i2pbrowser in Non-Qubes-Whonix.
    ##
    ## This is different in Qubes-Whonix TemplateBased AppVMs due to
