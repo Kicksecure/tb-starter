@@ -647,7 +647,7 @@ tb_i2p() {
       ## i2p related services are already not yet running.
 
       ## prompt, systemctl enable and start i2p related services.
-      pkexec DISPLAY="$DISPLAY" /usr/share/tb-profile-i2p/enable-i2p
+      /usr/share/tb-profile-i2p/enable-i2p
    fi
    ## This effectively results in a one time pkexec prompt for users of
    ## i2pbrowser in Non-Qubes-Whonix.
