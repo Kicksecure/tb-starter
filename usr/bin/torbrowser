@@ -512,7 +512,7 @@ maybe_install_tor_browser() {
 
    local MSG="<p>$tb_title is currently not installed.
 <br></br>(Folder $tb_browser_folder does not exist.)</p>"
-   local question="Start $tb_title Downloader (by Whonix Developers)?"
+   local question="Start $tb_title Downloader (by Whonix developers)?"
    local button="yesno"
    local answer
    answer="$(/usr/libexec/msgcollector/generic_gui_message "error" "$TITLE" "$MSG" "$question" "$button")"
