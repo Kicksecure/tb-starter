@@ -1,3 +1,31 @@
+commit f2b4c9aa7d6e01690fd52bb3194c15d5acf99b49
+Merge: 6d201a0 ae643a3
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jan 25 08:58:04 2024 -0500
+
+    Merge remote-tracking branch 'github-kicksecure/master'
+
+commit ae643a3e7bb6473773dde336408a085668bfdcdc
+Merge: 6d201a0 ae5798b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jan 25 08:57:32 2024 -0500
+
+    Merge pull request #15 from fyqwbdzsfjh/master
+    
+    Add support for Mullvad Browser
+
+commit ae5798bd11911d9e233009627228e932a08e8612
+Author: fyqwbdzsfjh <fyqwbdzsfjh@example.invalid>
+Date:   Wed Jan 24 17:55:31 2024 +0000
+
+    add support for mullvad browser
+
+commit 6d201a06cef37d841ccb51bb8e5569466d67b2fb
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Nov 11 20:24:46 2023 +0000
+
+    bumped changelog version
+
 commit 3896db90b580b25c8ff3837fa3aa891c19bc8f73
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Nov 11 14:43:09 2023 -0500
