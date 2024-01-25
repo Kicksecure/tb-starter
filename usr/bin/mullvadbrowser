@@ -14,5 +14,6 @@ export IDENTIFIER="mullvadbrowser"
 [ -n "$tb_browser_name" ] || export tb_browser_name="mullvad-browser"
 [ -n "$tb_browser_runner" ] || export tb_browser_runner="start-mullvad-browser"
 [ -n "$tb_settings_folder" ] || export tb_settings_folder="mullvadbrowser.d"
+[ -n "$tb_downloader_command" ] || export tb_downloader_command="update-mullvadbrowser"
 
 torbrowser "$@"

@@ -127,6 +127,7 @@ tb_preparation() {
    [ -n "$tb_install_folder_dot" ] || tb_install_folder_dot=".tb"
    [ -n "$tb_browser_name" ] || tb_browser_name="tor-browser"
    [ -n "$tb_settings_folder" ] || tb_settings_folder="torbrowser.d"
+   [ -n "$tb_downloader_command" ] || tb_downloader_command="update-torbrowser"
    [ -n "$tb_title" ] || tb_title="Tor Browser"
    [ -n "$tb_wiki" ] || tb_wiki="Tor_Browser"
    [ -n "$tb_bin" ] || tb_bin="torbrowser"
@@ -522,16 +523,16 @@ maybe_install_tor_browser() {
    ## yes 0
    if [ "$answer" = "16384" ]; then ## button 'yes' pressed
       local update_torbrowser_command_v_exit_code="0"
-      command -v update-torbrowser &>/dev/null || { update_torbrowser_command_v_exit_code="$?" ; true; };
+      command -v "$tb_downloader_command" &>/dev/null || { update_torbrowser_command_v_exit_code="$?" ; true; };
       if [ "$update_torbrowser_command_v_exit_code" = "0" ]; then
-         ## update-torbrowser is available.
-         ## || true, in case update-torbrowser fails for some reason (no
+         ## update-torbrowser / update-mullvadbrowser is available.
+         ## || true, in case update-torbrowser / update-mullvadbrowser fails for some reason (no
          ## internet connection).
-         update-torbrowser $tb_using_i2p --noaskstart || true
+         "$tb_downloader_command" $tb_using_i2p --noaskstart || true
       else
-         ## update-torbrowser is not available.
+         ## update-torbrowser / update-mullvadbrowser is not available.
          MSG="<p>$tb_title Updater (by Whonix developers) is not installed.
-update-torbrowser $tb_using_i2p is not available. Please install the tb-updater package.
+$tb_downloader_command $tb_using_i2p is not available. Please install the tb-updater package.
 <br></br>Run:
 <blockquote>sudo apt-get install tb-updater</blockquote>
 Then try again.</p>"
