@@ -128,6 +128,7 @@ tb_preparation() {
    [ -n "$tb_browser_name" ] || tb_browser_name="tor-browser"
    [ -n "$tb_settings_folder" ] || tb_settings_folder="torbrowser.d"
    [ -n "$tb_downloader_command" ] || tb_downloader_command="update-torbrowser"
+   [ -n "$tb_downloader_developers" ] || tb_downloader_developers="Whonix"
    [ -n "$tb_title" ] || tb_title="Tor Browser"
    [ -n "$tb_wiki" ] || tb_wiki="Tor_Browser"
    [ -n "$tb_bin" ] || tb_bin="torbrowser"
@@ -181,7 +182,7 @@ tb_preparation() {
 
    output_opts=( "$output_opt_1" "$output_opt_2" "$output_opt_3" "$output_opt_4" "$output_opt_5")
 
-   TITLE="$tb_title Starter (by Whonix developers)"
+   TITLE="$tb_title Starter (by $tb_downloader_developers developers)"
 
    ## TODO
    #$output ${output_opts[@]} --forget
@@ -381,10 +382,10 @@ tb_permission_issue() {
 <br></br><code>sudo chown --recursive \"$who_ami\":\"$who_ami\" \"$tb_user_home\"</code></blockquote>
 <br></br>Then try starting $tb_title again.
 <br></br>
-<br></br>To debug this, you could try to start $tb_title Starter (by Whonix developers) from command line in:
+<br></br>To debug this, you could try to start $tb_title Starter (by $tb_downloader_developers developers) from command line in:
 <br></br><a href=https://www.whonix.org/wiki/$tb_wiki#In_Verbose_Mode>https://www.whonix.org/wiki/$tb_wiki#In_Verbose_Mode</a>.
 <br></br>
-<br></br>See also $tb_title Starter (by Whonix developers) Permission Issues:
+<br></br>See also $tb_title Starter (by $tb_downloader_developers developers) Permission Issues:
 <br></br><a href=https://www.whonix.org/wiki/$tb_wiki#Permission_Issues>https://www.whonix.org/wiki/$tb_wiki#Permission_Issues</a></p>"
 
    echo "DEBUG START:"
@@ -512,7 +513,7 @@ maybe_install_tor_browser() {
 
    local MSG="<p>$tb_title is currently not installed.
 <br></br>(Folder $tb_browser_folder does not exist.)</p>"
-   local question="Start $tb_title Downloader (by Whonix developers)?"
+   local question="Start $tb_title Downloader (by $tb_downloader_developers developers)?"
    local button="yesno"
    local answer
    answer="$(/usr/libexec/msgcollector/generic_gui_message "error" "$TITLE" "$MSG" "$question" "$button")"
@@ -531,7 +532,7 @@ maybe_install_tor_browser() {
          "$tb_downloader_command" $tb_using_i2p --noaskstart || true
       else
          ## update-torbrowser / update-mullvadbrowser is not available.
-         MSG="<p>$tb_title Updater (by Whonix developers) is not installed.
+         MSG="<p>$tb_title Updater (by $tb_downloader_developers developers) is not installed.
 $tb_downloader_command $tb_using_i2p is not available. Please install the tb-updater package.
 <br></br>Run:
 <blockquote>sudo apt-get install tb-updater</blockquote>

@@ -15,5 +15,6 @@ export IDENTIFIER="mullvadbrowser"
 [ -n "$tb_browser_runner" ] || export tb_browser_runner="start-mullvad-browser"
 [ -n "$tb_settings_folder" ] || export tb_settings_folder="mullvadbrowser.d"
 [ -n "$tb_downloader_command" ] || export tb_downloader_command="update-mullvadbrowser"
+[ -n "$tb_downloader_developers" ] || export tb_downloader_developers="Kicksecure"
 
 torbrowser "$@"
