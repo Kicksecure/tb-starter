@@ -31,15 +31,15 @@ Try again later. If this is a transient issue, it can be safely ignored.
 
 There is likely a solution for this problem.
 
-* Please see the Whonix News. <a href=https://forums.whonix.org/tags/important-news>https://forums.whonix.org/tags/important-news</a>
+* Please see the $tb_downloader_developers News. <a href=https://forums.whonix.org/tags/important-news>https://forums.whonix.org/tags/important-news</a>
 * Whonix User Help Forum. <a href=https://forums.whonix.org>https://forums.whonix.org</a>
-* And Whonix Documentation. <a href=https://www.whonix.org/wiki/$tb_wiki>https://www.whonix.org/wiki/$tb_wiki</a>
+* And Whonix Documentation. <a href=$tb_documentation_base_url_clearnet/wiki/$tb_wiki>$tb_documentation_base_url_clearnet/wiki/$tb_wiki</a>
 
 It may or may not be possible to fix but further information may be required.
 
-* Try start from command line. <a href=https://www.whonix.org/wiki/$tb_wiki#From_the_Command_Line>https://www.whonix.org/wiki/$tb_wiki#From_the_Command_Line</a>
-* Try start from command line in debug mode. <a href=https://www.whonix.org/wiki/$tb_wiki#In_Debugging_Mode>https://www.whonix.org/wiki/$tb_wiki#In_Debugging_Mode</a>
-* If you don't mind to repair that Tor Browser install, reinstall of Tor Browser would also likely solve this. <a href=https://www.whonix.org/wiki/$tb_wiki#reinstall>https://www.whonix.org/wiki/$tb_wiki#reinstall</a>
+* Try start from command line. <a href=$tb_documentation_base_url_clearnet/wiki/$tb_wiki#From_the_Command_Line>$tb_documentation_base_url_clearnet/wiki/$tb_wiki#From_the_Command_Line</a>
+* Try start from command line in debug mode. <a href=$tb_documentation_base_url_clearnet/wiki/$tb_wiki#In_Debugging_Mode>$tb_documentation_base_url_clearnet/wiki/$tb_wiki#In_Debugging_Mode</a>
+* If you don't mind to repair that Tor Browser install, reinstall of Tor Browser would also likely solve this. <a href=$tb_documentation_base_url_clearnet/wiki/$tb_wiki#reinstall>$tb_documentation_base_url_clearnet/wiki/$tb_wiki#reinstall</a>
 
 Debugging information:
 
@@ -129,6 +129,7 @@ tb_preparation() {
    [ -n "$tb_settings_folder" ] || tb_settings_folder="torbrowser.d"
    [ -n "$tb_downloader_command" ] || tb_downloader_command="update-torbrowser"
    [ -n "$tb_downloader_developers" ] || tb_downloader_developers="Whonix"
+   [ -n "$tb_documentation_base_url_clearnet" ] || tb_documentation_base_url_clearnet="https://www.whonix.org"
    [ -n "$tb_title" ] || tb_title="Tor Browser"
    [ -n "$tb_wiki" ] || tb_wiki="Tor_Browser"
    [ -n "$tb_bin" ] || tb_bin="torbrowser"
@@ -233,7 +234,7 @@ tb_templatevm_check() {
    tb_qubes_wiki="in_qubes-whonix"
    local MSG="<p>Do not run $tb_title in Template.<br></br>
 <br></br>
-More info: <a href=https://www.whonix.org/wiki/$tb_wiki#$tb_qubes_wiki>https://www.whonix.org/wiki/$tb_wiki#$tb_qubes_wiki</a></p>"
+More info: <a href=$tb_documentation_base_url_clearnet/wiki/$tb_wiki#$tb_qubes_wiki>$tb_documentation_base_url_clearnet/wiki/$tb_wiki#$tb_qubes_wiki</a></p>"
    $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
    $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
 
@@ -251,7 +252,7 @@ tb_qubes_dvm_template() {
    local MSG="\
 <p>Do not run $tb_title in Qubes DVM Template!<br></br>
 <br></br>
-More info: <a href=https://www.whonix.org/wiki/Tor_Browser/Advanced_Users#Running_Tor_Browser_in_Qubes_Template_or_Disposable_Template>https://www.whonix.org/wiki/Tor_Browser/Advanced_Users#Running_Tor_Browser_in_Qubes_Template_or_Disposable_Template</a></p>"
+More info: <a href=$tb_documentation_base_url_clearnet/wiki/Tor_Browser/Advanced_Users#Running_Tor_Browser_in_Qubes_Template_or_Disposable_Template>$tb_documentation_base_url_clearnet/wiki/Tor_Browser/Advanced_Users#Running_Tor_Browser_in_Qubes_Template_or_Disposable_Template</a></p>"
 
    $output ${output_opts[@]} --messagex --titlex "$TITLE" --typex "error" --message "$MSG" --done
    $output ${output_opts[@]} --messagecli --titlecli "$TITLE" --typecli "error" --message "$MSG" --done
@@ -383,10 +384,10 @@ tb_permission_issue() {
 <br></br>Then try starting $tb_title again.
 <br></br>
 <br></br>To debug this, you could try to start $tb_title Starter (by $tb_downloader_developers developers) from command line in:
-<br></br><a href=https://www.whonix.org/wiki/$tb_wiki#In_Verbose_Mode>https://www.whonix.org/wiki/$tb_wiki#In_Verbose_Mode</a>.
+<br></br><a href=$tb_documentation_base_url_clearnet/wiki/$tb_wiki#In_Verbose_Mode>$tb_documentation_base_url_clearnet/wiki/$tb_wiki#In_Verbose_Mode</a>.
 <br></br>
 <br></br>See also $tb_title Starter (by $tb_downloader_developers developers) Permission Issues:
-<br></br><a href=https://www.whonix.org/wiki/$tb_wiki#Permission_Issues>https://www.whonix.org/wiki/$tb_wiki#Permission_Issues</a></p>"
+<br></br><a href=$tb_documentation_base_url_clearnet/wiki/$tb_wiki#Permission_Issues>$tb_documentation_base_url_clearnet/wiki/$tb_wiki#Permission_Issues</a></p>"
 
    echo "DEBUG START:"
 
@@ -763,7 +764,7 @@ $tb_title was started with:<br></br>
 <br></br><code>$tb_start_command_temp</code></blockquote>
 
 See online documentation:
-<br></br><a href=https://www.whonix.org/wiki/Tor_Browser#Tor_Browser_Crash_Errors>https://www.whonix.org/wiki/Tor_Browser#Tor_Browser_Crash_Errors</a></p>"
+<br></br><a href=$tb_documentation_base_url_clearnet/wiki/Tor_Browser#Tor_Browser_Crash_Errors>$tb_documentation_base_url_clearnet/wiki/Tor_Browser#Tor_Browser_Crash_Errors</a></p>"
       if [ "$tb_used_open_link_confirmation" = "true" ]; then
          true "INFO: Avoid duplicate error popup."
       else
