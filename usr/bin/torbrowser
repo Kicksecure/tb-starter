@@ -252,7 +252,7 @@ tb_qubes_dvm_template() {
    local MSG="\
 <p>Do not run $tb_title in Qubes DVM Template!<br></br>
 <br></br>
-More info: <a href=$tb_documentation_base_url_clearnet/wiki/Tor_Browser/Advanced_Users#Running_Tor_Browser_in_Qubes_Template_or_Disposable_Template>$tb_documentation_base_url_clearnet/wiki/Tor_Browser/Advanced_Users#Running_Tor_Browser_in_Qubes_Template_or_Disposable_Template</a></p>"
+More info: <a href=$tb_documentation_base_url_clearnet/wiki/$tb_wiki/Advanced_Users#Running_Tor_Browser_in_Qubes_Template_or_Disposable_Template>$tb_documentation_base_url_clearnet/wiki/$tb_wiki/Advanced_Users#Running_Tor_Browser_in_Qubes_Template_or_Disposable_Template</a></p>"
 
    $output ${output_opts[@]} --messagex --titlex "$TITLE" --typex "error" --message "$MSG" --done
    $output ${output_opts[@]} --messagecli --titlecli "$TITLE" --typecli "error" --message "$MSG" --done
@@ -764,7 +764,7 @@ $tb_title was started with:<br></br>
 <br></br><code>$tb_start_command_temp</code></blockquote>
 
 See online documentation:
-<br></br><a href=$tb_documentation_base_url_clearnet/wiki/Tor_Browser#Tor_Browser_Crash_Errors>$tb_documentation_base_url_clearnet/wiki/Tor_Browser#Tor_Browser_Crash_Errors</a></p>"
+<br></br><a href=$tb_documentation_base_url_clearnet/wiki/$tb_wiki#Crash_Errors>$tb_documentation_base_url_clearnet/wiki/$tb_wiki#Crash_Errors</a></p>"
       if [ "$tb_used_open_link_confirmation" = "true" ]; then
          true "INFO: Avoid duplicate error popup."
       else

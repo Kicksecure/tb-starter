@@ -17,5 +17,6 @@ export IDENTIFIER="mullvadbrowser"
 [ -n "$tb_downloader_command" ] || export tb_downloader_command="update-mullvadbrowser"
 [ -n "$tb_downloader_developers" ] || export tb_downloader_developers="Kicksecure"
 [ -n "$tb_documentation_base_url_clearnet" ] || export tb_documentation_base_url_clearnet="https://www.kicksecure.com"
+[ -n "$tb_wiki" ] || export tb_wiki="Mullvad_Browser"
 
 torbrowser "$@"
