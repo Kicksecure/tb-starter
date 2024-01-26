@@ -31,9 +31,9 @@ Try again later. If this is a transient issue, it can be safely ignored.
 
 There is likely a solution for this problem.
 
-* Please see the $tb_downloader_developers News. <a href=https://forums.whonix.org/tags/important-news>https://forums.whonix.org/tags/important-news</a>
-* Whonix User Help Forum. <a href=https://forums.whonix.org>https://forums.whonix.org</a>
-* And Whonix Documentation. <a href=$tb_documentation_base_url_clearnet/wiki/$tb_wiki>$tb_documentation_base_url_clearnet/wiki/$tb_wiki</a>
+* Please see the $tb_downloader_developers News. <a href=$tb_documentation_base_url_clearnet/wiki/Stay_Tuned>$tb_documentation_base_url_clearnet/wiki/Stay_Tuned</a>
+* User Help Forum.
+* And Documentation. <a href=$tb_documentation_base_url_clearnet/wiki/$tb_wiki>$tb_documentation_base_url_clearnet/wiki/$tb_wiki</a>
 
 It may or may not be possible to fix but further information may be required.
 
