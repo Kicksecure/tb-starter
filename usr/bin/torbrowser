@@ -87,8 +87,9 @@ tb_run_function() {
 root_check() {
    if [ "$(id -u)" != "0" ]; then
       #echo "$SCRIPTNAME running as user."
-      true
+      tb_running_as_root=false
    else
+      tb_running_as_root=true
       echo "Do not run $SCRIPTNAME as root!"
       exit 1
    fi
