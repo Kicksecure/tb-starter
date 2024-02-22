@@ -1,3 +1,31 @@
+commit 05d86054c80c9d18172147ad64a1125cf664f9a5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 22 13:18:14 2024 -0500
+
+    set tb_running_as_root=true or false depending on status
+
+commit 8293e135f2cedc2303b31b4c4334e400ccb71234
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 22 13:06:37 2024 -0500
+
+    run function tb_fix_permissions
+    
+    https://forums.whonix.org/t/tor-browser-permission-issue/17222/4
+
+commit c4ec38dd9ca7dc944083c2489c5281955ee7b7a8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 22 13:05:06 2024 -0500
+
+    add new function tb_fix_permissions
+    
+    https://forums.whonix.org/t/tor-browser-permission-issue/17222/4
+
+commit c6ff32f1a9520f12f00bbbc1c9b82e22f73d94ae
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jan 26 11:59:39 2024 +0000
+
+    bumped changelog version
+
 commit e7bf4c0086a4f176bff9a4f8792dea19387ad9d1
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Fri Jan 26 06:12:36 2024 -0500
