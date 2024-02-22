@@ -416,6 +416,23 @@ tb_permission_issue() {
    exit 1
 }
 
+tb_fix_permissions() {
+   ## This function is duplicated in tb-updater, tb-starter.
+   ## /usr/libexec/tb-updater/tb-permission-fix fixes permissions in folder /var/cache/tb-binary
+   ## Save to do in Qubes Template as well as in App Qube.
+   if [ "$tb_running_as_root" = "true" ]; then
+      ## Already running as root. No need to use sudo.
+      ## Fix build issue.
+      ## /usr/bin/update-torbrowser: line 591: /usr/bin/sudo: Operation not permitted
+      /usr/libexec/tb-updater/tb-permission-fix
+      return 0
+   fi
+   ## Running as user, not as root.
+   ## Requires root, therefore running this with sudo.
+   ## This has a sudoers exception.
+   sudo --non-interactive /usr/libexec/tb-updater/tb-permission-fix
+}
+
 tb_copy_from_root_to_user_maybe() {
    if [ "$qubes_vm_persistence" = "none" ]; then
       if [ "$started_by_sandbox_app_launcher" = "true" ] || [ "$tb_installer_started_by_sandbox_app_launcher" = "true" ]; then
