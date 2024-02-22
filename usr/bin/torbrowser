@@ -470,6 +470,8 @@ tb_copy_from_root_to_user_maybe() {
       return 0
    fi
 
+   tb_fix_permissions
+
    if [ -d /var/cache/tb-binary/.cache ]; then
        if ! mkdir -p "$tb_user_home/.cache"  ; then
          tb_permission_issue mkdir -p "$tb_user_home/.cache"
