@@ -223,7 +223,7 @@ tb_templatevm_check() {
    fi
 
    if ! test -f /run/qubes/this-is-templatevm ; then
-      true "Not running in TemplateVM."
+      true "Not running in Template."
       return 0
    fi
 
@@ -329,7 +329,7 @@ check_noexec() {
 
 check_tb_updater_first_boot_done() {
    if test -f /run/qubes/this-is-templatevm ; then
-      true "$FUNCNAME: Not running in TemplateVM."
+      true "$FUNCNAME: Not running in Template."
       return 0
    fi
 
@@ -603,7 +603,7 @@ tb_detect_starter_bin() {
       tb_starter_bin="$tb_browser_folder/$tb_browser_runner"
    elif [ -x "$tb_browser_folder/$tb_browser_runner.desktop" ]; then
       ## Canonical way to start Tor Browser.
-      ## Cannot be used in Qubes Disposable VMs.
+      ## Cannot be used in Qubes Disposables.
       ## ~/.tb/tor-browser/start-tor-browser.desktop does as per Tor Browser upstream default:
       ## Exec=sh -c '"$(dirname "$*")"/Browser/start-tor-browser --detach || ([ ! -x "$(dirname "$*")"/Browser/start-tor-browser ] && "$(dirname "$*")"/start-tor-browser --detach)' dummy %k X-TorBrowser-ExecShell=./Browser/start-tor-browser --detach
       ## Qubes start menu incompatible with DispVMs launching GUI applications into the background #5129
@@ -675,11 +675,11 @@ tb_i2p() {
    ## This effectively results in a one time pkexec prompt for users of
    ## i2pbrowser in Non-Qubes-Whonix.
    ##
-   ## This is different in Qubes-Whonix TemplateBased AppVMs due to
-   ## TemplateBased AppVMs having a non-persistent root image by default.
+   ## This is different in Qubes-Whonix App Qubes due to
+   ## App Qubes having a non-persistent root image by default.
    ## These users should run:
    ## sudo /usr/share/tb-profile-i2p/enable-i2p
-   ## in Whonix-Workstation TemplateVM.
+   ## in Whonix-Workstation Template.
 
    if ! test -f "$tb_browser_folder/i2pmarker" ; then
       touch "$tb_browser_folder/i2pmarker"
