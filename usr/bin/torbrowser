@@ -180,7 +180,6 @@ tb_preparation() {
    output_opt_2="--parentpid $$"
    output_opt_3="--identifier ${IDENTIFIER}"
    output_opt_4="--parenttty $my_tty"
-   output_opt_5="--whoami $who_ami"
 
    output_opts=( "$output_opt_1" "$output_opt_2" "$output_opt_3" "$output_opt_4" "$output_opt_5")
 
