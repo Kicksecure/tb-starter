@@ -273,7 +273,6 @@ remount_exec() {
    sudo \
       --non-interactive \
       tb_home_folder="$tb_home_folder" \
-      tb_user_home="$tb_user_home" \
       /usr/libexec/tb-starter/remount-exec
 }
 
