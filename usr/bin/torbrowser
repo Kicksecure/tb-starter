@@ -634,7 +634,7 @@ tb_prefs_js_file_patches() {
    if ! test -f "$file_name" ; then
       return 0
    fi
-   LANG=C str_replace "$search" "$replace" "$file_name" &>/dev/null || true
+   str_replace "$search" "$replace" "$file_name" &>/dev/null || true
 }
 
 tb_i2p() {
