@@ -270,10 +270,7 @@ remount_exec() {
       return 0
    fi
 
-   sudo \
-      --non-interactive \
-      tb_home_folder="$tb_home_folder" \
-      /usr/libexec/tb-starter/remount-exec
+   leaprun tb-starter-remount-exec
 }
 
 check_noexec_do() {
@@ -420,16 +417,15 @@ tb_fix_permissions() {
    ## /usr/libexec/tb-updater/tb-permission-fix fixes permissions in folder /var/cache/tb-binary
    ## Save to do in Qubes Template as well as in App Qube.
    if [ "$tb_running_as_root" = "true" ]; then
-      ## Already running as root. No need to use sudo.
+      ## Already running as root. No need to use sudo or learpun.
       ## Fix build issue.
       ## /usr/bin/update-torbrowser: line 591: /usr/bin/sudo: Operation not permitted
       /usr/libexec/tb-updater/tb-permission-fix
       return 0
    fi
    ## Running as user, not as root.
-   ## Requires root, therefore running this with sudo.
-   ## This has a sudoers exception.
-   sudo --non-interactive /usr/libexec/tb-updater/tb-permission-fix
+   ## Requires root, therefore running this with leaprun.
+   leaprun tb-permission-fix
 }
 
 tb_copy_from_root_to_user_maybe() {

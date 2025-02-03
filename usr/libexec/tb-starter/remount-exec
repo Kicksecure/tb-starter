@@ -14,25 +14,46 @@ if [ "$(id -u)" != "0" ]; then
    exit 112
 fi
 
+## Old code, used with sudo
+
 ## example tb_home_folder:
 ## /home/user/.tb
 
-if [ "$tb_home_folder" = "" ]; then
-   echo "$0: ERROR tb_home_folder is empty" >&2
-   exit 1
-fi
+#if [ "$tb_home_folder" = "" ]; then
+#   echo "$0: ERROR tb_home_folder is empty" >&2
+#   exit 1
+#fi
 
 ## Validate tb_home_folder
-if [[ "${tb_home_folder}" =~ ^/home ]] \
-   || [[ "${tb_home_folder}" =~ ^/var/cache/tb-binary ]]; then
-   ## Check if already correct mount options.
-   if mount | grep "$tb_home_folder" | grep -q noexec ; then
-      ## noexec mount option found. Therefore remount.
-      mount --bind -o nosuid,nodev "$tb_home_folder" "$tb_home_folder"
-   fi
-fi
+#if [[ "${tb_home_folder}" =~ ^/home ]] \
+#   || [[ "${tb_home_folder}" =~ ^/var/cache/tb-binary ]]; then
+#   ## Check if already correct mount options.
+#   if mount | grep "$tb_home_folder" | grep -q noexec ; then
+#      ## noexec mount option found. Therefore remount.
+#      mount --bind -o nosuid,nodev "$tb_home_folder" "$tb_home_folder"
+#   fi
+#fi
 
 ## results in:
 # mount | grep /home/user/.tb
 # /dev/xvdb on /home/user/.tb type ext4 (rw,nosuid,nodev,relatime,discard)
 # /dev/xvdb on /rw/home/user/.tb type ext4 (rw,nosuid,nodev,relatime,discard)
+
+## New code, used with privleap
+##
+## NOTE: Re-detecting and hardcoding tb_home_folder because tb-starter cannot
+## communicate with remount-exec when running through privleap. This is not
+## expected to be a problem for now.
+
+tb_home_folder_list=( '/home/user/.tb' )
+if [ -f '/run/qubes/this-is-templatevm' ]; then
+   tb_home_folder_list+=( '/var/cache/tb-binary/.tb' )
+fi
+
+for tb_home_folder in "${tb_home_folder_list[@]}"; do
+   ## Check if already correct mount options.
+   if mount | grep "${tb_home_folder}" | grep -q noexec ; then
+      ## noexec mount option found. Therefore remount.
+      mount --bind -o nosuid,nodev "${tb_home_folder}" "${tb_home_folder}"
+   fi
+done
