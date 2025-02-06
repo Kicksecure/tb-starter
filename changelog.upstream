@@ -1,3 +1,34 @@
+commit 799c76e3fdb2cbfb8e62e8a882210226cfed6b25
+Merge: 6fc388b bc3507d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 6 11:02:15 2025 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/privleap'
+
+commit bc3507df8e6ae32b1901a978bd795e354b41f718
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Mon Feb 3 22:04:59 2025 -0600
+
+    Add error with correcting instructions for i2pbrowser start failure with user-sysmaint-split
+
+commit 2c657742ae15528a8d73b6c19bb218cfb2614cf1
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Mon Feb 3 21:03:41 2025 -0600
+
+    Add privleap as a dependency
+
+commit b011c65cbf1740f5e6f2644244f1271fae73d0c8
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Feb 2 23:00:23 2025 -0600
+
+    Port to privleap
+
+commit 6fc388b5b1d3427ed68dffcf85f5f802520f7129
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jan 30 12:59:32 2025 +0000
+
+    bumped changelog version
+
 commit 81e45feba43f251a03b606c6333c9f46b3a9ea82
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Jan 30 07:45:22 2025 -0500
