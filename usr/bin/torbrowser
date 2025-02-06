@@ -270,10 +270,7 @@ remount_exec() {
       return 0
    fi
 
-   sudo \
-      --non-interactive \
-      tb_home_folder="$tb_home_folder" \
-      /usr/libexec/tb-starter/remount-exec
+   leaprun tb-starter-remount-exec
 }
 
 check_noexec_do() {
@@ -420,16 +417,15 @@ tb_fix_permissions() {
    ## /usr/libexec/tb-updater/tb-permission-fix fixes permissions in folder /var/cache/tb-binary
    ## Save to do in Qubes Template as well as in App Qube.
    if [ "$tb_running_as_root" = "true" ]; then
-      ## Already running as root. No need to use sudo.
+      ## Already running as root. No need to use sudo or learpun.
       ## Fix build issue.
       ## /usr/bin/update-torbrowser: line 591: /usr/bin/sudo: Operation not permitted
       /usr/libexec/tb-updater/tb-permission-fix
       return 0
    fi
    ## Running as user, not as root.
-   ## Requires root, therefore running this with sudo.
-   ## This has a sudoers exception.
-   sudo --non-interactive /usr/libexec/tb-updater/tb-permission-fix
+   ## Requires root, therefore running this with leaprun.
+   leaprun tb-permission-fix
 }
 
 tb_copy_from_root_to_user_maybe() {
@@ -668,7 +664,16 @@ tb_i2p() {
       ## i2p related services are already not yet running.
 
       ## prompt, systemctl enable and start i2p related services.
-      pkexec /usr/share/tb-profile-i2p/enable-i2p
+      if ! pkexec /usr/share/tb-profile-i2p/enable-i2p; then
+         local MSG="\
+<p>Cannot enable i2p service!<br></br>
+<br></br>
+Most likely user-sysmaint-split is installed and you are booted into 'PERSISTENT mode USER' or 'LIVE mode USER'. To enable i2p, reboot and select 'PERSISTENT mode SYSMAINT', then open a terminal and run 'pkexec /usr/share/tb-profile-i2p/enable-i2p'. More info: <a href=https://www.kicksecure.com/wiki/Sysmaint>https://www.kicksecure.com/wiki/Sysmaint</a>"
+
+         $output ${output_opts[@]} --messagex --titlex "$TITLE" --typex "error" --message "$MSG" --done
+         $output ${output_opts[@]} --messagecli --titlecli "$TITLE" --typecli "error" --message "$MSG" --done
+         exit 1
+      fi
    fi
    ## This effectively results in a one time pkexec prompt for users of
    ## i2pbrowser in Non-Qubes-Whonix.

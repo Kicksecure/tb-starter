@@ -14,7 +14,7 @@ Rules-Requires-Root: no
 
 Package: tb-starter
 Architecture: all
-Depends: msgcollector, ${misc:Depends}
+Depends: msgcollector, privleap, ${misc:Depends}
 Recommends: tb-updater, tb-default-browser, open-link-confirmation,
  icon-pack-dist
 Provides: torbrowser-launcher
