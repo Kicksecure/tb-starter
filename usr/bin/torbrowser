@@ -668,7 +668,7 @@ tb_i2p() {
          local MSG="\
 <p>Cannot enable i2p service!<br></br>
 <br></br>
-Most likely user-sysmaint-split is installed and you are booted into 'PERSISTENT mode USER' or 'LIVE mode USER'. To enable i2p, reboot and select 'PERSISTENT mode SYSMAINT', then open a terminal and run 'pkexec /usr/share/tb-profile-i2p/enable-i2p'. More info: <a href=https://www.kicksecure.com/wiki/Sysmaint>https://www.kicksecure.com/wiki/Sysmaint</a>"
+Most likely user-sysmaint-split is installed and you are booted into 'PERSISTENT Mode - USER Session' or 'LIVE Mode - USER Session'. To enable i2p, reboot and select 'PERSISTENT Mode - SYSMAINT Session', then open a terminal and run 'pkexec /usr/share/tb-profile-i2p/enable-i2p'. More info: <a href=https://www.kicksecure.com/wiki/Sysmaint>https://www.kicksecure.com/wiki/Sysmaint</a>"
 
          $output ${output_opts[@]} --messagex --titlex "$TITLE" --typex "error" --message "$MSG" --done
          $output ${output_opts[@]} --messagecli --titlecli "$TITLE" --typecli "error" --message "$MSG" --done
