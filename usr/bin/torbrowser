@@ -118,7 +118,7 @@ tb_preparation() {
    ## When double clicking a file downloaded in Tor Browser download tab
    ## '$HOME' would be set to '/home/user/.tb/tor-browser/Browser' which would lead
    ## to a false-positive "Tor Browser not installed" message.
-   if echo "$tb_user_home" | grep -q tor-browser ; then
+   if printf '%s\n' "$tb_user_home" | grep -- tor-browser >/dev/null 2>/dev/null; then
       tb_user_home="/home/$who_ami"
    fi
 
@@ -244,7 +244,7 @@ More info: <a href=$tb_documentation_base_url_clearnet/wiki/$tb_wiki#$tb_qubes_w
 tb_qubes_dvm_template() {
    ## Avoid running in Qubes DVM Template.
    ## https://phabricator.whonix.org/T726
-   if echo "$qubes_vm_name" | grep -q --invert-match "\-dvm" ; then
+   if printf '%s\n' "$qubes_vm_name" | grep --invert-match -- "-dvm" >/dev/null 2>/dev/null; then
       true "INFO: not running inside Qubes DVM Template, ok."
       return 0
    fi
@@ -276,9 +276,9 @@ remount_exec() {
 check_noexec_do() {
    ## example tb_home_folder:
    ## /home/user/.tb
-   tb_home_folder_mount="$(mount | grep "$tb_home_folder")" || true
+   tb_home_folder_mount="$(mount | grep -- "$tb_home_folder")" || true
    if [ ! "$tb_home_folder_mount" = "" ]; then
-      if echo "$tb_home_folder" | grep -q --invert-match "noexec" ; then
+      if printf '%s\n' "$tb_home_folder" | grep --invert-match -- "noexec" >/dev/null 2>/dev/null ; then
          ## 'noexec' not found inside 'mount' line for tb_home_folder.
          ## I.e. not mounted noexec.
          true "INFO: noexec detected: no"
@@ -306,7 +306,7 @@ check_noexec() {
    ##
    ## example tb_user_home_dirname:
    ## /home
-   if mount | grep "$tb_user_home_dirname" | grep -q "noexec" ; then
+   if mount | grep -- "$tb_user_home_dirname" | grep -- "noexec" >/dev/null 2>/dev/null; then
       local MSG="<p>Failed to start $tb_title!<br></br>
 <br></br>
 <code>$tb_user_home_dirname</code> is mounted with <code>noexec</code>.
