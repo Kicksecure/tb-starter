@@ -1,3 +1,22 @@
+commit 7e6cde3a96c273d94c51a1d29a66d21a89ec34ca
+Merge: 91b1c69 e08c0cc
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jun 11 15:08:47 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/privleap'
+
+commit e08c0cc256394698d6299fdbb2ae040202dc4552
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Fri Jun 6 13:56:56 2025 -0500
+
+    Add privleap group to authorized groups for actions
+
+commit 91b1c69ecd6df4039c45a56a8f800956a8040d1c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 21 14:13:14 2025 +0000
+
+    bumped changelog version
+
 commit 8640bb0b95ce16298a72d1c0eac049f34ded4713
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed May 21 08:37:15 2025 -0400
