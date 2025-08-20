@@ -52,8 +52,8 @@ complain () {
 	# not just assume the command failed to display a message if
 	# it returns non-zero.)
 
-	# First, try zenity.
-	zenity --error \
+	# First, try yad.
+	yad --error \
 		--title="$complain_dialog_title" \
 		--text="$complain_message"
 	if [ "$?" -ne 127 ]; then

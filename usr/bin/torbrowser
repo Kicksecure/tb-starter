@@ -533,8 +533,8 @@ maybe_install_tor_browser() {
    local answer
    answer="$(/usr/libexec/msgcollector/generic_gui_message "error" "$TITLE" "$MSG" "$question" "$button")"
    #answer="0"
-   #zenity --title="$TITLE" --question --text "$MSG" || { answer="$?" ; true; };
-   ## zenity exit codes
+   #yad --title="$TITLE" --question --text "$MSG" || { answer="$?" ; true; };
+   ## yad exit codes
    ## no 1
    ## yes 0
    if [ "$answer" = "16384" ]; then ## button 'yes' pressed
