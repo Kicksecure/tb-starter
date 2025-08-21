@@ -15,7 +15,7 @@ Rules-Requires-Root: no
 Package: tb-starter
 Architecture: all
 Depends: msgcollector, privleap, ${misc:Depends}
-Recommends: tb-updater, tb-default-browser, open-link-confirmation,
+Recommends: tb-updater, open-link-confirmation,
  icon-pack-dist
 Provides: torbrowser-launcher
 Description: Tor Browser Starter (by Whonix developers)
