@@ -150,14 +150,6 @@ tb_preparation() {
    [ -n "$TOR_DEFAULT_HOMEPAGE" ] || TOR_DEFAULT_HOMEPAGE="about:blank"
    export TOR_DEFAULT_HOMEPAGE
 
-   if [ "$display" = "" ]; then
-      if [ "$DISPLAY" = "" ]; then
-         display=":0"
-      else
-         display="$DISPLAY"
-      fi
-   fi
-
    output="/usr/libexec/msgcollector/msgcollector"
 
    local my_tty
@@ -352,7 +344,7 @@ Failed to run:<br></br>
 <br></br>
 <br></br><code>$systemctl_output</code>
 <br></br>
-<br></br>To see this for yourself, you could try: <blockquote>Start Menu -> System -> Xfce Terminal
+<br></br>To see this for yourself, you could try: <blockquote>Start Menu -> System -> QTerminal
 <br></br>Then run:
 <br></br><code>systemctl --no-pager --no-block status tb-updater-first-boot.service</code></blockquote></p>"
          $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
@@ -374,7 +366,7 @@ tb_permission_issue() {
 <br></br>That only risks messing up user home folder permissions. See:
 <br></br><a href=https://www.kicksecure.com/wiki/Root#Inappropriate_Use_of_Root_Rights>https://www.kicksecure.com/wiki/Root#Inappropriate_Use_of_Root_Rights</a>
 <br></br>
-<br></br>To fix this, you could try: <blockquote>Start Menu -> System -> Xfce Terminal
+<br></br>To fix this, you could try: <blockquote>Start Menu -> System -> QTerminal
 <br></br>
 <br></br><code>sudo chown --recursive \"$who_ami\":\"$who_ami\" \"$tb_user_home\"</code></blockquote>
 <br></br>Then try starting $tb_title again.
@@ -782,7 +774,7 @@ $tb_title was started with:<br></br>
 <br></br>$tb_title exited with code: <code>$tb_exit_code</code>
 <br></br>OPEN_LINK_CONFIRMATION_COUNTER: <code>$OPEN_LINK_CONFIRMATION_COUNTER</code>
 <br></br>
-<br></br>To see this for yourself, you could try: <blockquote>Start Menu -> System -> Xfce Terminal
+<br></br>To see this for yourself, you could try: <blockquote>Start Menu -> System -> QTerminal
 <br></br>Then run:
 <br></br><code>$tb_start_command_temp</code></blockquote>
 

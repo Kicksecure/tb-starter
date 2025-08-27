@@ -11,8 +11,8 @@ complain_dialog_title="i2p Browser"
 
 # First, make sure DISPLAY is set.  If it isn't, we're hosed; scream
 # at stderr and die.
-if [ "x$DISPLAY" = "x" ]; then
-    echo "$complain_dialog_title must be run within the X Window System." >&2
+if [ "x$DISPLAY" = "x" ] && [ "x$WAYLAND_DISPLAY" = "x" ]; then
+    echo "$complain_dialog_title must be run within X or Wayland." >&2
     echo "Exiting." >&2
     exit 1
 fi
