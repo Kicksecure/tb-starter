@@ -1,3 +1,22 @@
+commit f7eec7da1875fda4fa75408ef40e646ef8aeb0a7
+Merge: 7fbc731 d38ed33
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Sep 26 04:31:23 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit d38ed33fca95e464654179813d732b74e4d80e44
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Thu Sep 25 19:03:33 2025 -0500
+
+    Don't make Tor Browser the default image viewer
+
+commit 7fbc731b0956c26498ea791e57b85bce2f75ee6b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Sep 19 16:21:29 2025 +0000
+
+    bumped changelog version
+
 commit 356a39a0b9540d609b22aafa3685e2ef4f0fc2f4
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Sep 18 10:08:23 2025 -0400
