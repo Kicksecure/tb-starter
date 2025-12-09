@@ -1,3 +1,17 @@
+commit 66dbafa92cb7070c6e93a7460fc6b2955d848ff0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Dec 9 02:50:41 2025 -0500
+
+    fix desktop icon by adding `StartupWMClass=Tor Browser`
+    
+    https://forums.whonix.org/t/whonix-18-0-7-5-major-release-upgrade-testers-wanted/22469/11
+
+commit 12395af7b9fe72438cd2d280532c6bd9244a8d62
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Sep 26 09:33:29 2025 +0000
+
+    bumped changelog version
+
 commit f7eec7da1875fda4fa75408ef40e646ef8aeb0a7
 Merge: 7fbc731 d38ed33
 Author: Patrick Schleizer <adrelanos@whonix.org>
