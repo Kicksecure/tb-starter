@@ -6,6 +6,7 @@ Exec=torbrowser %u
 Type=Application
 Name=Tor Browser (AnonDist)
 GenericName=Privacy Browser
+StartupWMClass=Tor Browser
 Comment=Start Tor Browser (AnonDist)
 Categories=Network;
 Icon=/usr/share/icons/icon-pack-dist/torbrowser.png
