@@ -316,7 +316,7 @@ check_noexec() {
 
 check_tb_updater_first_boot_done() {
    if test -f /run/qubes/this-is-templatevm ; then
-      true "$FUNCNAME: Not running in Template."
+      true "$FUNCNAME: Detected TemplateVM. Skipping tb-updater-first-boot.service check."
       return 0
    fi
 
@@ -335,18 +335,27 @@ check_tb_updater_first_boot_done() {
       wait "$!"
       if [ "$wait_counter" -ge 20 ]; then
          systemctl_output="$(/usr/libexec/msgcollector/br_add "$systemctl_output")"
-         local MSG="<p>Failed to start $tb_title!<br></br>
-<br></br>
-Failed to run:<br></br>
-<br></br><code>systemctl --no-pager --no-block status tb-updater-first-boot.service</code>.
-<br></br>
-<br></br>systemctl output:
-<br></br>
-<br></br><code>$systemctl_output</code>
-<br></br>
-<br></br>To see this for yourself, you could try: <blockquote>Start Menu -> System -> QTerminal
-<br></br>Then run:
-<br></br><code>systemctl --no-pager --no-block status tb-updater-first-boot.service</code></blockquote></p>"
+         local MSG="<p>Unable to start <code>$tb_title</code>.<br>
+<br>
+This can happen if you attempted to start <code>$tb_title</code> in SYSMAINT session.<br>
+<code>$tb_title</code> should not be started in SYSMAINT session.<br>
+<br>
+Recommendation: boot into USER session instead.<br>
+<br>
+See also:<br>
+https://www.whonix.org/wiki/Tor_Browser/Advanced_Users#sysmaint<br>
+<br>
+Debugging information:
+<br>
+Failed to run:<br>
+<br><code>systemctl --no-pager --no-block status tb-updater-first-boot.service</code>.<br>
+<br>
+systemctl output:<br>
+<br><code>$systemctl_output</code><br>
+<br>
+To see this for yourself, you could try: <blockquote>Start Menu -> System -> QTerminal<br>
+Then run:<br>
+<code>systemctl --no-pager --no-block status tb-updater-first-boot.service</code></blockquote></p>"
          $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
          $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
          exit 4
