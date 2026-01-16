@@ -1,3 +1,22 @@
+commit 37f3acb48d5c74d3994727436011119b5daa7060
+Merge: 17221f3 87d7f2d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jan 16 05:11:27 2026 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 87d7f2d3789a2cc5a20ffc08e920f32abe833ea8
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Wed Jan 14 23:08:12 2026 -0600
+
+    Don't try to fix permissions on /var/cache/tb-binary, it is now root-owned by design
+
+commit 17221f31962f95676e135ad2799832fd80b1d5b1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Jan 3 12:19:52 2026 +0000
+
+    bumped changelog version
+
 commit 5346cb57f2a183881899accc51d6a881c78eaa53
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Jan 1 13:00:23 2026 -0500
