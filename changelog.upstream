@@ -1,3 +1,22 @@
+commit 8b370ba70e9a49c77b578eee98165e7876fe7a42
+Merge: 6135601 c3a3d92
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Feb 1 08:03:30 2026 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit c3a3d926912379a312abc4e10e5e0a6bab29c328
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Feb 1 06:12:00 2026 -0600
+
+    Prevent starting Tor Browser in a sysmaint session by default, allow overriding with configuration
+
+commit 61356010e6c4573e4679f94fe5ce890e4a72711c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jan 16 12:10:31 2026 +0000
+
+    bumped changelog version
+
 commit 37f3acb48d5c74d3994727436011119b5daa7060
 Merge: 17221f3 87d7f2d
 Author: Patrick Schleizer <adrelanos@whonix.org>
