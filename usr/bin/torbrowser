@@ -15,6 +15,11 @@ if [ -f /usr/libexec/helper-scripts/pre.bsh ]; then
    source /usr/libexec/helper-scripts/pre.bsh
 fi
 
+## sets: boot_session
+if [ -f /usr/libexec/helper-scripts/boot-session-detection.bsh ]; then
+   source /usr/libexec/helper-scripts/boot-session-detection.bsh
+fi
+
 [ -n "$SCRIPTNAME" ] || SCRIPTNAME="$(basename "$BASH_SOURCE")"
 
 [ -n "$IDENTIFIER" ] || IDENTIFIER="torbrowser"
@@ -336,14 +341,6 @@ check_tb_updater_first_boot_done() {
       if [ "$wait_counter" -ge 20 ]; then
          systemctl_output="$(/usr/libexec/msgcollector/br_add "$systemctl_output")"
          local MSG="<p>Unable to start <code>$tb_title</code>.<br>
-<br>
-This can happen if you attempted to start <code>$tb_title</code> in SYSMAINT session.<br>
-<code>$tb_title</code> should not be started in SYSMAINT session.<br>
-<br>
-Recommendation: boot into USER session instead.<br>
-<br>
-See also:<br>
-https://www.whonix.org/wiki/Tor_Browser/Advanced_Users#sysmaint<br>
 <br>
 Debugging information:
 <br>
@@ -796,6 +793,27 @@ More info: User configured tb_no_start=\"true\"</p>"
    fi
 }
 
+tb_sysmaint_check(){
+   if [ "${tb_allow_start_in_sysmaint}" = 'true' ]; then
+      true "tb_allow_start_in_sysmaint is true."
+      return 0
+   fi
+
+   if [ "${boot_session}" = 'sysmaint_session' ]; then
+      true "INFO: not starting $tb_title because running in sysmaint session and tb_allow_start_in_sysmaint is not set to true."
+      local MSG="\
+<p>Not starting $tb_title because running in sysmaint session and variable \$tb_allow_start_in_sysmaint is not set to \"true\"!<br>
+<br>
+Recommendation: boot into USER session instead.<br>
+<br>
+See also:<br>
+https://www.whonix.org/wiki/Tor_Browser/Advanced_Users#sysmaint</p>"
+
+      $output ${output_opts[@]} --messagex --titlex "$TITLE" --typex "error" --message "$MSG" --done
+      $output ${output_opts[@]} --messagecli --titlecli "$TITLE" --typecli "error" --message "$MSG" --done
+      exit 1
+   fi
+}
 
 main_function() {
    ## tb_error_handler
@@ -803,6 +821,7 @@ main_function() {
    tb_run_function tb_preparation "$@"
    tb_run_function tb_config_folder_parser "$@"
    tb_run_function tb_check_allowed
+   tb_run_function tb_sysmaint_check
    tb_run_function tb_templatevm_check "$@"
    tb_run_function tb_qubes_dvm_template "$@"
    tb_run_function check_tb_updater_first_boot_done "$@"
