@@ -1,3 +1,22 @@
+commit 944866d91d8a7f78a3aaff67a5dfa5cb8923c8d9
+Merge: fecdf9d 376cc47
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Apr 16 01:54:59 2026 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 376cc474edb1a2de9eedc69a661acf28f47c6d33
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Wed Apr 15 00:49:06 2026 -0400
+
+    Update output_opts for compatibility with msgcollector changes
+
+commit fecdf9dae8c6a836c0bc5547f1d6394815eda916
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Feb 1 14:02:09 2026 +0000
+
+    bumped changelog version
+
 commit 8b370ba70e9a49c77b578eee98165e7876fe7a42
 Merge: 6135601 c3a3d92
 Author: Patrick Schleizer <adrelanos@whonix.org>
@@ -53,7 +72,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Dec 9 02:50:41 2025 -0500
 
     fix desktop icon by adding `StartupWMClass=Tor Browser`
-    
+
     https://forums.whonix.org/t/whonix-18-0-7-5-major-release-upgrade-testers-wanted/22469/11
 
 commit 12395af7b9fe72438cd2d280532c6bd9244a8d62
@@ -359,7 +378,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Feb 22 13:06:37 2024 -0500
 
     run function tb_fix_permissions
-    
+
     https://forums.whonix.org/t/tor-browser-permission-issue/17222/4
 
 commit c4ec38dd9ca7dc944083c2489c5281955ee7b7a8
@@ -367,7 +386,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Feb 22 13:05:06 2024 -0500
 
     add new function tb_fix_permissions
-    
+
     https://forums.whonix.org/t/tor-browser-permission-issue/17222/4
 
 commit c6ff32f1a9520f12f00bbbc1c9b82e22f73d94ae
@@ -399,7 +418,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Jan 25 09:29:35 2024 -0500
 
     Mullvad Browser download by Kicksecure developers
-    
+
     not by Whonix developers as this would be confusing
 
 commit 085a10dc516af40afcd51122d338e30d91f1d41e
@@ -433,7 +452,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Jan 25 08:57:32 2024 -0500
 
     Merge pull request #15 from fyqwbdzsfjh/master
-    
+
     Add support for Mullvad Browser
 
 commit ae5798bd11911d9e233009627228e932a08e8612
@@ -676,7 +695,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Sep 26 07:32:39 2022 -0400
 
     undo /rw changes
-    
+
     https://forums.whonix.org/t/rw-config-versus-usr-local-etc/15621
 
 commit 85a14fa5f14f18c0dfc49225304ff11ee8b1a4b2
@@ -692,7 +711,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Sep 26 07:30:55 2022 -0400
 
     Merge pull request #13 from nyxnor/master
-    
+
     print tb_no_start=true output to cli and gui
 
 commit 1a28f63bfc74e0743a2e3039b0991d9e4bfb6a7b
@@ -712,7 +731,7 @@ Author: nyxnor <nyxnor@protonmail.com>
 Date:   Sun Sep 25 22:53:16 2022 +0000
 
     fail early with tb_no_start and add info message
-    
+
     https://forums.whonix.org/t/inform-user-that-torbrowser-wont-start/15298/5
 
 commit 329daee153a86798eec6380d010d1a23ac186cc8
@@ -864,11 +883,11 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Aug 12 17:23:43 2021 -0400
 
     Update path to local browser homepage.
-    
+
     Patch prefs.js in user home folder.
-    
+
     Because it changed during Whonix 15 to Whonix 16 upgrade.
-    
+
     from /usr/share/homepage/whonix-welcome-page/whonix.html
     to /usr/share/doc/homepage/whonix-welcome-page/whonix.html
 
@@ -997,7 +1016,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Apr 28 08:38:00 2021 -0400
 
     add custom user.js support
-    
+
     remove SecBrowser specific code
 
 commit 871bf6c004d55bb054d4160b82ea511f0b28d207
@@ -1059,7 +1078,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Feb 21 08:18:08 2021 -0500
 
     SecBrowser deprecation notice
-    
+
     https://www.whonix.org/wiki/SecBrowser
 
 commit 43d2b27773c9fedd938eceb86fe6dd9f58af9695
@@ -1109,13 +1128,13 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Nov 1 07:50:31 2020 -0500
 
     fix opening URLs which contain question marks ("`?`")
-    
+
     remove `eval` from `tb_run_function` since not needed
-    
+
     http://forums.whonix.org/t/torbrowser-cli-wont-open-urls-containing-question-marks/10514/1
-    
+
     pass `--verbose` to `start-tor-browser`
-    
+
     https://forums.whonix.org/t/system-wide-sandboxing-framework-sandbox-app-launcher/9008/226
 
 commit a124477bbbef3d7084c75a2dfd718c8e3cdddc89
@@ -1195,9 +1214,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Oct 7 09:27:53 2020 -0400
 
     allow skipping arbitrary functions thorough use of `tb_skip_functions` environment variable
-    
+
     abolish `tb_no_start`
-    
+
     https://forums.whonix.org/t/system-wide-sandboxing-framework/9008/187
 
 commit cf5b486d54e166cf20ad2db31c6ab52d0abe2456
@@ -1217,9 +1236,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Oct 6 13:27:16 2020 -0400
 
     add environment variable `tb_no_start=true` support
-    
+
     to avoid starting Tor Browser
-    
+
     https://forums.whonix.org/t/system-wide-sandboxing-framework/9008/182
 
 commit f14dd237fc4b06503135ecbe8645a38ed35a8719
@@ -1233,7 +1252,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Sep 29 11:50:23 2020 -0400
 
     SecBrowser: actually `user_pref("network.dns.disabled", false);`
-    
+
     https://forums.whonix.org/t/tor-browser-10-without-tor/10313
 
 commit e5fa4410ccc6aa9d02f006c824615081f8e7dfe9
@@ -1247,7 +1266,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Sep 29 05:35:31 2020 -0400
 
     SecBrowser: Disable popup asking to prefer onions since onions will not work in clearnet browser.
-    
+
     `user_pref("privacy.prioritizeonions.showNotification", false);`
 
 commit 2123d35eada2e1672031fdfcdefd23dc3ba5981b
@@ -1255,7 +1274,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Sep 29 05:32:31 2020 -0400
 
     SecBrowser: actually `user_pref("network.dns.disabled", true);`
-    
+
     https://forums.whonix.org/t/tor-browser-10-without-tor/10313
 
 commit 98fe4b4321e0d7f4221358fd27ca9b2858e896d9
@@ -1269,13 +1288,13 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Sep 29 04:54:23 2020 -0400
 
     SecBrowser: add `user_pref("network.dns.disabled", false);`
-    
+
     https://forums.whonix.org/t/tor-browser-10-without-tor/10313
-    
+
     Thanks to Lew for the bug report!
-    
+
     Thanks to 2-unglaubig for fix suggestion!
-    
+
     Thanks to digholer for fix suggestion and upstream bug report!
 
 commit 72f35c184db327ecc08fbc138c08337f90be3651
@@ -1416,7 +1435,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Mar 3 09:46:33 2020 -0500
 
     remove security slider from description
-    
+
     since no longer in use
 
 commit 493886f4be77aae967d3c01bf887e5f662131704
@@ -1424,9 +1443,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Mar 3 09:45:36 2020 -0500
 
     SecBrowser / i2pbrowser: no longer use firejail by default
-    
+
     even if installed
-    
+
     since currently not maintained by anyone in Whonix / Kicksecure
 
 commit f6d88a34ef04d629da8e0c026c932f44affce34a
@@ -1448,7 +1467,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Feb 20 05:37:55 2020 +0000
 
     Merge pull request #12 from Thinkablemell0w/patch-2
-    
+
     change console Page to /home
 
 commit b7746204f3c6ff1f1bb3cd445cd89760b6606c5a
@@ -1457,7 +1476,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Feb 20 05:37:46 2020 +0000
 
     Merge pull request #11 from Thinkablemell0w/patch-1
-    
+
     remove blank homepage setting
 
 commit 110d874ed770282f3a7f31ddfced2340ca298583
@@ -1580,16 +1599,16 @@ Date:   Thu Feb 13 07:34:36 2020 -0500
 
     Check if i2p related services are already running. And if not,
     lxsudo prompt, systemctl enable and start i2p related services.
-    
+
     This effectively results in a one time lxsudo prompt for users of
     i2pbrowser in Non-Qubes-Whonix.
-    
+
     This is different in Qubes-Whonix TemplateBased AppVMs due to
     TemplateBased AppVMs having a non-persistent root image by default.
     These users should run:
-    
+
     sudo /usr/share/tb-profile-i2p/enable-i2p
-    
+
     in Whonix-Workstation TemplateVM.
 
 commit 34ba6a422ef945fd151e83d1d338f5d9dd215c12
@@ -1611,7 +1630,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jan 31 17:14:49 2020 +0000
 
     Merge pull request #10 from HulaHoop0/patch-1
-    
+
     Modified to work with privoxy
 
 commit c2859f0b480ecd55cfce9968d1759ce796d1c875
@@ -1631,9 +1650,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Jan 11 04:24:22 2020 -0500
 
     SecBrowser: disable "Set security slider "Safest"."
-    
+
     Broken, therefore disabled by default.
-    
+
     https://forums.whonix.org/t/broken-security-slider/8675
 
 commit 5eff54428a8726b0800ea7febce82ac9b418cc9c
@@ -1647,7 +1666,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Dec 28 01:46:01 2019 -0500
 
     Disable security slider first start popup because it is broken.
-    
+
     https://forums.whonix.org/t/broken-security-slider/8675
 
 commit 2dfd914ebdce1c311d7ccb4d0e2241baa968817f
@@ -1661,7 +1680,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Dec 17 03:36:23 2019 -0500
 
     remount Tor Browser folder in /home with exec (disable noexec if enabled)
-    
+
     https://forums.whonix.org/t/re-mount-home-and-other-with-noexec-and-nosuid-among-other-useful-mount-options-for-better-security/7707
 
 commit 9fd05e84e2392d739b5573505c0eee2dff21b385
@@ -1735,13 +1754,13 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Nov 5 09:35:02 2019 -0500
 
     Enable punycode
-    
+
     to fix very hard to notice Phishing Scam - Firefox / Tor Browser URL not showing real Domain Name - Homograph attack (Punycode).
-    
+
     https://forums.whonix.org/t/very-hard-to-notice-phishing-scam-firefox-tor-browser-url-not-showing-real-domain-name-homograph-attack-punycode/8373
-    
+
     https://forums.whonix.org/t/secbrowser-a-security-hardened-non-anonymous-browser/3822/162
-    
+
     user_pref("network.IDN_show_punycode", true);
 
 commit 74303636a76da01d0cef3d80a33e0491b4f21a44
@@ -1755,9 +1774,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Oct 29 10:27:25 2019 -0400
 
     disable Letterboxing in SecBrowser by default
-    
+
     https://forums.whonix.org/t/is-anyone-having-white-bars-in-the-tbb-tor-browser-letterboxing/8345
-    
+
     https://forums.whonix.org/t/secbrowser-a-security-hardened-non-anonymous-browser/3822/156
 
 commit 18d840ba226b8cec825f4b73af0d09824b55b21e
@@ -1807,12 +1826,12 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Oct 24 02:14:42 2019 -0400
 
     remove 'export TOR_HIDE_UPDATE_CHECK_UI=1' for SecBrowser / i2pbrowser
-    
+
     since not justified. Unknown reason why this was introduced.
-    
+
     No reason to disable Tor Browser internal updater. Works equally well for
     SecBrowser. Tested.
-    
+
     'export TOR_HIDE_UPDATE_CHECK_UI=1' seems to have had no effect but remove
     anyhow just in case it ever gets fixed upstream in future.
 
@@ -1869,9 +1888,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Oct 5 07:19:18 2019 -0400
 
     set TOR_DEFAULT_HOMEPAGE to "about:blank" if unset
-    
+
     https://github.com/Whonix/tb-starter/commit/7e160ddd10f50c527b10b660731006c1d2d55421
-    
+
     https://forums.whonix.org/t/noscript-with-security-slider-at-safest-permits-around-30-sites/8160
 
 commit 9902351bcd5fbe8f7e798e50de620e4c0939ba89
@@ -1888,7 +1907,7 @@ Date:   Fri Sep 20 14:01:28 2019 +0000
     remove link setting code
     code simplification
     since this is triggering a bug in Tor Browser / noscript
-    
+
     https://forums.whonix.org/t/noscript-with-security-slider-at-safest-permits-around-30-sites/8160
 
 commit 47d8a3dc3c6abde8a60e3c089322947c2ab6dfd7
@@ -1986,7 +2005,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Aug 24 12:18:34 2019 -0400
 
     remove hardened malloc LD_PRELOAD since it does not work with Firefox
-    
+
     https://forums.whonix.org/t/hardened-malloc/7474/29
 
 commit 0c03f49a9d38b665d7615c6bcea64c1dcda24806
@@ -2000,11 +2019,11 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Aug 18 14:03:09 2019 +0000
 
     enable hardening by default if firejail is available in i2pbrowser
-    
+
     web fingerprint is non-default anyhow, so nothing to lose related to fingerprint
-    
+
     https://www.whonix.org/wiki/Tor_Browser#Hardening
-    
+
     https://forums.whonix.org/t/tor-browser-hardening-hardened-malloc-firejail-apparmor-vs-web-fingerprint/7851
 
 commit 9dba5f8c761a3985f0442dcc68733f886560155d
@@ -2024,7 +2043,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Aug 16 16:41:01 2019 +0000
 
     add debian/tb-starter.install
-    
+
     unfortunately required because there is now a meta package in debian/control
 
 commit 45341638d3e6658bf43933592381f7b8d7ca572a
@@ -2088,7 +2107,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Aug 15 05:26:32 2019 +0000
 
     Merge pull request #9 from 0brand/master
-    
+
     torjunkies' forum Nits
 
 commit 7e6dc42c920889bad183cee730d4b07f464856e0
@@ -2134,7 +2153,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Aug 14 10:49:20 2019 +0000
 
     Merge pull request #8 from 0brand/master
-    
+
     Update SecBrowser welcome page
 
 commit 944548f4cacdfd10cd09e79ddddafcf634bfe612
@@ -2196,7 +2215,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Aug 14 00:38:46 2019 +0000
 
     fix open link confirmation
-    
+
     Thanks to @TNTBOMBOM for the bug report!
 
 commit 9b66aec4e42a72116f52fd963f8a87db0039e41e
@@ -2205,7 +2224,7 @@ Author: 0brand <0brand@mailbox.org>
 Date:   Mon Aug 12 18:01:03 2019 +0000
 
     Merge pull request #3 from Whonix/master
-    
+
     sync with upstream repo.
 
 commit a20d0f4222ed9b952420d37b1760d6a20b68ac66
@@ -2227,7 +2246,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Aug 3 02:29:46 2019 +0000
 
     Merge pull request #7 from 0brand/master
-    
+
     Update link to home page.
 
 commit 6d100b211f2764d4a7316d5ba3ffe37c27db6f8b
@@ -2242,7 +2261,7 @@ Author: 0brand <0brand@mailbox.org>
 Date:   Fri Aug 2 16:21:28 2019 +0000
 
     Merge pull request #2 from Whonix/master
-    
+
     Sync with upsteam repo
 
 commit 25ad28b2ee68fb44311b8d9a27c31b6bea43aa40
@@ -2287,7 +2306,7 @@ Author: 0brand <0brand@mailbox.org>
 Date:   Thu Aug 1 00:34:18 2019 +0000
 
     Merge pull request #1 from adrelanos/master
-    
+
     Sync with upstream repo.
 
 commit 24a308733fe6c36bfc0b101b4efac45f99054c6c
@@ -2361,7 +2380,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Jul 22 12:06:34 2019 -0400
 
     fortunately no need to use versioned shared object file names
-    
+
     https://www.debian.org/doc/debian-policy/ch-sharedlibs.html
 
 commit 50ef3bf7de2368a5d5d379cd38c8a30fe8ad641f
@@ -2381,7 +2400,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Jul 21 12:23:04 2019 -0400
 
     automatically ld preload hardened_malloc if available when using --hardening
-    
+
     Prefer user perhaps user custom compiled /usr/lib/libhardened_malloc.so
     over versioned file /usr/lib/libhardened_malloc.so.1 by hardened_malloc
     package.
@@ -2415,9 +2434,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jul 19 17:02:47 2019 +0000
 
     implement --hardening / tb_hardening="true"
-    
+
     https://forums.whonix.org/t/automatically-firejailing-tor-browser/4767
-    
+
     https://github.com/netblue30/firejail/issues/2863
 
 commit 891fe26da58f6e3aea73ee2f55bdd7e151cbd1d3
@@ -2485,7 +2504,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jul 18 12:09:52 2019 -0400
 
     revert: In DispVM run from /var/cache/tb-binary directly.
-    
+
     https://github.com/QubesOS/qubes-issues/issues/4918#issuecomment-506361988
 
 commit d8a92fb5be145e2569b1f77bfbb08e3a1f1cfc9f
@@ -2583,10 +2602,10 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Jul 13 06:48:44 2019 -0400
 
     get rid of warning message on SecBrowser startup
-    
+
     Something Went Wrong!
     Tor is not working in this browser.
-    
+
     disable torbutton's Tor remote check for clearnet browser SecBrowser
 
 commit b3e8dc165ce9b0c728c80fa9759afa5bc3b69a77
@@ -2594,7 +2613,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jul 12 15:24:44 2019 -0400
 
     add first start popup to ask whether security slider should be set to safest
-    
+
     https://forums.whonix.org/t/ship-an-additional-version-of-tor-browser-with-security-slider-settings-to-high-by-default/7591
 
 commit 588f22e67a31d96b962ec19d6d8956f520946171
@@ -2646,7 +2665,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jul 11 07:25:02 2019 +0000
 
     Merge pull request #6 from 0brand/master
-    
+
     Update SecBrowser landing page
 
 commit fafe33e25c7d2f95e3200103dd77953a30836be4
@@ -2684,9 +2703,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jun 27 16:39:37 2019 +0000
 
     fix, run /usr/lib/tb-updater/first-boot-home-population in AppVM
-    
+
     not in DispVM and not in TemplateVM
-    
+
     https://github.com/QubesOS/qubes-issues/issues/4918
 
 commit 48ee4f6449dee3c2a02bd9356e330ac994c17c55
@@ -2700,9 +2719,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jun 27 15:03:18 2019 +0000
 
     In DispVM run from /var/cache/tb-binary directly.
-    
+
     Thanks to @marmarek for the suggestion!
-    
+
     https://github.com/QubesOS/qubes-issues/issues/4918#issuecomment-506361988
 
 commit 81918b1ab109e26f91507ff322129c2bf7cb6944
@@ -2722,11 +2741,11 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jun 27 13:16:22 2019 +0000
 
     Revert "simplify tb-starter function tb_detect_starter_bin"
-    
+
     This reverts commit 11ed26d14ed308891db5fc366a1002da41bdd3c1.
-    
+
     https://github.com/QubesOS/qubes-issues/issues/4918
-    
+
     https://phabricator.whonix.org/T818
 
 commit 6eb2894fd5c2fb6c87e8d2bf4be3d3398e7400f9
@@ -2740,11 +2759,11 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jun 27 12:36:16 2019 +0000
 
     do not copy Tor Browser by default to user home at first boot
-    
+
     because that wastes space in VMs that will never use Tor Browser
-    
+
     do it at actual first start of Tor Browser instead
-    
+
     https://github.com/QubesOS/qubes-issues/issues/4918
 
 commit c73212253b046601cd6efdf7b4e1ad841653bc13
@@ -2758,11 +2777,11 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jun 27 07:46:14 2019 +0000
 
     fix opening links from TemplateVM
-    
+
     fix, do not wait for tb-updater-first-boot.service in TemplateVM
-    
+
     since it does not run there anyway
-    
+
     https://github.com/QubesOS/qubes-issues/issues/5115#issuecomment-505986216
 
 commit 404452c7a19ca37214ef2fb277fa8ae36fc8651a
@@ -2776,7 +2795,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jun 27 03:13:12 2019 -0400
 
     simplify tb-starter function tb_detect_starter_bin
-    
+
     https://phabricator.whonix.org/T818
 
 commit f3f33accc5a5fcde1f839f79ec80200602c58daa
@@ -2784,12 +2803,12 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jun 27 03:06:21 2019 -0400
 
     Revert "automatically restore executable permission"
-    
+
     since it does not work. A much bigger list of executable permissions would have
     to be restored.
-    
+
     https://www.whonix.org/wiki/Tor_Browser/Advanced_Users#Permission_Fix
-    
+
     This reverts commit 1c9d280cbf45a72039381c2f7aac9e2deccd2977.
 
 commit ecca46d41eb5635a058e29d9fcd00bb0fccbf760
@@ -2809,7 +2828,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jun 21 11:09:28 2019 +0000
 
     implement LINK=NOLINK / --nolink ;
-    
+
     use variable TOR_DEFAULT_HOMEPAGE instead
 
 commit 60c2aea2fb794bcdb78725d3d5b6af2821ca7f5e
@@ -2865,7 +2884,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jun 21 06:41:24 2019 +0000
 
     duplicate to usr/share/applications/secbrowser.desktop
-    
+
     for later modification
 
 commit 2a958ef764b4b0b7ffebd1ef6d3589e18de66f1b
@@ -2885,7 +2904,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jun 21 05:19:09 2019 +0000
 
     duplicate usr/share/tb-profile-i2p/i2p-diffs.html to usr/share/secbrowser/secbrowser.html
-    
+
     for later modification
 
 commit 1c9d280cbf45a72039381c2f7aac9e2deccd2977
@@ -2893,10 +2912,10 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jun 21 05:14:56 2019 +0000
 
     automatically restore executable permission
-    
+
     Might be required in case a user restored a backup which messed up file
     permissions?
-    
+
     http://forums.whonix.org/t/tor-browser-do-not-start/7574/8
 
 commit f7264cc24954795056496827277af3432c4fd921
@@ -2928,7 +2947,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jun 20 21:30:33 2019 -0400
 
     add support for TB_CUSTOM_WRAPPER_HOMEPAGE
-    
+
     for browsers such as SecBrowser
 
 commit 8a41f68e5dd9f7c5cd84b33be87faa6aef1b999d
@@ -3056,18 +3075,18 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Mar 1 14:32:42 2019 +0000
 
     add improved legal protections clauses
-    
+
     The license for software created by Whonix is the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version with additional terms applicable per GNU GPL version 3 section 7.
-    
+
     The additional terms are based on the Doom 3 license which is Debian refers to as `GPL-3+-with-id-software-additional-terms`, which is Debian DFSG [1] (The Debian Free Software Guidelines) approved and which is therefore suitable for Debian `main`. Whonix made applied minimal changes to it:
-    
+
     * Rewrite `The Doom 3 BFG Edition GPL Source Code` to the more common `this program` which is used throughout the GPL.
     * Added a "trump clause" [2], in other words, any conflicts or disputes between the additional terms and the GPLv3 shall be resolved in favor of the GPLv3 by adding `Notwithstanding any other provision of this License` (as mentioned in GPL FAQ [3]) at the beginning of the additional terms.
-    
+
     [1] https://www.debian.org/social_contract#guidelines
     [2] https://www.fsf.org/news/canonical-updated-licensing-terms
     [3] https://www.gnu.org/licenses/gpl-faq.html#v3Notwithstanding
-    
+
     For more considerations, see also:
     https://www.whonix.org/wiki/Dev/Licensing
 
@@ -3106,7 +3125,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Feb 28 19:23:36 2019 +0000
 
     implement --clearnet
-    
+
     https://forums.whonix.org/t/todo-research-and-document-how-to-use-tor-browser-for-security-not-anonymity-how-to-use-tbb-using-clearnet/3822/53
 
 commit 271ccc81a985bafd28122440aa8bb62a30fa536a
@@ -3120,7 +3139,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Feb 16 09:38:26 2019 +0000
 
     wait for tb-updater-first-boot.service
-    
+
     https://phabricator.whonix.org/T894
 
 commit 6a8e276ef1d896ba4bafacea0a2eb1d3dfdb19b8
@@ -3154,7 +3173,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Dec 6 03:01:23 2018 -0500
 
     Merge pull request #5 from eyedeekay/master
-    
+
     Don't cd to ~/.i2pb/i2p-browser/Browser
 
 commit 5ad28352b54a4a87376b0c02ffe54cb3a9f4fff4
@@ -3201,7 +3220,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Oct 16 12:51:11 2018 +0000
 
     Merge pull request #4 from eyedeekay/master
-    
+
     fix missing extensions issue
 
 commit a49089aa26f6719518dfda5aac324c03601129cb
@@ -3396,7 +3415,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jun 14 06:50:59 2018 +0000
 
     refuse running inside Qubes DVM Template
-    
+
     https://forums.whonix.org/t/qubes-dispvm-technical-discussion/3232/60
 
 commit f8b9bbc49e454ac6233f137b760b3a09b04cc106
@@ -3434,9 +3453,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Feb 20 16:02:01 2018 +0000
 
     add workaround for: Tor Browser refuses to start / XDG_CONFIG_DIRS environment variable segfaults Tor Browser
-    
+
     https://trac.torproject.org/projects/tor/ticket/25305
-    
+
     https://phabricator.whonix.org/T767
 
 commit 9e3b5bf19c9234b20f90f9ab71db89146b2dfe32
@@ -3450,7 +3469,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Jan 31 19:01:47 2018 +0000
 
     add support for $tb_starter_bin_post / $tb_starter_bin_post variables
-    
+
     that can be prepended / appended before Tor Browser binary
 
 commit aab653bdf4a2d2a1a85ec3ef729fc74e7e1b88af
@@ -3506,7 +3525,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Mar 28 20:07:40 2017 +0000
 
     add "Provides: torbrowser-launcher" to prevent it being pulled needlessly by onionshare
-    
+
     https://forums.whonix.org/t/hide-torbrowser-launcher-inside-whonix-start-menu
 
 commit 6b48c2ee855ccc95ebf185702b63b0891fa60dba
@@ -3514,7 +3533,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Mar 28 21:47:45 2017 +0200
 
     Revert "hide /usr/share/applications/torbrowser.desktop"
-    
+
     This reverts commit 8bb4a0f2729ea293c43143d0ad0a85f8d0082c10.
 
 commit 11207e1ef8c88ac78a89644c40a7ac698e25a3b0
@@ -3529,7 +3548,7 @@ Date:   Fri Mar 10 01:40:37 2017 +0000
 
     hide /usr/share/applications/torbrowser.desktop
     hide /usr/share/applications/torbrowser-settings.desktop
-    
+
     https://forums.whonix.org/t/hide-torbrowser-launcher-inside-whonix-start-menu
 
 commit 918866a7a8d76e265bb562e9d4cf07e79eb027b4
@@ -3543,7 +3562,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Feb 10 15:47:52 2017 +0000
 
     remove faketime from Build-Depends:
-    
+
     since no longer used for reproducible builds
 
 commit 4fd8339b10cf59f3bd3cae4be3980aca29742e9a
@@ -3577,7 +3596,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Feb 6 13:11:07 2017 +0000
 
     Merge pull request #1 from anonmos1/patch-1
-    
+
     Update name
 
 commit 2712e0b1ffc5cc7f7c626141aa5bd5ec51a64d8f
@@ -3639,11 +3658,11 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jun 24 11:33:45 2016 +0000
 
     refuse to start in Qubes TemplateVM by default (configurable)
-    
+
     with explanation
-    
+
     And if disabled, start from /var/cache/tb-binary
-    
+
     https://forums.whonix.org/t/ws-problems-after-recent-upgrade
 
 commit afb1a2e2d7d0a6542b9b2750a2a7298194e8c609
@@ -3657,7 +3676,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Jun 1 17:36:04 2016 +0000
 
     better error messages in case of permission issues and startup failures
-    
+
     https://phabricator.whonix.org/T510
 
 commit 95b3415e630df5531398f9fc1fee25d92f58e9ec
@@ -3671,9 +3690,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Jan 23 21:46:12 2016 +0100
 
     removed compatibility symlink anondist-torbrowser.desktop
-    
+
     because it caused more issues than fixing
-    
+
     https://github.com/QubesOS/qubes-issues/issues/1670
 
 commit 6dcb97a83b4ec5096dcff3f283f4463b63fe74c2
@@ -3693,20 +3712,20 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jan 8 15:53:27 2016 +0000
 
     Workaround upstream bug to allow opening local files with file names that contain spaces.
-    
+
     prefer Browser/start-tor-browser over
     start-tor-browser and
     start-tor-browser.desktop
-    
+
     Preferring $tb_browser_folder/Browser/start-tor-browser to work around
     The Tor Project upstream issue:
     'start-tor-browser.desktop parameter passing broken on spaces'
     https://trac.torproject.org/projects/tor/ticket/18022
-    
+
     code simplification / refactoring
-    
+
     Thanks to TNT_BOOM_BOOM for the bug report!
-    
+
     http://forums.whonix.org/t/torbrowser-script-bug/1893/1
 
 commit d5f4903b6c1b98acae7a221a7290583317de8c18
@@ -3726,7 +3745,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Jan 3 15:42:45 2016 +0000
 
     updated link to Whonix forums
-    
+
     Thanks to HulaHoop for the report!
 
 commit 2e7e94651e7898aa6f57f266d8eb4509f63387b6
@@ -3734,9 +3753,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Dec 1 21:56:00 2015 +0000
 
     Only source configuration files that end with the '.conf' extension.
-    
+
     Thanks to @nrgaway for the suggestion!
-    
+
     https://phabricator.whonix.org/T286
 
 commit d4c9822e6c08a15c89d2aa02dc60fd59cb6f3996
@@ -3744,9 +3763,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Nov 30 19:38:58 2015 +0000
 
     Only source configuration files that end with the '.conf' extension.
-    
+
     Thanks to @nrgaway for the suggestion!
-    
+
     https://phabricator.whonix.org/T286
 
 commit 2886f16fa41b13a60235197812182466d124802a
