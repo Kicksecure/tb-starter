@@ -63,7 +63,7 @@ progressbaridx: <code>$progressbaridx</code>
 For debugging, run:
 <code>bash -x $SCRIPTNAME</code>"
 
-   MSG="$(/usr/libexec/msgcollector/br_add "$MSG")"
+   MSG="$(/usr/libexec/msgcollector/br_add.py "$MSG")"
 
    if [ "$progressbaridx" = "" ]; then
       true
@@ -339,7 +339,7 @@ check_tb_updater_first_boot_done() {
       sleep 1 &
       wait "$!"
       if [ "$wait_counter" -ge 20 ]; then
-         systemctl_output="$(/usr/libexec/msgcollector/br_add "$systemctl_output")"
+         systemctl_output="$(/usr/libexec/msgcollector/br_add.py "$systemctl_output")"
          local MSG="<p>Unable to start <code>$tb_title</code>.<br>
 <br>
 Debugging information:
@@ -511,7 +511,7 @@ maybe_install_tor_browser() {
    local question="Start $tb_title Downloader (by $tb_downloader_developers developers)?"
    local button="yesno"
    local answer
-   answer="$(/usr/libexec/msgcollector/generic_gui_message "error" "$TITLE" "$MSG" "$question" "$button")"
+   answer="$(/usr/libexec/msgcollector/generic_gui_message.py "error" "$TITLE" "$MSG" "$question" "$button")"
    #answer="0"
    #yad --title="$TITLE" --question --text "$MSG" || { answer="$?" ; true; };
    ## yad exit codes
