@@ -7,10 +7,15 @@
 ## sudo tb_home_folder=/home/user/.tb bash -x /usr/libexec/tb-starter/remount-exec
 
 #set -x
-set -e
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+shopt -s inherit_errexit
+shopt -s shift_verbose
 
 if [ "$(id -u)" != "0" ]; then
-   echo "ERROR: Must run as root." >&2
+   printf '%s\n' "ERROR: Must run as root." >&2
    exit 112
 fi
 
