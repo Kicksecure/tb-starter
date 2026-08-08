@@ -7,152 +7,231 @@
 #exec 1>/tmp/torbrowser.log
 #exec 2>/tmp/torbrowser.log
 
-set -e
+set -o errexit
+set -o nounset
 set -o pipefail
 set -o errtrace
+shopt -s inherit_errexit
+shopt -s shift_verbose
+
+## Every one of these is supplied by the caller's environment, by an
+## /etc/<settings folder>/*.conf file, by a sourced helper, or by one function
+## of this script and read in another. Any of them can legitimately be absent,
+## so give them a defined value here rather than let a bare read abort the
+## browser launch under nounset. Set BEFORE the sources below, so a helper
+## that assigns one still wins. The '[ -n ... ] ||' defaults further down stay
+## as they are: they also replace an EXPLICITLY EMPTY value, which
+## '[ -v ... ]' does not.
+[ -v SCRIPTNAME ] || SCRIPTNAME=""
+[ -v IDENTIFIER ] || IDENTIFIER=""
+[ -v ICON ] || ICON=""
+[ -v tb_skip_functions ] || tb_skip_functions=""
+[ -v tb_running_as_root ] || tb_running_as_root=""
+[ -v who_ami ] || who_ami=""
+[ -v is_qubes ] || is_qubes=""
+[ -v qubes_vm_name ] || qubes_vm_name=""
+[ -v qubes_vm_persistence ] || qubes_vm_persistence=""
+[ -v tb_user_home ] || tb_user_home=""
+[ -v tb_user_home_dirname ] || tb_user_home_dirname=""
+[ -v tb_install_folder ] || tb_install_folder=""
+[ -v tb_install_folder_dot ] || tb_install_folder_dot=""
+[ -v tb_browser_name ] || tb_browser_name=""
+[ -v tb_settings_folder ] || tb_settings_folder=""
+[ -v tb_downloader_command ] || tb_downloader_command=""
+[ -v tb_downloader_developers ] || tb_downloader_developers=""
+[ -v tb_documentation_base_url_clearnet ] || tb_documentation_base_url_clearnet=""
+[ -v tb_title ] || tb_title=""
+[ -v tb_wiki ] || tb_wiki=""
+[ -v tb_bin ] || tb_bin=""
+[ -v tb_browser_runner ] || tb_browser_runner=""
+[ -v tb_home_folder ] || tb_home_folder=""
+[ -v tb_browser_folder ] || tb_browser_folder=""
+[ -v tb_prefs_js_target_file ] || tb_prefs_js_target_file=""
+[ -v tb_user_js_target_file ] || tb_user_js_target_file=""
+[ -v tb_user_js_source_file ] || tb_user_js_source_file=""
+[ -v TOR_DEFAULT_HOMEPAGE ] || TOR_DEFAULT_HOMEPAGE=""
+[ -v output ] || output=""
+[ -v TITLE ] || TITLE=""
+[ -v progressbaridx ] || progressbaridx=""
+[ -v tb_allow_start_in_templatevm ] || tb_allow_start_in_templatevm=""
+[ -v tb_qubes_wiki ] || tb_qubes_wiki=""
+[ -v tb_home_folder_mount ] || tb_home_folder_mount=""
+[ -v started_by_sandbox_app_launcher ] || started_by_sandbox_app_launcher=""
+[ -v tb_installer_started_by_sandbox_app_launcher ] || tb_installer_started_by_sandbox_app_launcher=""
+[ -v tb_i2p_browser ] || tb_i2p_browser=""
+[ -v tb_starter_bin ] || tb_starter_bin=""
+[ -v tb_starter_bin_pre ] || tb_starter_bin_pre=""
+[ -v tb_starter_bin_post ] || tb_starter_bin_post=""
+[ -v open_link_confirmation_skip ] || open_link_confirmation_skip=""
+[ -v OPEN_LINK_CONFIRMATION ] || OPEN_LINK_CONFIRMATION=""
+[ -v OPEN_LINK_CONFIRMATION_COUNTER ] || OPEN_LINK_CONFIRMATION_COUNTER=""
+[ -v tb_starter_tool ] || tb_starter_tool=""
+[ -v tb_start_command_temp ] || tb_start_command_temp=""
+[ -v tb_exit_code ] || tb_exit_code=""
+[ -v tb_used_open_link_confirmation ] || tb_used_open_link_confirmation=""
+[ -v tb_firejail_bin ] || tb_firejail_bin=""
+[ -v tb_hardening ] || tb_hardening=""
+[ -v tb_no_start ] || tb_no_start=""
+[ -v tb_allow_start_in_sysmaint ] || tb_allow_start_in_sysmaint=""
+[ -v boot_session ] || boot_session=""
+[ -v tb_using_i2p ] || tb_using_i2p=""
+
+## R-025: expanded under nounset before anything appends to them.
+[ -v output_opts ] || output_opts=()
+[ -v tb_firejailopts ] || tb_firejailopts=()
 
 if [ -f /usr/libexec/helper-scripts/pre.bsh ]; then
+   # shellcheck source=../../../../helper-scripts/usr/libexec/helper-scripts/pre.bsh
+   # shellcheck disable=SC1091
    source /usr/libexec/helper-scripts/pre.bsh
 fi
 
+## shellcheck cannot follow these in an isolated single-repo checkout, where
+## helper-scripts is not a sibling.
+# shellcheck source=../../../../helper-scripts/usr/libexec/helper-scripts/has.sh
+# shellcheck disable=SC1091
+source /usr/libexec/helper-scripts/has.sh
+
 ## sets: boot_session
 if [ -f /usr/libexec/helper-scripts/boot-session-detection.bsh ]; then
+   # shellcheck source=../../../../helper-scripts/usr/libexec/helper-scripts/boot-session-detection.bsh
+   # shellcheck disable=SC1091
    source /usr/libexec/helper-scripts/boot-session-detection.bsh
 fi
 
-[ -n "$SCRIPTNAME" ] || SCRIPTNAME="$(basename "$BASH_SOURCE")"
+[ -n "${SCRIPTNAME}" ] || SCRIPTNAME="$(basename "${BASH_SOURCE[0]}")"
 
-[ -n "$IDENTIFIER" ] || IDENTIFIER="torbrowser"
+[ -n "${IDENTIFIER}" ] || IDENTIFIER="torbrowser"
 
-[ -n "$ICON" ] || ICON="/usr/share/icons/icon-pack-dist/tbupdate.ico"
+[ -n "${ICON}" ] || ICON="/usr/share/icons/icon-pack-dist/tbupdate.ico"
 
 tb_error_handler() {
    local exit_code="$?"
 
-   local MSG="$0 script bug.
+   local MSG="${0} script bug.
 
 No panic. Nothing is broken. Just some rare condition has been hit.
 Try again later. If this is a transient issue, it can be safely ignored.
 
 There is likely a solution for this problem.
 
-* Please see the $tb_downloader_developers News. <a href=$tb_documentation_base_url_clearnet/wiki/Stay_Tuned>$tb_documentation_base_url_clearnet/wiki/Stay_Tuned</a>
+* Please see the ${tb_downloader_developers} News. <a href=${tb_documentation_base_url_clearnet}/wiki/Stay_Tuned>${tb_documentation_base_url_clearnet}/wiki/Stay_Tuned</a>
 * User Help Forum.
-* And Documentation. <a href=$tb_documentation_base_url_clearnet/wiki/$tb_wiki>$tb_documentation_base_url_clearnet/wiki/$tb_wiki</a>
+* And Documentation. <a href=${tb_documentation_base_url_clearnet}/wiki/${tb_wiki}>${tb_documentation_base_url_clearnet}/wiki/${tb_wiki}</a>
 
 It may or may not be possible to fix but further information may be required.
 
-* Try start from command line. <a href=$tb_documentation_base_url_clearnet/wiki/$tb_wiki#From_the_Command_Line>$tb_documentation_base_url_clearnet/wiki/$tb_wiki#From_the_Command_Line</a>
-* Try start from command line in debug mode. <a href=$tb_documentation_base_url_clearnet/wiki/$tb_wiki#In_Debugging_Mode>$tb_documentation_base_url_clearnet/wiki/$tb_wiki#In_Debugging_Mode</a>
-* If you don't mind to repair that Tor Browser install, reinstall of Tor Browser would also likely solve this. <a href=$tb_documentation_base_url_clearnet/wiki/$tb_wiki#reinstall>$tb_documentation_base_url_clearnet/wiki/$tb_wiki#reinstall</a>
+* Try start from command line. <a href=${tb_documentation_base_url_clearnet}/wiki/${tb_wiki}#From_the_Command_Line>${tb_documentation_base_url_clearnet}/wiki/${tb_wiki}#From_the_Command_Line</a>
+* Try start from command line in debug mode. <a href=${tb_documentation_base_url_clearnet}/wiki/${tb_wiki}#In_Debugging_Mode>${tb_documentation_base_url_clearnet}/wiki/${tb_wiki}#In_Debugging_Mode</a>
+* If you don't mind to repair that Tor Browser install, reinstall of Tor Browser would also likely solve this. <a href=${tb_documentation_base_url_clearnet}/wiki/${tb_wiki}#reinstall>${tb_documentation_base_url_clearnet}/wiki/${tb_wiki}#reinstall</a>
 
 Debugging information:
 
-BASH_COMMAND: <code>$BASH_COMMAND</code>
-exit_code: <code>$exit_code</code>
+BASH_COMMAND: <code>${BASH_COMMAND}</code>
+exit_code: <code>${exit_code}</code>
 
-tb_browser_folder: <code>$tb_browser_folder</code>
+tb_browser_folder: <code>${tb_browser_folder}</code>
 
-tb_prefs_js_target_file: <code>$tb_prefs_js_target_file</code>
-tb_user_js_target_file: <code>$tb_user_js_target_file</code>
+tb_prefs_js_target_file: <code>${tb_prefs_js_target_file}</code>
+tb_user_js_target_file: <code>${tb_user_js_target_file}</code>
 
-output: <code>$output</code>
-output_opts: <code>${output_opts[@]}</code>
-progressbaridx: <code>$progressbaridx</code>
+output: <code>${output}</code>
+output_opts: <code>${output_opts[*]}</code>
+progressbaridx: <code>${progressbaridx}</code>
 
 For debugging, run:
-<code>bash -x $SCRIPTNAME</code>"
+<code>bash -x ${SCRIPTNAME}</code>"
 
-   MSG="$(/usr/libexec/msgcollector/br_add.py "$MSG")"
+   MSG="$(/usr/libexec/msgcollector/br_add.py "${MSG}")"
 
-   if [ "$progressbaridx" = "" ]; then
+   if [ "${progressbaridx}" = "" ]; then
       true
    else
-      $output ${output_opts[@]} --progressbaridx "$progressbaridx" --progressx "100"
+      "${output}" "${output_opts[@]}" --progressbaridx "${progressbaridx}" --progressx "100"
    fi
-   $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-   $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+   "${output}" "${output_opts[@]}" --messagex --typex "error" --titlex "${TITLE}" --message "${MSG}" --done
+   "${output}" "${output_opts[@]}" --messagecli --typecli "error" --titlecli "${TITLE}" --message "${MSG}" --done
    exit 1
 }
 
-trap "tb_error_handler" ERR
+trap tb_error_handler ERR
 
 tb_run_function() {
-   case $tb_skip_functions in
+   case "${tb_skip_functions}" in
    *"$@"*)
-      true "INFO: Skipping $@, because tb_skip_functions includes it."
+      true "INFO: Skipping $*, because tb_skip_functions includes it."
       return 0
       ;;
    esac
 
-   true "INFO: Running $@, because tb_skip_functions does not include it."
+   true "INFO: Running $*, because tb_skip_functions does not include it."
    "$@"
 }
 
 root_check() {
    if [ "$(id -u)" != "0" ]; then
-      #echo "$SCRIPTNAME running as user."
+      #echo "${SCRIPTNAME} running as user."
       tb_running_as_root=false
    else
       tb_running_as_root=true
-      echo "Do not run $SCRIPTNAME as root!"
+      printf '%s\n' "Do not run ${SCRIPTNAME} as root!"
       exit 1
    fi
 }
 
 tb_preparation() {
    who_ami="$(whoami)"
-   if command -v qubesdb-read &>/dev/null ; then
-      [ -n "$is_qubes" ] || is_qubes=true
+   if has qubesdb-read ; then
+      [ -n "${is_qubes}" ] || is_qubes=true
       ## qubesdb-read fails inside chroot, therefore overwriting with '|| true'.
-      [ -n "$qubes_vm_name" ] || qubes_vm_name="$(qubesdb-read /name)" || true
-      [ -n "$qubes_vm_persistence" ] || qubes_vm_persistence="$(qubesdb-read /qubes-vm-persistence)" || true
+      [ -n "${qubes_vm_name}" ] || qubes_vm_name="$(qubesdb-read /name)" || true
+      [ -n "${qubes_vm_persistence}" ] || qubes_vm_persistence="$(qubesdb-read /qubes-vm-persistence)" || true
    else
-      [ -n "$is_qubes" ] || is_qubes=false
+      [ -n "${is_qubes}" ] || is_qubes=false
    fi
 
    if test -f /run/qubes/this-is-templatevm ; then
-      if [ "$tb_user_home" = "" ]; then
+      if [ "${tb_user_home}" = "" ]; then
          tb_user_home="/var/cache/tb-binary"
       fi
    fi
 
-   [ -n "$tb_user_home" ] || tb_user_home="$HOME"
+   [ -n "${tb_user_home}" ] || tb_user_home="${HOME}"
    ## example tb_user_home:
    ## /home/user
    ## When double clicking a file downloaded in Tor Browser download tab
    ## '$HOME' would be set to '/home/user/.tb/tor-browser/Browser' which would lead
    ## to a false-positive "Tor Browser not installed" message.
-   if printf '%s\n' "$tb_user_home" | grep -- tor-browser >/dev/null 2>/dev/null; then
-      tb_user_home="/home/$who_ami"
+   if printf '%s\n' "${tb_user_home}" | grep -- tor-browser >/dev/null 2>/dev/null; then
+      tb_user_home="/home/${who_ami}"
    fi
 
-   tb_user_home_dirname="$(dirname "$tb_user_home")"
+   tb_user_home_dirname="$(dirname "${tb_user_home}")"
 
-   [ -n "$tb_install_folder" ] || tb_install_folder="tb"
-   [ -n "$tb_install_folder_dot" ] || tb_install_folder_dot=".tb"
-   [ -n "$tb_browser_name" ] || tb_browser_name="tor-browser"
-   [ -n "$tb_settings_folder" ] || tb_settings_folder="torbrowser.d"
-   [ -n "$tb_downloader_command" ] || tb_downloader_command="update-torbrowser"
-   [ -n "$tb_downloader_developers" ] || tb_downloader_developers="Whonix"
-   [ -n "$tb_documentation_base_url_clearnet" ] || tb_documentation_base_url_clearnet="https://www.whonix.org"
-   [ -n "$tb_title" ] || tb_title="Tor Browser"
-   [ -n "$tb_wiki" ] || tb_wiki="Tor_Browser"
-   [ -n "$tb_bin" ] || tb_bin="torbrowser"
-   [ -n "$tb_browser_runner" ] || tb_browser_runner="start-tor-browser"
-   [ -n "$IDENTIFIER" ] || IDENTIFIER="$tb_bin"
+   [ -n "${tb_install_folder}" ] || tb_install_folder="tb"
+   [ -n "${tb_install_folder_dot}" ] || tb_install_folder_dot=".tb"
+   [ -n "${tb_browser_name}" ] || tb_browser_name="tor-browser"
+   [ -n "${tb_settings_folder}" ] || tb_settings_folder="torbrowser.d"
+   [ -n "${tb_downloader_command}" ] || tb_downloader_command="update-torbrowser"
+   [ -n "${tb_downloader_developers}" ] || tb_downloader_developers="Whonix"
+   [ -n "${tb_documentation_base_url_clearnet}" ] || tb_documentation_base_url_clearnet="https://www.whonix.org"
+   [ -n "${tb_title}" ] || tb_title="Tor Browser"
+   [ -n "${tb_wiki}" ] || tb_wiki="Tor_Browser"
+   [ -n "${tb_bin}" ] || tb_bin="torbrowser"
+   [ -n "${tb_browser_runner}" ] || tb_browser_runner="start-tor-browser"
+   [ -n "${IDENTIFIER}" ] || IDENTIFIER="${tb_bin}"
 
-   [ -n "$tb_home_folder" ] || tb_home_folder="$tb_user_home/$tb_install_folder_dot"
+   [ -n "${tb_home_folder}" ] || tb_home_folder="${tb_user_home}/${tb_install_folder_dot}"
    ## example tb_home_folder:
    ## /home/user/.tb
-   [ -n "$tb_browser_folder" ] || tb_browser_folder="$tb_home_folder/$tb_browser_name"
+   [ -n "${tb_browser_folder}" ] || tb_browser_folder="${tb_home_folder}/${tb_browser_name}"
    ## example tb_browser_folder:
    ## /home/user/.tb/tor-browser
 
-   [ -n "$tb_prefs_js_target_file" ] || tb_prefs_js_target_file="$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/prefs.js"
-   [ -n "$tb_user_js_target_file" ] || tb_user_js_target_file="$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/user.js"
+   [ -n "${tb_prefs_js_target_file}" ] || tb_prefs_js_target_file="${tb_browser_folder}/Browser/TorBrowser/Data/Browser/profile.default/prefs.js"
+   [ -n "${tb_user_js_target_file}" ] || tb_user_js_target_file="${tb_browser_folder}/Browser/TorBrowser/Data/Browser/profile.default/user.js"
 
-   [ -n "$TOR_DEFAULT_HOMEPAGE" ] || TOR_DEFAULT_HOMEPAGE="about:blank"
+   [ -n "${TOR_DEFAULT_HOMEPAGE}" ] || TOR_DEFAULT_HOMEPAGE="about:blank"
    export TOR_DEFAULT_HOMEPAGE
 
    output="/usr/libexec/msgcollector/msgcollector"
@@ -162,58 +241,60 @@ tb_preparation() {
    my_tty_exit_code="0"
    my_tty="$(tty)" || { my_tty_exit_code="$?" ; true; };
 
-   if [ ! "$my_tty_exit_code" = "0" ]; then
+   if [ ! "${my_tty_exit_code}" = "0" ]; then
       my_tty="none"
    fi
 
    ## Just in case.
-   if [ "$my_tty" = "" ]; then
+   if [ "${my_tty}" = "" ]; then
       my_tty="none"
    fi
 
    who_ami="$(whoami)"
 
    output_opts=(
-      "--icon" "$ICON"
+      "--icon" "${ICON}"
       "--parentpid" "$$"
       "--identifier" "${IDENTIFIER}"
-      "--parenttty" "$my_tty"
+      "--parenttty" "${my_tty}"
    )
 
-   TITLE="$tb_title Starter (by $tb_downloader_developers developers)"
+   TITLE="${tb_title} Starter (by ${tb_downloader_developers} developers)"
 
    ## TODO
-   #$output ${output_opts[@]} --forget
+   #"${output}" "${output_opts[@]}" --forget
 }
 
 tb_config_folder_parser() {
-   [ -n "$tb_settings_folder" ] || tb_settings_folder="torbrowser.d"
+   [ -n "${tb_settings_folder}" ] || tb_settings_folder="torbrowser.d"
 
    shopt -s nullglob
 
    local i
    for i in \
-      /etc/${tb_settings_folder}/*.conf \
-      /usr/local/etc/${tb_settings_folder}/*.conf \
+      "/etc/${tb_settings_folder}"/*.conf \
+      "/usr/local/etc/${tb_settings_folder}"/*.conf \
       ; do
-         bash -n "$i"
-         source "$i"
+         bash -n "${i}"
+         ## Dynamic path from the glob above; R-081 prescribes SC1090 here.
+         # shellcheck disable=SC1090
+         source "${i}"
    done
 
    local j
    for j in \
-      /etc/${tb_settings_folder}/user.js \
-      /usr/local/etc/${tb_settings_folder}/user.js \
+      "/etc/${tb_settings_folder}"/user.js \
+      "/usr/local/etc/${tb_settings_folder}"/user.js \
       ; do
-         if ! test -r "$j" ; then
+         if ! test -r "${j}" ; then
             continue
          fi
-         [ -n "$tb_user_js_source_file" ] || tb_user_js_source_file="$j"
+         [ -n "${tb_user_js_source_file}" ] || tb_user_js_source_file="${j}"
    done
 }
 
 tb_templatevm_check() {
-   if [ "$is_qubes" = "false" ]; then
+   if [ "${is_qubes}" = "false" ]; then
       true "Not running in Qubes."
       return 0
    fi
@@ -223,17 +304,17 @@ tb_templatevm_check() {
       return 0
    fi
 
-   if [ "$tb_allow_start_in_templatevm" = "true" ]; then
+   if [ "${tb_allow_start_in_templatevm}" = "true" ]; then
       true "tb_allow_start_in_templatevm is true."
       return 0
    fi
 
    tb_qubes_wiki="in_qubes-whonix"
-   local MSG="<p>Do not run $tb_title in Template.<br></br>
+   local MSG="<p>Do not run ${tb_title} in Template.<br></br>
 <br></br>
-More info: <a href=$tb_documentation_base_url_clearnet/wiki/$tb_wiki#$tb_qubes_wiki>$tb_documentation_base_url_clearnet/wiki/$tb_wiki#$tb_qubes_wiki</a></p>"
-   $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-   $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+More info: <a href=${tb_documentation_base_url_clearnet}/wiki/${tb_wiki}#${tb_qubes_wiki}>${tb_documentation_base_url_clearnet}/wiki/${tb_wiki}#${tb_qubes_wiki}</a></p>"
+   "${output}" "${output_opts[@]}" --messagex --typex "error" --titlex "${TITLE}" --message "${MSG}" --done
+   "${output}" "${output_opts[@]}" --messagecli --typecli "error" --titlecli "${TITLE}" --message "${MSG}" --done
 
    exit 3
 }
@@ -241,29 +322,29 @@ More info: <a href=$tb_documentation_base_url_clearnet/wiki/$tb_wiki#$tb_qubes_w
 tb_qubes_dvm_template() {
    ## Avoid running in Qubes DVM Template.
    ## https://phabricator.whonix.org/T726
-   if printf '%s\n' "$qubes_vm_name" | grep --invert-match -- "-dvm" >/dev/null 2>/dev/null; then
+   if printf '%s\n' "${qubes_vm_name}" | grep --invert-match -- "-dvm" >/dev/null 2>/dev/null; then
       true "INFO: not running inside Qubes DVM Template, ok."
       return 0
    fi
 
    local MSG="\
-<p>Do not run $tb_title in Qubes DVM Template!<br></br>
+<p>Do not run ${tb_title} in Qubes DVM Template!<br></br>
 <br></br>
-More info: <a href=$tb_documentation_base_url_clearnet/wiki/$tb_wiki/Advanced_Users#Running_Tor_Browser_in_Qubes_Template_or_Disposable_Template>$tb_documentation_base_url_clearnet/wiki/$tb_wiki/Advanced_Users#Running_Tor_Browser_in_Qubes_Template_or_Disposable_Template</a></p>"
+More info: <a href=${tb_documentation_base_url_clearnet}/wiki/${tb_wiki}/Advanced_Users#Running_Tor_Browser_in_Qubes_Template_or_Disposable_Template>${tb_documentation_base_url_clearnet}/wiki/${tb_wiki}/Advanced_Users#Running_Tor_Browser_in_Qubes_Template_or_Disposable_Template</a></p>"
 
-   $output ${output_opts[@]} --messagex --titlex "$TITLE" --typex "error" --message "$MSG" --done
-   $output ${output_opts[@]} --messagecli --titlecli "$TITLE" --typecli "error" --message "$MSG" --done
+   "${output}" "${output_opts[@]}" --messagex --titlex "${TITLE}" --typex "error" --message "${MSG}" --done
+   "${output}" "${output_opts[@]}" --messagecli --titlecli "${TITLE}" --typecli "error" --message "${MSG}" --done
    exit 1
 }
 
 remount_exec() {
-   if [ "$qubes_vm_persistence" = "none" ]; then
-      true "$FUNCNAME: Not remounting exec in DispVM."
+   if [ "${qubes_vm_persistence}" = "none" ]; then
+      true "${FUNCNAME[0]}: Not remounting exec in DispVM."
       return 0
    fi
 
    if check_noexec_do ; then
-      true "INFO: tb_home_folder '$tb_home_folder' is not mounted with noexec."
+      true "INFO: tb_home_folder '${tb_home_folder}' is not mounted with noexec."
       return 0
    fi
 
@@ -273,9 +354,9 @@ remount_exec() {
 check_noexec_do() {
    ## example tb_home_folder:
    ## /home/user/.tb
-   tb_home_folder_mount="$(mount | grep -- "$tb_home_folder")" || true
-   if [ ! "$tb_home_folder_mount" = "" ]; then
-      if printf '%s\n' "$tb_home_folder" | grep --invert-match -- "noexec" >/dev/null 2>/dev/null ; then
+   tb_home_folder_mount="$(mount | grep -- "${tb_home_folder}")" || true
+   if [ ! "${tb_home_folder_mount}" = "" ]; then
+      if printf '%s\n' "${tb_home_folder}" | grep --invert-match -- "noexec" >/dev/null 2>/dev/null ; then
          ## 'noexec' not found inside 'mount' line for tb_home_folder.
          ## I.e. not mounted noexec.
          true "INFO: noexec detected: no"
@@ -288,7 +369,7 @@ check_noexec_do() {
 
 check_noexec() {
    if check_noexec_do ; then
-      true "INFO: tb_home_folder '$tb_home_folder' is not mounted with noexec."
+      true "INFO: tb_home_folder '${tb_home_folder}' is not mounted with noexec."
       return 0
    fi
 
@@ -303,25 +384,25 @@ check_noexec() {
    ##
    ## example tb_user_home_dirname:
    ## /home
-   if mount | grep -- "$tb_user_home_dirname" | grep -- "noexec" >/dev/null 2>/dev/null; then
-      local MSG="<p>Failed to start $tb_title!<br></br>
+   if mount | grep -- "${tb_user_home_dirname}" | grep -- "noexec" >/dev/null 2>/dev/null; then
+      local MSG="<p>Failed to start ${tb_title}!<br></br>
 <br></br>
-<code>$tb_user_home_dirname</code> is mounted with <code>noexec</code>.
+<code>${tb_user_home_dirname}</code> is mounted with <code>noexec</code>.
 <br></br>
 <br></br>Debugging information:
 <br></br>
-<br></br>tb_user_home_dirname: <code>$tb_user_home_dirname</code>
-<br></br>tb_home_folder_mount: <code>$tb_home_folder_mount</code>
+<br></br>tb_user_home_dirname: <code>${tb_user_home_dirname}</code>
+<br></br>tb_home_folder_mount: <code>${tb_home_folder_mount}</code>
 </p>"
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+      "${output}" "${output_opts[@]}" --messagex --typex "error" --titlex "${TITLE}" --message "${MSG}" --done
+      "${output}" "${output_opts[@]}" --messagecli --typecli "error" --titlecli "${TITLE}" --message "${MSG}" --done
       exit 5
    fi
 }
 
 check_tb_updater_first_boot_done() {
    if test -f /run/qubes/this-is-templatevm ; then
-      true "$FUNCNAME: Detected TemplateVM. Skipping tb-updater-first-boot.service check."
+      true "${FUNCNAME[0]}: Detected TemplateVM. Skipping tb-updater-first-boot.service check."
       return 0
    fi
 
@@ -338,9 +419,9 @@ check_tb_updater_first_boot_done() {
       wait_counter="$(( wait_counter + 1 ))"
       sleep 1 &
       wait "$!"
-      if [ "$wait_counter" -ge 20 ]; then
-         systemctl_output="$(/usr/libexec/msgcollector/br_add.py "$systemctl_output")"
-         local MSG="<p>Unable to start <code>$tb_title</code>.<br>
+      if [ "${wait_counter}" -ge 20 ]; then
+         systemctl_output="$(/usr/libexec/msgcollector/br_add.py "${systemctl_output}")"
+         local MSG="<p>Unable to start <code>${tb_title}</code>.<br>
 <br>
 Debugging information:
 <br>
@@ -348,25 +429,27 @@ Failed to run:<br>
 <br><code>systemctl --no-pager --no-block status tb-updater-first-boot.service</code>.<br>
 <br>
 systemctl output:<br>
-<br><code>$systemctl_output</code><br>
+<br><code>${systemctl_output}</code><br>
 <br>
 To see this for yourself, you could try: <blockquote>Start Menu -> System -> QTerminal<br>
 Then run:<br>
 <code>systemctl --no-pager --no-block status tb-updater-first-boot.service</code></blockquote></p>"
-         $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-         $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+         "${output}" "${output_opts[@]}" --messagex --typex "error" --titlex "${TITLE}" --message "${MSG}" --done
+         "${output}" "${output_opts[@]}" --messagecli --typecli "error" --titlecli "${TITLE}" --message "${MSG}" --done
          exit 4
       fi
    done
 }
 
 tb_permission_issue() {
-   local failed_command="$@"
+   local failed_command
+
+   failed_command="$*"
    local MSG="<p>User home folder permission issue?
 <br></br>
 <br></br>Failed to run the following command:
 <br></br>
-<br></br><code>$failed_command</code>
+<br></br><code>${failed_command}</code>
 <br></br>
 <br></br>Tip: If something does not work, do not arbitrarily try to use sudo / root without indication that this would be appropriate.
 <br></br>That only risks messing up user home folder permissions. See:
@@ -374,50 +457,50 @@ tb_permission_issue() {
 <br></br>
 <br></br>To fix this, you could try: <blockquote>Start Menu -> System -> QTerminal
 <br></br>
-<br></br><code>sudo chown --recursive \"$who_ami\":\"$who_ami\" \"$tb_user_home\"</code></blockquote>
-<br></br>Then try starting $tb_title again.
+<br></br><code>sudo chown --recursive \"${who_ami}\":\"${who_ami}\" \"${tb_user_home}\"</code></blockquote>
+<br></br>Then try starting ${tb_title} again.
 <br></br>
-<br></br>To debug this, you could try to start $tb_title Starter (by $tb_downloader_developers developers) from command line in:
-<br></br><a href=$tb_documentation_base_url_clearnet/wiki/$tb_wiki#In_Verbose_Mode>$tb_documentation_base_url_clearnet/wiki/$tb_wiki#In_Verbose_Mode</a>.
+<br></br>To debug this, you could try to start ${tb_title} Starter (by ${tb_downloader_developers} developers) from command line in:
+<br></br><a href=${tb_documentation_base_url_clearnet}/wiki/${tb_wiki}#In_Verbose_Mode>${tb_documentation_base_url_clearnet}/wiki/${tb_wiki}#In_Verbose_Mode</a>.
 <br></br>
-<br></br>See also $tb_title Starter (by $tb_downloader_developers developers) Permission Issues:
-<br></br><a href=$tb_documentation_base_url_clearnet/wiki/$tb_wiki#Permission_Issues>$tb_documentation_base_url_clearnet/wiki/$tb_wiki#Permission_Issues</a></p>"
+<br></br>See also ${tb_title} Starter (by ${tb_downloader_developers} developers) Permission Issues:
+<br></br><a href=${tb_documentation_base_url_clearnet}/wiki/${tb_wiki}#Permission_Issues>${tb_documentation_base_url_clearnet}/wiki/${tb_wiki}#Permission_Issues</a></p>"
 
-   echo "DEBUG START:"
+   printf '%s\n' "DEBUG START:"
 
-   echo ls -la "$tb_user_home" || true
-   ls -la "$tb_user_home" || true
+   printf '%s\n' "ls -la ${tb_user_home}" || true
+   ls -la "${tb_user_home}" || true
 
-   echo ls -la "$tb_user_home/.cache" || true
-   ls -la "$tb_user_home/.cache" || true
+   printf '%s\n' "ls -la ${tb_user_home}/.cache" || true
+   ls -la "${tb_user_home}/.cache" || true
 
-   echo ls -la "$tb_user_home/.cache/tb" || true
-   ls -la "$tb_user_home/.cache/tb" || true
+   printf '%s\n' "ls -la ${tb_user_home}/.cache/tb" || true
+   ls -la "${tb_user_home}/.cache/tb" || true
 
-   echo ls -la "$tb_user_home/.cache/tb/temp" || true
-   ls -la "$tb_user_home/.cache/tb/temp" || true
+   printf '%s\n' "ls -la ${tb_user_home}/.cache/tb/temp" || true
+   ls -la "${tb_user_home}/.cache/tb/temp" || true
 
-   echo ls -la "$tb_user_home/.cache/tb/files" || true
-   ls -la "$tb_user_home/.cache/tb/files" || true
+   printf '%s\n' "ls -la ${tb_user_home}/.cache/tb/files" || true
+   ls -la "${tb_user_home}/.cache/tb/files" || true
 
-   echo ls -la "$tb_user_home/.cache/tb/tbb_version_last_downloaded_save_file" || true
-   ls -la "$tb_user_home/.cache/tb/tbb_version_last_downloaded_save_file" || true
+   printf '%s\n' "ls -la ${tb_user_home}/.cache/tb/tbb_version_last_downloaded_save_file" || true
+   ls -la "${tb_user_home}/.cache/tb/tbb_version_last_downloaded_save_file" || true
 
-   echo "DEBUG END"
+   printf '%s\n' "DEBUG END"
 
-   $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-   $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+   "${output}" "${output_opts[@]}" --messagex --typex "error" --titlex "${TITLE}" --message "${MSG}" --done
+   "${output}" "${output_opts[@]}" --messagecli --typecli "error" --titlecli "${TITLE}" --message "${MSG}" --done
    exit 1
 }
 
 tb_copy_from_root_to_user_maybe() {
-   if [ "$qubes_vm_persistence" = "none" ]; then
-      if [ "$started_by_sandbox_app_launcher" = "true" ] || [ "$tb_installer_started_by_sandbox_app_launcher" = "true" ]; then
-         true "$FUNCNAME: Considering copying from /var/cache/tb-binary to tb_user_home $tb_user_home in DispVM since started_by_sandbox_app_launcher=true."
-         true "$FUNCNAME: (Mounting /var/cache/tb-binary/.cache/.tb to /home/sandbox-app-launcher-appdata/torbrowser/.tb/ in DispVM is not yet implemented.)"
+   if [ "${qubes_vm_persistence}" = "none" ]; then
+      if [ "${started_by_sandbox_app_launcher}" = "true" ] || [ "${tb_installer_started_by_sandbox_app_launcher}" = "true" ]; then
+         true "${FUNCNAME[0]}: Considering copying from /var/cache/tb-binary to tb_user_home ${tb_user_home} in DispVM since started_by_sandbox_app_launcher=true."
+         true "${FUNCNAME[0]}: (Mounting /var/cache/tb-binary/.cache/.tb to /home/sandbox-app-launcher-appdata/torbrowser/.tb/ in DispVM is not yet implemented.)"
       else
-         true "$FUNCNAME: Not copying from /var/cache/tb-binary to tb_user_home $tb_user_home in DispVM."
-         true "$FUNCNAME: Handing this is responsibility of tb-updater / tb-updater-dispvm.service / /usr/lib/tb-updater/dispvm."
+         true "${FUNCNAME[0]}: Not copying from /var/cache/tb-binary to tb_user_home ${tb_user_home} in DispVM."
+         true "${FUNCNAME[0]}: Handing this is responsibility of tb-updater / tb-updater-dispvm.service / /usr/lib/tb-updater/dispvm."
          return 0
       fi
    fi
@@ -425,13 +508,13 @@ tb_copy_from_root_to_user_maybe() {
    local done_file
    ## example tb_home_folder:
    ## /home/user/.tb
-   done_file="$tb_home_folder/first-boot-home-population.done"
+   done_file="${tb_home_folder}/first-boot-home-population.done"
    ## example done_file:
    ## /home/user/.tb/first-boot-home-population.done
 
    ## example tb_user_home:
    ## /home/user
-   if [ ! -d "$tb_user_home" ]; then
+   if [ ! -d "${tb_user_home}" ]; then
       return 0
    fi
 
@@ -439,23 +522,23 @@ tb_copy_from_root_to_user_maybe() {
       return 0
    fi
 
-   if [ -d "$tb_browser_folder" ]; then
+   if [ -d "${tb_browser_folder}" ]; then
       return 0
    fi
 
-   if [ -e "$done_file" ]; then
+   if [ -e "${done_file}" ]; then
       return 0
    fi
 
    if [ -d /var/cache/tb-binary/.cache ]; then
-       if ! mkdir -p "$tb_user_home/.cache"  ; then
-         tb_permission_issue mkdir -p "$tb_user_home/.cache"
+       if ! mkdir -p "${tb_user_home}/.cache"  ; then
+         tb_permission_issue mkdir -p "${tb_user_home}/.cache"
       fi
-      if ! test -w "$tb_user_home/.cache" ; then
-         tb_permission_issue test -w "$tb_user_home/.cache"
+      if ! test -w "${tb_user_home}/.cache" ; then
+         tb_permission_issue test -w "${tb_user_home}/.cache"
       fi
-      if ! cp --verbose --recursive --no-clobber "/var/cache/tb-binary/.cache" "$tb_user_home/" ; then
-         tb_permission_issue cp --verbose --recursive --no-clobber "/var/cache/tb-binary/.cache" "$tb_user_home/"
+      if ! cp --verbose --recursive --no-clobber "/var/cache/tb-binary/.cache" "${tb_user_home}/" ; then
+         tb_permission_issue cp --verbose --recursive --no-clobber "/var/cache/tb-binary/.cache" "${tb_user_home}/"
       fi
    fi
 
@@ -464,141 +547,144 @@ tb_copy_from_root_to_user_maybe() {
    ## example tb_browser_folder:
    ## /home/user/.tb/tor-browser
 
-   if [ "$tb_i2p_browser" = "true" ]; then
+   if [ "${tb_i2p_browser}" = "true" ]; then
       if [ -d "/var/cache/tb-binary/.tb/tor-browser" ]; then
-         if ! mkdir -p "$tb_home_folder" ; then
-            tb_permission_issue mkdir -p "$tb_home_folder"
+         if ! mkdir -p "${tb_home_folder}" ; then
+            tb_permission_issue mkdir -p "${tb_home_folder}"
          fi
-         if ! test -w "$tb_home_folder" ; then
-            tb_permission_issue test -w "$tb_home_folder"
+         if ! test -w "${tb_home_folder}" ; then
+            tb_permission_issue test -w "${tb_home_folder}"
          fi
          ## No / at the end.
          ## example simplified:
          ## cp /var/cache/tb-binary/.tb/tor-browser /home/user/.i2pb/i2p-browser
-         if ! cp --verbose --recursive --no-clobber "/var/cache/tb-binary/.tb/tor-browser" "$tb_browser_folder" ; then
-            tb_permission_issue cp --verbose --recursive --no-clobber "/var/cache/tb-binary/.tb/tor-browser" "$tb_browser_folder"
+         if ! cp --verbose --recursive --no-clobber "/var/cache/tb-binary/.tb/tor-browser" "${tb_browser_folder}" ; then
+            tb_permission_issue cp --verbose --recursive --no-clobber "/var/cache/tb-binary/.tb/tor-browser" "${tb_browser_folder}"
          fi
-         touch "$done_file"
+         touch "${done_file}"
       fi
    else
-      if [ -d "/var/cache/tb-binary/$tb_install_folder_dot/$tb_browser_name" ]; then
-         if ! mkdir -p "$tb_home_folder" ; then
-            tb_permission_issue mkdir -p "$tb_home_folder"
+      if [ -d "/var/cache/tb-binary/${tb_install_folder_dot}/${tb_browser_name}" ]; then
+         if ! mkdir -p "${tb_home_folder}" ; then
+            tb_permission_issue mkdir -p "${tb_home_folder}"
          fi
-         if ! test -w "$tb_home_folder" ; then
-            tb_permission_issue test -w "$tb_home_folder"
+         if ! test -w "${tb_home_folder}" ; then
+            tb_permission_issue test -w "${tb_home_folder}"
          fi
 
          ## No / at the end.
          ## example simplified:
          ## cp /var/cache/tb-binary/.tb/tor-browser /home/user/.tb/tor-browser
-         if ! cp --verbose --recursive --no-clobber "/var/cache/tb-binary/$tb_install_folder_dot/$tb_browser_name" "$tb_browser_folder" ; then
-             tb_permission_issue cp --verbose --recursive --no-clobber "/var/cache/tb-binary/$tb_install_folder_dot/$tb_browser_name" "$tb_browser_folder"
+         if ! cp --verbose --recursive --no-clobber "/var/cache/tb-binary/${tb_install_folder_dot}/${tb_browser_name}" "${tb_browser_folder}" ; then
+             tb_permission_issue cp --verbose --recursive --no-clobber "/var/cache/tb-binary/${tb_install_folder_dot}/${tb_browser_name}" "${tb_browser_folder}"
          fi
 
-         touch "$done_file"
+         touch "${done_file}"
       fi
    fi
 }
 
 maybe_install_tor_browser() {
-   if [ -d "$tb_browser_folder" ]; then
+   if [ -d "${tb_browser_folder}" ]; then
       return 0
    fi
 
-   local MSG="<p>$tb_title is currently not installed.
-<br></br>(Folder $tb_browser_folder does not exist.)</p>"
-   local question="Start $tb_title Downloader (by $tb_downloader_developers developers)?"
+   local MSG="<p>${tb_title} is currently not installed.
+<br></br>(Folder ${tb_browser_folder} does not exist.)</p>"
+   local question="Start ${tb_title} Downloader (by ${tb_downloader_developers} developers)?"
    local button="yesno"
    local answer
-   answer="$(/usr/libexec/msgcollector/generic_gui_message.py "error" "$TITLE" "$MSG" "$question" "$button")"
+   answer="$(/usr/libexec/msgcollector/generic_gui_message.py "error" "${TITLE}" "${MSG}" "${question}" "${button}")"
    #answer="0"
-   #yad --title="$TITLE" --question --text "$MSG" || { answer="$?" ; true; };
+   #yad --title="${TITLE}" --question --text "${MSG}" || { answer="$?" ; true; };
    ## yad exit codes
    ## no 1
    ## yes 0
-   if [ "$answer" = "16384" ]; then ## button 'yes' pressed
-      local update_torbrowser_command_v_exit_code="0"
-      command -v "$tb_downloader_command" &>/dev/null || { update_torbrowser_command_v_exit_code="$?" ; true; };
-      if [ "$update_torbrowser_command_v_exit_code" = "0" ]; then
+   if [ "${answer}" = "16384" ]; then ## button 'yes' pressed
+      local update_torbrowser_available="0"
+      has "${tb_downloader_command}" || update_torbrowser_available="$?"
+      if [ "${update_torbrowser_available}" = "0" ]; then
          ## update-torbrowser / update-mullvadbrowser is available.
          ## || true, in case update-torbrowser / update-mullvadbrowser fails for some reason (no
          ## internet connection).
-         "$tb_downloader_command" $tb_using_i2p --noaskstart || true
+         ## Deliberately unquoted: tb_using_i2p is empty unless this is the
+         ## i2p browser, and only an unquoted expansion drops the empty word.
+         # shellcheck disable=SC2086
+         "${tb_downloader_command}" ${tb_using_i2p} --noaskstart || true
       else
          ## update-torbrowser / update-mullvadbrowser is not available.
-         MSG="<p>$tb_title Updater (by $tb_downloader_developers developers) is not installed.
-$tb_downloader_command $tb_using_i2p is not available. Please install the tb-updater package.
+         MSG="<p>${tb_title} Updater (by ${tb_downloader_developers} developers) is not installed.
+${tb_downloader_command} ${tb_using_i2p} is not available. Please install the tb-updater package.
 <br></br>Run:
 <blockquote>sudo apt-get install tb-updater</blockquote>
 Then try again.</p>"
-         $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-         $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+         "${output}" "${output_opts[@]}" --messagex --typex "error" --titlex "${TITLE}" --message "${MSG}" --done
+         "${output}" "${output_opts[@]}" --messagecli --typecli "error" --titlecli "${TITLE}" --message "${MSG}" --done
       fi
    else  ## button 'yes' not pressed
       exit 0
    fi
 
-   if [ ! -d "$tb_browser_folder" ]; then
+   if [ ! -d "${tb_browser_folder}" ]; then
       ## Still not installed.
       exit 0
    fi
 }
 
 tb_folder_permission_check() {
-   if ! test -w "$tb_browser_folder" ; then
-      tb_permission_issue test -w "$tb_browser_folder"
+   if ! test -w "${tb_browser_folder}" ; then
+      tb_permission_issue test -w "${tb_browser_folder}"
    fi
 }
 
 tb_folder_change_directory() {
-   if ! cd "$tb_browser_folder" ; then
-      tb_permission_issue cd "$tb_browser_folder"
+   if ! cd "${tb_browser_folder}" ; then
+      tb_permission_issue cd "${tb_browser_folder}"
    fi
 }
 
 tb_detect_starter_bin() {
-   if [ ! "$tb_starter_bin" = "" ]; then
+   if [ ! "${tb_starter_bin}" = "" ]; then
       return 0
    fi
 
-   if [ -x "$tb_browser_folder/Browser/$tb_browser_runner" ]; then
+   if [ -x "${tb_browser_folder}/Browser/${tb_browser_runner}" ]; then
       ## Alternative way to start Tor Browser.
       ## https://github.com/netblue30/firejail/issues/2863#issuecomment-513219822
       ## working:
       ## firejail /home/user/.tb/tor-browser/Browser/start-tor-browser
       ## not working:
       ## firejail /home/user/.tb/tor-browser/start-tor-browser.desktop
-      tb_starter_bin="$tb_browser_folder/Browser/$tb_browser_runner"
-   elif [ -x "$tb_browser_folder/$tb_browser_runner" ]; then
+      tb_starter_bin="${tb_browser_folder}/Browser/${tb_browser_runner}"
+   elif [ -x "${tb_browser_folder}/${tb_browser_runner}" ]; then
       ## Previously used filename no longer existing in current version of
-      ## Tor Browser. Keeping it in case it $tb_browser_runner.desktop gets
+      ## Tor Browser. Keeping it in case it ${tb_browser_runner}.desktop gets
       ## abolished and this one revived.
-      tb_starter_bin="$tb_browser_folder/$tb_browser_runner"
-   elif [ -x "$tb_browser_folder/$tb_browser_runner.desktop" ]; then
+      tb_starter_bin="${tb_browser_folder}/${tb_browser_runner}"
+   elif [ -x "${tb_browser_folder}/${tb_browser_runner}.desktop" ]; then
       ## Canonical way to start Tor Browser.
       ## Cannot be used in Qubes Disposables.
       ## ~/.tb/tor-browser/start-tor-browser.desktop does as per Tor Browser upstream default:
       ## Exec=sh -c '"$(dirname "$*")"/Browser/start-tor-browser --detach || ([ ! -x "$(dirname "$*")"/Browser/start-tor-browser ] && "$(dirname "$*")"/start-tor-browser --detach)' dummy %k X-TorBrowser-ExecShell=./Browser/start-tor-browser --detach
       ## Qubes start menu incompatible with DispVMs launching GUI applications into the background #5129
       ## https://github.com/QubesOS/qubes-issues/issues/5129
-      tb_starter_bin="$tb_browser_folder/$tb_browser_runner.desktop"
+      tb_starter_bin="${tb_browser_folder}/${tb_browser_runner}.desktop"
    else
-      local MSG="Neither <code>$tb_browser_folder/Browser/$tb_browser_runner</code> nor\
-<code>$tb_browser_folder/$tb_browser_runner</code> nor \
-<code>$tb_browser_folder/$tb_browser_runner.desktop</code> is executable."
-      $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-      $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+      local MSG="Neither <code>${tb_browser_folder}/Browser/${tb_browser_runner}</code> nor\
+<code>${tb_browser_folder}/${tb_browser_runner}</code> nor \
+<code>${tb_browser_folder}/${tb_browser_runner}.desktop</code> is executable."
+      "${output}" "${output_opts[@]}" --messagex --typex "error" --titlex "${TITLE}" --message "${MSG}" --done
+      "${output}" "${output_opts[@]}" --messagecli --typecli "error" --titlecli "${TITLE}" --message "${MSG}" --done
       exit 2
    fi
 }
 
 tb_custom_user_js_file() {
-   if ! test -f "$tb_user_js_source_file" ; then
-      true "tb_user_js_source_file '$tb_user_js_source_file' does not exist. Skipping to copy, ok."
+   if ! test -f "${tb_user_js_source_file}" ; then
+      true "tb_user_js_source_file '${tb_user_js_source_file}' does not exist. Skipping to copy, ok."
       return 0
    fi
-   cp "$tb_user_js_source_file" "$tb_user_js_target_file"
+   cp "${tb_user_js_source_file}" "${tb_user_js_target_file}"
 }
 
 tb_prefs_js_file_patches() {
@@ -606,11 +692,11 @@ tb_prefs_js_file_patches() {
    ## Path to local browser homepage changed in during Whonix 15 to Whonix 16 upgrade.
    search="/usr/share/homepage/whonix-welcome-page/whonix.html"
    replace="/usr/share/doc/homepage/whonix-welcome-page/whonix.html"
-   file_name="$tb_prefs_js_target_file"
-   if ! test -f "$file_name" ; then
+   file_name="${tb_prefs_js_target_file}"
+   if ! test -f "${file_name}" ; then
       return 0
    fi
-   str_replace "$search" "$replace" "$file_name" &>/dev/null || true
+   str_replace "${search}" "${replace}" "${file_name}" &>/dev/null || true
 }
 
 tb_i2p() {
@@ -622,17 +708,16 @@ tb_i2p() {
    ## tb_i2p_browser="true" since a browser that was ever used with i2p
    ## should never be used again over Tor to avoid linking the different
    ## identities.
-   if test -f "$tb_browser_folder/i2pmarker" ; then
-      if [ ! "$tb_i2p_browser" = "true" ]; then
+   if test -f "${tb_browser_folder}/i2pmarker" ; then
+      if [ ! "${tb_i2p_browser}" = "true" ]; then
          local MSG="i2p marker file exists and trying to start without i2pbrowser. Aborted. A Tor Browser that was previously started as i2pbrowser should not be started without i2pbrowser."
-         $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-         $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+         "${output}" "${output_opts[@]}" --messagex --typex "error" --titlex "${TITLE}" --message "${MSG}" --done
+         "${output}" "${output_opts[@]}" --messagecli --typecli "error" --titlecli "${TITLE}" --message "${MSG}" --done
          exit 2
-         return 0
       fi
    fi
 
-   if [ ! "$tb_i2p_browser" = "true" ]; then
+   if [ ! "${tb_i2p_browser}" = "true" ]; then
       ## Since tb_i2p_browser is not set to true,
       ## do not proceed with the rest of this function, i.e.
       ## creating i2pmarker or making i2pbrowser modifications.
@@ -650,8 +735,8 @@ tb_i2p() {
 <br></br>
 Most likely user-sysmaint-split is installed and you are booted into 'PERSISTENT Mode - USER Session' or 'LIVE Mode - USER Session'. To enable i2p, reboot and select 'PERSISTENT Mode - SYSMAINT Session', then open a terminal and run 'pkexec /usr/share/tb-profile-i2p/enable-i2p'. More info: <a href=https://www.kicksecure.com/wiki/Sysmaint>https://www.kicksecure.com/wiki/Sysmaint</a>"
 
-         $output ${output_opts[@]} --messagex --titlex "$TITLE" --typex "error" --message "$MSG" --done
-         $output ${output_opts[@]} --messagecli --titlecli "$TITLE" --typecli "error" --message "$MSG" --done
+         "${output}" "${output_opts[@]}" --messagex --titlex "${TITLE}" --typex "error" --message "${MSG}" --done
+         "${output}" "${output_opts[@]}" --messagecli --titlecli "${TITLE}" --typecli "error" --message "${MSG}" --done
          exit 1
       fi
    fi
@@ -664,31 +749,31 @@ Most likely user-sysmaint-split is installed and you are booted into 'PERSISTENT
    ## sudo /usr/share/tb-profile-i2p/enable-i2p
    ## in Whonix-Workstation Template.
 
-   if ! test -f "$tb_browser_folder/i2pmarker" ; then
-      touch "$tb_browser_folder/i2pmarker"
+   if ! test -f "${tb_browser_folder}/i2pmarker" ; then
+      touch "${tb_browser_folder}/i2pmarker"
    fi
 
    cp -r --no-clobber /usr/share/tb-profile-i2p/profile.i2p \
-      "$tb_browser_folder/profile.i2p"
+      "${tb_browser_folder}/profile.i2p"
 
-   rm -rf "$tb_browser_folder/profile.i2p/extensions"
+   safe-rm --recursive --force -- "${tb_browser_folder}/profile.i2p/extensions"
 
-   cp -r --no-clobber "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.default/extensions" \
-      "$tb_browser_folder/profile.i2p/extensions"
+   cp -r --no-clobber "${tb_browser_folder}/Browser/TorBrowser/Data/Browser/profile.default/extensions" \
+      "${tb_browser_folder}/profile.i2p/extensions"
 
-   if [ ! -L "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.i2p" ]; then
-      ln -sf "$tb_browser_folder/profile.i2p" \
-         "$tb_browser_folder/Browser/TorBrowser/Data/Browser/profile.i2p"
+   if [ ! -L "${tb_browser_folder}/Browser/TorBrowser/Data/Browser/profile.i2p" ]; then
+      ln -sf "${tb_browser_folder}/profile.i2p" \
+         "${tb_browser_folder}/Browser/TorBrowser/Data/Browser/profile.i2p"
    fi
 
-   cp -f /usr/share/tb-profile-i2p/start-i2p-browser "$tb_browser_folder/Browser/start-i2p-browser"
+   cp -f /usr/share/tb-profile-i2p/start-i2p-browser "${tb_browser_folder}/Browser/start-i2p-browser"
 }
 
 maybe_use_open_link_confirmation() {
    ## Environment variable OPEN_LINK_CONFIRMATION might be set to 'true' if
    ## we are run by open_link_confirmation.
 
-   if [ "$open_link_confirmation_skip" = "true" ]; then
+   if [ "${open_link_confirmation_skip}" = "true" ]; then
       return 0
    fi
 
@@ -696,23 +781,26 @@ maybe_use_open_link_confirmation() {
       return 0
    fi
 
-   if [ "$OPEN_LINK_CONFIRMATION" = "true" ]; then
+   if [ "${OPEN_LINK_CONFIRMATION}" = "true" ]; then
       ## We are run by open_link_confirmation.
       ## Not run open-link-confirmation again.
       ## Open browser.
       return 0
    fi
 
-   if [[ "$@" = "" ]]; then
+   ## '$*' rather than '"$@"' in a test: inside [[ ]] an array reference
+   ## implicitly concatenates, which is what this check wants but not what it
+   ## says. Both are empty exactly when no argument was given.
+   if [ "$*" = "" ]; then
       ## No args set so also no link set. No need to ask.
       return 0
    fi
 
    tb_starter_tool="/usr/libexec/open-link-confirmation/open-link-confirmation"
-   tb_start_command_temp="$tb_starter_tool $@"
+   tb_start_command_temp="${tb_starter_tool} $*"
 
    tb_exit_code="0"
-   $tb_starter_tool "$@" || { tb_exit_code="$?" ; true; };
+   ${tb_starter_tool} "$@" || { tb_exit_code="$?" ; true; };
 
    tb_used_open_link_confirmation=true
 
@@ -720,10 +808,10 @@ maybe_use_open_link_confirmation() {
 }
 
 tb_firejail_set_options() {
-   [ -n "$tb_firejail_bin" ] || tb_firejail_bin="firejail"
+   [ -n "${tb_firejail_bin}" ] || tb_firejail_bin="firejail"
 
    ## https://github.com/netblue30/firejail/issues/2863
-   tb_firejailopts[${#tb_firejailopts[@]}]="--whitelist=$tb_browser_folder"
+   tb_firejailopts[${#tb_firejailopts[@]}]="--whitelist=${tb_browser_folder}"
 
    ## /etc/resolv.conf is a symlink to /etc/resolv.conf.kicksecure in Kicksecure.
    ## https://github.com/netblue30/firejail/issues/2966
@@ -739,56 +827,64 @@ tb_firejail_set_options() {
 
 tb_start_tor_browser() {
    tb_exit_code="0"
-   if [ "$tb_hardening" = "true" ]; then
-      tb_start_command_temp="$tb_firejail_bin ${tb_firejailopts[@]} $tb_starter_bin_pre $tb_starter_bin --verbose --allow-remote $tb_starter_bin_post $@"
-      $tb_firejail_bin ${tb_firejailopts[@]} $tb_starter_bin_pre $tb_starter_bin --verbose --allow-remote $tb_starter_bin_post "$@" || { tb_exit_code="$?" ; true; };
+   if [ "${tb_hardening}" = "true" ]; then
+      ## '[*]' and '$*' inside a double-quoted string join with a space,
+      ## exactly as '[@]' and '$@' do there; this is the human-readable copy
+      ## of the command shown in the error dialog, not an argv.
+      tb_start_command_temp="${tb_firejail_bin} ${tb_firejailopts[*]} ${tb_starter_bin_pre} ${tb_starter_bin} --verbose --allow-remote ${tb_starter_bin_post} $*"
+      ## tb_starter_bin_pre and tb_starter_bin_post are deliberately unquoted:
+      ## each may be empty, or carry a command plus its own arguments, so the
+      ## shell must split them into words.
+      # shellcheck disable=SC2086
+      "${tb_firejail_bin}" "${tb_firejailopts[@]}" ${tb_starter_bin_pre} ${tb_starter_bin} --verbose --allow-remote ${tb_starter_bin_post} "$@" || { tb_exit_code="$?" ; true; };
    else
-      tb_start_command_temp="$tb_starter_bin_pre $tb_starter_bin --verbose --allow-remote $tb_starter_bin_post $@"
-      $tb_starter_bin_pre $tb_starter_bin --verbose --allow-remote $tb_starter_bin_post "$@" || { tb_exit_code="$?" ; true; };
+      tb_start_command_temp="${tb_starter_bin_pre} ${tb_starter_bin} --verbose --allow-remote ${tb_starter_bin_post} $*"
+      # shellcheck disable=SC2086
+      ${tb_starter_bin_pre} ${tb_starter_bin} --verbose --allow-remote ${tb_starter_bin_post} "$@" || { tb_exit_code="$?" ; true; };
    fi
 
    tb_run_function tb_handle_exit_code
 }
 
 tb_handle_exit_code() {
-   [ -n "$OPEN_LINK_CONFIRMATION_COUNTER" ] || OPEN_LINK_CONFIRMATION_COUNTER="0"
+   [ -n "${OPEN_LINK_CONFIRMATION_COUNTER}" ] || OPEN_LINK_CONFIRMATION_COUNTER="0"
 
-   if [ ! "$tb_exit_code" = "0" ]; then
-      local MSG="<p>$tb_title ended with non-zero (error) exit code!<br></br>
+   if [ ! "${tb_exit_code}" = "0" ]; then
+      local MSG="<p>${tb_title} ended with non-zero (error) exit code!<br></br>
 <br></br>
-$tb_title was started with:<br></br>
-<br></br><code>$tb_start_command_temp</code>
+${tb_title} was started with:<br></br>
+<br></br><code>${tb_start_command_temp}</code>
 <br></br>
-<br></br>$tb_title exited with code: <code>$tb_exit_code</code>
-<br></br>OPEN_LINK_CONFIRMATION_COUNTER: <code>$OPEN_LINK_CONFIRMATION_COUNTER</code>
+<br></br>${tb_title} exited with code: <code>${tb_exit_code}</code>
+<br></br>OPEN_LINK_CONFIRMATION_COUNTER: <code>${OPEN_LINK_CONFIRMATION_COUNTER}</code>
 <br></br>
 <br></br>To see this for yourself, you could try: <blockquote>Start Menu -> System -> QTerminal
 <br></br>Then run:
-<br></br><code>$tb_start_command_temp</code></blockquote>
+<br></br><code>${tb_start_command_temp}</code></blockquote>
 
 See online documentation:
-<br></br><a href=$tb_documentation_base_url_clearnet/wiki/$tb_wiki#Crash_Errors>$tb_documentation_base_url_clearnet/wiki/$tb_wiki#Crash_Errors</a></p>"
-      if [ "$tb_used_open_link_confirmation" = "true" ]; then
+<br></br><a href=${tb_documentation_base_url_clearnet}/wiki/${tb_wiki}#Crash_Errors>${tb_documentation_base_url_clearnet}/wiki/${tb_wiki}#Crash_Errors</a></p>"
+      if [ "${tb_used_open_link_confirmation}" = "true" ]; then
          true "INFO: Avoid duplicate error popup."
       else
-         $output ${output_opts[@]} --messagex --typex "error" --titlex "$TITLE" --message "$MSG" --done
-         $output ${output_opts[@]} --messagecli --typecli "error" --titlecli "$TITLE" --message "$MSG" --done
+         "${output}" "${output_opts[@]}" --messagex --typex "error" --titlex "${TITLE}" --message "${MSG}" --done
+         "${output}" "${output_opts[@]}" --messagecli --typecli "error" --titlecli "${TITLE}" --message "${MSG}" --done
       fi
-      exit "$tb_exit_code"
+      exit "${tb_exit_code}"
    fi
    exit 0
 }
 
 tb_check_allowed(){
-   if [ "$tb_no_start" = "true" ]; then
-      true "INFO: not starting $tb_title as tb_no_start is set to true."
+   if [ "${tb_no_start}" = "true" ]; then
+      true "INFO: not starting ${tb_title} as tb_no_start is set to true."
       local MSG="\
-<p>Not starting $tb_title as variable \$tb_no_start is set to \"true\"!<br></br>
+<p>Not starting ${tb_title} as variable \$tb_no_start is set to \"true\"!<br></br>
 <br></br>
 More info: User configured tb_no_start=\"true\"</p>"
 
-      $output ${output_opts[@]} --messagex --titlex "$TITLE" --typex "error" --message "$MSG" --done
-      $output ${output_opts[@]} --messagecli --titlecli "$TITLE" --typecli "error" --message "$MSG" --done
+      "${output}" "${output_opts[@]}" --messagex --titlex "${TITLE}" --typex "error" --message "${MSG}" --done
+      "${output}" "${output_opts[@]}" --messagecli --titlecli "${TITLE}" --typecli "error" --message "${MSG}" --done
       exit 1
    fi
 }
@@ -800,17 +896,17 @@ tb_sysmaint_check(){
    fi
 
    if [ "${boot_session}" = 'sysmaint_session' ]; then
-      true "INFO: not starting $tb_title because running in sysmaint session and tb_allow_start_in_sysmaint is not set to true."
+      true "INFO: not starting ${tb_title} because running in sysmaint session and tb_allow_start_in_sysmaint is not set to true."
       local MSG="\
-<p>Not starting $tb_title because running in sysmaint session and variable \$tb_allow_start_in_sysmaint is not set to \"true\"!<br>
+<p>Not starting ${tb_title} because running in sysmaint session and variable \$tb_allow_start_in_sysmaint is not set to \"true\"!<br>
 <br>
 Recommendation: boot into USER session instead.<br>
 <br>
 See also:<br>
 https://www.whonix.org/wiki/Tor_Browser/Advanced_Users#sysmaint</p>"
 
-      $output ${output_opts[@]} --messagex --titlex "$TITLE" --typex "error" --message "$MSG" --done
-      $output ${output_opts[@]} --messagecli --titlecli "$TITLE" --typecli "error" --message "$MSG" --done
+      "${output}" "${output_opts[@]}" --messagex --titlex "${TITLE}" --typex "error" --message "${MSG}" --done
+      "${output}" "${output_opts[@]}" --messagecli --titlecli "${TITLE}" --typecli "error" --message "${MSG}" --done
       exit 1
    fi
 }
