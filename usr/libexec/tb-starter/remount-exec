@@ -57,7 +57,7 @@ fi
 
 for tb_home_folder in "${tb_home_folder_list[@]}"; do
    ## Check if already correct mount options.
-   if mount | grep "${tb_home_folder}" | grep -q noexec ; then
+   if mount | grep "${tb_home_folder}" | grep noexec >/dev/null ; then
       ## noexec mount option found. Therefore remount.
       mount --bind -o nosuid,nodev "${tb_home_folder}" "${tb_home_folder}"
    fi
