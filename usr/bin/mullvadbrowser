@@ -3,20 +3,40 @@
 ## Copyright (C) 2018 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
-export SCRIPTNAME="$(basename "$BASH_SOURCE")"
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+shopt -s inherit_errexit
+shopt -s shift_verbose
+
+# shellcheck source=../../../helper-scripts/usr/libexec/helper-scripts/strings.bsh
+source /usr/libexec/helper-scripts/strings.bsh
+
+SCRIPTNAME="$(basename -- "${BASH_SOURCE[0]}")"
+export SCRIPTNAME
 
 export IDENTIFIER="mullvadbrowser"
 
-[ -n "$ICON" ] || export ICON="/usr/share/icons/icon-pack-dist/tbupdate.ico"
-[ -n "$tb_install_folder_dot" ] || export tb_install_folder_dot=".mullvadbrowser"
-[ -n "$tb_title" ] || export tb_title="Mullvad Browser"
-[ -n "$tb_wiki" ] || export tb_wiki="Mullvad_Browser"
-[ -n "$tb_browser_name" ] || export tb_browser_name="mullvad-browser"
-[ -n "$tb_browser_runner" ] || export tb_browser_runner="start-mullvad-browser"
-[ -n "$tb_settings_folder" ] || export tb_settings_folder="mullvadbrowser.d"
-[ -n "$tb_downloader_command" ] || export tb_downloader_command="update-mullvadbrowser"
-[ -n "$tb_downloader_developers" ] || export tb_downloader_developers="Kicksecure"
-[ -n "$tb_documentation_base_url_clearnet" ] || export tb_documentation_base_url_clearnet="https://www.kicksecure.com"
-[ -n "$tb_wiki" ] || export tb_wiki="Mullvad_Browser"
+default_if_empty ICON "/usr/share/icons/icon-pack-dist/tbupdate.ico"
+export ICON
+default_if_empty tb_install_folder_dot ".mullvadbrowser"
+export tb_install_folder_dot
+default_if_empty tb_title "Mullvad Browser"
+export tb_title
+default_if_empty tb_wiki "Mullvad_Browser"
+export tb_wiki
+default_if_empty tb_browser_name "mullvad-browser"
+export tb_browser_name
+default_if_empty tb_browser_runner "start-mullvad-browser"
+export tb_browser_runner
+default_if_empty tb_settings_folder "mullvadbrowser.d"
+export tb_settings_folder
+default_if_empty tb_downloader_command "update-mullvadbrowser"
+export tb_downloader_command
+default_if_empty tb_downloader_developers "Kicksecure"
+export tb_downloader_developers
+default_if_empty tb_documentation_base_url_clearnet "https://www.kicksecure.com"
+export tb_documentation_base_url_clearnet
 
 torbrowser "$@"

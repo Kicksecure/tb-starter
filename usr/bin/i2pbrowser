@@ -3,32 +3,58 @@
 ## Copyright (C) 2018 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
-export SCRIPTNAME="$(basename "$BASH_SOURCE")"
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+shopt -s inherit_errexit
+shopt -s shift_verbose
+
+# shellcheck source=../../../helper-scripts/usr/libexec/helper-scripts/strings.bsh
+source /usr/libexec/helper-scripts/strings.bsh
+
+SCRIPTNAME="$(basename -- "${BASH_SOURCE[0]}")"
+export SCRIPTNAME
 
 export IDENTIFIER="i2pbrowser"
 
-if [ "$TOR_DEFAULT_HOMEPAGE" = "/usr/share/doc/homepage/whonix-welcome-page/whonix.html" ]; then
+if [ "${TOR_DEFAULT_HOMEPAGE:-}" = "/usr/share/doc/homepage/whonix-welcome-page/whonix.html" ]; then
    ## unset default by whonix-welcome-page /usr/libexec/whonix-welcome-page/env_var.sh
    unset TOR_DEFAULT_HOMEPAGE
 fi
 
 ## https://forums.whonix.org/t/noscript-with-security-slider-at-safest-permits-around-30-sites/8160
-[ -n "$TOR_DEFAULT_HOMEPAGE" ] || export TOR_DEFAULT_HOMEPAGE="/usr/share/doc/homepage/i2pbrowser/i2p-diffs.html"
+default_if_empty TOR_DEFAULT_HOMEPAGE "/usr/share/doc/homepage/i2pbrowser/i2p-diffs.html"
+export TOR_DEFAULT_HOMEPAGE
 
-[ -n "$ICON" ] || export ICON="/usr/share/icons/icon-pack-dist/tbupdate.ico"
-[ -n "$TOR_NO_DISPLAY_NETWORK_SETTINGS" ] || export TOR_NO_DISPLAY_NETWORK_SETTINGS=1
-[ -n "$TOR_HIDE_BROWSER_LOGO" ] || export TOR_HIDE_BROWSER_LOGO=1
-[ -n "$TOR_SKIP_LAUNCH" ] || export TOR_SKIP_LAUNCH=1
-[ -n "$tb_using_i2p" ] || export tb_using_i2p="--i2p"
-[ -n "$tb_install_folder" ] || export tb_install_folder="i2pb"
-[ -n "$tb_install_folder_dot" ] || export tb_install_folder_dot=".i2pb"
-[ -n "$tb_title" ] || export tb_title="i2p Browser"
-[ -n "$tb_wiki" ] || export tb_wiki="i2p_Browser"
-[ -n "$tb_browser_name" ] || export tb_browser_name="i2p-browser"
-[ -n "$tb_bin" ] || export tb_bin="$IDENTIFIER"
-[ -n "$tb_browser_runner" ] || export tb_browser_runner="start-i2p-browser"
-[ -n "$tb_settings_folder" ] || export tb_settings_folder="i2pbrowser.d"
-[ -n "$tb_i2p_browser" ] || export tb_i2p_browser="true"
+default_if_empty ICON "/usr/share/icons/icon-pack-dist/tbupdate.ico"
+export ICON
+default_if_empty TOR_NO_DISPLAY_NETWORK_SETTINGS "1"
+export TOR_NO_DISPLAY_NETWORK_SETTINGS
+default_if_empty TOR_HIDE_BROWSER_LOGO "1"
+export TOR_HIDE_BROWSER_LOGO
+default_if_empty TOR_SKIP_LAUNCH "1"
+export TOR_SKIP_LAUNCH
+default_if_empty tb_using_i2p "--i2p"
+export tb_using_i2p
+default_if_empty tb_install_folder "i2pb"
+export tb_install_folder
+default_if_empty tb_install_folder_dot ".i2pb"
+export tb_install_folder_dot
+default_if_empty tb_title "i2p Browser"
+export tb_title
+default_if_empty tb_wiki "i2p_Browser"
+export tb_wiki
+default_if_empty tb_browser_name "i2p-browser"
+export tb_browser_name
+default_if_empty tb_bin "${IDENTIFIER}"
+export tb_bin
+default_if_empty tb_browser_runner "start-i2p-browser"
+export tb_browser_runner
+default_if_empty tb_settings_folder "i2pbrowser.d"
+export tb_settings_folder
+default_if_empty tb_i2p_browser "true"
+export tb_i2p_browser
 
 # if command -v firejail &>/dev/null ; then
 #    [ -n "$tb_hardening" ] || export tb_hardening="true"
