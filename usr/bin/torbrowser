@@ -98,10 +98,10 @@ default_if_unset tb_using_i2p ""
 default_if_unset started_by_sandbox_app_launcher ""
 default_if_unset tb_installer_started_by_sandbox_app_launcher ""
 
-## Array variables don't need to be set under nounset, "${arr[@]}" works even
-## if "arr" is unset.
-## output_opts=()
-## tb_firejail_opts=()
+## Array variables must be set too, "${arr[@]}" works even if "arr" is unset
+## but "${#arr[@]}" does not (note the "#" to get array length).
+[ -v output_opts ] || output_opts=()
+[ -v tb_firejailopts ] || tb_firejailopts=()
 
 tb_error_handler() {
    local exit_code="$?"
