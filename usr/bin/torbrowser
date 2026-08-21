@@ -13,6 +13,7 @@ set -o pipefail
 set -o errtrace
 shopt -s inherit_errexit
 shopt -s shift_verbose
+export LC_ALL=C
 
 ## Every one of these is supplied by the caller's environment, by an
 ## /etc/<settings folder>/*.conf file, by a sourced helper, or by one function
@@ -82,21 +83,16 @@ shopt -s shift_verbose
 
 if [ -f /usr/libexec/helper-scripts/pre.bsh ]; then
    # shellcheck source=../../../../helper-scripts/usr/libexec/helper-scripts/pre.bsh
-   # shellcheck disable=SC1091
-   source /usr/libexec/helper-scripts/pre.bsh
+   source "${HELPER_SCRIPTS_PATH:-}"/usr/libexec/helper-scripts/pre.bsh
 fi
 
-## shellcheck cannot follow these in an isolated single-repo checkout, where
-## helper-scripts is not a sibling.
 # shellcheck source=../../../../helper-scripts/usr/libexec/helper-scripts/has.sh
-# shellcheck disable=SC1091
-source /usr/libexec/helper-scripts/has.sh
+source "${HELPER_SCRIPTS_PATH:-}"/usr/libexec/helper-scripts/has.sh
 
 ## sets: boot_session
 if [ -f /usr/libexec/helper-scripts/boot-session-detection.bsh ]; then
    # shellcheck source=../../../../helper-scripts/usr/libexec/helper-scripts/boot-session-detection.bsh
-   # shellcheck disable=SC1091
-   source /usr/libexec/helper-scripts/boot-session-detection.bsh
+   source "${HELPER_SCRIPTS_PATH:-}"/usr/libexec/helper-scripts/boot-session-detection.bsh
 fi
 
 [ -n "${SCRIPTNAME}" ] || SCRIPTNAME="$(basename "${BASH_SOURCE[0]}")"

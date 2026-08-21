@@ -1,0 +1,15 @@
+## Copyright (C) 2026 - 2026 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+## AI-Assisted
+
+## Per-repo parameters for developer-meta-files consumer workflows, read at
+## workflow runtime.
+
+dist-ai-tests:
+  ## torbrowser sources helper-scripts' pre.bsh, has.sh and
+  ## boot-session-detection.bsh by the '${HELPER_SCRIPTS_PATH:-}' path with a
+  ## relative '# shellcheck source=' directive. Provide helper-scripts as the
+  ## repo sibling so the pre-push-static gate's shellcheck FOLLOWS the source
+  ## instead of emitting SC1091 -- no per-line '# shellcheck disable=SC1091'.
+  helper-scripts: true
