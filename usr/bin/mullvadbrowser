@@ -9,42 +9,35 @@ set -o pipefail
 set -o errtrace
 shopt -s inherit_errexit
 shopt -s shift_verbose
+export LC_ALL=C
 
-## Read below with a default rather than bare: each is an OPTIONAL override
-## from the caller's environment, so under nounset a bare read would abort the
-## browser launch instead of falling back. The '[ -n ... ] ||' defaults stay as
-## they are -- they also replace an EXPLICITLY EMPTY value, which
-## '[ -v ... ]' does not.
-[ -v TOR_DEFAULT_HOMEPAGE ] || TOR_DEFAULT_HOMEPAGE=""
-[ -v ICON ] || ICON=""
-[ -v tb_install_folder_dot ] || tb_install_folder_dot=""
-[ -v tb_title ] || tb_title=""
-[ -v tb_wiki ] || tb_wiki=""
-[ -v tb_browser_name ] || tb_browser_name=""
-[ -v tb_browser_runner ] || tb_browser_runner=""
-[ -v tb_settings_folder ] || tb_settings_folder=""
-[ -v tb_downloader_command ] || tb_downloader_command=""
-[ -v tb_downloader_developers ] || tb_downloader_developers=""
-[ -v tb_documentation_base_url_clearnet ] || tb_documentation_base_url_clearnet=""
+# shellcheck source=../../../helper-scripts/usr/libexec/helper-scripts/strings.bsh
+source "${HELPER_SCRIPTS_PATH:-}"/usr/libexec/helper-scripts/strings.bsh
 
-## Split from the export: 'export x="$(cmd)"' returns the exit status of
-## export, not of the command substitution, so a failing basename would go
-## unnoticed under errexit.
-SCRIPTNAME="$(basename "${BASH_SOURCE[0]}")"
+SCRIPTNAME="$(basename -- "${BASH_SOURCE[0]}")"
 export SCRIPTNAME
 
 export IDENTIFIER="mullvadbrowser"
 
-[ -n "${ICON}" ] || export ICON="/usr/share/icons/icon-pack-dist/tbupdate.ico"
-[ -n "${tb_install_folder_dot}" ] || export tb_install_folder_dot=".mullvadbrowser"
-[ -n "${tb_title}" ] || export tb_title="Mullvad Browser"
-[ -n "${tb_wiki}" ] || export tb_wiki="Mullvad_Browser"
-[ -n "${tb_browser_name}" ] || export tb_browser_name="mullvad-browser"
-[ -n "${tb_browser_runner}" ] || export tb_browser_runner="start-mullvad-browser"
-[ -n "${tb_settings_folder}" ] || export tb_settings_folder="mullvadbrowser.d"
-[ -n "${tb_downloader_command}" ] || export tb_downloader_command="update-mullvadbrowser"
-[ -n "${tb_downloader_developers}" ] || export tb_downloader_developers="Kicksecure"
-[ -n "${tb_documentation_base_url_clearnet}" ] || export tb_documentation_base_url_clearnet="https://www.kicksecure.com"
-[ -n "${tb_wiki}" ] || export tb_wiki="Mullvad_Browser"
+default_if_empty ICON "/usr/share/icons/icon-pack-dist/tbupdate.ico"
+export ICON
+default_if_empty tb_install_folder_dot ".mullvadbrowser"
+export tb_install_folder_dot
+default_if_empty tb_title "Mullvad Browser"
+export tb_title
+default_if_empty tb_wiki "Mullvad_Browser"
+export tb_wiki
+default_if_empty tb_browser_name "mullvad-browser"
+export tb_browser_name
+default_if_empty tb_browser_runner "start-mullvad-browser"
+export tb_browser_runner
+default_if_empty tb_settings_folder "mullvadbrowser.d"
+export tb_settings_folder
+default_if_empty tb_downloader_command "update-mullvadbrowser"
+export tb_downloader_command
+default_if_empty tb_downloader_developers "Kicksecure"
+export tb_downloader_developers
+default_if_empty tb_documentation_base_url_clearnet "https://www.kicksecure.com"
+export tb_documentation_base_url_clearnet
 
 torbrowser "$@"

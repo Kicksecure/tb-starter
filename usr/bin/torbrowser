@@ -15,91 +15,84 @@ shopt -s inherit_errexit
 shopt -s shift_verbose
 export LC_ALL=C
 
-## Every one of these is supplied by the caller's environment, by an
-## /etc/<settings folder>/*.conf file, by a sourced helper, or by one function
-## of this script and read in another. Any of them can legitimately be absent,
-## so give them a defined value here rather than let a bare read abort the
-## browser launch under nounset. Set BEFORE the sources below, so a helper
-## that assigns one still wins. The '[ -n ... ] ||' defaults further down stay
-## as they are: they also replace an EXPLICITLY EMPTY value, which
-## '[ -v ... ]' does not.
-[ -v SCRIPTNAME ] || SCRIPTNAME=""
-[ -v IDENTIFIER ] || IDENTIFIER=""
-[ -v ICON ] || ICON=""
-[ -v tb_skip_functions ] || tb_skip_functions=""
-[ -v tb_running_as_root ] || tb_running_as_root=""
-[ -v who_ami ] || who_ami=""
-[ -v is_qubes ] || is_qubes=""
-[ -v qubes_vm_name ] || qubes_vm_name=""
-[ -v qubes_vm_persistence ] || qubes_vm_persistence=""
-[ -v tb_user_home ] || tb_user_home=""
-[ -v tb_user_home_dirname ] || tb_user_home_dirname=""
-[ -v tb_install_folder ] || tb_install_folder=""
-[ -v tb_install_folder_dot ] || tb_install_folder_dot=""
-[ -v tb_browser_name ] || tb_browser_name=""
-[ -v tb_settings_folder ] || tb_settings_folder=""
-[ -v tb_downloader_command ] || tb_downloader_command=""
-[ -v tb_downloader_developers ] || tb_downloader_developers=""
-[ -v tb_documentation_base_url_clearnet ] || tb_documentation_base_url_clearnet=""
-[ -v tb_title ] || tb_title=""
-[ -v tb_wiki ] || tb_wiki=""
-[ -v tb_bin ] || tb_bin=""
-[ -v tb_browser_runner ] || tb_browser_runner=""
-[ -v tb_home_folder ] || tb_home_folder=""
-[ -v tb_browser_folder ] || tb_browser_folder=""
-[ -v tb_prefs_js_target_file ] || tb_prefs_js_target_file=""
-[ -v tb_user_js_target_file ] || tb_user_js_target_file=""
-[ -v tb_user_js_source_file ] || tb_user_js_source_file=""
-[ -v TOR_DEFAULT_HOMEPAGE ] || TOR_DEFAULT_HOMEPAGE=""
-[ -v output ] || output=""
-[ -v TITLE ] || TITLE=""
-[ -v progressbaridx ] || progressbaridx=""
-[ -v tb_allow_start_in_templatevm ] || tb_allow_start_in_templatevm=""
-[ -v tb_qubes_wiki ] || tb_qubes_wiki=""
-[ -v tb_home_folder_mount ] || tb_home_folder_mount=""
-[ -v started_by_sandbox_app_launcher ] || started_by_sandbox_app_launcher=""
-[ -v tb_installer_started_by_sandbox_app_launcher ] || tb_installer_started_by_sandbox_app_launcher=""
-[ -v tb_i2p_browser ] || tb_i2p_browser=""
-[ -v tb_starter_bin ] || tb_starter_bin=""
-[ -v tb_starter_bin_pre ] || tb_starter_bin_pre=""
-[ -v tb_starter_bin_post ] || tb_starter_bin_post=""
-[ -v open_link_confirmation_skip ] || open_link_confirmation_skip=""
-[ -v OPEN_LINK_CONFIRMATION ] || OPEN_LINK_CONFIRMATION=""
-[ -v OPEN_LINK_CONFIRMATION_COUNTER ] || OPEN_LINK_CONFIRMATION_COUNTER=""
-[ -v tb_starter_tool ] || tb_starter_tool=""
-[ -v tb_start_command_temp ] || tb_start_command_temp=""
-[ -v tb_exit_code ] || tb_exit_code=""
-[ -v tb_used_open_link_confirmation ] || tb_used_open_link_confirmation=""
-[ -v tb_firejail_bin ] || tb_firejail_bin=""
-[ -v tb_hardening ] || tb_hardening=""
-[ -v tb_no_start ] || tb_no_start=""
-[ -v tb_allow_start_in_sysmaint ] || tb_allow_start_in_sysmaint=""
-[ -v boot_session ] || boot_session=""
-[ -v tb_using_i2p ] || tb_using_i2p=""
-
-## R-025: expanded under nounset before anything appends to them.
-[ -v output_opts ] || output_opts=()
-[ -v tb_firejailopts ] || tb_firejailopts=()
-
 if [ -f /usr/libexec/helper-scripts/pre.bsh ]; then
-   # shellcheck source=../../../../helper-scripts/usr/libexec/helper-scripts/pre.bsh
+   # shellcheck source=../../../helper-scripts/usr/libexec/helper-scripts/pre.bsh
    source "${HELPER_SCRIPTS_PATH:-}"/usr/libexec/helper-scripts/pre.bsh
 fi
 
-# shellcheck source=../../../../helper-scripts/usr/libexec/helper-scripts/has.sh
+# shellcheck source=../../../helper-scripts/usr/libexec/helper-scripts/has.sh
 source "${HELPER_SCRIPTS_PATH:-}"/usr/libexec/helper-scripts/has.sh
 
 ## sets: boot_session
 if [ -f /usr/libexec/helper-scripts/boot-session-detection.bsh ]; then
-   # shellcheck source=../../../../helper-scripts/usr/libexec/helper-scripts/boot-session-detection.bsh
+   # shellcheck source=../../../helper-scripts/usr/libexec/helper-scripts/boot-session-detection.bsh
    source "${HELPER_SCRIPTS_PATH:-}"/usr/libexec/helper-scripts/boot-session-detection.bsh
 fi
 
-[ -n "${SCRIPTNAME}" ] || SCRIPTNAME="$(basename "${BASH_SOURCE[0]}")"
+# shellcheck source=../../../helper-scripts/usr/libexec/helper-scripts/strings.bsh
+source "${HELPER_SCRIPTS_PATH:-}"/usr/libexec/helper-scripts/strings.bsh
 
-[ -n "${IDENTIFIER}" ] || IDENTIFIER="torbrowser"
+default_if_unset SCRIPTNAME "$(basename -- "${BASH_SOURCE[0]}")"
+default_if_unset IDENTIFIER "torbrowser"
+default_if_unset ICON "/usr/share/icons/icon-pack-dist/tbupdate.ico"
+default_if_unset tb_skip_functions ""
+default_if_unset tb_running_as_root ""
+default_if_unset who_ami ""
+default_if_unset is_qubes ""
+default_if_unset qubes_vm_name ""
+default_if_unset qubes_vm_persistence ""
+default_if_unset tb_user_home ""
+default_if_unset tb_user_home_dirname ""
+default_if_unset tb_install_folder ""
+default_if_unset tb_install_folder_dot ""
+default_if_unset tb_browser_name ""
+default_if_unset tb_settings_folder ""
+default_if_unset tb_downloader_command ""
+default_if_unset tb_downloader_developers ""
+default_if_unset tb_documentation_base_url_clearnet ""
+default_if_unset tb_title ""
+default_if_unset tb_wiki ""
+default_if_unset tb_bin ""
+default_if_unset tb_browser_runner ""
+default_if_unset tb_home_folder ""
+default_if_unset tb_browser_folder ""
+default_if_unset tb_prefs_js_target_file ""
+default_if_unset tb_user_js_target_file ""
+default_if_unset tb_user_js_source_file ""
+default_if_unset TOR_DEFAULT_HOMEPAGE ""
+default_if_unset output ""
+default_if_unset TITLE ""
+default_if_unset progressbaridx ""
+default_if_unset tb_allow_start_in_templatevm ""
+default_if_unset tb_qubes_wiki ""
+default_if_unset tb_home_folder_mount ""
+default_if_unset tb_i2p_browser ""
+default_if_unset tb_starter_bin ""
+default_if_unset tb_starter_bin_pre ""
+default_if_unset tb_starter_bin_post ""
+default_if_unset open_link_confirmation_skip ""
+default_if_unset OPEN_LINK_CONFIRMATION ""
+default_if_unset OPEN_LINK_CONFIRMATION_COUNTER ""
+default_if_unset tb_starter_tool ""
+default_if_unset tb_start_command_temp ""
+default_if_unset tb_exit_code ""
+default_if_unset tb_used_open_link_confirmation ""
+default_if_unset tb_firejail_bin ""
+default_if_unset tb_hardening ""
+default_if_unset tb_no_start ""
+default_if_unset tb_allow_start_in_sysmaint ""
+default_if_unset boot_session ""
+default_if_unset tb_using_i2p ""
 
-[ -n "${ICON}" ] || ICON="/usr/share/icons/icon-pack-dist/tbupdate.ico"
+## TODO: Consider getting rid of the below two vars, sandbox-app-launcher is
+## being replaced by sandbox-manager-dist.
+default_if_unset started_by_sandbox_app_launcher ""
+default_if_unset tb_installer_started_by_sandbox_app_launcher ""
+
+## Array variables must be set too, "${arr[@]}" works even if "arr" is unset
+## but "${#arr[@]}" does not (note the "#" to get array length).
+[ -v output_opts ] || output_opts=()
+[ -v tb_firejailopts ] || tb_firejailopts=()
 
 tb_error_handler() {
    local exit_code="$?"
@@ -154,6 +147,8 @@ trap tb_error_handler ERR
 
 tb_run_function() {
    case "${tb_skip_functions}" in
+   ## TODO: Why are we using "$@" in the match below? "$*" would be more
+   ## appropriate, but wouldn't "${1:-}" be even better?
    *"$@"*)
       true "INFO: Skipping $*, because tb_skip_functions includes it."
       return 0
@@ -272,15 +267,14 @@ tb_config_folder_parser() {
       "/usr/local/etc/${tb_settings_folder}"/*.conf \
       ; do
          bash -n "${i}"
-         ## Dynamic path from the glob above; R-081 prescribes SC1090 here.
          # shellcheck disable=SC1090
          source "${i}"
    done
 
    local j
    for j in \
-      "/etc/${tb_settings_folder}"/user.js \
-      "/usr/local/etc/${tb_settings_folder}"/user.js \
+      "/etc/${tb_settings_folder}/user.js" \
+      "/usr/local/etc/${tb_settings_folder}/user.js" \
       ; do
          if ! test -r "${j}" ; then
             continue
@@ -610,10 +604,12 @@ maybe_install_tor_browser() {
       else
          ## update-torbrowser / update-mullvadbrowser is not available.
          MSG="<p>${tb_title} Updater (by ${tb_downloader_developers} developers) is not installed.
-${tb_downloader_command} ${tb_using_i2p} is not available. Please install the tb-updater package.
+${tb_downloader_command}${tb_using_i2p:+" ${tb_using_i2p}"} is not available. Please install the tb-updater package.
 <br></br>Run:
 <blockquote>sudo apt-get install tb-updater</blockquote>
 Then try again.</p>"
+         ## TODO: We use this "${output}" ... construct an awful lot. Can we
+         ## refactor it into a function?
          "${output}" "${output_opts[@]}" --messagex --typex "error" --titlex "${TITLE}" --message "${MSG}" --done
          "${output}" "${output_opts[@]}" --messagecli --typecli "error" --titlecli "${TITLE}" --message "${MSG}" --done
       fi
@@ -666,7 +662,7 @@ tb_detect_starter_bin() {
       ## https://github.com/QubesOS/qubes-issues/issues/5129
       tb_starter_bin="${tb_browser_folder}/${tb_browser_runner}.desktop"
    else
-      local MSG="Neither <code>${tb_browser_folder}/Browser/${tb_browser_runner}</code> nor\
+      local MSG="Neither <code>${tb_browser_folder}/Browser/${tb_browser_runner}</code> nor \
 <code>${tb_browser_folder}/${tb_browser_runner}</code> nor \
 <code>${tb_browser_folder}/${tb_browser_runner}.desktop</code> is executable."
       "${output}" "${output_opts[@]}" --messagex --typex "error" --titlex "${TITLE}" --message "${MSG}" --done
@@ -784,9 +780,6 @@ maybe_use_open_link_confirmation() {
       return 0
    fi
 
-   ## '$*' rather than '"$@"' in a test: inside [[ ]] an array reference
-   ## implicitly concatenates, which is what this check wants but not what it
-   ## says. Both are empty exactly when no argument was given.
    if [ "$*" = "" ]; then
       ## No args set so also no link set. No need to ask.
       return 0
@@ -824,13 +817,7 @@ tb_firejail_set_options() {
 tb_start_tor_browser() {
    tb_exit_code="0"
    if [ "${tb_hardening}" = "true" ]; then
-      ## '[*]' and '$*' inside a double-quoted string join with a space,
-      ## exactly as '[@]' and '$@' do there; this is the human-readable copy
-      ## of the command shown in the error dialog, not an argv.
       tb_start_command_temp="${tb_firejail_bin} ${tb_firejailopts[*]} ${tb_starter_bin_pre} ${tb_starter_bin} --verbose --allow-remote ${tb_starter_bin_post} $*"
-      ## tb_starter_bin_pre and tb_starter_bin_post are deliberately unquoted:
-      ## each may be empty, or carry a command plus its own arguments, so the
-      ## shell must split them into words.
       # shellcheck disable=SC2086
       "${tb_firejail_bin}" "${tb_firejailopts[@]}" ${tb_starter_bin_pre} ${tb_starter_bin} --verbose --allow-remote ${tb_starter_bin_post} "$@" || { tb_exit_code="$?" ; true; };
    else
