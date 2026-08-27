@@ -1,3 +1,221 @@
+commit eec4f2fa7e023d6bfb59af76dc5cbc1f2ee0c5b8
+Merge: 664d43f 3a21963
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Aug 15 10:27:04 2026 -0400
+
+    Merge remote-tracking branch 'refs/remotes/ArrayBolt3/arraybolt3/trixie'
+
+commit 3a219637ba94eb5896c8409b7c46e2b511539a9f
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Fri Aug 14 14:58:01 2026 -0400
+
+    fix
+
+commit 664d43fbbdc360610aae1356d1929cb527711394
+Merge: 0f83832 ada9a18
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 12 03:28:44 2026 -0400
+
+    Merge remote-tracking branch 'refs/remotes/ArrayBolt3/arraybolt3/trixie'
+
+commit ada9a18b9096872a32b6eac064a956e164141e58
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Wed Aug 12 01:17:43 2026 -0400
+
+    Tweaks, comments, TODOs, use default_if_empty from helper-scripts where reasonable
+
+commit 48d0b382edb7b195668eca12c6ed48a430ca9a10
+Merge: 69c8602 875a478
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Tue Aug 11 22:31:44 2026 -0400
+
+    Merge branch 'ai' into arraybolt3/trixie
+
+commit 875a4787418944b2b3a018427034f6e45622ae3a
+Author: claude (dev182 e09ec5cf-4ebf-4e1b-88e5-55fbac6ef1d3) <noreply@anthropic.com>
+Date:   Mon Aug 10 13:53:51 2026 -0400
+
+    remount-exec: drop grep -q to avoid SIGPIPE on upstream grep
+
+    - 'grep -q noexec' exits on the first match, closing the pipe while the
+      upstream 'mount | grep <folder>' still writes, raising SIGPIPE under
+      pipefail and aborting the errexit script mid-remount.
+    - 'grep noexec >/dev/null' consumes all input, so the pipeline exits cleanly.
+
+    Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+commit 7bfe0facbc769a5b0c34a31e9eefb5202d41b35c
+Author: claude (dev170 ad818220-b8bb-4205-b850-b65074e52454) <noreply@anthropic.com>
+Date:   Sat Aug 8 13:40:14 2026 -0400
+
+    torbrowser: R-010 strict mode
+
+    - strict-mode block, nounset defaults for the ~50 variables the caller, a
+      settings-folder config file, a sourced helper or another function may leave
+      unset, R-020 braces, R-034 printf, R-051 bare ERR trap target, R-090 'has'
+      for the two 'command -v' probes, R-120 safe-rm.
+    - output_opts and tb_firejailopts are initialised as arrays and expanded
+      quoted. The unquoted form was a latent word-splitting bug: no shipped value
+      contains whitespace, so no argv this test produces changes.
+    - the array references that feed a MESSAGE string use '[*]', which says what
+      the code already did; '[@]' there only happened to join with a space.
+    - tb_starter_bin_pre / tb_starter_bin_post and tb_using_i2p stay unquoted with
+      SC2086 disabled and the reason stated: each may be empty or carry a command
+      plus its own arguments, and only an unquoted expansion drops an empty word.
+    - '$FUNCNAME' and '$BASH_SOURCE' are indexed. Escaped '\$tb_no_start' and
+      '\$tb_allow_start_in_sysmaint' inside message text are NOT braced -- those
+      are literal text the user reads, and the emit harness caught the attempt.
+    - one unreachable 'return 0' after an 'exit 2' removed.
+    - source directives added for pre.bsh and boot-session-detection.bsh, paired
+      with SC1091: CI checks this repo out alone and installs no helper-scripts,
+      so neither the relative nor the absolute path resolves there.
+
+    Verified by a differential emit harness (~/strict-pass-tests/tb-test/emit.sh),
+    27 cases, 27 identical. Nearly every message this script emits is a multi-line
+    HTML string interpolated from a dozen variables and passed as ONE argument, so
+    the harness records the FULL argv of every command, and compares that plus the
+    exit code, stdout+stderr, and the files left in the user's home.
+
+    Three coverage gaps the harness had, each found by it failing to catch a real
+    defect, each closed:
+    - the awkward-argv case never reached the browser launch -- with a link and no
+      OPEN_LINK_CONFIRMATION the script hands off to open-link-confirmation and
+      exits, so a dropped quote on the launch line went unseen.
+    - tb_start_command_temp is only READ when the browser exits non-zero. A
+      blanket array-quoting edit had corrupted its assignment and every case still
+      passed; three non-zero-exit cases now cover it.
+    - '--parentpid "$$"' and bash's error line numbers differ between runs of the
+      same file; both are masked by VALUE only, so that the argument is passed and
+      where it sits stay compared.
+
+    'rm -rf' becoming 'safe-rm --recursive --force --' (R-120 is gate-enforced) is
+    folded on both sides of the comparison, so the path argument stays compared.
+
+    Canaried: a double space in the window title fails 10 cases, dropping the
+    quotes from "$@" on the launch line fails the case written for it, and a
+    double space inside tb_start_command_temp fails 3. shellcheck and the static
+    gate pass all three injections.
+
+    Also adds ~/strict-pass-tests/brace-fixer.py, which drives the R-020 rewrite
+    from shellcheck's own JSON: right-to-left by column so earlier offsets stay
+    valid, refusing to rewrite anything shellcheck did not report as SC2250, and
+    re-running shellcheck afterwards so a reference hidden behind another on the
+    same line cannot be left behind.
+
+    Gate: pre-push-static --staged exit 0, and ci-repro.sh --worktree
+    kicksecure/tb-starter exit 0.
+
+    Co-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>
+
+commit 57a96f21824a47f582362d71660c86c82303786c
+Author: claude (dev170 ad818220-b8bb-4205-b850-b65074e52454) <noreply@anthropic.com>
+Date:   Sat Aug 8 13:24:35 2026 -0400
+
+    i2pbrowser, mullvadbrowser: R-010 strict mode
+
+    - strict-mode block, nounset defaults for every optional environment
+      override, R-020 braces.
+    - SCRIPTNAME is assigned and then exported separately: 'export x="$(cmd)"'
+      returns the exit status of export, not of the command substitution, so a
+      failing basename went unnoticed under errexit.
+    - i2pbrowser's welcome-page branch sets TOR_DEFAULT_HOMEPAGE empty instead of
+      unsetting it. The very next line reads that variable, and under nounset an
+      unset read aborts the launch; the default below re-exports it on that path
+      either way, so what the browser is handed is unchanged.
+
+    Verified by a differential emit harness
+    (~/strict-pass-tests/tbw-test/emit.sh), 14 cases, 14 identical. These two
+    scripts export a set of variables and then run 'torbrowser "$@"', so a
+    recording stub in place of torbrowser captures their entire observable output:
+    the sorted environment byte for byte, the argv with each argument delimited,
+    stdout+stderr, and the exit code. Export ORDER is deliberately not compared --
+    the wrapped program cannot observe it.
+
+    The harness rejects a case that does not show at least five wrapper variables
+    in the dump. That guard was added after it caught itself: the stub ran 'env |
+    sort' with PATH holding the stub directory only, both commands were not found,
+    and every case compared two empty dumps and passed.
+
+    Canaried: a double space inside one exported title, and dropping the quotes
+    from "$@", make 7 of the 14 cases fail.
+
+    Gate: pre-push-static --staged exit 0, and ci-repro.sh --worktree
+    kicksecure/tb-starter exit 0.
+
+    Co-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>
+
+commit fe940b2e4d37a838d061d7eab6f7b9361e921b20
+Author: claude (dev163 38f9745c-aed1-4fb4-b6ae-9899f20f8de2) <noreply@anthropic.com>
+Date:   Sat Aug 8 04:56:24 2026 -0400
+
+    CI: enrol in the pre-push static gate
+
+    This repo had no GitHub Actions workflow at all, so nothing verified its PRs on
+    the server side -- the only gate was ci-repro run locally.
+
+    The workflow file is the canonical consumer template, copied verbatim from
+    developer-meta-files/consumer-templates/.github/workflows/. It is managed: once
+    present, dm-packaging-helper-script's pkg_update_consumer_workflows keeps it in
+    sync, so it must not be hand-edited here.
+
+    Enrolment is deliberately a SEPARATE act from propagation: that function uses
+    pkg_update_if_exists, which only updates a workflow that already exists, and
+    pkg_install_dependabot_yml skips any repo with no .github/workflows/ directory.
+    Neither creates the first one. Hence this commit.
+
+    Scope: the repos this session actually changed and that ship shell code -- not
+    every repo lacking CI. Enrolling a repo consumes shared org-wide Actions
+    concurrency (20 jobs, the real limit; public repos are not minute-billed), so it
+    is worth spending where there is signal.
+
+    Verified BEFORE enrolling: 'ci-repro.sh --worktree' passes for this repo, so the
+    gate arrives green rather than turning someone's PR red on arrival.
+
+    NOTE, so it is not a surprise: creating .github/workflows/ makes this repo
+    eligible for the canonical .github/dependabot.yml on the next propagation pass,
+    which pkg_install_dependabot_yml installs into any repo that uses Actions.
+
+commit 1fd8b04c84708c191413ad5ae5925e0f4acfe91d
+Author: claude (dev163 38f9745c-aed1-4fb4-b6ae-9899f20f8de2) <noreply@anthropic.com>
+Date:   Fri Aug 7 08:42:36 2026 -0400
+
+    tb-starter: R-010 strict for 3 standalone scripts
+
+    Four of the seven are deliberately NOT included.
+
+    start-i2p-browser is EXCLUDED, not deferred: its header states "This file
+    is modified from a file included in the Tor Browser Bundle. Copyright 2017
+    The Tor Project." Same basis as corridor and calamares-settings-debian --
+    the rule for an upstream fork is to match upstream's style, not impose
+    ours.
+
+    DEFERRED, each needing its own pass:
+    - usr/bin/torbrowser (853 lines): heavy pre-existing debt. Its multi-line
+      HTML message bodies confuse shellcheck (SC1078/SC1079/SC2027), and it
+      mixes real command lines with message text that DISPLAYS the same
+      variables -- a blanket array-quoting pass rewrote '<code>${output_opts[@]}
+      </code>' inside a user-visible debug message and a commented-out line
+      before I caught it. It needs targeted edits, not a sweep.
+    - usr/bin/i2pbrowser and usr/bin/mullvadbrowser: browser launchers that
+      read a long list of environment variables before assigning them --
+      TOR_DEFAULT_HOMEPAGE, TOR_NO_DISPLAY_NETWORK_SETTINGS,
+      TOR_HIDE_BROWSER_LOGO, TOR_SKIP_LAUNCH, then ICON, tb_install_folder_dot,
+      tb_title, tb_wiki, tb_browser_name, tb_browser_runner. Enumerated with
+      the loop-and-patch technique rather than one test cycle per trap, but the
+      set is large enough to deserve its own reviewed change.
+
+    Verified in an ISOLATED checkout (ci-repro.sh), gate exit 0. Sandbox
+    differential vs the pre-change scripts, output AND exit code: 3 cases, all
+    identical.
+
+    Co-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>
+
+commit 0f8383288eba65930753f0fcb7cf85c0c17e8cf3
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jul 21 11:10:35 2026 +0000
+
+    bumped changelog version
+
 commit 6ef3f3a2017e426298583227d696d8c2380bfdec
 Merge: 69c8602 53c4dad
 Author: Patrick Schleizer <adrelanos@whonix.org>

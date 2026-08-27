@@ -13,33 +13,24 @@ set -o pipefail
 set -o errtrace
 shopt -s inherit_errexit
 shopt -s shift_verbose
+export LC_ALL=C
 
 if [ -f /usr/libexec/helper-scripts/pre.bsh ]; then
    # shellcheck source=../../../helper-scripts/usr/libexec/helper-scripts/pre.bsh
-   ## TODO: Let's just not run shellcheck unless we have a full
-   ## derivative-maker source tree.
-   # shellcheck disable=SC1091
-   source /usr/libexec/helper-scripts/pre.bsh
+   source "${HELPER_SCRIPTS_PATH:-}"/usr/libexec/helper-scripts/pre.bsh
 fi
 
 # shellcheck source=../../../helper-scripts/usr/libexec/helper-scripts/has.sh
-## shellcheck cannot follow these in an isolated single-repo checkout, where
-## helper-scripts is not a sibling.
-##
-## TODO: See above TODO.
-# shellcheck disable=SC1091
-source /usr/libexec/helper-scripts/has.sh
+source "${HELPER_SCRIPTS_PATH:-}"/usr/libexec/helper-scripts/has.sh
 
 ## sets: boot_session
 if [ -f /usr/libexec/helper-scripts/boot-session-detection.bsh ]; then
    # shellcheck source=../../../helper-scripts/usr/libexec/helper-scripts/boot-session-detection.bsh
-   ## TODO: See above TODO.
-   # shellcheck disable=SC1091
-   source /usr/libexec/helper-scripts/boot-session-detection.bsh
+   source "${HELPER_SCRIPTS_PATH:-}"/usr/libexec/helper-scripts/boot-session-detection.bsh
 fi
 
 # shellcheck source=../../../helper-scripts/usr/libexec/helper-scripts/strings.bsh
-source /usr/libexec/helper-scripts/strings.bsh
+source "${HELPER_SCRIPTS_PATH:-}"/usr/libexec/helper-scripts/strings.bsh
 
 default_if_empty SCRIPTNAME "$(basename -- "${BASH_SOURCE[0]}")"
 default_if_empty IDENTIFIER "torbrowser"
