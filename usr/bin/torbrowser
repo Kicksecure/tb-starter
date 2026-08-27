@@ -13,6 +13,10 @@ set -o pipefail
 set -o errtrace
 shopt -s inherit_errexit
 shopt -s shift_verbose
+
+if [ -z "${OLD_LC_ALL:-}" ]; then
+  OLD_LC_ALL="${LC_ALL:-}"
+fi
 export LC_ALL=C
 
 if [ -f /usr/libexec/helper-scripts/pre.bsh ]; then
@@ -96,6 +100,9 @@ default_if_empty tb_installer_started_by_sandbox_app_launcher ""
 
 tb_error_handler() {
    local exit_code="$?"
+   ## We may reach this handler after LC_ALL is reset or unset. Therefore force
+   ## it back to C before we run the rest of this.
+   export LC_ALL=C
 
    local MSG="${0} script bug.
 
@@ -815,6 +822,15 @@ tb_firejail_set_options() {
 }
 
 tb_start_tor_browser() {
+   ## We can't have LC_ALL=C set in the browser's environment, as it will
+   ## likely break localization settings. We want LC_ALL=C in the script for
+   ## security reasons, but not in the browser.
+   if [ -z "${OLD_LC_ALL}" ]; then
+      unset LC_ALL
+   else
+      LC_ALL="${OLD_LC_ALL}"
+   fi
+
    tb_exit_code="0"
    if [ "${tb_hardening}" = "true" ]; then
       tb_start_command_temp="${tb_firejail_bin} ${tb_firejailopts[*]} ${tb_starter_bin_pre} ${tb_starter_bin} --verbose --allow-remote ${tb_starter_bin_post} $*"
@@ -826,6 +842,7 @@ tb_start_tor_browser() {
       ${tb_starter_bin_pre} ${tb_starter_bin} --verbose --allow-remote ${tb_starter_bin_post} "$@" || { tb_exit_code="$?" ; true; };
    fi
 
+   export LC_ALL=C
    tb_run_function tb_handle_exit_code
 }
 
