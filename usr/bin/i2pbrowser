@@ -9,6 +9,8 @@ set -o pipefail
 set -o errtrace
 shopt -s inherit_errexit
 shopt -s shift_verbose
+
+OLD_LC_ALL="${LC_ALL:-}"
 export LC_ALL=C
 
 # shellcheck source=../../../helper-scripts/usr/libexec/helper-scripts/strings.bsh
