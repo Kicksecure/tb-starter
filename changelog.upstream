@@ -1,3 +1,101 @@
+commit 67639b42704cbfc41dedf2f4c4363e07e244f91e
+Merge: f6c5076 42b188e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Aug 30 10:18:08 2026 -0400
+
+    Merge remote-tracking branch 'refs/remotes/ArrayBolt3/arraybolt3/trixie'
+
+commit f6c507637241a4d9efd2f960bf1f4efc23931882
+Merge: 9472ae9 3a09b53
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Aug 30 01:10:06 2026 -0400
+
+    Merge remote-tracking branch 'org-ai-assisted/ai'
+
+commit 42b188e12d8961f7ef7000652ec530c28df7e50c
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Wed Aug 26 23:44:22 2026 -0400
+
+    Handle LC_ALL in a way that won't override the user's localization settings unless they want to override them
+
+commit 7a10c4b2417778d816e3f68991b66ab33f263fe5
+Merge: 91d21ca 3a09b53
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Wed Aug 26 23:18:53 2026 -0400
+
+    Merge branch 'ai' into arraybolt3/trixie
+
+commit 3a09b53dde00e6e5b63815f70807a8334777cef5
+Merge: 1e4395a 5496f8c
+Author: claude (dev360 af829598-ca19-4edf-a20a-beea79d986e6) <noreply@anthropic.com>
+Date:   Wed Aug 26 03:56:27 2026 -0400
+
+    Merge master into ai
+
+    - absorbs upstream + trixie default_if_empty fix so the PR diff carries
+      only our own work
+
+commit 5496f8c63bebd293f6365bf4cead4c0231489a14
+Merge: 9472ae9 91d21ca
+Author: claude (dev360 af829598-ca19-4edf-a20a-beea79d986e6) <noreply@anthropic.com>
+Date:   Wed Aug 26 03:55:36 2026 -0400
+
+    Merge ArrayBolt3/arraybolt3/trixie into master
+
+    - brings trixie's default_if_unset -> default_if_empty fix in torbrowser
+      (default_if_unset is not a real helper-scripts function)
+
+commit 91d21cab2af099552012c8945294e92aa771d573
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Tue Aug 25 22:07:03 2026 -0400
+
+    typo
+
+commit 1e4395a58b332766b4fe361302d36c41d937b912
+Merge: 07c6d0d 95d6fa0
+Author: claude (dev324 ab3c3a3e-ef7d-4e9e-9628-e3bc7ed5d0f6) <noreply@anthropic.com>
+Date:   Mon Aug 24 23:48:00 2026 -0400
+
+    Merge org-ai-assisted/ai (concurrent consumer-workflow cleanup) into ai
+
+commit 07c6d0dd01231c79071c4bd011f3213fad1a5294
+Merge: a85c3a4 9472ae9
+Author: claude (dev324 ab3c3a3e-ef7d-4e9e-9628-e3bc7ed5d0f6) <noreply@anthropic.com>
+Date:   Mon Aug 24 23:46:05 2026 -0400
+
+    Merge branch 'master' into ai
+
+    Resolve torbrowser conflict: keep HELPER_SCRIPTS_PATH sourcing + no SC1091
+    (R-085), take upstream's correct R-080 source= depth.
+    Extend to upstream's new strings.bsh sourcing across all three browsers, and
+    add export LC_ALL=C to i2pbrowser/mullvadbrowser strict block (R-010, 7/7).
+
+commit 95d6fa051048dba8657654cc48c478a643bb4d37
+Author: assisted-by-ai (Bot Account) (Machine Account) <228987186+assisted-by-ai@users.noreply.github.com>
+Date:   Mon Aug 24 23:31:26 2026 -0400
+
+    ci: drop orphaned consumer-pre-push-static.yml (reusable decommissioned)
+
+commit a85c3a49aa9a1e14de3ee4d72d9670ac170e9b15
+Author: claude (dev272 e8b76afb-795c-4739-8ebd-023de854021e) <noreply@anthropic.com>
+Date:   Fri Aug 21 04:29:38 2026 -0400
+
+    tb-starter: source helper-scripts via HELPER_SCRIPTS_PATH, drop SC1091 disable
+
+    - usr/bin/torbrowser: use source "${HELPER_SCRIPTS_PATH:-}"/usr/libexec/helper-scripts/<f>;
+      drop the dead '# shellcheck disable=SC1091' and the stale sibling note.
+    - .github/dm-consumer.yml: set dist-ai-tests helper-scripts: true so the
+      pre-push-static gate checks out helper-scripts and shellcheck follows the source.
+    - completed pre-existing whole-file style debt: R-010 add export LC_ALL=C to the strict block.
+
+    Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+commit 9472ae9a88fd8d91eaa69def1b90a5849c41cbe2
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Aug 17 04:27:16 2026 +0000
+
+    bumped changelog version
+
 commit eec4f2fa7e023d6bfb59af76dc5cbc1f2ee0c5b8
 Merge: 664d43f 3a21963
 Author: Patrick Schleizer <adrelanos@whonix.org>
